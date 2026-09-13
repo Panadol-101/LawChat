@@ -1,0 +1,23 @@
+[
+  {
+    "query": "Người sử dụng lao động có nghĩa vụ trả lương đầy đủ, đúng hạn và điều kiện làm thêm giờ ban đêm là gì?",
+    "as_of": "2026-07-31",
+    "limit": 5,
+    "candidate_limit": 50,
+    "response_mode": "compact"
+  },
+  {
+    "query": "Điều kiện để người chưa thành niên làm việc và trách nhiệm của người sử dụng lao động là gì?",
+    "as_of": "2026-07-31",
+    "limit": 5,
+    "candidate_limit": 50,
+    "response_mode": "compact"
+  },
+  {
+    "query": "Thời hiệu và cơ quan có thẩm quyền giải quyết tranh chấp lao động được quy định như thế nào?",
+    "as_of": "2026-07-31",
+    "limit": 5,
+    "candidate_limit": 50,
+    "response_mode": "compact"
+  }
+]

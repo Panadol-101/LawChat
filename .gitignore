@@ -1,0 +1,54 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.ses
+
+# Virtual environments
+.venv
+.env
+.env.*
+!.env.example
+!.env.vm.example
+
+# Raw datasets
+data/raw/**
+
+# Processed datasets
+data/processed/**
+
+# Generated chunks
+data/chunks/**
+
+# Generated evaluation outputs
+data/evaluation/**
+
+# Generated disk-based lexical indexes
+data/indexes/**
+
+# Local database release artifacts
+*.snapshot
+*.dump
+artifacts/
+
+# Intermediate benchmark/debug outputs. Versioned release reports are added
+# explicitly under reports/.
+reports/*.log
+reports/archive/
+reports/BENCHMARK_HYBRID_BGE_M3_BM25.json
+reports/BENCHMARK_HYBRID_RERANKER_V2_M3.json
+reports/BENCHMARK_QUESTIONS_BGE_M3_V1.md
+reports/BENCHMARK_RERANKER_SMOKE_10.json
+tests/fixtures/archive/
+
+# Dataset download caches
+data/**/.cache/
+
+# Generated VM transfer bundles
+vm_bundle/

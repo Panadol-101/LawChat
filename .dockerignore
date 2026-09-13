@@ -1,0 +1,11 @@
+.git
+.venv
+.pytest_cache
+**/__pycache__
+*.py[cod]
+.env
+data
+*.snapshot
+*.dump
+artifacts.sha256
+*.ses
