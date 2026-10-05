@@ -145,6 +145,32 @@ def _listed_as_whole(text_value: str, mention: str) -> str | None:
 _ITEM_PIECE_RE = _item_piece_re()
 
 
+# "... sửa đổi, bổ sung Nghị định số X": X is amended, not ended.
+_DEPENDENT_CONTEXT_RE = re.compile(
+    r"(?:sửa\s+đổi|bổ\s+sung|hướng\s+dẫn|quy\s+định\s+chi\s+tiết|thi\s+hành)[^.;]{0,20}$",
+    re.IGNORECASE,
+)
+_OTHER_NUMBER_RE = re.compile(r"\d{1,4}\s*/\s*(?:\d{4}\s*/\s*)?[A-ZĐ]{2}")
+_COORDINATOR_RE = re.compile(
+    rf"(?:\btheo|\bbởi|\bvà|,)\s*(?:(?:các\s+)?{_DOC_TYPE}|Điều\s+\d+\w?\s+của\s+{_DOC_TYPE})"
+    rf"[^.;\d]{{0,120}}?(?:số\s*)?$",
+    re.IGNORECASE,
+)
+
+
+def _coordinated_only(between: str) -> bool:
+    """Other document numbers before "hết hiệu lực" are amending/co-listed acts.
+
+    Accepts "Luật X số A đã được sửa đổi ... theo Luật số B và Luật số C hết
+    hiệu lực" and "Luật số A và Nghị quyết số B hết hiệu lực"; rejects a
+    sentence where another document is the subject that ends.
+    """
+    for other in _OTHER_NUMBER_RE.finditer(between):
+        if not _COORDINATOR_RE.search(between[max(0, other.start() - 160):other.start()]):
+            return False
+    return True
+
+
 def _number_pattern(document_number: str) -> str:
     return r"\s*/\s*".join(re.escape(part.strip()) for part in document_number.split("/"))
 
@@ -157,11 +183,9 @@ def classify(source_text: str, target_number: str) -> tuple[str, str]:
     patterns = (
         # "... thay thế / bãi bỏ (toàn bộ) Nghị định số X"
         re.compile(rf"(?:thay\s+thế|bãi\s+bỏ(?:\s+toàn\s+bộ)?)\s+(?:cho\s+)?{mention}", re.IGNORECASE),
-        # "Nghị định số X ... hết hiệu lực", no other document number between
-        re.compile(
-            rf"{mention}(?:(?!\d{{1,4}}\s*/\s*(?:\d{{4}}\s*/\s*)?[A-ZĐ]{{2}})[^.;]){{0,400}}?hết\s+hiệu\s+lực",
-            re.IGNORECASE,
-        ),
+        # "Nghị định số X ... hết hiệu lực"; other document numbers in between
+        # must be amending acts or co-listed documents (see _coordinated_only)
+        re.compile(rf"{mention}(?P<between>[^.;]{{0,600}}?)hết\s+hiệu\s+lực", re.IGNORECASE),
     )
     saw_mention = False
     for pattern in patterns:
@@ -172,7 +196,10 @@ def classify(source_text: str, target_number: str) -> tuple[str, str]:
             # not the act that ends.
             if re.search(r"(?:theo|bởi|tại|của)\s*$", before, re.IGNORECASE):
                 continue
-            if _PARTIAL_CONTEXT_RE.search(before):
+            if _PARTIAL_CONTEXT_RE.search(before) or _DEPENDENT_CONTEXT_RE.search(before):
+                continue
+            between = match.groupdict().get("between")
+            if between is not None and not _coordinated_only(between):
                 continue
             snippet = text_value[max(0, match.start() - 80):match.end() + 40]
             return "whole", snippet
