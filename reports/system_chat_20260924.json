@@ -1,0 +1,74 @@
+{
+  "create_project_status": 201,
+  "create_conversation_status": 201,
+  "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+  "different_workspace_status": 404,
+  "sse_status": 200,
+  "sse_content_type": "text/event-stream; charset=utf-8",
+  "sse_body": "event: chat.started\ndata: {\"request_id\":\"c624f24463ca4b68a223bbade9fa0b61\",\"conversation_id\":\"590fdfad-e9db-4297-992f-7411d97c0966\",\"user_message_id\":\"928f32c3-5ed3-4868-8646-ca18bf5aaf44\"}\n\n: keep-alive\n\n: keep-alive\n\nevent: chat.failed\ndata: {\"request_id\":\"c624f24463ca4b68a223bbade9fa0b61\",\"code\":\"QUEUE_FULL\",\"message\":\"RAG request queue is full\",\"http_status\":429}\n\n",
+  "messages_status": 200,
+  "messages": [
+    {
+      "id": "928f32c3-5ed3-4868-8646-ca18bf5aaf44",
+      "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+      "client_message_id": "assessment-sse-1",
+      "role": "user",
+      "status": "COMPLETED",
+      "content": "Hãy dự đoán chắc chắn tôi có thắng kiện không?",
+      "citations": [],
+      "claims": [],
+      "limitations": [],
+      "as_of": "2026-07-31",
+      "request_id": null,
+      "semantic_status": null,
+      "coverage_status": null,
+      "confidence": null,
+      "error_code": null,
+      "created_at": "2026-09-24T07:39:46.164381Z",
+      "completed_at": "2026-09-24T07:39:46.190888Z"
+    },
+    {
+      "id": "f271ed8c-7ad0-4867-be93-b1f5c98116c0",
+      "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+      "client_message_id": "assistant:assessment-sse-1",
+      "role": "assistant",
+      "status": "FAILED",
+      "content": "RAG request queue is full",
+      "citations": [],
+      "claims": [],
+      "limitations": [
+        "RAG request queue is full"
+      ],
+      "as_of": "2026-07-31",
+      "request_id": "c624f24463ca4b68a223bbade9fa0b61",
+      "semantic_status": "NOT_CHECKED",
+      "coverage_status": "NOT_CHECKED",
+      "confidence": "low",
+      "error_code": "QUEUE_FULL",
+      "created_at": "2026-09-24T07:40:06.266839Z",
+      "completed_at": "2026-09-24T07:40:06.315638Z"
+    }
+  ],
+  "replay_status": 200,
+  "replay_body": {
+    "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+    "user_message_id": "928f32c3-5ed3-4868-8646-ca18bf5aaf44",
+    "assistant_message_id": "f271ed8c-7ad0-4867-be93-b1f5c98116c0",
+    "result": {
+      "request_id": "c624f24463ca4b68a223bbade9fa0b61",
+      "status": "FAILED",
+      "answer": "RAG request queue is full",
+      "claims": [],
+      "citations": [],
+      "limitations": [
+        "RAG request queue is full"
+      ],
+      "as_of": "2026-07-31",
+      "semantic_status": "NOT_CHECKED",
+      "coverage_status": "NOT_CHECKED",
+      "confidence": "low",
+      "error_code": "QUEUE_FULL"
+    }
+  },
+  "message_count_after_replay": 2
+}

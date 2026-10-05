@@ -7,8 +7,8 @@ import pytest
 from sqlalchemy import create_engine, delete
 from sqlalchemy.orm import Session
 
-from lawchat.database import Chunk, Document, DocumentVersion
-from lawchat.indexing import PostgresChunkSource
+from database import Chunk, Document, DocumentVersion
+from indexing import PostgresChunkSource
 
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")

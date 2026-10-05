@@ -1,0 +1,1375 @@
+{
+  "version": "2.0-derived",
+  "source_benchmark": "legal_retrieval_benchmark_bge_m3_v1.json",
+  "corpus_release": "chunker-v4-bge-m3-20260830",
+  "scope": "Current-content dense semantic gate derived from the 200-case benchmark.",
+  "corpus": [
+    {
+      "chunk_id": "139264::article_107",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VII Mục 1 Điều 107: Làm thêm giờ Điều 107. Làm thêm giờ 1. Thời gian làm thêm giờ là khoảng thời gian làm việc ngoài thời giờ làm việc bình thường theo quy định của pháp luật, thỏa ước lao động tập thể hoặc nội quy lao động. 2. Người sử dụng lao động được sử dụng người lao động làm thêm giờ khi đáp ứng đầy đủ các yêu cầu sau đây: a) Phải được sự đồng ý của người lao động; b) Bảo đảm số giờ làm thêm của người lao động không quá 50% số giờ làm việc bình thường trong 01 ngày; trường hợp áp dụng quy định thời giờ làm việc bình thường theo tuần thì tổng số giờ làm việc bình thường và số giờ làm thêm không quá 12 giờ trong 01 ngày; không quá 40 giờ trong 01 tháng; c) Bảo đảm số giờ làm thêm của người lao động không quá 200 giờ trong 01 năm, trừ trường hợp quy định tại khoản 3 Điều này. 3. Người sử dụng lao động được sử dụng người lao động làm thêm không quá 300 giờ trong 01 năm trong một số ngành, nghề, công việc hoặc trường hợp sau đây: a) Sản xuất, gia công xuất khẩu sản phẩm hàng dệt, may, da, giày, điện, điện tử, chế biến nông, lâm, diêm nghiệp, thủy sản; b) Sản xuất, cung cấp điện, viễn thông, lọc dầu; cấp, thoát nước; c) Trường hợp giải quyết công việc đòi hỏi lao động có trình độ chuyên môn, kỹ thuật cao mà thị trường lao động không cung ứng đầy đủ, kịp thời; d) Trường hợp phải giải quyết công việc cấp bách, không thể trì hoãn do tính chất thời vụ, thời điểm của nguyên liệu, sản phẩm hoặc để giải quyết công việc phát sinh do yếu tố khách quan không dự liệu trước, do hậu quả thời tiết, thiên tai, hỏa hoạn, địch họa, thiếu điện, thiếu nguyên liệu, sự cố kỹ thuật của dây chuyền sản xuất; đ) Trường hợp khác do Chính phủ quy định. 4. Khi tổ chức làm thêm giờ theo quy định tại khoản 3 Điều này, người sử dụng lao động phải thông báo bằng văn bản cho cơ quan chuyên môn về lao động thuộc Ủy ban nhân dân cấp tỉnh. 5. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "139264::article_112",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VII Mục 2 Điều 112: Nghỉ lễ, tết Điều 112. Nghỉ lễ, tết 1. Người lao động được nghỉ làm việc, hưởng nguyên lương trong những ngày lễ, tết sau đây: a) Tết Dương lịch: 01 ngày (ngày 01 tháng 01 dương lịch); b) Tết Âm lịch: 05 ngày; c) Ngày Chiến thắng: 01 ngày (ngày 30 tháng 4 dương lịch); d) Ngày Quốc tế lao động: 01 ngày (ngày 01 tháng 5 dương lịch); đ) Quốc khánh: 02 ngày (ngày 02 tháng 9 dương lịch và 01 ngày liền kề trước hoặc sau); e) Ngày Giỗ Tổ Hùng Vương: 01 ngày (ngày 10 tháng 3 âm lịch). 2. Lao động là người nước ngoài làm việc tại Việt Nam ngoài các ngày nghỉ theo quy định tại khoản 1 Điều này còn được nghỉ thêm 01 ngày Tết cổ truyền dân tộc và 01 ngày Quốc khánh của nước họ. 3. Hằng năm, căn cứ vào điều kiện thực tế, Thủ tướng Chính phủ quyết định cụ thể ngày nghỉ quy định tại điểm b và điểm đ khoản 1 Điều này."
+    },
+    {
+      "chunk_id": "139264::article_113",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VII Mục 2 Điều 113: Nghỉ hằng năm Điều 113. Nghỉ hằng năm 1. Người lao động làm việc đủ 12 tháng cho một người sử dụng lao động thì được nghỉ hằng năm, hưởng nguyên lương theo hợp đồng lao động như sau: a) 12 ngày làm việc đối với người làm công việc trong điều kiện bình thường; b) 14 ngày làm việc đối với người lao động chưa thành niên, lao động là người khuyết tật, người làm nghề, công việc nặng nhọc, độc hại, nguy hiểm; c) 16 ngày làm việc đối với người làm nghề, công việc đặc biệt nặng nhọc, độc hại, nguy hiểm. 2. Người lao động làm việc chưa đủ 12 tháng cho một người sử dụng lao động thì số ngày nghỉ hằng năm theo tỷ lệ tương ứng với số tháng làm việc. 3. Trường hợp do thôi việc, bị mất việc làm mà chưa nghỉ hằng năm hoặc chưa nghỉ hết số ngày nghỉ hằng năm thì được người sử dụng lao động thanh toán tiền lương cho những ngày chưa nghỉ. 4. Người sử dụng lao động có trách nhiệm quy định lịch nghỉ hằng năm sau khi tham khảo ý kiến của người lao động và phải thông báo trước cho người lao động biết. Người lao động có thể thỏa thuận với người sử dụng lao động để nghỉ hằng năm thành nhiều lần hoặc nghỉ gộp tối đa 03 năm một lần. 5. Khi nghỉ hằng năm mà chưa đến kỳ trả lương, người lao động được tạm ứng tiền lương theo quy định tại khoản 3 Điều 101 của Bộ luật này. 6. Khi nghỉ hằng năm, nếu người lao động đi bằng các phương tiện đường bộ, đường sắt, đường thủy mà số ngày đi đường cả đi và về trên 02 ngày thì từ ngày thứ 03 trở đi được tính thêm thời gian đi đường ngoài ngày nghỉ hằng năm và chỉ được tính cho 01 lần nghỉ trong năm. 7. Chính phủ quy định chi tiết điều này."
+    },
+    {
+      "chunk_id": "139264::article_115",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VII Mục 2 Điều 115: Nghỉ việc riêng, nghỉ không hưởng lương Điều 115. Nghỉ việc riêng, nghỉ không hưởng lương 1. Người lao động được nghỉ việc riêng mà vẫn hưởng nguyên lương và phải thông báo với người sử dụng lao động trong trường hợp sau đây: a) Kết hôn: nghỉ 03 ngày; b) Con đẻ, con nuôi kết hôn: nghỉ 01 ngày; c) Cha đẻ, mẹ đẻ, cha nuôi, mẹ nuôi; cha đẻ, mẹ đẻ, cha nuôi, mẹ nuôi của vợ hoặc chồng; vợ hoặc chồng; con đẻ, con nuôi chết: nghỉ 03 ngày. 2. Người lao động được nghỉ không hưởng lương 01 ngày và phải thông báo với người sử dụng lao động khi ông nội, bà nội, ông ngoại, bà ngoại, anh, chị, em ruột chết; cha hoặc mẹ kết hôn; anh, chị, em ruột kết hôn. 3. Ngoài quy định tại khoản 1 và khoản 2 Điều này, người lao động có thể thỏa thuận với người sử dụng lao động để nghỉ không hưởng lương."
+    },
+    {
+      "chunk_id": "139264::article_122",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VIII Mục 1 Điều 122: Nguyên tắc, trình tự, thủ tục xử lý kỷ luật lao động Điều 122. Nguyên tắc, trình tự, thủ tục xử lý kỷ luật lao động 1. Việc xử lý kỷ luật lao động được quy định như sau: a) Người sử dụng lao động phải chứng minh được lỗi của người lao động; b) Phải có sự tham gia của tổ chức đại diện người lao động tại cơ sở mà người lao động đang bị xử lý kỷ luật là thành viên; c) Người lao động phải có mặt và có quyền tự bào chữa, nhờ luật sư hoặc tổ chức đại diện người lao động bào chữa; trường hợp là người chưa đủ 15 tuổi thì phải có sự tham gia của người đại diện theo pháp luật; d) Việc xử lý kỷ luật lao động phải được ghi thành biên bản. 2. Không được áp dụng nhiều hình thức xử lý kỷ luật lao động đối với một hành vi vi phạm kỷ luật lao động. 3. Khi một người lao động đồng thời có nhiều hành vi vi phạm kỷ luật lao động thì chỉ áp dụng hình thức kỷ luật cao nhất tương ứng với hành vi vi phạm nặng nhất. 4. Không được xử lý kỷ luật lao động đối với người lao động đang trong thời gian sau đây: a) Nghỉ ốm đau, điều dưỡng; nghỉ việc được sự đồng ý của người sử dụng lao động; b) Đang bị tạm giữ, tạm giam; c) Đang chờ kết quả của cơ quan có thẩm quyền điều tra xác minh và kết luận đối với hành vi vi phạm được quy định tại khoản 1 và khoản 2 Điều 125 của Bộ luật này; d) Người lao động nữ mang thai; người lao động nghỉ thai sản, nuôi con dưới 12 tháng tuổi. 5. Không xử lý kỷ luật lao động đối với người lao động vi phạm kỷ luật lao động trong khi mắc bệnh tâm thần hoặc một bệnh khác làm mất khả năng nhận thức hoặc khả năng điều khiển hành vi của mình. 6. Chính phủ quy định trình tự, thủ tục xử lý kỷ luật lao động."
+    },
+    {
+      "chunk_id": "139264::article_125",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VIII Mục 1 Điều 125: Áp dụng hình thức xử lý kỷ luật sa thải Điều 125. Áp dụng hình thức xử lý kỷ luật sa thải Hình thức xử lý kỷ luật sa thải được người sử dụng lao động áp dụng trong trường hợp sau đây: 1. Người lao động có hành vi trộm cắp, tham ô, đánh bạc, cố ý gây thương tích, sử dụng ma túy tại nơi làm việc; 2. Người lao động có hành vi tiết lộ bí mật kinh doanh, bí mật công nghệ, xâm phạm quyền sở hữu trí tuệ của người sử dụng lao động, có hành vi gây thiệt hại nghiêm trọng hoặc đe dọa gây thiệt hại đặc biệt nghiêm trọng về tài sản, lợi ích của người sử dụng lao động hoặc quấy rối tình dục tại nơi làm việc được quy định trong nội quy lao động; 3. Người lao động bị xử lý kỷ luật kéo dài thời hạn nâng lương hoặc cách chức mà tái phạm trong thời gian chưa xóa kỷ luật. Tái phạm là trường hợp người lao động lặp lại hành vi vi phạm đã bị xử lý kỷ luật mà chưa được xóa kỷ luật theo quy định tại Điều 126 của Bộ luật này; 4. Người lao động tự ý bỏ việc 05 ngày cộng dồn trong thời hạn 30 ngày hoặc 20 ngày cộng dồn trong thời hạn 365 ngày tính từ ngày đầu tiên tự ý bỏ việc mà không có lý do chính đáng. Trường hợp được coi là có lý do chính đáng bao gồm thiên tai, hỏa hoạn, bản thân, thân nhân bị ốm có xác nhận của cơ sở khám bệnh, chữa bệnh có thẩm quyền và trường hợp khác được quy định trong nội quy lao động."
+    },
+    {
+      "chunk_id": "139264::article_137",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương X Điều 137: Bảo vệ thai sản Điều 137. Bảo vệ thai sản 1. Người sử dụng lao động không được sử dụng người lao động làm việc ban đêm, làm thêm giờ và đi công tác xa trong trường hợp sau đây: a) Mang thai từ tháng thứ 07 hoặc từ tháng thứ 06 nếu làm việc ở vùng cao, vùng sâu, vùng xa, biên giới, hải đảo; b) Đang nuôi con dưới 12 tháng tuổi, trừ trường hợp được người lao động đồng ý. 2. Lao động nữ làm nghề, công việc nặng nhọc, độc hại, nguy hiểm hoặc đặc biệt nặng nhọc, độc hại, nguy hiểm hoặc làm nghề, công việc có ảnh hưởng xấu tới chức năng sinh sản và nuôi con khi mang thai và có thông báo cho người sử dụng lao động biết thì được người sử dụng lao động chuyển sang làm công việc nhẹ hơn, an toàn hơn hoặc giảm bớt 01 giờ làm việc hằng ngày mà không bị cắt giảm tiền lương và quyền, lợi ích cho đến hết thời gian nuôi con dưới 12 tháng tuổi. 3. Người sử dụng lao động không được sa thải hoặc đơn phương chấm dứt hợp đồng lao động đối với người lao động vì lý do kết hôn, mang thai, nghỉ thai sản, nuôi con dưới 12 tháng tuổi, trừ trường hợp người sử dụng lao động là cá nhân chết, bị Tòa án tuyên bố mất năng lực hành vi dân sự, mất tích hoặc đã chết hoặc người sử dụng lao động không phải là cá nhân chấm dứt hoạt động hoặc bị cơ quan chuyên môn về đăng ký kinh doanh thuộc Ủy ban nhân dân cấp tỉnh ra thông báo không có người đại diện theo pháp luật, người được ủy quyền thực hiện quyền và nghĩa vụ của người đại diện theo pháp luật. Trường hợp hợp đồng lao động hết hạn trong thời gian lao động nữ mang thai hoặc nuôi con dưới 12 tháng tuổi thì được ưu tiên giao kết hợp đồng lao động mới. 4. Lao động nữ trong thời gian hành kinh được nghỉ mỗi ngày 30 phút, trong thời gian nuôi con dưới 12 tháng tuổi được nghỉ mỗi ngày 60 phút trong thời gian làm việc. Thời gian nghỉ vẫn được hưởng đủ tiền lương theo hợp đồng lao động."
+    },
+    {
+      "chunk_id": "139264::article_14",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 14: Hình thức hợp đồng lao động Điều 14. Hình thức hợp đồng lao động 1. Hợp đồng lao động phải được giao kết bằng văn bản và được làm thành 02 bản, người lao động giữ 01 bản, người sử dụng lao động giữ 01 bản, trừ trường hợp quy định tại khoản 2 Điều này. Hợp đồng lao động được giao kết thông qua phương tiện điện tử dưới hình thức thông điệp dữ liệu theo quy định của pháp luật về giao dịch điện tử có giá trị như hợp đồng lao động bằng văn bản. 2. Hai bên có thể giao kết hợp đồng lao động bằng lời nói đối với hợp đồng có thời hạn dưới 01 tháng, trừ trường hợp quy định tại khoản 2 Điều 18, điểm a khoản 1 Điều 145 và khoản 1 Điều 162 của Bộ luật này."
+    },
+    {
+      "chunk_id": "139264::article_145",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương XI Mục 1 Điều 145: Sử dụng người chưa đủ 15 tuổi làm việc Điều 145. Sử dụng người chưa đủ 15 tuổi làm việc 1. Khi sử dụng người chưa đủ 15 tuổi làm việc, người sử dụng lao động phải tuân theo quy định sau đây: a) Phải giao kết hợp đồng lao động bằng văn bản với người chưa đủ 15 tuổi và người đại diện theo pháp luật của người đó; b) Bố trí giờ làm việc không ảnh hưởng đến thời gian học tập của người chưa đủ 15 tuổi; c) Phải có giấy khám sức khỏe của cơ sở khám bệnh, chữa bệnh có thẩm quyền xác nhận sức khỏe của người chưa đủ 15 tuổi phù hợp với công việc và tổ chức kiểm tra sức khỏe định kỳ ít nhất một lần trong 06 tháng; d) Bảo đảm điều kiện làm việc, an toàn, vệ sinh lao động phù hợp với lứa tuổi. 2. Người sử dụng lao động chỉ được tuyển dụng và sử dụng người từ đủ 13 tuổi đến chưa đủ 15 tuổi vào làm các công việc nhẹ theo quy định tại khoản 3 Điều 143 của Bộ luật này. 3. Người sử dụng lao động không được tuyển dụng và sử dụng người chưa đủ 13 tuổi làm việc, trừ các công việc nghệ thuật, thể dục, thể thao nhưng không làm tổn hại đến sự phát triển thể lực, trí lực, nhân cách của người chưa đủ 13 tuổi và phải có sự đồng ý của cơ quan chuyên môn về lao động thuộc Ủy ban nhân dân cấp tỉnh. 4. Bộ trưởng Bộ Lao động - Thương binh và Xã hội quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "139264::article_166",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương XI Mục 6 Điều 166: Người lao động làm việc trong lĩnh vực nghệ thuật, thể dục, thể thao, hàng hải, hàng không Điều 166. Người lao động làm việc trong lĩnh vực nghệ thuật, thể dục, thể thao, hàng hải, hàng không Người lao động làm việc trong lĩnh vực nghệ thuật, thể dục, thể thao, hàng hải, hàng không được áp dụng một số chế độ phù hợp về đào tạo, bồi dưỡng, nâng cao trình độ, kỹ năng nghề; hợp đồng lao động; tiền lương, tiền thưởng; thời giờ làm việc, thời giờ nghỉ ngơi; an toàn, vệ sinh lao động theo quy định của Chính phủ."
+    },
+    {
+      "chunk_id": "139264::article_17",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 17: Hành vi người sử dụng lao động không được làm khi giao kết, thực hiện hợp đồng lao động Điều 17. Hành vi người sử dụng lao động không được làm khi giao kết, thực hiện hợp đồng lao động 1. Giữ bản chính giấy tờ tùy thân, văn bằng, chứng chỉ của người lao động. 2. Yêu cầu người lao động phải thực hiện biện pháp bảo đảm bằng tiền hoặc tài sản khác cho việc thực hiện hợp đồng lao động. 3. Buộc người lao động thực hiện hợp đồng lao động để trả nợ cho người sử dụng lao động."
+    },
+    {
+      "chunk_id": "139264::article_20",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 20: Loại hợp đồng lao động Điều 20. Loại hợp đồng lao động 1. Hợp đồng lao động phải được giao kết theo một trong các loại sau đây: a) Hợp đồng lao động không xác định thời hạn là hợp đồng mà trong đó hai bên không xác định thời hạn, thời điểm chấm dứt hiệu lực của hợp đồng; b) Hợp đồng lao động xác định thời hạn là hợp đồng mà trong đó hai bên xác định thời hạn, thời điểm chấm dứt hiệu lực của hợp đồng trong thời gian không quá 36 tháng kể từ thời điểm có hiệu lực của hợp đồng. 2. Khi hợp đồng lao động quy định tại điểm b khoản 1 Điều này hết hạn mà người lao động vẫn tiếp tục làm việc thì thực hiện như sau: a) Trong thời hạn 30 ngày kể từ ngày hợp đồng lao động hết hạn, hai bên phải ký kết hợp đồng lao động mới; trong thời gian chưa ký kết hợp đồng lao động mới thì quyền, nghĩa vụ và lợi ích của hai bên được thực hiện theo hợp đồng đã giao kết; b) Nếu hết thời hạn 30 ngày kể từ ngày hợp đồng lao động hết hạn mà hai bên không ký kết hợp đồng lao động mới thì hợp đồng đã giao kết theo quy định tại điểm b khoản 1 Điều này trở thành hợp đồng lao động không xác định thời hạn; c) Trường hợp hai bên ký kết hợp đồng lao động mới là hợp đồng lao động xác định thời hạn thì cũng chỉ được ký thêm 01 lần, sau đó nếu người lao động vẫn tiếp tục làm việc thì phải ký kết hợp đồng lao động không xác định thời hạn, trừ hợp đồng lao động đối với người được thuê làm giám đốc trong doanh nghiệp có vốn nhà nước và trường hợp quy định tại khoản 1 Điều 149, khoản 2 Điều 151 và khoản 4 Điều 177 của Bộ luật này."
+    },
+    {
+      "chunk_id": "139264::article_25",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 25: Thời gian thử việc Điều 25. Thời gian thử việc Thời gian thử việc do hai bên thỏa thuận căn cứ vào tính chất và mức độ phức tạp của công việc nhưng chỉ được thử việc một lần đối với một công việc và bảo đảm điều kiện sau đây: 1. Không quá 180 ngày đối với công việc của người quản lý doanh nghiệp theo quy định của Luật Doanh nghiệp, Luật Quản lý, sử dụng vốn nhà nước đầu tư vào sản xuất, kinh doanh tại doanh nghiệp; 2. Không quá 60 ngày đối với công việc có chức danh nghề nghiệp cần trình độ chuyên môn, kỹ thuật từ cao đẳng trở lên; 3. Không quá 30 ngày đối với công việc có chức danh nghề nghiệp cần trình độ chuyên môn, kỹ thuật trung cấp, công nhân kỹ thuật, nhân viên nghiệp vụ; 4. Không quá 06 ngày làm việc đối với công việc khác."
+    },
+    {
+      "chunk_id": "139264::article_26",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 26: Tiền lương thử việc Điều 26. Tiền lương thử việc Tiền lương của người lao động trong thời gian thử việc do hai bên thỏa thuận nhưng ít nhất phải bằng 85% mức lương của công việc đó."
+    },
+    {
+      "chunk_id": "139264::article_29",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 2 Điều 29: Chuyển người lao động làm công việc khác so với hợp đồng lao động Điều 29. Chuyển người lao động làm công việc khác so với hợp đồng lao động 1. Khi gặp khó khăn đột xuất do thiên tai, hỏa hoạn, dịch bệnh nguy hiểm, áp dụng biện pháp ngăn ngừa, khắc phục tai nạn lao động, bệnh nghề nghiệp, sự cố điện, nước hoặc do nhu cầu sản xuất, kinh doanh thì người sử dụng lao động được quyền tạm thời chuyển người lao động làm công việc khác so với hợp đồng lao động nhưng không được quá 60 ngày làm việc cộng dồn trong 01 năm; trường hợp chuyển người lao động làm công việc khác so với hợp đồng lao động quá 60 ngày làm việc cộng dồn trong 01 năm thì chỉ được thực hiện khi người lao động đồng ý bằng văn bản. Người sử dụng lao động quy định cụ thể trong nội quy lao động những trường hợp do nhu cầu sản xuất, kinh doanh mà người sử dụng lao động được tạm thời chuyển người lao động làm công việc khác so với hợp đồng lao động. 2. Khi tạm thời chuyển người lao động làm công việc khác so với hợp đồng lao động quy định tại khoản 1 Điều này, người sử dụng lao động phải báo cho người lao động biết trước ít nhất 03 ngày làm việc, thông báo rõ thời hạn làm tạm thời và bố trí công việc phù hợp với sức khỏe, giới tính của người lao động. 3. Người lao động chuyển sang làm công việc khác so với hợp đồng lao động được trả lương theo công việc mới. Nếu tiền lương của công việc mới thấp hơn tiền lương của công việc cũ thì được giữ nguyên tiền lương của công việc cũ trong thời hạn 30 ngày làm việc. Tiền lương theo công việc mới ít nhất phải bằng 85% tiền lương của công việc cũ nhưng không thấp hơn mức lương tối thiểu. 4. Người lao động không đồng ý tạm thời làm công việc khác so với hợp đồng lao động quá 60 ngày làm việc cộng dồn trong 01 năm mà phải ngừng việc thì người sử dụng lao động phải trả lương ngừng việc theo quy định tại Điều 99 của Bộ luật này."
+    },
+    {
+      "chunk_id": "139264::article_31",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 2 Điều 31: Nhận lại người lao động hết thời hạn tạm hoãn thực hiện hợp đồng lao động Điều 31. Nhận lại người lao động hết thời hạn tạm hoãn thực hiện hợp đồng lao động Trong thời hạn 15 ngày kể từ ngày hết thời hạn tạm hoãn thực hiện hợp đồng lao động, người lao động phải có mặt tại nơi làm việc và người sử dụng lao động phải nhận người lao động trở lại làm công việc theo hợp đồng lao động đã giao kết nếu hợp đồng lao động còn thời hạn, trừ trường hợp hai bên có thỏa thuận hoặc pháp luật có quy định khác."
+    },
+    {
+      "chunk_id": "139264::article_35",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 3 Điều 35: Quyền đơn phương chấm dứt hợp đồng lao động của người lao động Điều 35. Quyền đơn phương chấm dứt hợp đồng lao động của người lao động 1. Người lao động có quyền đơn phương chấm dứt hợp đồng lao động nhưng phải báo trước cho người sử dụng lao động như sau: a) Ít nhất 45 ngày nếu làm việc theo hợp đồng lao động không xác định thời hạn; b) Ít nhất 30 ngày nếu làm việc theo hợp đồng lao động xác định thời hạn có thời hạn từ 12 tháng đến 36 tháng; c) Ít nhất 03 ngày làm việc nếu làm việc theo hợp đồng lao động xác định thời hạn có thời hạn dưới 12 tháng; d) Đối với một số ngành, nghề, công việc đặc thù thì thời hạn báo trước được thực hiện theo quy định của Chính phủ. 2. Người lao động có quyền đơn phương chấm dứt hợp đồng lao động không cần báo trước trong trường hợp sau đây: a) Không được bố trí theo đúng công việc, địa điểm làm việc hoặc không được bảo đảm điều kiện làm việc theo thỏa thuận, trừ trường hợp quy định tại Điều 29 của Bộ luật này; b) Không được trả đủ lương hoặc trả lương không đúng thời hạn, trừ trường hợp quy định tại khoản 4 Điều 97 của Bộ luật này; c) Bị người sử dụng lao động ngược đãi, đánh đập hoặc có lời nói, hành vi nhục mạ, hành vi làm ảnh hưởng đến sức khỏe, nhân phẩm, danh dự; bị cưỡng bức lao động; d) Bị quấy rối tình dục tại nơi làm việc; đ) Lao động nữ mang thai phải nghỉ việc theo quy định tại khoản 1 Điều 138 của Bộ luật này; e) Đủ tuổi nghỉ hưu theo quy định tại Điều 169 của Bộ luật này, trừ trường hợp các bên có thỏa thuận khác; g) Người sử dụng lao động cung cấp thông tin không trung thực theo quy định tại khoản 1 Điều 16 của Bộ luật này làm ảnh hưởng đến việc thực hiện hợp đồng lao động."
+    },
+    {
+      "chunk_id": "139264::article_37",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 3 Điều 37: Trường hợp người sử dụng lao động không được thực hiện quyền đơn phương chấm dứt hợp đồng lao động Điều 37. Trường hợp người sử dụng lao động không được thực hiện quyền đơn phương chấm dứt hợp đồng lao động 1. Người lao động ốm đau hoặc bị tai nạn, bệnh nghề nghiệp đang điều trị, điều dưỡng theo chỉ định của cơ sở khám bệnh, chữa bệnh có thẩm quyền, trừ trường hợp quy định tại điểm b khoản 1 Điều 36 của Bộ luật này. 2. Người lao động đang nghỉ hằng năm, nghỉ việc riêng và trường hợp nghỉ khác được người sử dụng lao động đồng ý. 3. Người lao động nữ mang thai; người lao động đang nghỉ thai sản hoặc nuôi con dưới 12 tháng tuổi."
+    },
+    {
+      "chunk_id": "139264::article_48",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 3 Điều 48: Trách nhiệm khi chấm dứt hợp đồng lao động Điều 48. Trách nhiệm khi chấm dứt hợp đồng lao động 1. Trong thời hạn 14 ngày làm việc kể từ ngày chấm dứt hợp đồng lao động, hai bên có trách nhiệm thanh toán đầy đủ các khoản tiền có liên quan đến quyền lợi của mỗi bên, trừ trường hợp sau đây có thể kéo dài nhưng không được quá 30 ngày: a) Người sử dụng lao động không phải là cá nhân chấm dứt hoạt động; b) Người sử dụng lao động thay đổi cơ cấu, công nghệ hoặc vì lý do kinh tế; c) Chia, tách, hợp nhất, sáp nhập; bán, cho thuê, chuyển đổi loại hình doanh nghiệp; chuyển nhượng quyền sở hữu, quyền sử dụng tài sản của doanh nghiệp, hợp tác xã; d) Do thiên tai, hỏa hoạn, địch họa hoặc dịch bệnh nguy hiểm. 2. Tiền lương, bảo hiểm xã hội, bảo hiểm y tế, bảo hiểm thất nghiệp, trợ cấp thôi việc và các quyền lợi khác của người lao động theo thỏa ước lao động tập thể, hợp đồng lao động được ưu tiên thanh toán trong trường hợp doanh nghiệp, hợp tác xã bị chấm dứt hoạt động, bị giải thể, phá sản. 3. Người sử dụng lao động có trách nhiệm sau đây: a) Hoàn thành thủ tục xác nhận thời gian đóng bảo hiểm xã hội, bảo hiểm thất nghiệp và trả lại cùng với bản chính giấy tờ khác nếu người sử dụng lao động đã giữ của người lao động; b) Cung cấp bản sao các tài liệu liên quan đến quá trình làm việc của người lao động nếu người lao động có yêu cầu. Chi phí sao, gửi tài liệu do người sử dụng lao động trả."
+    },
+    {
+      "chunk_id": "139264::article_57",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 5 Điều 57: Quyền và nghĩa vụ của bên thuê lại lao động Điều 57. Quyền và nghĩa vụ của bên thuê lại lao động 1. Thông báo, hướng dẫn cho người lao động thuê lại biết nội quy lao động và các quy chế khác của mình. 2. Không được phân biệt đối xử về điều kiện lao động đối với người lao động thuê lại so với người lao động của mình. 3. Thỏa thuận với người lao động thuê lại về làm việc vào ban đêm, làm thêm giờ theo quy định của Bộ luật này. 4. Thỏa thuận với người lao động thuê lại và doanh nghiệp cho thuê lại lao động để tuyển dụng chính thức người lao động thuê lại làm việc cho mình trong trường hợp hợp đồng lao động của người lao động thuê lại với doanh nghiệp cho thuê lại lao động chưa chấm dứt. 5. Trả lại người lao động thuê lại không đáp ứng yêu cầu như đã thỏa thuận hoặc vi phạm kỷ luật lao động cho doanh nghiệp cho thuê lại lao động. 6. Cung cấp cho doanh nghiệp cho thuê lại lao động chứng cứ về hành vi vi phạm kỷ luật lao động của người lao động thuê lại để xem xét xử lý kỷ luật lao động."
+    },
+    {
+      "chunk_id": "139264::article_94",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VI Điều 94: Nguyên tắc trả lương Điều 94. Nguyên tắc trả lương 1. Người sử dụng lao động phải trả lương trực tiếp, đầy đủ, đúng hạn cho người lao động. Trường hợp người lao động không thể nhận lương trực tiếp thì người sử dụng lao động có thể trả lương cho người được người lao động ủy quyền hợp pháp. 2. Người sử dụng lao động không được hạn chế hoặc can thiệp vào quyền tự quyết chi tiêu lương của người lao động; không được ép buộc người lao động chi tiêu lương vào việc mua hàng hóa, sử dụng dịch vụ của người sử dụng lao động hoặc của đơn vị khác mà người sử dụng lao động chỉ định."
+    },
+    {
+      "chunk_id": "139264::article_97",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VI Điều 97: Kỳ hạn trả lương Điều 97. Kỳ hạn trả lương 1. Người lao động hưởng lương theo giờ, ngày, tuần thì được trả lương sau giờ, ngày, tuần làm việc hoặc được trả gộp do hai bên thỏa thuận nhưng không quá 15 ngày phải được trả gộp một lần. 2. Người lao động hưởng lương theo tháng được trả một tháng một lần hoặc nửa tháng một lần. Thời điểm trả lương do hai bên thỏa thuận và phải được ấn định vào một thời điểm có tính chu kỳ. 3. Người lao động hưởng lương theo sản phẩm, theo khoán được trả lương theo thỏa thuận của hai bên; nếu công việc phải làm trong nhiều tháng thì hằng tháng được tạm ứng tiền lương theo khối lượng công việc đã làm trong tháng. 4. Trường hợp vì lý do bất khả kháng mà người sử dụng lao động đã tìm mọi biện pháp khắc phục nhưng không thể trả lương đúng hạn thì không được chậm quá 30 ngày; nếu trả lương chậm từ 15 ngày trở lên thì người sử dụng lao động phải đền bù cho người lao động một khoản tiền ít nhất bằng số tiền lãi của số tiền trả chậm tính theo lãi suất huy động tiền gửi có kỳ hạn 01 tháng do ngân hàng nơi người sử dụng lao động mở tài khoản trả lương cho người lao động công bố tại thời điểm trả lương."
+    },
+    {
+      "chunk_id": "139264::article_98",
+      "text": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VI Điều 98: Tiền lương làm thêm giờ, làm việc vào ban đêm Điều 98. Tiền lương làm thêm giờ, làm việc vào ban đêm 1. Người lao động làm thêm giờ được trả lương tính theo đơn giá tiền lương hoặc tiền lương thực trả theo công việc đang làm như sau: a) Vào ngày thường, ít nhất bằng 150%; b) Vào ngày nghỉ hằng tuần, ít nhất bằng 200%; c) Vào ngày nghỉ lễ, tết, ngày nghỉ có hưởng lương, ít nhất bằng 300% chưa kể tiền lương ngày lễ, tết, ngày nghỉ có hưởng lương đối với người lao động hưởng lương ngày. 2. Người lao động làm việc vào ban đêm thì được trả thêm ít nhất bằng 30% tiền lương tính theo đơn giá tiền lương hoặc tiền lương thực trả theo công việc của ngày làm việc bình thường. 3. Người lao động làm thêm giờ vào ban đêm thì ngoài việc trả lương theo quy định tại khoản 1 và khoản 2 Điều này, người lao động còn được trả thêm 20% tiền lương tính theo đơn giá tiền lương hoặc tiền lương theo công việc làm vào ban ngày của ngày làm việc bình thường hoặc của ngày nghỉ hằng tuần hoặc của ngày nghỉ lễ, tết. 4. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "146609::article_129",
+      "text": "Văn bản: Luật Bảo vệ môi trường số 72/2020/QH14 Số hiệu: 72/2020/QH14 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương X Mục 1 Điều 129: Công khai thông tin và sự tham gia của cộng đồng dân cư trong phòng ngừa, ứng phó sự cố môi trường Điều 129. Công khai thông tin và sự tham gia của cộng đồng dân cư trong phòng ngừa, ứng phó sự cố môi trường 1. Tổ chức, cá nhân, cộng đồng dân cư có khả năng bị ảnh hưởng từ sự cố môi trường phải được thông báo về nguy cơ sự cố và biện pháp ứng phó sự cố môi trường của các cơ sở xung quanh; được thông tin, tham gia và giám sát hoạt động ứng phó sự cố môi trường. 2. Chủ dự án đầu tư, cơ sở có trách nhiệm thông báo cho Ủy ban nhân dân cấp xã về nguy cơ sự cố môi trường và biện pháp ứng phó sự cố môi trường để thông tin cho tổ chức, cá nhân, cộng đồng dân cư xung quanh. 3. Thời điểm bắt đầu và kết thúc giai đoạn tổ chức ứng phó sự cố môi trường và giai đoạn phục hồi môi trường phải được cơ quan, người có thẩm quyền công bố công khai trên các phương tiện thông tin đại chúng để tổ chức, cá nhân, cộng đồng dân cư biết, tham gia và giám sát. 4. Người có trách nhiệm chỉ đạo ứng phó sự cố môi trường và người phát ngôn về sự cố môi trường có trách nhiệm cung cấp, cập nhật thông tin kịp thời về sự cố môi trường cho cơ quan truyền thông, báo chí, cộng đồng dân cư. Thông tin về sự cố môi trường do người có trách nhiệm chỉ đạo ứng phó sự cố môi trường và người phát ngôn về sự cố môi trường cung cấp, công bố là thông tin chính thức. 5. Cơ quan truyền thông, báo chí có trách nhiệm thông tin chính xác, trung thực, đầy đủ và kịp thời về sự cố môi trường và ứng phó sự cố môi trường."
+    },
+    {
+      "chunk_id": "146609::article_30",
+      "text": "Văn bản: Luật Bảo vệ môi trường số 72/2020/QH14 Số hiệu: 72/2020/QH14 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 3 Điều 30: Đối tượng phải thực hiện đánh giá tác động môi trường Điều 30. Đối tượng phải thực hiện đánh giá tác động môi trường 1. Đối tượng phải thực hiện đánh giá tác động môi trường bao gồm: a) Dự án đầu tư nhóm I quy định tại khoản 3 Điều 28 của Luật này; b) Dự án đầu tư nhóm II quy định tại các điểm c, d, đ và e khoản 4 Điều 28 của Luật này. 2. Đối tượng quy định tại khoản 1 Điều này thuộc dự án đầu tư công khẩn cấp theo quy định của pháp luật về đầu tư công không phải thực hiện đánh giá tác động môi trường."
+    },
+    {
+      "chunk_id": "146609::article_45",
+      "text": "Văn bản: Luật Bảo vệ môi trường số 72/2020/QH14 Số hiệu: 72/2020/QH14 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 4 Điều 45: Phí thẩm định cấp giấy phép môi trường Điều 45. Phí thẩm định cấp giấy phép môi trường 1. Chủ dự án đầu tư, cơ sở có trách nhiệm nộp phí thẩm định cấp, cấp lại, điều chỉnh giấy phép môi trường. 2. Bộ trưởng Bộ Tài chính quy định chế độ thu, nộp, quản lý và sử dụng phí thẩm định cấp, cấp lại, điều chỉnh giấy phép môi trường thuộc thẩm quyền cấp giấy phép môi trường của cơ quan nhà nước ở trung ương. 3. Hội đồng nhân dân cấp tỉnh quy định chế độ thu, nộp, quản lý và sử dụng phí thẩm định cấp, cấp lại, điều chỉnh giấy phép môi trường thuộc thẩm quyền cấp giấy phép môi trường của Ủy ban nhân dân cấp tỉnh và Ủy ban nhân dân cấp huyện theo quy định của pháp luật."
+    },
+    {
+      "chunk_id": "146609::article_49",
+      "text": "Văn bản: Luật Bảo vệ môi trường số 72/2020/QH14 Số hiệu: 72/2020/QH14 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 4 Điều 49: Đăng ký môi trường Điều 49. Đăng ký môi trường 1. Đối tượng phải đăng ký môi trường bao gồm: a) Dự án đầu tư có phát sinh chất thải không thuộc đối tượng phải có giấy phép môi trường; b) Cơ sở sản xuất, kinh doanh, dịch vụ hoạt động trước ngày Luật này có hiệu lực thi hành có phát sinh chất thải không thuộc đối tượng phải có giấy phép môi trường. 2. Đối tượng quy định tại khoản 1 Điều này được miễn đăng ký môi trường bao gồm: a) Dự án đầu tư, cơ sở thuộc bí mật nhà nước về quốc phòng, an ninh; b) Dự án đầu tư khi đi vào vận hành và cơ sở sản xuất, kinh doanh, dịch vụ không phát sinh chất thải hoặc chỉ phát sinh chất thải với khối lượng nhỏ, được xử lý bằng công trình xử lý tại chỗ hoặc được quản lý theo quy định của chính quyền địa phương; c) Đối tượng khác. 3. Ủy ban nhân dân cấp xã có trách nhiệm tiếp nhận trực tiếp, qua đường bưu điện hoặc nhận bản điện tử thông qua hệ thống dịch vụ công trực tuyến đăng ký môi trường của đối tượng quy định tại khoản 1 Điều này. Đối với dự án đầu tư, cơ sở trên địa bàn từ 02 đơn vị hành chính cấp xã trở lên, chủ dự án đầu tư, cơ sở được quyền chọn Ủy ban nhân dân cấp xã để đăng ký môi trường. 4. Nội dung đăng ký môi trường bao gồm: a) Thông tin chung về dự án đầu tư, cơ sở; b) Loại hình sản xuất, kinh doanh, dịch vụ; công nghệ, công suất, sản phẩm; nguyên liệu, nhiên liệu, hóa chất sử dụng (nếu có); c) Loại và khối lượng chất thải phát sinh; d) Phương án thu gom, quản lý và xử lý chất thải theo quy định; đ) Cam kết thực hiện công tác bảo vệ môi trường. 5. Trong quá trình hoạt động, nếu dự án đầu tư, cơ sở có thay đổi về nội dung đã đăng ký, chủ dự án đầu tư, cơ sở có trách nhiệm đăng ký môi trường lại trước khi thực hiện các thay đổi đó. Trường hợp việc thay đổi quy mô, tính chất của dự án đầu tư, cơ sở thuộc đối tượng phải thực hiện đánh giá tác động môi trường hoặc phải có giấy phép môi trường, chủ dự án đầu tư, cơ sở có trách nhiệm thực hiện quy định về đánh giá tác động môi trường và giấy phép môi trường theo quy định của Luật này. 6. Thời điểm đăng ký môi trường được quy định như sau: a) Dự án đầu tư quy định tại điểm a khoản 1 Điều này và thuộc đối tượng phải thực hiện đánh giá tác động môi trường phải đăng ký môi trường trước khi vận hành chính thức; b) Dự án đầu tư quy định tại điểm a khoản 1 Điều này nhưng không thuộc đối tượng phải thực hiện đánh giá tác động môi trường phải đăng ký môi trường trước khi cơ quan có thẩm quyền cấp giấy phép xây dựng đối với trường hợp phải có giấy phép xây dựng theo quy định của pháp luật về xây dựng hoặc trước khi xả chất thải ra môi trường đối với trường hợp không phải có giấy phép xây dựng theo quy định của pháp luật về xây dựng; c) Cơ sở sản xuất, kinh doanh, dịch vụ quy định tại điểm b khoản 1 Điều này phải đăng ký môi trường trong thời hạn 24 tháng kể từ ngày Luật này có hiệu lực thi hành. 7. Ủy ban nhân dân cấp xã có trách nhiệm sau đây: a) Tiếp nhận đăng ký môi trường; b) Kiểm tra và xử lý vi phạm pháp luật về bảo vệ môi trường của tổ chức, cá nhân đăng ký môi trường theo quy định của pháp luật; c) Hướng dẫn và giải quyết kiến nghị về bảo vệ môi trường đối với nội dung đã được tổ chức, cá nhân đăng ký môi trường; d) Cập nhật dữ liệu về đăng ký môi trường vào hệ thống thông tin, cơ sở dữ liệu môi trường quốc gia. 8. Chính phủ quy định chi tiết điểm b và điểm c khoản 2 Điều này. 9. Bộ trưởng Bộ Tài nguyên và Môi trường quy định mẫu đăng ký môi trường và hướng dẫn việc tiếp nhận đăng ký môi trường."
+    },
+    {
+      "chunk_id": "146609::article_60",
+      "text": "Văn bản: Luật Bảo vệ môi trường số 72/2020/QH14 Số hiệu: 72/2020/QH14 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Mục 2 Điều 60: Bảo vệ môi trường đối với hộ gia đình, cá nhân Điều 60. Bảo vệ môi trường đối với hộ gia đình, cá nhân 1. Hộ gia đình, cá nhân có trách nhiệm sau đây: a) Giảm thiểu, phân loại chất thải rắn sinh hoạt tại nguồn, thu gom và chuyển rác thải sinh hoạt đã được phân loại đến đúng nơi quy định; b) Giảm thiểu, xử lý và xả nước thải sinh hoạt đúng nơi quy định; không để vật nuôi gây mất vệ sinh trong khu dân cư; c) Không phát tán khí thải, gây tiếng ồn, độ rung và tác động khác gây ô nhiễm môi trường, ảnh hưởng xấu đến cộng đồng dân cư xung quanh; d) Chi trả kinh phí dịch vụ thu gom, vận chuyển và xử lý chất thải theo quy định của pháp luật; đ) Tham gia hoạt động bảo vệ môi trường tại cộng đồng dân cư; e) Có công trình vệ sinh theo quy định. Trường hợp chưa có công trình, thiết bị xử lý nước thải, khi xây dựng mới hoặc cải tạo, sửa chữa nhà ở riêng lẻ tại đô thị, khu dân cư tập trung, phải xây lắp công trình, thiết bị xử lý nước thải tại chỗ đáp ứng yêu cầu về bảo vệ môi trường theo quy định. 2. Chuồng trại chăn nuôi quy mô hộ gia đình phải bảo đảm vệ sinh, không gây ô nhiễm tiếng ồn, phát tán mùi khó chịu; chất thải từ hoạt động chăn nuôi phải được thu gom, xử lý theo quy định của pháp luật về bảo vệ môi trường và quy định khác của pháp luật có liên quan. 3. Cơ quan thẩm định thiết kế xây dựng, cấp giấy phép xây dựng đối với công trình xây dựng, nhà ở của hộ gia đình, cá nhân ở đô thị theo quy định của pháp luật về xây dựng có trách nhiệm thẩm định, cấp giấy phép xây dựng trong đó bao gồm công trình, thiết bị xử lý nước thải tại chỗ đáp ứng yêu cầu về bảo vệ môi trường."
+    },
+    {
+      "chunk_id": "146609::article_87",
+      "text": "Văn bản: Luật Bảo vệ môi trường số 72/2020/QH14 Số hiệu: 72/2020/QH14 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VI Mục 5 Điều 87: Hệ thống xử lý nước thải Điều 87. Hệ thống xử lý nước thải 1. Hệ thống xử lý nước thải phải bảo đảm các yêu cầu sau đây: a) Công nghệ phù hợp với loại hình, đặc tính nước thải cần xử lý; b) Công suất hệ thống xử lý nước phải phù hợp với lượng nước thải phát sinh tối đa; c) Xử lý nước thải đáp ứng yêu cầu về bảo vệ môi trường; d) Vận hành công trình xử lý nước thải theo đúng quy trình kỹ thuật; đ) Có kế hoạch phòng ngừa, ứng phó sự cố môi trường đối với hệ thống xử lý nước thải; điểm xả thải phải có tọa độ, biển báo, ký hiệu rõ ràng, thuận lợi cho việc kiểm tra, giám sát xả thải. 2. Bùn thải từ hệ thống xử lý nước thải phải được quản lý theo quy định của pháp luật về quản lý chất thải rắn; bùn thải có yếu tố nguy hại vượt ngưỡng quy định phải được quản lý theo quy định của pháp luật về quản lý chất thải nguy hại."
+    },
+    {
+      "chunk_id": "157721::article_19",
+      "text": "Văn bản: Luật Phòng, chống rửa tiền số 14/2022/QH15 Số hiệu: 14/2022/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 19: Trách nhiệm của đối tượng báo cáo đối với sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới Điều 19. Trách nhiệm của đối tượng báo cáo đối với sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới 1. Đối tượng báo cáo phải ban hành chính sách, quy trình để nhận diện và đánh giá mức độ rủi ro về rửa tiền trước khi cung cấp sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới nhằm mục đích sau đây: a) Phát hiện, ngăn chặn việc sử dụng sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới để rửa tiền; b) Quản lý rủi ro về rửa tiền khi thiết lập giao dịch với khách hàng sử dụng sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới. 2. Đối tượng báo cáo phải áp dụng các biện pháp khi cung cấp sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới để giảm thiểu rủi ro về rửa tiền."
+    },
+    {
+      "chunk_id": "157721::article_35",
+      "text": "Văn bản: Luật Phòng, chống rửa tiền số 14/2022/QH15 Số hiệu: 14/2022/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 2 Điều 35: Khai báo, cung cấp thông tin về việc vận chuyển tiền mặt, kim khí quý, đá quý và công cụ chuyển nhượng qua biên giới Điều 35. Khai báo, cung cấp thông tin về việc vận chuyển tiền mặt, kim khí quý, đá quý và công cụ chuyển nhượng qua biên giới 1. Cá nhân khi nhập cảnh, xuất cảnh mang theo ngoại tệ tiền mặt, đồng Việt Nam bằng tiền mặt, kim khí quý, đá quý và công cụ chuyển nhượng trên mức quy định của cơ quan nhà nước có thẩm quyền phải khai báo hải quan hoặc khai báo với bộ đội biên phòng nơi không có cơ quan hải quan. 2. Cơ quan hải quan, bộ đội biên phòng có trách nhiệm thu thập, lưu trữ các thông tin khai báo quy định tại khoản 1 Điều này và cung cấp cho Ngân hàng Nhà nước Việt Nam khi có yêu cầu hoặc khi có nghi ngờ liên quan đến rửa tiền, tài trợ khủng bố hoặc tài trợ phổ biến vũ khí hủy diệt hàng loạt."
+    },
+    {
+      "chunk_id": "157721::article_50",
+      "text": "Văn bản: Luật Phòng, chống rửa tiền số 14/2022/QH15 Số hiệu: 14/2022/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Điều 50: Trách nhiệm của Bộ Quốc phòng Điều 50. Trách nhiệm của Bộ Quốc phòng 1. Trao đổi thông tin, tài liệu về hoạt động rửa tiền nhằm tài trợ phổ biến vũ khí hủy diệt hàng loạt trong nước và nước ngoài với Ngân hàng Nhà nước Việt Nam. 2. Chủ trì lập danh sách tổ chức, cá nhân bị chỉ định có liên quan đến phổ biến và tài trợ phổ biến vũ khí hủy diệt hàng loạt. 3. Phối hợp với Ngân hàng Nhà nước Việt Nam thực hiện đánh giá rủi ro quốc gia về rửa tiền quy định tại khoản 1 Điều 7 của Luật này."
+    },
+    {
+      "chunk_id": "161263::article_23",
+      "text": "Văn bản: Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15 Số hiệu: 19/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 23: Hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung Điều 23. Hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung 1. Hình thức hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung được thực hiện theo quy định của pháp luật về dân sự và quy định khác của pháp luật có liên quan. 2. Ngôn ngữ, hình thức của hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung trong trường hợp bằng văn bản phải được thể hiện rõ ràng, dễ hiểu. Ngôn ngữ sử dụng trong hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung là tiếng Việt. Các bên có thể thỏa thuận sử dụng thêm tiếng dân tộc khác của Việt Nam hoặc tiếng nước ngoài. Trong trường hợp có sự khác biệt giữa bản tiếng Việt với bản tiếng dân tộc khác của Việt Nam hoặc bản tiếng nước ngoài, bản có lợi hơn cho người tiêu dùng được ưu tiên áp dụng. 3. Hợp đồng theo mẫu phải có các nội dung cơ bản sau đây: a) Thông tin của các bên trong hợp đồng bao gồm: tên, địa chỉ, số điện thoại, phương thức liên hệ khác (nếu có); b) Thông tin về sản phẩm, hàng hóa, dịch vụ được bán, cung cấp theo hợp đồng; c) Đo lường, số lượng, khối lượng, chất lượng, công dụng, giá của sản phẩm, hàng hóa, dịch vụ được bán, cung cấp, các thành phần cấu thành giá cuối cùng của sản phẩm, hàng hóa, dịch vụ nếu pháp luật có quy định phải công khai cấu thành giá của sản phẩm, hàng hóa, dịch vụ; d) Phương thức, thời hạn thanh toán; đ) Thời gian, địa điểm, phương thức bán, cung cấp sản phẩm, hàng hóa, dịch vụ; e) Quyền và nghĩa vụ của các bên bảo đảm tuân thủ quy định của Luật này và quy định khác của pháp luật có liên quan; g) Trách nhiệm bảo vệ thông tin của người tiêu dùng; h) Trường hợp chấm dứt thực hiện hợp đồng và trách nhiệm phát sinh do chấm dứt thực hiện hợp đồng; i) Trường hợp bất khả kháng theo quy định của pháp luật; k) Phương thức giải quyết tranh chấp; l) Thời điểm giao kết hợp đồng, thời hạn của hợp đồng. 4. Ngoài các nội dung cơ bản quy định tại khoản 3 Điều này, hợp đồng theo mẫu phải tuân thủ quy định của pháp luật khác có liên quan. 5. Chính phủ quy định chi tiết khoản 2 Điều này."
+    },
+    {
+      "chunk_id": "161263::article_4",
+      "text": "Văn bản: Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15 Số hiệu: 19/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương I Điều 4: Quyền của người tiêu dùng Điều 4. Quyền của người tiêu dùng 1. Được bảo đảm an toàn tính mạng, sức khoẻ, danh dự, nhân phẩm, uy tín, tài sản, bảo vệ thông tin, quyền, lợi ích hợp pháp khác khi tham gia giao dịch, sử dụng sản phẩm, hàng hóa, dịch vụ do tổ chức, cá nhân kinh doanh cung cấp. 2. Được cung cấp hóa đơn, chứng từ, tài liệu liên quan đến giao dịch; thông tin kịp thời, chính xác, đầy đủ về sản phẩm, hàng hóa, dịch vụ, nội dung giao dịch, nguồn gốc, xuất xứ sản phẩm, hàng hóa, dịch vụ và về tổ chức, cá nhân kinh doanh. 3. Lựa chọn sản phẩm, hàng hóa, dịch vụ, tổ chức, cá nhân kinh doanh theo nhu cầu, điều kiện thực tế của mình; quyết định tham gia hoặc không tham gia giao dịch; thỏa thuận các nội dung giao dịch với tổ chức, cá nhân kinh doanh; được cung cấp sản phẩm, hàng hóa, dịch vụ đúng với nội dung đã giao kết. 4. Góp ý với tổ chức, cá nhân kinh doanh về giá, chất lượng sản phẩm, hàng hóa, dịch vụ, phong cách phục vụ, phương thức giao dịch và nội dung liên quan đến giao dịch giữa người tiêu dùng và tổ chức, cá nhân kinh doanh. 5. Yêu cầu tổ chức, cá nhân kinh doanh bồi thường thiệt hại khi sản phẩm, hàng hóa có khuyết tật, sản phẩm, hàng hóa, dịch vụ không phù hợp tiêu chuẩn, quy chuẩn kỹ thuật, không bảo đảm an toàn, đo lường, số lượng, khối lượng, chất lượng, công dụng, giá, nội dung khác theo quy định của pháp luật hoặc không đúng với đăng ký, thông báo, công bố, niêm yết, quảng cáo, giới thiệu, giao kết, cam kết của tổ chức, cá nhân kinh doanh. 6. Tham gia xây dựng chính sách, pháp luật về bảo vệ quyền lợi người tiêu dùng. 7. Khiếu nại, tố cáo, khởi kiện hoặc đề nghị tổ chức xã hội khởi kiện để bảo vệ quyền lợi của mình theo quy định của Luật này và quy định khác của pháp luật có liên quan. 8. Được tư vấn, hỗ trợ, hướng dẫn về kiến thức và kỹ năng tiêu dùng sản phẩm, hàng hóa, dịch vụ. 9. Được tạo điều kiện lựa chọn môi trường tiêu dùng lành mạnh và bền vững. 10. Được bảo vệ khi sử dụng dịch vụ công theo quy định của Luật này và quy định khác của pháp luật có liên quan. 11. Quyền khác theo quy định của pháp luật."
+    },
+    {
+      "chunk_id": "161263::article_42",
+      "text": "Văn bản: Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15 Số hiệu: 19/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Mục 2 Điều 42: Hợp đồng cung cấp dịch vụ liên tục Điều 42. Hợp đồng cung cấp dịch vụ liên tục 1. Hợp đồng cung cấp dịch vụ liên tục phải được lập thành văn bản và cung cấp cho người tiêu dùng 01 bản. 2. Hợp đồng theo mẫu về cung cấp dịch vụ liên tục phải có nội dung quy định tại khoản 3 Điều 23 của Luật này và các nội dung sau đây: a) Tên, địa chỉ, số điện thoại, phương thức liên hệ khác (nếu có) của tổ chức, cá nhân kinh doanh hoặc đại diện của tổ chức, cá nhân kinh doanh tại Việt Nam (nếu có); b) Mô tả dịch vụ được cung cấp; c) Thời điểm và thời hạn cung cấp dịch vụ; d) Thông tin chính xác, đầy đủ về các khoản phí, chi phí, cách thức tính phí, chi phí có thể phát sinh và các điều kiện giao dịch chung được áp dụng trong quá trình cung cấp dịch vụ cho người tiêu dùng; đ) Thông báo cho người tiêu dùng về việc nộp phí để tiếp tục sử dụng dịch vụ theo cách thức đã được thỏa thuận tối thiểu 07 ngày làm việc trước ngày hết hạn sử dụng dịch vụ; e) Thông báo cho người tiêu dùng về thời điểm kết thúc hợp đồng theo cách thức đã được thỏa thuận tối thiểu 07 ngày làm việc trước ngày hợp đồng kết thúc. 3. Trừ trường hợp các bên có thỏa thuận khác, người tiêu dùng có quyền đơn phương chấm dứt thực hiện hợp đồng cung cấp dịch vụ liên tục tại bất kỳ thời điểm nào và thông báo cho tổ chức, cá nhân kinh doanh cung cấp dịch vụ. Trong trường hợp người tiêu dùng đơn phương chấm dứt thực hiện hợp đồng, người tiêu dùng chỉ phải thanh toán đối với phần dịch vụ mà mình đã sử dụng."
+    },
+    {
+      "chunk_id": "161263::article_61",
+      "text": "Văn bản: Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15 Số hiệu: 19/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Mục 3 Điều 61: Trình tự, thủ tục hòa giải Điều 61. Trình tự, thủ tục hòa giải 1. Tổ chức, cá nhân kinh doanh và người tiêu dùng có quyền thỏa thuận lựa chọn bên thứ ba để thực hiện việc hòa giải. 2. Trình tự, thủ tục hòa giải thực hiện theo quy định của pháp luật về hòa giải."
+    },
+    {
+      "chunk_id": "165913::article_16",
+      "text": "Văn bản: Luật Giao dịch điện tử số 20/2023/QH15 Số hiệu: 20/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 2 Điều 16: Nhận thông điệp dữ liệu Điều 16. Nhận thông điệp dữ liệu 1. Người nhận thông điệp dữ liệu là cơ quan, tổ chức, cá nhân hoặc người đại diện của cơ quan, tổ chức, cá nhân đó được chỉ định nhận thông điệp dữ liệu từ người khởi tạo thông điệp dữ liệu nhưng không bao gồm người trung gian chuyển thông điệp dữ liệu. 2. Trường hợp các bên tham gia giao dịch không có thỏa thuận khác thì việc nhận thông điệp dữ liệu được quy định như sau: a) Người nhận được xem là đã nhận được thông điệp dữ liệu nếu thông điệp dữ liệu được nhập vào hệ thống thông tin do người đó chỉ định và có thể truy cập được; b) Người nhận có quyền coi mỗi thông điệp dữ liệu nhận được là một thông điệp dữ liệu độc lập, trừ trường hợp thông điệp dữ liệu đó là bản sao của một thông điệp dữ liệu khác mà người nhận biết hoặc buộc phải biết thông điệp dữ liệu đó là bản sao; c) Trường hợp trước hoặc trong khi gửi thông điệp dữ liệu, người khởi tạo có yêu cầu hoặc thỏa thuận với người nhận về việc người nhận phải gửi cho mình thông báo xác nhận khi nhận được thông điệp dữ liệu thì người nhận phải thực hiện đúng yêu cầu hoặc thỏa thuận này; d) Trường hợp trước hoặc trong khi gửi thông điệp dữ liệu, người khởi tạo đã tuyên bố thông điệp dữ liệu đó chỉ có giá trị khi có thông báo xác nhận, thông điệp dữ liệu đó được xem là chưa gửi cho đến khi người khởi tạo nhận được thông báo của người nhận xác nhận đã nhận được thông điệp dữ liệu đó; đ) Trường hợp người khởi tạo đã gửi thông điệp dữ liệu mà không tuyên bố về việc người nhận phải gửi thông báo xác nhận và cũng chưa nhận được thông báo xác nhận, trừ trường hợp quy định tại điểm a khoản này, thì người khởi tạo có thể thông báo cho người nhận là chưa nhận được thông báo xác nhận và ấn định khoảng thời gian hợp lý để người nhận gửi thông báo xác nhận; nếu người khởi tạo vẫn không nhận được thông báo xác nhận trong khoảng thời gian đã ấn định thì người khởi tạo có quyền xem là chưa gửi thông điệp dữ liệu đó."
+    },
+    {
+      "chunk_id": "165913::article_28",
+      "text": "Văn bản: Luật Giao dịch điện tử số 20/2023/QH15 Số hiệu: 20/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Mục 2 Điều 28: Dịch vụ tin cậy Điều 28. Dịch vụ tin cậy 1. Dịch vụ tin cậy bao gồm: a) Dịch vụ cấp dấu thời gian; b) Dịch vụ chứng thực thông điệp dữ liệu; c) Dịch vụ chứng thực chữ ký số công cộng. 2. Dịch vụ tin cậy là ngành, nghề đầu tư kinh doanh có điều kiện. 3. Tổ chức cung cấp dịch vụ tin cậy phải có giấy phép kinh doanh dịch vụ do Bộ Thông tin và Truyền thông cấp, trừ dịch vụ chứng thực hợp đồng điện tử trong thương mại. Tổ chức được quyền đăng ký một hoặc các dịch vụ quy định tại khoản 1 Điều này. Thời hạn của giấy phép kinh doanh dịch vụ tin cậy là 10 năm. Tổ chức cung cấp dịch vụ chứng thực hợp đồng điện tử trong thương mại phải đáp ứng điều kiện hoạt động cung cấp dịch vụ chứng thực hợp đồng điện tử theo quy định của pháp luật về thương mại điện tử và điều kiện kinh doanh dịch vụ tin cậy theo quy định tại Điều 29 của Luật này. 4. Chính phủ quy định chi tiết hoạt động của tổ chức cung cấp dịch vụ tin cậy; quy trình, thủ tục, hồ sơ cấp, gia hạn, thay đổi, cấp lại, tạm đình chỉ, thu hồi giấy phép kinh doanh dịch vụ tin cậy và các nội dung khác quy định tại Điều này."
+    },
+    {
+      "chunk_id": "165913::article_40",
+      "text": "Văn bản: Luật Giao dịch điện tử số 20/2023/QH15 Số hiệu: 20/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Điều 40: Quản lý dữ liệu, cơ sở dữ liệu dùng chung Điều 40. Quản lý dữ liệu, cơ sở dữ liệu dùng chung 1. Dữ liệu trong cơ quan nhà nước được tổ chức thống nhất, được phân cấp quản lý theo trách nhiệm quản lý của cơ quan nhà nước nhằm thúc đẩy giao dịch điện tử; được chia sẻ phục vụ hoạt động của cơ quan nhà nước, người dân, doanh nghiệp theo quy định của pháp luật. 2. Cơ sở dữ liệu dùng chung trong cơ quan nhà nước bao gồm cơ sở dữ liệu quốc gia, cơ sở dữ liệu của Bộ, ngành, địa phương. 3. Việc quản lý cơ sở dữ liệu quốc gia được quy định như sau: a) Cơ sở dữ liệu quốc gia chứa dữ liệu chủ làm cơ sở tham chiếu, đồng bộ dữ liệu giữa các cơ sở dữ liệu của Bộ, ngành, địa phương; b) Dữ liệu chủ trong cơ sở dữ liệu quốc gia có giá trị sử dụng chính thức, tương đương văn bản giấy được cơ quan có thẩm quyền cung cấp, trừ trường hợp pháp luật có quy định khác; c) Dữ liệu trong cơ sở dữ liệu quốc gia được chia sẻ với Bộ, ngành, địa phương phục vụ giải quyết thủ tục hành chính, cải cách hành chính, đơn giản hóa thủ tục hành chính cho người dân, doanh nghiệp và các mục tiêu phát triển kinh tế - xã hội; d) Thủ tướng Chính phủ phê duyệt danh mục cơ sở dữ liệu quốc gia. Danh mục cơ sở dữ liệu quốc gia phải thể hiện được các nội dung cơ bản sau đây: tên cơ sở dữ liệu quốc gia; mục tiêu xây dựng cơ sở dữ liệu quốc gia; phạm vi dữ liệu trong cơ sở dữ liệu quốc gia; thông tin về dữ liệu chủ của cơ sở dữ liệu quốc gia được lưu trữ và chia sẻ; đối tượng và mục đích sử dụng, khai thác cơ sở dữ liệu quốc gia; nguồn thông tin được xây dựng và cập nhật vào cơ sở dữ liệu quốc gia; phương thức chia sẻ dữ liệu từ cơ sở dữ liệu quốc gia; đ) Chính phủ quy định việc xây dựng, cập nhật, duy trì và khai thác, sử dụng cơ sở dữ liệu quốc gia; quy định việc chia sẻ cơ sở dữ liệu quốc gia với cơ sở dữ liệu của cơ quan khác của Nhà nước. 4. Việc quản lý cơ sở dữ liệu của Bộ, ngành, địa phương được quy định như sau: a) Cơ sở dữ liệu của Bộ, ngành, địa phương là tập hợp thông tin dùng chung của Bộ, ngành, địa phương; b) Dữ liệu chủ trong cơ sở dữ liệu của Bộ, ngành, địa phương có giá trị sử dụng chính thức, tương đương văn bản giấy do Bộ, ngành, địa phương cung cấp, trừ trường hợp pháp luật có quy định khác; c) Bộ, cơ quan ngang Bộ, cơ quan thuộc Chính phủ, Ủy ban nhân dân cấp tỉnh quy định danh mục cơ sở dữ liệu; việc xây dựng, cập nhật, duy trì và khai thác, sử dụng cơ sở dữ liệu của Bộ, ngành, địa phương mình. Danh mục cơ sở dữ liệu của Bộ, ngành, địa phương phải thể hiện được các nội dung cơ bản sau đây: tên cơ sở dữ liệu; mô tả mục đích, phạm vi, nội dung của từng cơ sở dữ liệu; cơ chế thu thập, cập nhật, nguồn dữ liệu được thu thập của từng cơ sở dữ liệu; liệt kê các hạng mục dữ liệu bao gồm dữ liệu mở và dữ liệu được chia sẻ. 5. Nhà nước bảo đảm một phần hoặc toàn bộ kinh phí xây dựng và duy trì cơ sở dữ liệu quốc gia, cơ sở dữ liệu của Bộ, ngành, địa phương, cơ quan khác của Nhà nước."
+    },
+    {
+      "chunk_id": "165913::article_8",
+      "text": "Văn bản: Luật Giao dịch điện tử số 20/2023/QH15 Số hiệu: 20/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 8: Giá trị pháp lý của thông điệp dữ liệu Điều 8. Giá trị pháp lý của thông điệp dữ liệu Thông tin trong thông điệp dữ liệu không bị phủ nhận giá trị pháp lý chỉ vì thông tin đó được thể hiện dưới dạng thông điệp dữ liệu."
+    },
+    {
+      "chunk_id": "166170::article_105",
+      "text": "Văn bản: Luật Các tổ chức tín dụng số 32/2024/QH15 Số hiệu: 32/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Mục 1 Điều 105: Giao dịch điện tử trong hoạt động của tổ chức tín dụng Điều 105. Giao dịch điện tử trong hoạt động của tổ chức tín dụng Hoạt động của tổ chức tín dụng được thực hiện bằng phương tiện điện tử theo quy định của Thống đốc Ngân hàng Nhà nước, quy định của pháp luật về giao dịch điện tử."
+    },
+    {
+      "chunk_id": "166170::article_157",
+      "text": "Văn bản: Luật Các tổ chức tín dụng số 32/2024/QH15 Số hiệu: 32/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IX Điều 157: Các yêu cầu, biện pháp hạn chế đối với tổ chức tín dụng, chi nhánh ngân hàng nước ngoài được can thiệp sớm Điều 157. Các yêu cầu, biện pháp hạn chế đối với tổ chức tín dụng, chi nhánh ngân hàng nước ngoài được can thiệp sớm 1. Các yêu cầu đối với tổ chức tín dụng, chi nhánh ngân hàng nước ngoài được can thiệp sớm bao gồm: a) Tăng vốn điều lệ, vốn được cấp; tăng cường nắm giữ tài sản có tính thanh khoản cao và thực hiện các giải pháp khác để đáp ứng yêu cầu bảo đảm an toàn trong hoạt động ngân hàng; b) Cắt giảm chi phí hoạt động, chi phí quản lý, thù lao, lương, thưởng; yêu cầu bồi hoàn thù lao, tiền thưởng đối với người quản lý, người điều hành, thành viên Ban kiểm soát; c) Tăng cường quản trị rủi ro; tổ chức lại bộ máy quản trị, điều hành. 2. Các biện pháp hạn chế đối với tổ chức tín dụng, chi nhánh ngân hàng nước ngoài được can thiệp sớm bao gồm: a) Không chia cổ tức, lợi tức, phân phối lợi nhuận sau thuế sau khi trích lập các quỹ, chuyển lợi nhuận về nước; hạn chế chuyển nhượng cổ phần, phần vốn góp, chuyển nhượng tài sản; b) Hạn chế hoạt động kinh doanh không hiệu quả, có rủi ro cao; giảm giới hạn cấp tín dụng, giới hạn góp vốn, mua cổ phần; hạn chế tăng trưởng tín dụng; c) Đình chỉ, tạm đình chỉ một hoặc một số hoạt động ngân hàng, hoạt động kinh doanh khác có dấu hiệu vi phạm pháp luật; không bổ sung nội dung hoạt động ngân hàng, hoạt động kinh doanh mới khác, không mở rộng mạng lưới hoạt động; d) Đình chỉ người quản lý, người điều hành có hành vi vi phạm pháp luật hoặc gây rủi ro lớn đến hoạt động của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài; yêu cầu bầu, bổ nhiệm thay thế người quản lý, người điều hành có hành vi vi phạm pháp luật hoặc gây rủi ro lớn đến hoạt động của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài được can thiệp sớm; đ) Biện pháp khác theo thẩm quyền của Ngân hàng Nhà nước."
+    },
+    {
+      "chunk_id": "166170::article_54",
+      "text": "Văn bản: Luật Các tổ chức tín dụng số 32/2024/QH15 Số hiệu: 32/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 2 Điều 54: Quyền, nghĩa vụ của thành viên Ban kiểm soát Điều 54. Quyền, nghĩa vụ của thành viên Ban kiểm soát 1. Tuân thủ pháp luật, Điều lệ của tổ chức tín dụng, quy định nội bộ của Ban kiểm soát và thực hiện nhiệm vụ theo phân công của Trưởng ban kiểm soát để triển khai nhiệm vụ, quyền hạn của Ban kiểm soát một cách trung thực, cẩn trọng, vì lợi ích của tổ chức tín dụng và của cổ đông, thành viên góp vốn, chủ sở hữu; chịu trách nhiệm về việc thực hiện quyền, nghĩa vụ của mình. 2. Bầu một thành viên Ban kiểm soát làm Trưởng ban kiểm soát, trừ trường hợp quy định tại điểm c khoản 1 Điều 73 của Luật này. 3. Yêu cầu Trưởng ban kiểm soát triệu tập Ban kiểm soát họp bất thường. 4. Kiểm soát hoạt động kinh doanh, kiểm soát sổ sách kế toán, tài sản, báo cáo tài chính và kiến nghị biện pháp khắc phục. 5. Yêu cầu người quản lý báo cáo, giải trình về thực trạng tài chính, kết quả kinh doanh của công ty con, kế hoạch, dự án, chương trình đầu tư phát triển và quyết định khác trong quản lý, điều hành tổ chức tín dụng. 6. Yêu cầu người quản lý, người điều hành, nhân viên của tổ chức tín dụng cung cấp số liệu và giải trình các hoạt động kinh doanh để thực hiện nhiệm vụ được phân công. 7. Báo cáo Trưởng ban kiểm soát về hoạt động tài chính bất thường của tổ chức tín dụng và chịu trách nhiệm về đánh giá, kết luận của mình. 8. Tham dự cuộc họp của Ban kiểm soát, thảo luận và biểu quyết về vấn đề thuộc nhiệm vụ, quyền hạn của Ban kiểm soát, trừ những vấn đề có xung đột lợi ích với thành viên đó. 9. Quyền, nghĩa vụ khác theo quy định của pháp luật và Điều lệ của tổ chức tín dụng."
+    },
+    {
+      "chunk_id": "166581::article_16::clauses_1-5",
+      "text": "Văn bản: Luật Đấu thầu số 22/2023/QH15 Số hiệu: 22/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương I Điều 16: Các hành vi bị cấm trong hoạt động đấu thầu Khoản 1-5 1. Đưa, nhận, môi giới hối lộ. 2. Lợi dụng chức vụ, quyền hạn để gây ảnh hưởng, can thiệp trái pháp luật vào hoạt động đấu thầu dưới mọi hình thức. 3. Thông thầu bao gồm các hành vi sau đây: a) Dàn xếp, thỏa thuận, ép buộc để một hoặc các bên chuẩn bị hồ sơ dự thầu hoặc rút hồ sơ dự thầu để một bên trúng thầu; b) Dàn xếp, thỏa thuận để từ chối cung cấp hàng hóa, dịch vụ, không ký hợp đồng thầu phụ hoặc thực hiện các hình thức thỏa thuận khác nhằm hạn chế cạnh tranh để một bên trúng thầu; c) Nhà thầu, nhà đầu tư có năng lực, kinh nghiệm đã tham dự thầu và đáp ứng yêu cầu của hồ sơ mời thầu nhưng cố ý không cung cấp tài liệu để chứng minh năng lực, kinh nghiệm khi được bên mời thầu yêu cầu làm rõ hồ sơ dự thầu hoặc khi được yêu cầu đối chiếu tài liệu nhằm tạo điều kiện để một bên trúng thầu. 4. Gian lận bao gồm các hành vi sau đây: a) Làm giả hoặc làm sai lệch thông tin, hồ sơ, tài liệu trong đấu thầu; b) Cố ý cung cấp thông tin, tài liệu không trung thực, không khách quan trong hồ sơ quan tâm, hồ sơ dự sơ tuyển, hồ sơ đăng ký thực hiện dự án đầu tư kinh doanh, hồ sơ dự thầu, hồ sơ đề xuất nhằm làm sai lệch kết quả lựa chọn nhà thầu, nhà đầu tư. 5. Cản trở bao gồm các hành vi sau đây: a) Hủy hoại, lừa dối, thay đổi, che giấu chứng cứ hoặc báo cáo sai sự thật; đe dọa hoặc gợi ý đối với bất kỳ bên nào nhằm ngăn chặn việc làm rõ hành vi đưa, nhận, môi giới hối lộ, gian lận hoặc thông đồng với cơ quan có chức năng, thẩm quyền về giám sát, kiểm tra, thanh tra, kiểm toán; b) Cản trở người có thẩm quyền, chủ đầu tư, bên mời thầu, nhà thầu, nhà đầu tư trong lựa chọn nhà thầu, nhà đầu tư; c) Cản trở cơ quan có thẩm quyền giám sát, kiểm tra, thanh tra, kiểm toán đối với hoạt động đấu thầu; d) Cố tình khiếu nại, tố cáo, kiến nghị sai sự thật để cản trở hoạt động đấu thầu; đ) Có hành vi vi phạm pháp luật về an toàn, an ninh mạng nhằm can thiệp, cản trở việc đấu thầu qua mạng."
+    },
+    {
+      "chunk_id": "166581::article_26",
+      "text": "Văn bản: Luật Đấu thầu số 22/2023/QH15 Số hiệu: 22/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 26: Tự thực hiện Điều 26. Tự thực hiện 1. Chủ đầu tư trực tiếp quản lý, sử dụng gói thầu được tự thực hiện gói thầu thuộc dự án, dự toán mua sắm khi đáp ứng đủ các điều kiện sau đây: a) Có chức năng, nhiệm vụ, lĩnh vực hoạt động hoặc ngành, nghề kinh doanh phù hợp với yêu cầu của gói thầu; b) Có năng lực kỹ thuật, tài chính và kinh nghiệm đáp ứng yêu cầu của gói thầu; c) Có phương án khả thi huy động nhân sự, máy móc, thiết bị đáp ứng yêu cầu về tiến độ thực hiện gói thầu. 2. Chủ đầu tư trực tiếp tự thực hiện gói thầu hoặc giao đơn vị hạch toán phụ thuộc, phòng, ban thuộc tổ chức đó thực hiện. 3. Tổ chức, đơn vị quy định tại khoản 2 Điều này không được chuyển nhượng cho tổ chức, cá nhân khác khối lượng công việc có giá trị từ 10% trở lên hoặc trên 50 tỷ đồng tính trên giá trị công việc quy định tại thỏa thuận giao việc."
+    },
+    {
+      "chunk_id": "166581::article_49",
+      "text": "Văn bản: Luật Đấu thầu số 22/2023/QH15 Số hiệu: 22/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 2 Điều 49: Thời gian tổ chức lựa chọn nhà đầu tư Điều 49. Thời gian tổ chức lựa chọn nhà đầu tư 1. Đối với đấu thầu trong nước, thời gian chuẩn bị hồ sơ dự thầu tối thiểu là 45 ngày kể từ ngày đầu tiên phát hành hồ sơ mời thầu đến ngày có thời điểm đóng thầu. 2. Đối với đấu thầu quốc tế, thời gian chuẩn bị hồ sơ dự thầu tối thiểu là 60 ngày kể từ ngày đầu tiên phát hành hồ sơ mời thầu đến ngày có thời điểm đóng thầu. 3. Đối với các công việc khác ngoài quy định tại khoản 1 và khoản 2 Điều này, người có thẩm quyền, bên mời thầu có trách nhiệm quyết định thời gian thực hiện trên cơ sở bảo đảm tiến độ thực hiện của dự án đầu tư kinh doanh."
+    },
+    {
+      "chunk_id": "166581::article_72",
+      "text": "Văn bản: Luật Đấu thầu số 22/2023/QH15 Số hiệu: 22/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VII Mục 2 Điều 72: Hồ sơ hợp đồng dự án đầu tư kinh doanh Điều 72. Hồ sơ hợp đồng dự án đầu tư kinh doanh Hồ sơ hợp đồng dự án đầu tư kinh doanh bao gồm các tài liệu sau đây: 1. Văn bản hợp đồng; 2. Phụ lục hợp đồng (nếu có); 3. Biên bản đàm phán, hoàn thiện hợp đồng; 4. Quyết định phê duyệt kết quả lựa chọn nhà đầu tư; 5. Hồ sơ dự thầu và tài liệu làm rõ hồ sơ dự thầu của nhà đầu tư được lựa chọn; 6. Hồ sơ mời thầu và tài liệu sửa đổi, bổ sung hồ sơ mời thầu; 7. Tài liệu khác có liên quan."
+    },
+    {
+      "chunk_id": "167282::article_10",
+      "text": "Văn bản: Luật Tài nguyên nước 2023 số 28/2023/QH15 Số hiệu: 28/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 10: Tổ chức thực hiện điều tra cơ bản tài nguyên nước Điều 10. Tổ chức thực hiện điều tra cơ bản tài nguyên nước 1. Hoạt động điều tra cơ bản tài nguyên nước được thực hiện theo quy định sau đây: a) Thực hiện thường xuyên đối với hoạt động quy định tại điểm d khoản 3 Điều 9 của Luật này; b) Thực hiện hằng năm đối với hoạt động quy định tại điểm e khoản 3 Điều 9 của Luật này; c) Thực hiện định kỳ 05 năm đối với hoạt động quy định tại các điểm b, c và đ khoản 3 Điều 9 của Luật này; d) Hoạt động quy định tại điểm a khoản 3 Điều 9 của Luật này được thực hiện theo quy hoạch tổng thể điều tra cơ bản tài nguyên nước; trường hợp thực hiện đột xuất để phục vụ nhiệm vụ cấp thiết trong công tác quản lý nhà nước về tài nguyên nước trên địa bàn cấp tỉnh do Chủ tịch Ủy ban nhân dân cùng cấp quyết định, trên địa bàn từ hai tỉnh, thành phố trực thuộc trung ương trở lên do Bộ trưởng Bộ Tài nguyên và Môi trường quyết định, trừ trường hợp do Thủ tướng Chính phủ quyết định. 2. Kinh phí cho hoạt động điều tra cơ bản tài nguyên nước được bố trí trong dự toán ngân sách nhà nước hằng năm từ nguồn chi thường xuyên, chi đầu tư phát triển theo quy định của pháp luật về ngân sách nhà nước và pháp luật về đầu tư công. 3. Bộ Tài nguyên và Môi trường có trách nhiệm tổ chức thực hiện điều tra cơ bản tài nguyên nước trên phạm vi cả nước, trừ nội dung quy định tại khoản 4 Điều này; tổng hợp kết quả điều tra cơ bản tài nguyên nước trên phạm vi cả nước. 4. Ủy ban nhân dân cấp tỉnh xây dựng kế hoạch, tổ chức thực hiện điều tra cơ bản tài nguyên nước trên địa bàn thuộc phạm vi quản lý và tổng hợp, cập nhật kết quả vào Hệ thống thông tin, cơ sở dữ liệu tài nguyên nước quốc gia quy định tại Điều 7 của Luật này. 5. Tổ chức, cá nhân thực hiện điều tra cơ bản tài nguyên nước sử dụng ngân sách nhà nước phải cập nhật thông tin, kết quả điều tra cơ bản tài nguyên nước vào Hệ thống thông tin, cơ sở dữ liệu tài nguyên nước quốc gia quy định tại Điều 7 của Luật này. 6. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "167282::article_23",
+      "text": "Văn bản: Luật Tài nguyên nước 2023 số 28/2023/QH15 Số hiệu: 28/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Điều 23: Hành lang bảo vệ nguồn nước Điều 23. Hành lang bảo vệ nguồn nước 1. Hành lang bảo vệ nguồn nước được lập để bảo vệ sự ổn định của bờ và phòng, chống lấn chiếm đất ven nguồn nước; phòng, chống các hoạt động có nguy cơ gây ô nhiễm, suy thoái nguồn nước; bảo vệ sự phát triển hệ sinh thái thủy sinh, các loài động, thực vật tự nhiên ven nguồn nước; bảo vệ, bảo tồn hoạt động tôn giáo, tín ngưỡng, giá trị văn hóa, đa dạng sinh học, phát triển du lịch liên quan đến nguồn nước. 2. Nguồn nước phải lập hành lang bảo vệ bao gồm: a) Đập, hồ chứa thủy điện, thủy lợi trên sông, suối; b) Hồ trên sông, suối không thuộc quy định tại điểm a khoản này; c) Hồ, ao, đầm, phá được xác định trong danh mục hồ, ao, đầm, phá không được san lấp; d) Sông, suối, kênh, mương, rạch là nguồn cấp nước, trục tiêu nước hoặc có tầm quan trọng đối với các hoạt động phát triển kinh tế - xã hội và bảo vệ môi trường; đ) Các nguồn nước có chức năng bảo vệ, bảo tồn hoạt động tôn giáo, tín ngưỡng, giá trị văn hóa, đa dạng sinh học và phát triển du lịch không thuộc quy định tại điểm c khoản này. 3. Ủy ban nhân dân cấp tỉnh tổ chức lập, công bố, điều chỉnh danh mục nguồn nước phải lập hành lang bảo vệ nguồn nước; phê duyệt, điều chỉnh phạm vi hành lang bảo vệ nguồn nước, kế hoạch, phương án cắm mốc giới hành lang bảo vệ nguồn nước. 4. Phạm vi hành lang bảo vệ nguồn nước phải được thể hiện trên bản đồ địa chính. 5. Hành lang bảo vệ nguồn nước phải được công bố, quản lý theo quy định của Luật này và pháp luật về đất đai; đối với các trường hợp quy định tại điểm c khoản 6 Điều này thì còn phải thực hiện theo quy định của pháp luật về thủy lợi, đê điều, giao thông đường thủy nội địa. 6. Việc xác định phạm vi hành lang bảo vệ nguồn nước, cắm mốc giới hành lang bảo vệ nguồn nước quy định như sau: a) Tổ chức quản lý, vận hành đập, hồ chứa quy định tại điểm a khoản 2 Điều này; tổ chức được giao quản lý hồ trên sông, suối quy định tại điểm b và hồ, ao, đầm, phá quy định tại điểm c, điểm đ khoản 2 Điều này đề xuất phạm vi hành lang bảo vệ nguồn nước trình Ủy ban nhân dân cấp tỉnh phê duyệt; thực hiện việc cắm mốc giới và tổ chức bàn giao mốc giới cho Ủy ban nhân dân cấp tỉnh; b) Ủy ban nhân dân cấp tỉnh tổ chức xác định phạm vi hành lang bảo vệ nguồn nước và cắm mốc giới hành lang bảo vệ nguồn nước đối với các trường hợp không có tổ chức được giao quản lý, vận hành; c) Trường hợp đập, hồ chứa thủy lợi, kênh, mương thuộc công trình thủy lợi thì phạm vi, mốc giới hành lang bảo vệ nguồn nước được xác định theo mốc chỉ giới phạm vi bảo vệ công trình thủy lợi. Trường hợp sông, suối, kênh, rạch có mốc giới hành lang bảo vệ được xác định trùng với mốc chỉ giới hành lang bảo vệ luồng, mốc chỉ giới hành lang bảo vệ đê thì sử dụng mốc chỉ giới hành lang bảo vệ luồng theo quy định của pháp luật về giao thông đường thủy nội địa và mốc chỉ giới hành lang bảo vệ đê theo quy định của pháp luật về đê điều; d) Ủy ban nhân dân cấp tỉnh giao mốc giới hành lang bảo vệ nguồn nước cho Ủy ban nhân dân cấp huyện hoặc Ủy ban nhân dân cấp xã để quản lý, bảo vệ. 7. Cơ quan, tổ chức, cộng đồng dân cư, hộ gia đình và cá nhân sinh sống, hoạt động sản xuất, kinh doanh, dịch vụ trong phạm vi hành lang bảo vệ nguồn nước phải bảo đảm các yêu cầu sau đây: a) Không được gây sạt lở bờ sông, suối, kênh, mương, rạch, hồ, ao, đầm, phá hoặc gây ảnh hưởng đến sự ổn định, an toàn của sông, suối, kênh, mương, rạch, hồ, ao, đầm, phá; b) Không làm ảnh hưởng đến hành lang bảo vệ nguồn nước đã được cơ quan nhà nước có thẩm quyền phê duyệt; c) Thực hiện các biện pháp bảo vệ tài nguyên nước theo quy định của pháp luật. 8. Không xây dựng mới hoặc mở rộng quy mô bệnh viện, cơ sở khám bệnh, chữa bệnh truyền nhiễm, nghĩa trang, bãi chôn lấp chất thải, cơ sở sản xuất hóa chất nguy hiểm, cơ sở sản xuất, chế biến có chất thải nguy hại trong phạm vi hành lang bảo vệ nguồn nước. Đối với cơ sở đang hoạt động gây ô nhiễm nguồn nước phải có giải pháp khắc phục theo quy định của pháp luật về bảo vệ môi trường. 9. Chính phủ quy định chi tiết Điều này; quy định việc xác định phạm vi hành lang bảo vệ nguồn nước; quy định nguồn nước phải cắm mốc giới hành lang bảo vệ và việc cắm mốc giới hành lang bảo vệ nguồn nước."
+    },
+    {
+      "chunk_id": "167282::article_44",
+      "text": "Văn bản: Luật Tài nguyên nước 2023 số 28/2023/QH15 Số hiệu: 28/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 2 Điều 44: Khai thác tài nguyên nước cho sản xuất nông nghiệp Điều 44. Khai thác tài nguyên nước cho sản xuất nông nghiệp 1. Tổ chức, cá nhân khai thác tài nguyên nước cho sản xuất nông nghiệp có trách nhiệm sau đây: a) Có biện pháp tiết kiệm nước, phòng, chống chua, mặn, xói mòn đất và bảo đảm không gây ô nhiễm nguồn nước; b) Tuân thủ quy trình vận hành hồ chứa, liên hồ chứa, vận hành công trình, hệ thống công trình thủy lợi theo quy định tại Điều 38 của Luật này và pháp luật về thủy lợi; c) Vận hành các hồ chứa, công trình, hệ thống công trình thủy lợi bảo đảm nhiệm vụ thiết kế, lưu thông của dòng chảy, duy trì dòng chảy tối thiểu theo quy định tại Điều 24 của Luật này, không gây ứ đọng, ô nhiễm nguồn nước; thực hiện quan trắc, giám sát khai thác tài nguyên nước theo quy định tại Điều 51 của Luật này; sử dụng tiết kiệm, giảm thiểu thất thoát, lãng phí, nâng cao hiệu quả sử dụng nước, kết hợp cải tạo, phục hồi, phát triển nguồn nước. 2. Bộ Nông nghiệp và Phát triển nông thôn, Ủy ban nhân dân cấp tỉnh, trong phạm vi nhiệm vụ, quyền hạn của mình, có trách nhiệm sau đây: a) Rà soát, điều chỉnh các quy trình vận hành hồ chứa, công trình, hệ thống công trình thủy lợi bảo đảm sử dụng nước tiết kiệm, hiệu quả, đa mục tiêu, chống thất thoát, lãng phí nước và bảo đảm lưu thông của dòng chảy trong hệ thống công trình, không gây ứ đọng, ô nhiễm nguồn nước; b) Chỉ đạo tổ chức việc chuyển đổi cơ cấu mùa vụ, cây trồng, vật nuôi phù hợp với khả năng đáp ứng của nguồn nước, kịch bản nguồn nước, phương án điều hòa, phân phối tài nguyên nước quy định tại Điều 35 và Điều 36 của Luật này; áp dụng công nghệ tưới tiên tiến, tiết kiệm, hiệu quả."
+    },
+    {
+      "chunk_id": "167282::article_65",
+      "text": "Văn bản: Luật Tài nguyên nước 2023 số 28/2023/QH15 Số hiệu: 28/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Điều 65: Phòng, chống sụt, lún đất Điều 65. Phòng, chống sụt, lún đất 1. Tổ chức, cá nhân thực hiện các hoạt động quy định tại khoản 1 Điều 31 của Luật này phải tuân thủ tiêu chuẩn, quy chuẩn kỹ thuật có liên quan, bảo đảm không gây sụt, lún đất. Trường hợp xảy ra sụt, lún đất thì phải dừng ngay hoạt động thăm dò, khai thác nước dưới đất, thực hiện các biện pháp khắc phục và báo cho Ủy ban nhân dân nơi xảy ra sụt, lún đất; nếu gây thiệt hại thì phải bồi thường và chịu trách nhiệm theo quy định của pháp luật. 2. Ở những khu vực bị sụt, lún đất hoặc có nguy cơ bị sụt, lún đất do hoạt động thăm dò, khai thác nước dưới đất gây ra thì Ủy ban nhân dân cấp tỉnh tổ chức khoanh định vùng cấm, vùng hạn chế khai thác nước dưới đất. 3. Việc phòng, chống sụt, lún đất thực hiện theo quy định tại khoản 1, khoản 2 Điều này và thực hiện việc bảo vệ nước dưới đất theo quy định tại Điều 31 của Luật này."
+    },
+    {
+      "chunk_id": "167565::article_21",
+      "text": "Văn bản: Luật Giá số 16/2023/QH15 Số hiệu: 16/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 2 Điều 21: Hàng hóa, dịch vụ do Nhà nước định giá Điều 21. Hàng hóa, dịch vụ do Nhà nước định giá 1. Hàng hóa, dịch vụ do Nhà nước định giá phải đáp ứng một trong các tiêu chí sau đây: a) Hàng hóa, dịch vụ thuộc lĩnh vực độc quyền Nhà nước sản xuất, kinh doanh theo quy định của pháp luật về thương mại và quy định khác của pháp luật có liên quan; b) Tài nguyên quan trọng theo quy định của pháp luật về tài nguyên; c) Hàng dự trữ quốc gia; sản phẩm, dịch vụ công ích và dịch vụ sự nghiệp công sử dụng ngân sách nhà nước; d) Hàng hóa, dịch vụ thiết yếu có tính chất độc quyền trong mua, bán hoặc có thị trường cạnh tranh hạn chế và ảnh hưởng đến kinh tế - xã hội, đời sống người dân, hoạt động sản xuất, kinh doanh. 2. Cơ quan nhà nước có thẩm quyền định giá thực hiện định giá theo các hình thức sau đây: a) Giá cụ thể là mức giá mà cơ quan, tổ chức, cá nhân phải mua, bán theo đúng mức giá đó; b) Giá tối thiểu là mức giá mà cơ quan, tổ chức, cá nhân không được định giá, mua, bán thấp hơn mức giá đó; c) Giá tối đa là mức giá mà cơ quan, tổ chức, cá nhân không được định giá, mua, bán cao hơn mức giá đó; d) Khung giá là khoảng giới hạn mức giá mà cơ quan, tổ chức, cá nhân không được định giá, mua, bán thấp hơn mức tối thiểu và cao hơn mức tối đa của khung giá đó. 3. Thẩm quyền, trách nhiệm định giá được quy định như sau: a) Thủ tướng Chính phủ định giá đối với hàng hóa, dịch vụ đặc biệt quan trọng, có ảnh hưởng lớn đến kinh tế vĩ mô, đời sống người dân; b) Bộ Tài chính định giá đối với hàng hóa, dịch vụ thuộc lĩnh vực quản lý; hàng hóa, dịch vụ thuộc nhiều ngành, lĩnh vực quản lý và ảnh hưởng đến ngân sách nhà nước; c) Bộ, cơ quan ngang Bộ định giá đối với hàng hóa, dịch vụ thuộc lĩnh vực, phạm vi chuyên ngành quản lý theo quy định của pháp luật; d) Ủy ban nhân dân cấp tỉnh định giá đối với hàng hóa, dịch vụ theo thẩm quyền thuộc phạm vi quản lý theo địa bàn. 4. Danh mục hàng hóa, dịch vụ do Nhà nước định giá, hình thức định giá và thẩm quyền, trách nhiệm định giá được quy định tại Phụ lục số 02 kèm theo Luật này. Đặc điểm kinh tế - kỹ thuật của hàng hóa, dịch vụ thuộc Danh mục hàng hóa, dịch vụ do Nhà nước định giá thực hiện theo quy định của pháp luật có liên quan; trường hợp chưa có quy định thì các Bộ, cơ quan ngang Bộ, Ủy ban nhân dân cấp tỉnh có trách nhiệm ban hành theo thẩm quyền. 5. Trường hợp cần thiết phải điều chỉnh Danh mục hàng hóa, dịch vụ do Nhà nước định giá, các Bộ, cơ quan ngang Bộ, Ủy ban nhân dân cấp tỉnh lập văn bản đề nghị điều chỉnh gửi Bộ Tài chính tổng hợp, trình Chính phủ để trình Ủy ban Thường vụ Quốc hội xem xét, quyết định. 6. Chính phủ quy định chi tiết trình tự, thủ tục để trình Ủy ban Thường vụ Quốc hội điều chỉnh Danh mục hàng hóa, dịch vụ do Nhà nước định giá quy định tại khoản 5 Điều này."
+    },
+    {
+      "chunk_id": "167565::article_39",
+      "text": "Văn bản: Luật Giá số 16/2023/QH15 Số hiệu: 16/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Điều 39: Kinh phí bảo đảm cho công tác tổng hợp, phân tích, dự báo giá thị trường và cơ sở dữ liệu về giá Điều 39. Kinh phí bảo đảm cho công tác tổng hợp, phân tích, dự báo giá thị trường và cơ sở dữ liệu về giá 1. Kinh phí bảo đảm cho công tác tổng hợp, phân tích, dự báo giá thị trường và công tác quản lý, điều tiết giá được bố trí trong dự toán ngân sách nhà nước của các cơ quan, đơn vị được giao thực hiện nhiệm vụ. 2. Kinh phí đầu tư xây dựng, duy trì, nâng cấp, quản lý, vận hành cơ sở dữ liệu về giá được bảo đảm bằng ngân sách nhà nước theo phân cấp và các nguồn kinh phí hợp pháp khác theo quy định của pháp luật. Cơ quan được giao quản lý cơ sở dữ liệu về giá có trách nhiệm lập dự toán ngân sách phục vụ cho việc xây dựng, duy trì, nâng cấp, quản lý, vận hành để trình cấp có thẩm quyền phê duyệt theo quy định của pháp luật về ngân sách nhà nước. 3. Bộ trưởng Bộ Tài chính quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "167565::article_57",
+      "text": "Văn bản: Luật Giá số 16/2023/QH15 Số hiệu: 16/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VI Mục 2 Điều 57: Xác định giá dịch vụ thẩm định giá Điều 57. Xác định giá dịch vụ thẩm định giá Giá dịch vụ thẩm định giá được ghi trong hợp đồng thẩm định giá, thực hiện theo giao dịch dân sự giữa doanh nghiệp thẩm định giá với khách hàng thẩm định giá và phải bảo đảm nguyên tắc bù đắp chi phí thực tế hợp lý để thực hiện đầy đủ các hoạt động theo phạm vi công việc được quy định tại Chuẩn mực thẩm định giá Việt Nam."
+    },
+    {
+      "chunk_id": "168125::article_10",
+      "text": "Văn bản: Luật khám bệnh, chữa bệnh 2023 số 15/2023/QH15 Số hiệu: 15/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 10: Quyền được tôn trọng danh dự, bảo vệ sức khỏe và tôn trọng bí mật riêng tư trong khám bệnh, chữa bệnh Điều 10. Quyền được tôn trọng danh dự, bảo vệ sức khỏe và tôn trọng bí mật riêng tư trong khám bệnh, chữa bệnh 1. Được tôn trọng về tuổi, giới tính, dân tộc, tôn giáo, tín ngưỡng, tình trạng sức khỏe, điều kiện kinh tế, địa vị xã hội. 2. Được giữ bí mật thông tin trong hồ sơ bệnh án và thông tin khác về đời tư mà người bệnh đã cung cấp cho người hành nghề trong quá trình khám bệnh, chữa bệnh, trừ trường hợp người bệnh đồng ý chia sẻ thông tin theo quy định của pháp luật hoặc trường hợp quy định tại khoản 3 và khoản 4 Điều 69 của Luật này. 3. Không bị kỳ thị, phân biệt đối xử, ngược đãi, lạm dụng thể chất, lạm dụng tình dục trong quá trình khám bệnh, chữa bệnh. 4. Không bị ép buộc khám bệnh, chữa bệnh, trừ trường hợp bắt buộc chữa bệnh quy định tại khoản 1 Điều 82 của Luật này."
+    },
+    {
+      "chunk_id": "168125::article_31",
+      "text": "Văn bản: Luật khám bệnh, chữa bệnh 2023 số 15/2023/QH15 Số hiệu: 15/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Mục 3 Điều 31: Cấp lại giấy phép hành nghề Điều 31. Cấp lại giấy phép hành nghề 1. Cấp lại giấy phép hành nghề áp dụng đối với các trường hợp sau đây: a) Giấy phép hành nghề bị mất hoặc hư hỏng; b) Thay đổi thông tin quy định tại điểm a khoản 3 Điều 27 của Luật này hoặc có sai sót thông tin quy định tại khoản 3 Điều 27 của Luật này; c) Người bị thu hồi giấy phép hành nghề thuộc trường hợp cấp lại theo quy định của Chính phủ; d) Giấy phép hành nghề được cấp không đúng thẩm quyền; đ) Trường hợp khác theo quy định của Chính phủ. 2. Điều kiện cấp lại giấy phép hành nghề bao gồm: a) Đã được cấp giấy phép hành nghề; b) Đáp ứng các điều kiện phù hợp với nội dung đề nghị cấp lại; c) Không thuộc một trong các trường hợp quy định tại Điều 20 của Luật này. 3. Hồ sơ đề nghị cấp lại giấy phép hành nghề bao gồm: a) Đơn đề nghị cấp lại giấy phép hành nghề; b) Tài liệu chứng minh đáp ứng điều kiện quy định tại khoản 2 Điều này. 4. Thủ tục cấp lại giấy phép hành nghề được quy định như sau: a) Người đề nghị cấp lại giấy phép hành nghề nộp hồ sơ theo quy định tại khoản 3 Điều này cho cơ quan có thẩm quyền cấp giấy phép hành nghề; b) Cơ quan có thẩm quyền cấp giấy phép hành nghề phải cấp lại giấy phép hành nghề trong thời hạn 15 ngày kể từ ngày nhận đủ hồ sơ; trường hợp không cấp lại giấy phép hành nghề thì phải trả lời bằng văn bản và nêu rõ lý do; c) Trường hợp cần xác minh tài liệu có yếu tố nước ngoài trong hồ sơ đề nghị cấp lại giấy phép hành nghề thì thời hạn cấp lại là 15 ngày kể từ ngày có kết quả xác minh. 5. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "168125::article_62",
+      "text": "Văn bản: Luật khám bệnh, chữa bệnh 2023 số 15/2023/QH15 Số hiệu: 15/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Điều 62: Khám bệnh, chỉ định phương pháp chữa bệnh và kê đơn thuốc Điều 62. Khám bệnh, chỉ định phương pháp chữa bệnh và kê đơn thuốc 1. Việc khám bệnh, chỉ định phương pháp chữa bệnh và kê đơn thuốc phải tuân thủ quy định về chuyên môn kỹ thuật do Bộ trưởng Bộ Y tế ban hành hoặc công nhận. 2. Người hành nghề được giao nhiệm vụ khám bệnh, chữa bệnh có trách nhiệm sau đây: a) Khám bệnh, chỉ định phương pháp chữa bệnh và kê đơn thuốc kịp thời, chính xác và chịu trách nhiệm về quyết định của mình; b) Căn cứ vào tình trạng bệnh của người bệnh, áp dụng điều trị ngoại trú, điều trị ban ngày hoặc điều trị nội trú. Trường hợp người bệnh phải điều trị nội trú mà cơ sở khám bệnh, chữa bệnh không có giường điều trị nội trú thì phải giới thiệu người bệnh đến cơ sở khám bệnh, chữa bệnh phù hợp."
+    },
+    {
+      "chunk_id": "168125::article_91",
+      "text": "Văn bản: Luật khám bệnh, chữa bệnh 2023 số 15/2023/QH15 Số hiệu: 15/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VII Mục 2 Điều 91: Ưu đãi đối với hoạt động chuyển giao kỹ thuật chuyên môn về khám bệnh, chữa bệnh Điều 91. Ưu đãi đối với hoạt động chuyển giao kỹ thuật chuyên môn về khám bệnh, chữa bệnh Hoạt động chuyển giao kỹ thuật chuyên môn về khám bệnh, chữa bệnh được hưởng chế độ ưu đãi theo quy định của pháp luật về chuyển giao công nghệ, sở hữu trí tuệ, khoa học và công nghệ."
+    },
+    {
+      "chunk_id": "169032::article_100",
+      "text": "Văn bản: Luật Nhà ở số 27/2023/QH15 Số hiệu: 27/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VI Mục 3 Điều 100: Nguyên tắc cho thuê và quản lý vận hành nhà lưu trú công nhân trong khu công nghiệp Điều 100. Nguyên tắc cho thuê và quản lý vận hành nhà lưu trú công nhân trong khu công nghiệp 1. Nguyên tắc cho thuê nhà lưu trú công nhân trong khu công nghiệp bao gồm: a) Cá nhân là công nhân trong khu công nghiệp chỉ được thuê 01 nhà lưu trú công nhân trong khu công nghiệp trong cùng thời điểm và không được cho thuê lại hoặc chuyển nhượng hợp đồng thuê; b) Sau khi chấm dứt hợp đồng lao động thì người thuê nhà phải bàn giao lại nhà lưu trú công nhân trong khu công nghiệp cho bên cho thuê; c) Doanh nghiệp, hợp tác xã, liên hiệp hợp tác xã sản xuất trong khu công nghiệp chỉ được thuê nhà lưu trú công nhân trong khu công nghiệp để cho cá nhân là công nhân của doanh nghiệp, hợp tác xã, liên hiệp hợp tác xã mình thuê lại. 2. Bên cho thuê nhà lưu trú công nhân trong khu công nghiệp chịu trách nhiệm cho thuê đúng đối tượng cá nhân là công nhân trong khu công nghiệp. 3. Việc quản lý vận hành nhà lưu trú công nhân trong khu công nghiệp được thực hiện theo quy định tại điểm a khoản 2 Điều 90 của Luật này. 4. Chính phủ quy định chi tiết việc cho thuê và quản lý, sử dụng nhà lưu trú công nhân trong khu công nghiệp."
+    },
+    {
+      "chunk_id": "169032::article_149",
+      "text": "Văn bản: Luật Nhà ở số 27/2023/QH15 Số hiệu: 27/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IX Mục 3 Điều 149: Đơn vị quản lý vận hành nhà chung cư Điều 149. Đơn vị quản lý vận hành nhà chung cư 1. Đối với nhà chung cư có thang máy thì phải do đơn vị có chức năng, năng lực quản lý vận hành nhà chung cư thực hiện. Đối với nhà chung cư không có thang máy thì Hội nghị nhà chung cư quyết định tự quản lý vận hành hoặc thuê đơn vị có chức năng, năng lực quản lý vận hành nhà chung cư thực hiện. Trường hợp chủ đầu tư dự án đầu tư xây dựng nhà ở trực tiếp thực hiện quản lý vận hành nhà chung cư thì phải có chức năng, năng lực quản lý vận hành theo quy định tại Điều 150 của Luật này. 2. Trường hợp nhà chung cư phải có đơn vị quản lý vận hành theo quy định tại khoản 1 Điều này thì các chủ sở hữu, người sử dụng nhà chung cư không được thuê riêng các dịch vụ khác nhau để thực hiện quản lý vận hành. Đơn vị quản lý vận hành nhà chung cư có thể ký hợp đồng với đơn vị cung cấp dịch vụ để thực hiện một số nội dung liên quan đến việc quản lý vận hành nhà chung cư nhưng phải chịu trách nhiệm về việc quản lý vận hành theo nội dung hợp đồng đã ký kết với Ban quản trị nhà chung cư. 3. Đơn vị quản lý vận hành nhà chung cư được quản lý vận hành nhiều nhà chung cư tại một hoặc nhiều địa bàn khác nhau."
+    },
+    {
+      "chunk_id": "169032::article_20",
+      "text": "Văn bản: Luật Nhà ở số 27/2023/QH15 Số hiệu: 27/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 3 Điều 20: Quyền của chủ sở hữu nhà ở là tổ chức, cá nhân nước ngoài Điều 20. Quyền của chủ sở hữu nhà ở là tổ chức, cá nhân nước ngoài 1. Tổ chức kinh tế có vốn đầu tư nước ngoài quy định tại điểm a khoản 1 Điều 17 của Luật này được thực hiện quyền của chủ sở hữu nhà ở theo quy định tại Điều 10 của Luật này; trường hợp xây dựng nhà ở trên đất thuê thì chỉ được quyền cho thuê nhà ở. 2. Tổ chức, cá nhân nước ngoài quy định tại điểm b và điểm c khoản 1 Điều 17 của Luật này có quyền của chủ sở hữu đối với nhà ở như công dân Việt Nam nhưng phải tuân thủ các quy định sau đây: a) Chỉ được mua, thuê mua, nhận tặng cho, nhận thừa kế và sở hữu nhà ở theo đúng số lượng quy định tại Điều 19 của Luật này và được cấp Giấy chứng nhận đối với nhà ở đó; b) Trường hợp tổ chức, cá nhân nước ngoài được tặng cho, được thừa kế nhà ở không thuộc trường hợp quy định tại điểm b khoản 2 Điều 17 của Luật này hoặc vượt quá số lượng nhà ở quy định tại Điều 19 của Luật này hoặc thuộc khu vực cần bảo đảm quốc phòng, an ninh quy định tại Điều 16 của Luật này thì chỉ được hưởng giá trị của nhà ở; c) Đối với cá nhân nước ngoài thì được sở hữu nhà ở theo thỏa thuận trong giao dịch mua bán, thuê mua, tặng cho, nhận thừa kế nhà ở nhưng không quá 50 năm, kể từ ngày được cấp Giấy chứng nhận và được gia hạn một lần với thời hạn không quá 50 năm nếu có nhu cầu; thời hạn sở hữu nhà ở phải được ghi rõ trong Giấy chứng nhận. Trường hợp cá nhân nước ngoài kết hôn với công dân Việt Nam đang sinh sống tại Việt Nam thì được sở hữu nhà ở và có quyền của chủ sở hữu nhà ở như công dân Việt Nam. Trường hợp cá nhân nước ngoài kết hôn với người Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam thì được sở hữu nhà ở và có quyền của chủ sở hữu nhà ở như người Việt Nam định cư ở nước ngoài; d) Đối với tổ chức nước ngoài thì được sở hữu nhà ở theo thỏa thuận trong giao dịch mua bán, thuê mua, tặng cho, nhận thừa kế nhà ở nhưng không quá thời hạn ghi trong giấy chứng nhận đầu tư cấp cho tổ chức đó, bao gồm cả thời gian được gia hạn; thời hạn sở hữu nhà ở được tính từ ngày tổ chức được cấp Giấy chứng nhận và được ghi rõ trong Giấy chứng nhận này; đ) Trước khi hết thời hạn sở hữu nhà ở theo quy định của Luật này, chủ sở hữu có thể trực tiếp hoặc ủy quyền cho tổ chức, cá nhân khác thực hiện quyền tặng cho hoặc bán nhà ở này cho đối tượng thuộc trường hợp được sở hữu nhà ở tại Việt Nam; nếu quá thời hạn được sở hữu nhà ở mà chủ sở hữu không bán, tặng cho thì nhà ở đó thuộc tài sản công. Trường hợp bên được tặng cho, mua nhà ở là đối tượng quy định tại điểm a và điểm b khoản 1 Điều 8 của Luật này thì có quyền quy định tại khoản 1 Điều 10 của Luật này."
+    },
+    {
+      "chunk_id": "169032::article_51",
+      "text": "Văn bản: Luật Nhà ở số 27/2023/QH15 Số hiệu: 27/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 4 Điều 51: Chủ đầu tư dự án đầu tư xây dựng nhà ở phục vụ tái định cư Điều 51. Chủ đầu tư dự án đầu tư xây dựng nhà ở phục vụ tái định cư 1. Chủ đầu tư dự án đầu tư xây dựng nhà ở phục vụ tái định cư bao gồm Ban quản lý dự án chuyên ngành thuộc Ủy ban nhân dân cấp tỉnh, tổ chức phát triển quỹ đất cấp tỉnh, cơ quan quản lý nhà ở cấp tỉnh, Ủy ban nhân dân cấp huyện hoặc doanh nghiệp kinh doanh bất động sản. Trừ trường hợp quy định tại khoản 4 Điều này, việc quyết định chủ đầu tư dự án đầu tư xây dựng nhà ở phục vụ tái định cư được thực hiện theo quy định tại khoản 2 và khoản 3 Điều này. 2. Đối với dự án đầu tư xây dựng nhà ở phục vụ tái định cư có sử dụng vốn đầu tư công thì cơ quan quản lý nhà ở cấp tỉnh đề xuất một trong các đơn vị quy định tại khoản 1 Điều này làm chủ đầu tư dự án đầu tư xây dựng nhà ở, trừ doanh nghiệp kinh doanh bất động sản và báo cáo Ủy ban nhân dân cấp tỉnh quyết định chủ đầu tư dự án đầu tư xây dựng nhà ở. 3. Đối với dự án đầu tư xây dựng nhà ở phục vụ tái định cư không thuộc nguồn vốn quy định tại khoản 2 Điều này thì thẩm quyền quyết định chủ đầu tư dự án đầu tư xây dựng nhà ở được quy định như sau: a) Trường hợp xây dựng nhà ở phục vụ tái định cư cho dự án quan trọng quốc gia thì Thủ tướng Chính phủ quyết định hoặc ủy quyền cho Bộ trưởng Bộ Xây dựng quyết định chủ đầu tư dự án đầu tư xây dựng nhà ở; b) Trường hợp xây dựng nhà ở phục vụ tái định cư cho dự án không thuộc trường hợp quy định tại điểm a khoản này thì Ủy ban nhân dân cấp tỉnh quyết định chủ đầu tư dự án đầu tư xây dựng nhà ở, trừ trường hợp quy định tại điểm c khoản này; c) Trường hợp pháp luật quy định phải tổ chức đấu thầu lựa chọn nhà đầu tư làm chủ đầu tư dự án đầu tư xây dựng nhà ở thì thực hiện theo quy định đó. 4. Đối với trường hợp giải tỏa, phá dỡ nhà chung cư để xây dựng lại nhà chung cư thì việc lựa chọn chủ đầu tư dự án đầu tư xây dựng nhà ở được thực hiện theo quy định tại Điều 68 của Luật này."
+    },
+    {
+      "chunk_id": "169032::article_88::clauses_1-4",
+      "text": "Văn bản: Luật Nhà ở số 27/2023/QH15 Số hiệu: 27/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VI Mục 2 Điều 88: Nguyên tắc bán, cho thuê mua, cho thuê nhà ở xã hội Khoản 1-4 1. Việc bán, cho thuê mua, cho thuê nhà ở xã hội phải đúng quy định của Luật này. 2. Chủ đầu tư dự án đầu tư xây dựng nhà ở xã hội được lựa chọn hình thức bán, cho thuê mua nhà ở hình thành trong tương lai hoặc bán, cho thuê mua, cho thuê nhà ở có sẵn. Chủ đầu tư dự án đầu tư xây dựng nhà ở xã hội khi bán, cho thuê mua nhà ở không phải thực hiện nghĩa vụ bảo lãnh nhà ở hình thành trong tương lai và không phải thông qua sàn giao dịch bất động sản. 3. Việc bán, cho thuê mua nhà ở xã hội hình thành trong tương lai phải tuân thủ các điều kiện sau đây: a) Đã có hồ sơ dự án đầu tư xây dựng nhà ở, có thiết kế kỹ thuật nhà ở được phê duyệt và có giấy phép xây dựng nếu thuộc trường hợp phải có giấy phép xây dựng; b) Đã hoàn thành việc xây dựng phần móng của nhà ở theo quy định của pháp luật về xây dựng và hoàn thành việc đầu tư xây dựng hệ thống đường giao thông, cấp nước, thoát nước, điện sinh hoạt, điện chiếu sáng công cộng của khu vực nhà ở được bán, cho thuê mua theo quy hoạch chi tiết xây dựng, hồ sơ thiết kế và tiến độ của dự án đã được phê duyệt; đã giải chấp đối với trường hợp chủ đầu tư dự án đầu tư xây dựng nhà ở xã hội có thế chấp nhà ở này, trừ trường hợp được người mua, thuê mua và bên nhận thế chấp đồng ý không phải giải chấp; c) Đã có văn bản thông báo của cơ quan quản lý nhà ở cấp tỉnh về việc nhà ở đủ điều kiện được bán, cho thuê mua, trừ nhà ở xã hội được đầu tư xây dựng bằng vốn đầu tư công. 4. Việc bán, cho thuê mua, cho thuê nhà ở xã hội có sẵn của chủ đầu tư dự án đầu tư xây dựng nhà ở xã hội phải tuân thủ các điều kiện sau đây: a) Khu vực nhà ở để bán, cho thuê mua, cho thuê đã hoàn thành việc đầu tư xây dựng hệ thống hạ tầng kỹ thuật và các công trình hạ tầng xã hội theo quy hoạch chi tiết xây dựng, hồ sơ thiết kế và tiến độ của dự án đã được phê duyệt; nếu chủ đầu tư dự án đầu tư xây dựng nhà ở xã hội có thế chấp nhà ở thì phải giải chấp trước khi bán, cho thuê mua nhà ở này, trừ trường hợp được người mua, thuê mua và bên nhận thế chấp đồng ý không phải giải chấp; b) Đã có văn bản thông báo của cơ quan quản lý nhà ở cấp tỉnh về việc nhà ở đủ điều kiện được bán, cho thuê mua, cho thuê, trừ nhà ở xã hội được đầu tư xây dựng bằng vốn đầu tư công; c) Nhà ở có đủ điều kiện quy định tại điểm b và điểm c khoản 1 Điều 160 của Luật này."
+    },
+    {
+      "chunk_id": "172475::article_23",
+      "text": "Văn bản: Luật Đường bộ số 35/2024/QH15 Số hiệu: 35/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 3 Điều 23: Lắp đặt báo hiệu đường bộ Điều 23. Lắp đặt báo hiệu đường bộ 1. Báo hiệu đường bộ được lắp đặt bao gồm: a) Đèn tín hiệu giao thông; b) Biển báo hiệu đường bộ gồm: biển báo cấm, biển báo nguy hiểm, biển hiệu lệnh, biển chỉ dẫn, biển phụ; c) Vạch kẻ đường và các dấu hiệu khác trên mặt đường (gọi chung là vạch kẻ đường); d) Cọc tiêu, đinh phản quang, tiêu phản quang, cột Km, cọc H, mốc lộ giới; đ) Tường bảo vệ và rào chắn; e) Thiết bị âm thanh báo hiệu đường bộ. 2. Nguyên tắc lắp đặt đèn tín hiệu giao thông được quy định như sau: a) Mặt đèn quay về hướng đối diện chiều đi và phải đặt ở vị trí để người tham gia giao thông đường bộ dễ quan sát; b) Thứ tự lắp đặt đèn tín hiệu giao thông theo chiều thẳng đứng: đèn đỏ ở trên, đèn vàng ở giữa và đèn xanh ở dưới; c) Thứ tự lắp đặt đèn tín hiệu giao thông theo chiều ngang: đèn đỏ ở phía bên trái, đèn vàng ở giữa và đèn xanh ở phía bên phải theo chiều đi; d) Hệ thống đèn tín hiệu giao thông sau khi lắp đặt xong phải được chủ đầu tư, cơ quan quản lý đường bộ tổ chức vận hành thử phù hợp với yêu cầu tổ chức giao thông trên đường bộ trước khi nghiệm thu, đưa vào khai thác. 3. Nguyên tắc lắp đặt biển báo hiệu đường bộ được quy định như sau: a) Mặt biển quay về hướng đối diện chiều đi; b) Được đặt về phía bên phải hoặc phía trên phần đường xe chạy. Trong một số trường hợp cụ thể có thể đặt bổ sung biển báo ở phía bên trái theo chiều đi để chỉ dẫn, báo hiệu cho người tham gia giao thông đường bộ; c) Đặt ở vị trí để người tham gia giao thông đường bộ dễ quan sát và thực hiện; d) Biển phụ được sử dụng kết hợp để thuyết minh bổ sung các loại biển báo cấm, biển báo nguy hiểm, biển hiệu lệnh và biển chỉ dẫn. 4. Nguyên tắc bố trí vạch kẻ đường được quy định như sau: a) Vạch kẻ đường là hình thức báo hiệu đường bộ được kẻ trên mặt đường và trên các công trình đường bộ; b) Vạch kẻ đường có thể bố trí độc lập và có thể kết hợp với các biển báo hiệu đường bộ hoặc đèn tín hiệu giao thông. 5. Nguyên tắc lắp, đặt cọc tiêu, tường bảo vệ, đinh phản quang, tiêu phản quang, cột Km, cọc H, rào chắn, mốc lộ giới được quy định như sau: a) Cọc tiêu được lắp đặt ở các đoạn đường nguy hiểm và vị trí cần thiết để hướng dẫn cho người tham gia giao thông đường bộ biết phần đường an toàn và hướng đi của tuyến đường; b) Đinh phản quang được lắp đặt trên mặt đường theo chiều dọc hoặc chiều ngang đường để dẫn hướng, phân làn đường; c) Tiêu phản quang được lắp đặt tại các nơi mà tuyến đường có thể gây nhầm lẫn về hướng đường để dẫn hướng xe chạy vào ban đêm hoặc trong điều kiện sương mù, điều kiện hạn chế tầm nhìn; d) Cột Km được lắp đặt bảo đảm khoảng cách giữa hai cột Km liền kề là 1.000 mét, trường hợp đặc biệt, khoảng cách giữa hai cột liền kề có chiều dài lớn hơn hoặc nhỏ hơn 1.000 mét. Cột Km được sử dụng trong quản lý, vận hành, khai thác, xây dựng, cải tạo, bảo trì đường bộ và xác định vị trí sự cố công trình, ùn tắc giao thông, tai nạn giao thông đường bộ; giúp người tham gia giao thông đường bộ xác định khoảng cách các đoạn đường; đ) Cọc H được lắp đặt trong phạm vi giữa hai cột Km liền kề và bảo đảm khoảng cách giữa 02 cọc liền kề là 100 mét; e) Mốc lộ giới là cọc mốc được đặt ở mép ngoài cùng xác định ranh giới của hành lang an toàn đường bộ theo chiều ngang đường; g) Việc lắp đặt tường bảo vệ, rào chắn thực hiện theo quy định tại khoản 3 Điều 24 của Luật này. 6. Việc lắp đặt thiết bị báo hiệu đường bộ bằng âm thanh thực hiện theo hướng dẫn của nhà sản xuất. 7. Việc lắp đặt, điều chỉnh, bổ sung, thay thế báo hiệu đường bộ thực hiện theo nguyên tắc quy định tại các khoản 2, 3, 4 và 5 Điều này, bảo đảm quy chuẩn kỹ thuật và quy định của pháp luật có liên quan. 8. Trách nhiệm lắp đặt, điều chỉnh, bổ sung, thay thế báo hiệu đường bộ được quy định như sau: a) Chủ đầu tư dự án đầu tư xây dựng công trình đường bộ có trách nhiệm tổ chức thiết kế, lắp đặt đầy đủ báo hiệu đường bộ trong phạm vi dự án đầu tư xây dựng công trình đường bộ và báo hiệu đường bộ chỉ dẫn tại các điểm đấu nối đường khác với đường bộ do mình đầu tư xây dựng; b) Người quản lý, sử dụng công trình đường bộ có trách nhiệm quản lý, sử dụng báo hiệu đường bộ; rà soát, điều chỉnh, bổ sung, thay thế báo hiệu đường bộ theo quy định của Luật này, quy định của pháp luật về trật tự, an toàn giao thông đường bộ và quy chuẩn kỹ thuật quốc gia về báo hiệu đường bộ trong phạm vi đường bộ được giao quản lý."
+    },
+    {
+      "chunk_id": "172475::article_44",
+      "text": "Văn bản: Luật Đường bộ số 35/2024/QH15 Số hiệu: 35/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Điều 44: Quy định chung đối với đường bộ cao tốc Điều 44. Quy định chung đối với đường bộ cao tốc 1. Đường bộ cao tốc (sau đây gọi là đường cao tốc) là một cấp kỹ thuật của đường bộ, chỉ dành cho một số loại xe cơ giới, xe máy chuyên dùng tham gia giao thông theo quy định của pháp luật, có dải phân cách phân chia hai chiều xe chạy riêng biệt, không giao nhau cùng mức với một hoặc các đường khác, chỉ cho xe ra, vào ở những điểm nhất định, có hàng rào bảo vệ, trang thiết bị phục vụ, bảo đảm giao thông liên tục, an toàn, rút ngắn thời gian hành trình. 2. Đường cao tốc thuộc hệ thống quốc lộ, đường tỉnh, đường đô thị được xác định trong quy hoạch mạng lưới đường bộ, quy hoạch kết cấu hạ tầng đường bộ, quy hoạch vùng, quy hoạch tỉnh, quy hoạch đô thị hoặc quy hoạch đơn vị hành chính - kinh tế đặc biệt. 3. Đất để xây dựng kết cấu hạ tầng đường cao tốc bao gồm: a) Đất quy định tại điểm a và điểm b khoản 1 Điều 13 của Luật này; b) Đất để xây dựng trung tâm quản lý, điều hành giao thông tuyến đường cao tốc."
+    },
+    {
+      "chunk_id": "172475::article_65",
+      "text": "Văn bản: Luật Đường bộ số 35/2024/QH15 Số hiệu: 35/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Điều 65: Vận tải hành khách, hàng hóa bằng xe thô sơ, xe gắn máy, xe mô tô hai bánh, xe mô tô ba bánh Điều 65. Vận tải hành khách, hàng hóa bằng xe thô sơ, xe gắn máy, xe mô tô hai bánh, xe mô tô ba bánh 1. Tổ chức, cá nhân sử dụng xe thô sơ, xe gắn máy, xe mô tô hai bánh, xe mô tô ba bánh để kinh doanh vận tải hành khách, hàng hóa phải thực hiện quy định của pháp luật về trật tự, an toàn giao thông đường bộ. 2. Tổ chức, cá nhân cung cấp dịch vụ phần mềm hỗ trợ kết nối vận tải bằng xe thô sơ, xe gắn máy, xe mô tô hai bánh, xe mô tô ba bánh phải chấp hành quy định tại Điều 80 của Luật này."
+    },
+    {
+      "chunk_id": "172553::article_10",
+      "text": "Văn bản: Luật Công đoàn số 50/2024/QH15 Số hiệu: 50/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương I Điều 10: Các hành vi bị nghiêm cấm Điều 10. Các hành vi bị nghiêm cấm 1. Cản trở, gây khó khăn trong việc thực hiện quyền công đoàn. 2. Phân biệt đối xử đối với người lao động, cán bộ công đoàn vì lý do thành lập, gia nhập hoặc hoạt động công đoàn, bao gồm các hành vi sau đây: a) Yêu cầu tham gia, không tham gia hoặc ra khỏi Công đoàn Việt Nam để được tuyển dụng, giao kết hoặc gia hạn hợp đồng lao động, hợp đồng làm việc; b) Sa thải, kỷ luật, đơn phương chấm dứt hợp đồng lao động, hợp đồng làm việc; không tiếp tục giao kết hoặc gia hạn hợp đồng lao động, hợp đồng làm việc; chuyển người lao động làm công việc khác; c) Phân biệt đối xử về tiền lương, thưởng, phúc lợi, thời giờ làm việc, các quyền và nghĩa vụ khác trong lao động; d) Kỳ thị, phân biệt đối xử về giới, dân tộc, tôn giáo, tín ngưỡng và phân biệt đối xử khác trong lao động; đ) Thông tin không đúng sự thật nhằm hạ thấp uy tín, danh dự của cán bộ công đoàn; e) Hứa hẹn, cung cấp lợi ích vật chất, lợi ích phi vật chất để người lao động, cán bộ công đoàn không tham gia hoạt động công đoàn, thôi làm cán bộ công đoàn hoặc có hành vi chống lại Công đoàn; g) Chi phối, cản trở, gây khó khăn liên quan đến công việc nhằm làm suy yếu hoạt động công đoàn; h) Hành vi khác theo quy định của pháp luật. 3. Sử dụng biện pháp kinh tế, đe dọa tinh thần hoặc biện pháp khác gây bất lợi đối với tổ chức Công đoàn, can thiệp, thao túng quá trình thành lập, hoạt động của Công đoàn, làm suy yếu hoặc vô hiệu hóa việc thực hiện chức năng, nhiệm vụ, quyền, trách nhiệm của Công đoàn. 4. Không bảo đảm các điều kiện hoạt động công đoàn và cán bộ công đoàn theo quy định của pháp luật. 5. Không đóng kinh phí công đoàn; chậm đóng kinh phí công đoàn; đóng kinh phí công đoàn không đúng mức quy định; đóng kinh phí công đoàn không đủ số người thuộc đối tượng phải đóng; quản lý, sử dụng kinh phí công đoàn không đúng quy định. 6. Nhận viện trợ, tài trợ, tiếp nhận hỗ trợ kỹ thuật trái quy định của pháp luật. 7. Lợi dụng quyền công đoàn để vi phạm pháp luật, xâm phạm lợi ích của Nhà nước, quyền, lợi ích hợp pháp của cơ quan, tổ chức, đơn vị, doanh nghiệp, cá nhân. 8. Thông tin không đúng sự thật, kích động, xuyên tạc, phỉ báng về tổ chức và hoạt động công đoàn."
+    },
+    {
+      "chunk_id": "172553::article_12",
+      "text": "Văn bản: Luật Công đoàn số 50/2024/QH15 Số hiệu: 50/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 12: Tham gia quản lý nhà nước, quản lý kinh tế - xã hội Điều 12. Tham gia quản lý nhà nước, quản lý kinh tế - xã hội 1. Tham gia với cơ quan nhà nước xây dựng chính sách, pháp luật về kinh tế - xã hội, lao động, việc làm, tiền lương, bảo hiểm xã hội, bảo hiểm thất nghiệp, bảo hiểm y tế, an toàn, vệ sinh lao động và chính sách, pháp luật khác liên quan đến công đoàn, quyền, nghĩa vụ của người lao động. 2. Tham gia với cơ quan nhà nước bảo vệ quyền, lợi ích hợp pháp, chính đáng của người lao động về bảo hiểm xã hội, bảo hiểm thất nghiệp, bảo hiểm y tế, bảo hiểm tai nạn lao động, bệnh nghề nghiệp. 3. Tham gia xây dựng và thực hiện quy chế thực hiện dân chủ ở cơ quan, tổ chức, đơn vị, doanh nghiệp. 4. Thực hiện quyền và trách nhiệm của Công đoàn trong công tác an toàn, vệ sinh lao động theo quy định của pháp luật về an toàn, vệ sinh lao động. 5. Thực hiện các biện pháp hỗ trợ, bảo vệ đoàn viên công đoàn, cán bộ công đoàn và công đoàn cơ sở; hướng dẫn, hỗ trợ các hoạt động đối thoại, thương lượng tập thể, ký kết và thực hiện thỏa ước lao động tập thể bảo đảm thực chất. Tham gia xây dựng quan hệ lao động tiến bộ, hài hòa và ổn định. 6. Cung cấp, kết nối, chia sẻ thông tin, dữ liệu về tổ chức và hoạt động công đoàn với cơ quan quản lý nhà nước theo quy định của pháp luật. 7. Kiến nghị, đề xuất với cơ quan nhà nước có thẩm quyền xem xét, giải quyết kiến nghị, phản ánh, khiếu nại, tố cáo của người lao động, tập thể người lao động và các vấn đề khác mà đoàn viên công đoàn, người lao động quan tâm. 8. Tổ chức, phối hợp tổ chức phong trào thi đua trong phạm vi toàn quốc, ngành, địa phương, cơ quan, tổ chức, đơn vị, doanh nghiệp theo quy định của pháp luật."
+    },
+    {
+      "chunk_id": "172553::article_20",
+      "text": "Văn bản: Luật Công đoàn số 50/2024/QH15 Số hiệu: 50/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 20: Quyền, trách nhiệm của Công đoàn đối với người lao động ở nơi chưa có tổ chức đại diện người lao động tại cơ sở Điều 20. Quyền, trách nhiệm của Công đoàn đối với người lao động ở nơi chưa có tổ chức đại diện người lao động tại cơ sở 1. Ở nơi chưa có tổ chức đại diện người lao động tại cơ sở, Công đoàn có quyền, trách nhiệm đại diện, bảo vệ quyền, lợi ích hợp pháp, chính đáng của người lao động khi được người lao động ở đó yêu cầu hoặc khi phát hiện người sử dụng lao động có dấu hiệu xâm phạm quyền, lợi ích hợp pháp, chính đáng của người lao động, trừ trường hợp quy định tại khoản 2 Điều này. 2. Việc tổ chức đối thoại tại nơi làm việc và thương lượng tập thể thực hiện theo quy định của pháp luật về lao động."
+    },
+    {
+      "chunk_id": "172553::article_28",
+      "text": "Văn bản: Luật Công đoàn số 50/2024/QH15 Số hiệu: 50/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Điều 28: Bảo đảm cho cán bộ công đoàn Điều 28. Bảo đảm cho cán bộ công đoàn 1. Trường hợp hợp đồng lao động, hợp đồng làm việc hết hạn mà người lao động là cán bộ công đoàn không chuyên trách đang trong nhiệm kỳ công đoàn thì được gia hạn hợp đồng lao động, hợp đồng làm việc cho đến hết nhiệm kỳ công đoàn. 2. Người sử dụng lao động không được đơn phương chấm dứt hợp đồng lao động, hợp đồng làm việc, sa thải, buộc thôi việc hoặc chuyển làm công việc khác đối với cán bộ công đoàn không chuyên trách nếu không có ý kiến thỏa thuận bằng văn bản của công đoàn cấp trên trực tiếp. Trường hợp không thỏa thuận được, hai bên phải báo cáo với cơ quan, tổ chức có thẩm quyền. Sau 30 ngày kể từ ngày báo cho cơ quan, tổ chức có thẩm quyền biết, người sử dụng lao động có quyền quyết định và phải chịu trách nhiệm về quyết định của mình. 3. Trường hợp người lao động là cán bộ công đoàn không chuyên trách bị người sử dụng lao động chấm dứt hợp đồng lao động, hợp đồng làm việc, buộc thôi việc hoặc sa thải trái pháp luật thì Công đoàn có trách nhiệm yêu cầu cơ quan nhà nước có thẩm quyền can thiệp hoặc đại diện theo pháp luật khởi kiện vụ việc lao động tại Tòa án để bảo vệ quyền, lợi ích hợp pháp cho cán bộ công đoàn, trừ trường hợp cán bộ công đoàn từ chối. Trường hợp không thể trở lại làm công việc cũ thì cán bộ công đoàn không chuyên trách được Công đoàn hỗ trợ tìm việc làm mới và trong thời gian gián đoạn việc làm được hỗ trợ bằng tiền từ nguồn tài chính công đoàn theo quy định của Tổng Liên đoàn Lao động Việt Nam."
+    },
+    {
+      "chunk_id": "172799::article_21",
+      "text": "Văn bản: Luật Công chứng số 46/2024/QH15 Số hiệu: 46/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Điều 21: Thành lập Phòng công chứng Điều 21. Thành lập Phòng công chứng 1. Sở Tư pháp chủ trì, phối hợp với cơ quan chuyên môn thuộc Ủy ban nhân dân cấp tỉnh về kế hoạch và đầu tư, tài chính, nội vụ xây dựng đề án thành lập Phòng công chứng trình Ủy ban nhân dân cấp tỉnh xem xét, quyết định thành lập Phòng công chứng. Đề án phải nêu rõ sự cần thiết thành lập Phòng công chứng, dự kiến về tổ chức, tên, nhân sự, địa điểm đặt trụ sở, cơ sở vật chất và kế hoạch triển khai thực hiện. Phòng công chứng chỉ được thành lập mới tại những địa bàn cấp huyện chưa phát triển được Văn phòng công chứng đáp ứng yêu cầu công chứng của cá nhân, tổ chức. 2. Công chứng viên của Phòng công chứng được hành nghề kể từ ngày có quyết định thành lập Phòng công chứng hoặc Phòng công chứng bổ sung công chứng viên."
+    },
+    {
+      "chunk_id": "172799::article_39",
+      "text": "Văn bản: Luật Công chứng số 46/2024/QH15 Số hiệu: 46/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Điều 39: Bảo hiểm trách nhiệm nghề nghiệp của công chứng viên Điều 39. Bảo hiểm trách nhiệm nghề nghiệp của công chứng viên 1. Bảo hiểm trách nhiệm nghề nghiệp của công chứng viên là loại hình bảo hiểm bắt buộc. 2. Tổ chức hành nghề công chứng có nghĩa vụ mua bảo hiểm trách nhiệm nghề nghiệp cho công chứng viên hành nghề tại tổ chức mình. Việc mua bảo hiểm trách nhiệm nghề nghiệp cho công chứng viên phải được duy trì trong suốt thời gian hoạt động của tổ chức hành nghề công chứng. Chậm nhất là 10 ngày làm việc kể từ ngày mua bảo hiểm hoặc kể từ ngày thay đổi, gia hạn hợp đồng bảo hiểm, tổ chức hành nghề công chứng có trách nhiệm thông báo và gửi bản sao hợp đồng bảo hiểm, hợp đồng thay đổi, gia hạn hợp đồng bảo hiểm trách nhiệm nghề nghiệp của công chứng viên cho Sở Tư pháp. 3. Chính phủ quy định chi tiết điều kiện, quy tắc bảo hiểm, mức phí bảo hiểm, số tiền bảo hiểm tối thiểu đối với bảo hiểm trách nhiệm nghề nghiệp của công chứng viên."
+    },
+    {
+      "chunk_id": "172799::article_57",
+      "text": "Văn bản: Luật Công chứng số 46/2024/QH15 Số hiệu: 46/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Mục 2 Điều 57: Công chứng hợp đồng ủy quyền trong trường hợp bên ủy quyền và bên được ủy quyền không thể cùng đến một tổ chức hành nghề công chứng Điều 57. Công chứng hợp đồng ủy quyền trong trường hợp bên ủy quyền và bên được ủy quyền không thể cùng đến một tổ chức hành nghề công chứng 1. Trong trường hợp bên ủy quyền và bên được ủy quyền không thể cùng đến một tổ chức hành nghề công chứng thì bên ủy quyền được yêu cầu công chứng viên của tổ chức hành nghề công chứng mà mình lựa chọn chứng nhận việc đề nghị ủy quyền trong hợp đồng ủy quyền; bên được ủy quyền được yêu cầu công chứng viên của tổ chức hành nghề công chứng mà mình lựa chọn chứng nhận tiếp vào bản gốc của hợp đồng ủy quyền đó để xác nhận việc chấp nhận ủy quyền, hoàn thành việc công chứng hợp đồng ủy quyền và gửi 01 bản gốc của văn bản công chứng đó cho tổ chức hành nghề công chứng mà bên ủy quyền đã công chứng để lưu hồ sơ công chứng. Văn bản công chứng hợp đồng ủy quyền có hiệu lực kể từ thời điểm được công chứng viên của tổ chức hành nghề công chứng mà bên ủy quyền và bên được ủy quyền yêu cầu công chứng ký và đóng dấu của tổ chức hành nghề công chứng đó. Trường hợp là văn bản công chứng điện tử thì phải có chữ ký số của công chứng viên và chữ ký số của các tổ chức hành nghề công chứng đó. 2. Việc công chứng sửa đổi, bổ sung, thỏa thuận chấm dứt hợp đồng ủy quyền quy định tại khoản 1 Điều này được thực hiện theo quy định tại Điều 53 của Luật này. Bên ủy quyền và bên được ủy quyền có thể thỏa thuận để bên ủy quyền yêu cầu công chứng viên của tổ chức hành nghề công chứng đã công chứng việc ủy quyền thực hiện công chứng việc sửa đổi, bổ sung, thỏa thuận chấm dứt hợp đồng ủy quyền, sau đó gửi bản gốc văn bản sửa đổi, bổ sung, thỏa thuận chấm dứt hợp đồng ủy quyền cho bên được ủy quyền để yêu cầu công chứng viên của tổ chức hành nghề công chứng đã công chứng việc nhận ủy quyền công chứng tiếp việc sửa đổi, bổ sung, thỏa thuận chấm dứt hợp đồng ủy quyền và gửi 01 bản gốc của văn bản công chứng đó cho tổ chức hành nghề công chứng mà bên ủy quyền đã công chứng để lưu hồ sơ công chứng. Trường hợp hai bên cùng yêu cầu công chứng tại một trong hai tổ chức hành nghề công chứng đã thực hiện việc công chứng trước đó thì tổ chức hành nghề công chứng này có trách nhiệm thông báo và gửi 01 bản sao của văn bản sửa đổi, bổ sung, thỏa thuận chấm dứt hợp đồng cho tổ chức hành nghề công chứng còn lại để lưu hồ sơ công chứng. 3. Việc sửa lỗi kỹ thuật của văn bản công chứng theo quy định tại khoản 1 Điều này được thực hiện tại tổ chức hành nghề công chứng đã thực hiện việc công chứng, trừ trường hợp pháp luật có quy định khác. Công chứng viên thực hiện việc sửa lỗi kỹ thuật theo quy định tại khoản 3 và khoản 4 Điều 52 của Luật này, thông báo về việc sửa lỗi kỹ thuật cho tổ chức hành nghề công chứng còn lại đã thực hiện việc công chứng trong thời hạn 03 ngày làm việc kể từ ngày hoàn thành việc sửa lỗi kỹ thuật."
+    },
+    {
+      "chunk_id": "172799::article_8",
+      "text": "Văn bản: Luật Công chứng số 46/2024/QH15 Số hiệu: 46/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương I Điều 8: Trách nhiệm quản lý nhà nước về công chứng Điều 8. Trách nhiệm quản lý nhà nước về công chứng 1. Chính phủ thống nhất quản lý nhà nước về công chứng. 2. Bộ Tư pháp chịu trách nhiệm trước Chính phủ trong việc thực hiện quản lý nhà nước về công chứng trên phạm vi cả nước. 3. Các Bộ, cơ quan ngang Bộ, trong phạm vi chức năng, nhiệm vụ, quyền hạn của mình, có trách nhiệm phối hợp với Bộ Tư pháp trong việc thực hiện quản lý nhà nước về công chứng. 4. Ủy ban nhân dân tỉnh, thành phố trực thuộc trung ương (sau đây gọi là Ủy ban nhân dân cấp tỉnh), trong phạm vi chức năng, nhiệm vụ, quyền hạn của mình, thực hiện việc quản lý nhà nước về công chứng tại địa phương."
+    },
+    {
+      "chunk_id": "173024::article_10",
+      "text": "Văn bản: Luật Di sản văn hóa số 45/2024/QH15 Số hiệu: 45/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 10: Các loại hình di sản văn hóa phi vật thể Điều 10. Các loại hình di sản văn hóa phi vật thể Di sản văn hóa phi vật thể bao gồm các loại hình sau đây: 1. Biểu đạt và truyền thống truyền khẩu gồm các hình thức thể hiện thông tin bằng ngôn ngữ, tiếng nói, chữ viết, ký tự và ngữ văn dân gian; 2. Nghệ thuật trình diễn dân gian gồm âm nhạc, múa, hát, sân khấu truyền thống và các hình thức trình diễn dân gian khác; 3. Tập quán xã hội và tín ngưỡng gồm các thực hành thường xuyên, ổn định, thể hiện quan niệm, niềm tin của cộng đồng, thông qua các lễ nghi gắn liền với phong tục, tập quán truyền thống mang bản sắc văn hóa của cộng đồng chủ thể; 4. Lễ hội truyền thống gồm các thực hành nghi lễ và sinh hoạt văn hóa dân gian của cộng đồng, được thực hiện theo chu kỳ tại không gian văn hóa liên quan; 5. Tri thức dân gian gồm tri thức về tự nhiên và vũ trụ, sức khỏe và đời sống con người, lao động, sản xuất, phòng bệnh, chữa bệnh, ẩm thực, trang phục và các tri thức dân gian khác; 6. Nghề thủ công truyền thống gồm các thực hành thủ công bằng tri thức, kỹ năng, kỹ thuật, bí quyết, nghệ thuật cùng với công cụ, đồ vật, đồ tạo tác, nguyên vật liệu tự nhiên, tạo ra các sản phẩm mang bản sắc văn hóa của cộng đồng chủ thể."
+    },
+    {
+      "chunk_id": "173024::article_26",
+      "text": "Văn bản: Luật Di sản văn hóa số 45/2024/QH15 Số hiệu: 45/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 26: Hoạt động phát huy giá trị di tích Điều 26. Hoạt động phát huy giá trị di tích Hoạt động phát huy giá trị di tích bao gồm: 1. Nghiên cứu, sưu tầm, tư liệu hóa về giá trị di tích; ứng dụng khoa học, công nghệ vào việc phát huy giá trị di tích; 2. Tuyên truyền, giáo dục, quảng bá, trưng bày, phổ biến, giới thiệu ở trong nước và nước ngoài về vai trò, ý nghĩa, giá trị lịch sử, văn hóa, khoa học, thẩm mỹ của di tích; 3. Hướng dẫn, thuyết minh phục vụ khách tham quan; 4. Tổ chức hoặc liên doanh, liên kết tổ chức hoạt động du lịch, dịch vụ phục vụ công chúng tham quan, nghiên cứu, học tập tại di tích; 5. Phát triển sản phẩm, dịch vụ và tạo điều kiện để cộng đồng trên địa bàn có di tích tham gia phát triển sản phẩm, dịch vụ liên quan đến di tích; 6. Nghiên cứu, sưu tầm, trưng bày, giới thiệu tài liệu, hiện vật gắn với giá trị di tích; 7. Hoạt động văn hóa ở di tích; tổ chức thực hành, trình diễn, giới thiệu di sản văn hóa phi vật thể gắn với di tích; 8. Trưng bày, triển lãm lưu động bên ngoài phạm vi di tích; 9. Hoạt động phát huy giá trị di tích khác theo quy định của pháp luật."
+    },
+    {
+      "chunk_id": "173024::article_49",
+      "text": "Văn bản: Luật Di sản văn hóa số 45/2024/QH15 Số hiệu: 45/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Mục 2 Điều 49: Bảo vệ và phát huy giá trị di vật, cổ vật, bảo vật quốc gia trong nhà truyền thống, nhà lưu niệm, nhà trưng bày, thiết chế văn hóa khác Điều 49. Bảo vệ và phát huy giá trị di vật, cổ vật, bảo vật quốc gia trong nhà truyền thống, nhà lưu niệm, nhà trưng bày, thiết chế văn hóa khác Di vật, cổ vật, bảo vật quốc gia có trong nhà truyền thống, nhà lưu niệm, nhà trưng bày và thiết chế văn hóa khác được bảo quản, trưng bày và phát huy giá trị theo quy định của Luật này và quy định khác của pháp luật có liên quan."
+    },
+    {
+      "chunk_id": "173024::article_72",
+      "text": "Văn bản: Luật Di sản văn hóa số 45/2024/QH15 Số hiệu: 45/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Điều 72: Hoạt động kiểm kê, tư liệu hóa hiện vật của bảo tàng Điều 72. Hoạt động kiểm kê, tư liệu hóa hiện vật của bảo tàng 1. Hoạt động kiểm kê, tư liệu hóa hiện vật của bảo tàng bao gồm: a) Tiếp nhận, phân loại, đăng ký, sắp xếp, theo dõi tình hình xuất, nhập và tình trạng bảo quản hiện vật; b) Lập và quản lý hồ sơ liên quan đến hiện vật; c) Bổ sung thông tin về hiện vật; d) Nghiên cứu xây dựng sưu tập hiện vật; đ) Xây dựng hệ thống phiếu tra cứu hiện vật; e) Tin học hóa hệ thống quản lý hiện vật. 2. Hồ sơ kiểm kê, tư liệu hóa hiện vật được lập, quản lý, lưu trữ bằng văn bản và bằng công nghệ thông tin."
+    },
+    {
+      "chunk_id": "173974::article_10",
+      "text": "Văn bản: Luật Phòng cháy, chữa cháy và cứu nạn, cứu hộ số 55/2024/QH15 Số hiệu: 55/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương I Điều 10: Xây dựng, thực tập các phương án chữa cháy, cứu nạn, cứu hộ Điều 10. Xây dựng, thực tập các phương án chữa cháy, cứu nạn, cứu hộ 1. Người đứng đầu cơ sở, chủ phương tiện giao thông quy định tại khoản 2 Điều 22 của Luật này có trách nhiệm tổ chức xây dựng, thực tập phương án chữa cháy, cứu nạn, cứu hộ sử dụng lực lượng, phương tiện tại chỗ của cơ sở, phương tiện giao thông trong phạm vi quản lý. 2. Cơ quan Công an có trách nhiệm sau đây: a) Tổ chức xây dựng, thực tập phương án chữa cháy, cứu nạn, cứu hộ đối với cơ sở có nguy hiểm về cháy, nổ; b) Tổ chức xây dựng, thực tập phương án cứu nạn, cứu hộ đối với các tình huống tai nạn, sự cố quy định tại điểm b khoản 1 Điều 32 của Luật này cần huy động lực lượng, phương tiện của nhiều cơ quan, tổ chức, cá nhân. 3. Người đứng đầu cơ sở có nguy hiểm về cháy, nổ có trách nhiệm phối hợp với cơ quan Công an trong xây dựng, thực tập phương án chữa cháy, cứu nạn, cứu hộ quy định tại điểm a khoản 2 Điều này; Chủ tịch Ủy ban nhân dân cấp xã có trách nhiệm phối hợp với cơ quan Công an xây dựng, thực tập phương án cứu nạn, cứu hộ quy định tại điểm b khoản 2 Điều này. 4. Cơ quan, tổ chức, cá nhân có trong phương án chữa cháy, cứu nạn, cứu hộ hoặc phương án cứu nạn, cứu hộ do cơ quan Công an xây dựng có trách nhiệm bố trí lực lượng, người, phương tiện tham gia thực tập phương án. 5. Cơ quan Quân sự, Biên phòng có trách nhiệm chủ trì, phối hợp cơ quan Công an tổ chức xây dựng, diễn tập phương án chữa cháy, cứu nạn, cứu hộ đối với cơ sở có nguy hiểm về cháy, nổ thuộc phạm vi quản lý. 6. Chính phủ quy định về nội dung, thời gian thực tập phương án chữa cháy, cứu nạn, cứu hộ và phương án cứu nạn, cứu hộ."
+    },
+    {
+      "chunk_id": "173974::article_15",
+      "text": "Văn bản: Luật Phòng cháy, chữa cháy và cứu nạn, cứu hộ số 55/2024/QH15 Số hiệu: 55/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 15: Yêu cầu về phòng cháy, chữa cháy khi lập, điều chỉnh, phê duyệt quy hoạch đô thị và nông thôn Điều 15. Yêu cầu về phòng cháy, chữa cháy khi lập, điều chỉnh, phê duyệt quy hoạch đô thị và nông thôn Khi lập, điều chỉnh, phê duyệt quy hoạch chung, quy hoạch phân khu, quy hoạch chi tiết đô thị, khu dân cư, cụm công nghiệp và các khu chức năng theo quy định của pháp luật về quy hoạch đô thị và nông thôn phải có giải pháp, thiết kế về phòng cháy và chữa cháy phù hợp với từng cấp độ quy hoạch và được quy định như sau: 1. Quy hoạch chung phải có nội dung phát triển hạ tầng phòng cháy và chữa cháy; 2. Quy hoạch phân khu đô thị, khu chức năng có yêu cầu lập quy hoạch phân khu phải có: a) Nguồn nước và phương án tổ chức mạng lưới cấp nước chữa cháy; b) Mạng lưới giao thông phục vụ chữa cháy, cứu nạn, cứu hộ; c) Vị trí, quy mô của trụ sở đơn vị phòng cháy, chữa cháy và cứu nạn, cứu hộ trong khu vực lập quy hoạch; 3. Quy hoạch chi tiết đô thị, khu dân cư, cụm công nghiệp và các khu chức năng phải có: a) Đường bộ, bãi đỗ, khoảng trống bảo đảm cho xe chữa cháy và phương tiện chữa cháy cơ giới triển khai hoạt động; b) Nguồn nước chữa cháy từ bồn, bể, ao, hồ tự nhiên, hồ nhân tạo hoặc hệ thống cấp nước chữa cháy ngoài nhà; c) Nguồn điện phục vụ hoạt động phòng cháy, chữa cháy; d) Địa điểm cho đơn vị phòng cháy, chữa cháy và cứu nạn, cứu hộ bảo đảm diện tích xây dựng và yêu cầu đã được xác định tại quy hoạch quy định tại khoản 1 và khoản 2 Điều này; 4. Cơ quan có thẩm quyền theo quy định của pháp luật về quy hoạch đô thị và nông thôn chỉ phê duyệt quy hoạch chung, quy hoạch phân khu, quy hoạch chi tiết đô thị, khu dân cư, cụm công nghiệp và các khu chức năng khi bảo đảm các yêu cầu về phòng cháy, chữa cháy theo quy định tại các khoản 1, 2 và 3 Điều này; 5. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "173974::article_28",
+      "text": "Văn bản: Luật Phòng cháy, chữa cháy và cứu nạn, cứu hộ số 55/2024/QH15 Số hiệu: 55/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Điều 28: Người chỉ huy chữa cháy Điều 28. Người chỉ huy chữa cháy 1. Người có chức vụ cao nhất của lực lượng Công an nhân dân được phân công chỉ huy chữa cháy có mặt tại nơi xảy ra cháy là người chỉ huy chữa cháy. 2. Trường hợp tại nơi xảy ra cháy, lực lượng Công an nhân dân chưa đến thì người chỉ huy chữa cháy được quy định như sau: a) Cháy tại cơ sở thì người đứng đầu cơ sở là người chỉ huy chữa cháy; trường hợp người đứng đầu cơ sở vắng mặt thì Đội trưởng Đội phòng cháy, chữa cháy và cứu nạn, cứu hộ cơ sở hoặc Đội trưởng Đội phòng cháy, chữa cháy và cứu nạn, cứu hộ chuyên ngành hoặc người được ủy quyền là người chỉ huy chữa cháy; b) Cháy phương tiện giao thông đang lưu thông thì người chỉ huy phương tiện, chủ phương tiện là người chỉ huy chữa cháy; trường hợp người chỉ huy phương tiện, chủ phương tiện vắng mặt thì người điều khiển phương tiện là người chỉ huy chữa cháy; c) Cháy tại thôn, tổ dân phố không thuộc các trường hợp quy định tại điểm a và điểm b khoản này thì Trưởng thôn, Tổ trưởng tổ dân phố là người chỉ huy chữa cháy; trường hợp Trưởng thôn, Tổ trưởng tổ dân phố vắng mặt thì Đội trưởng Đội dân phòng hoặc người được ủy quyền là người chỉ huy chữa cháy. 3. Người chỉ huy chữa cháy thuộc lực lượng Công an nhân dân thực hiện quyền chỉ huy bằng mệnh lệnh, chịu trách nhiệm về quyết định của mình và có các quyền sau đây: a) Sử dụng lực lượng, phương tiện của cơ quan Công an thuộc phạm vi quản lý tham gia chữa cháy; b) Huy động theo thẩm quyền hoặc đề nghị người có thẩm quyền huy động lực lượng, người, phương tiện, tài sản của cơ quan, tổ chức, hộ gia đình, cá nhân tham gia chữa cháy theo quy định của pháp luật; c) Xác định, quyết định khu vực chữa cháy, các biện pháp chữa cháy, việc sử dụng địa hình, địa vật lân cận để chữa cháy; d) Cấm người và phương tiện không có nhiệm vụ vào khu vực chữa cháy; đ) Quyết định việc di chuyển, phá dỡ chướng ngại vật, tài sản để cứu nạn, cứu hộ, ngăn chặn nguy cơ cháy lan theo quy định của pháp luật. 4. Người chỉ huy chữa cháy quy định tại khoản 2 Điều này chịu trách nhiệm về quyết định của mình và có các quyền sau đây: a) Sử dụng lực lượng, phương tiện thuộc phạm vi quản lý tham gia chữa cháy; b) Đề nghị người có thẩm quyền huy động lực lượng, người, phương tiện, tài sản của cơ quan, tổ chức, hộ gia đình, cá nhân tham gia chữa cháy theo quy định của pháp luật; c) Quyết định việc di chuyển, phá dỡ chướng ngại vật, tài sản để cứu nạn, cứu hộ, ngăn chặn nguy cơ cháy lan theo quy định của pháp luật."
+    },
+    {
+      "chunk_id": "173974::article_41",
+      "text": "Văn bản: Luật Phòng cháy, chữa cháy và cứu nạn, cứu hộ số 55/2024/QH15 Số hiệu: 55/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương V Điều 41: Nhiệm vụ của lực lượng Cảnh sát phòng cháy, chữa cháy và cứu nạn, cứu hộ Điều 41. Nhiệm vụ của lực lượng Cảnh sát phòng cháy, chữa cháy và cứu nạn, cứu hộ 1. Tham mưu, đề xuất với Bộ trưởng Bộ Công an ban hành, đề xuất cấp có thẩm quyền ban hành và tổ chức thực hiện chiến lược, chính sách, đề án, dự án, quy hoạch, kế hoạch, quy định của pháp luật về phòng cháy, chữa cháy và cứu nạn, cứu hộ. 2. Tổ chức tuyên truyền, phổ biến, giáo dục kiến thức, pháp luật về phòng cháy, chữa cháy và cứu nạn, cứu hộ; hướng dẫn xây dựng phong trào toàn dân tham gia phòng cháy, chữa cháy, cứu nạn, cứu hộ; huấn luyện, bồi dưỡng nghiệp vụ, kiến thức, kỹ năng về phòng cháy, chữa cháy, cứu nạn, cứu hộ. 3. Xây dựng, thực tập phương án chữa cháy, cứu nạn, cứu hộ và phương án cứu nạn, cứu hộ. 4. Thực hiện chữa cháy, cứu nạn, cứu hộ. 5. Thẩm định thiết kế, kiểm tra công tác nghiệm thu về phòng cháy và chữa cháy theo thẩm quyền. 6. Hướng dẫn xây dựng lực lượng phòng cháy, chữa cháy và cứu nạn, cứu hộ; hướng dẫn thực hiện công tác phòng cháy, chữa cháy và cứu nạn, cứu hộ; hướng dẫn trang bị, quản lý, sử dụng phương tiện phòng cháy, chữa cháy, cứu nạn, cứu hộ. 7. Tổ chức nghiên cứu, ứng dụng khoa học và công nghệ trong lĩnh vực phòng cháy, chữa cháy, cứu nạn, cứu hộ. 8. Thống kê, tổng hợp dữ liệu về phòng cháy, chữa cháy, cứu nạn, cứu hộ; xây dựng, quản lý, khai thác, vận hành hệ thống Cơ sở dữ liệu về phòng cháy, chữa cháy, cứu nạn, cứu hộ và truyền tin báo cháy. 9. Kiểm tra, thanh tra, xử lý vi phạm pháp luật về phòng cháy, chữa cháy và cứu nạn, cứu hộ theo quy định của pháp luật. 10. Thực hiện quản lý hoạt động chứng nhận hợp chuẩn, hợp quy phương tiện phòng cháy, chữa cháy, cứu nạn, cứu hộ theo quy định của pháp luật về chất lượng sản phẩm, hàng hóa và pháp luật về tiêu chuẩn, quy chuẩn kỹ thuật. 11. Thực hiện một số hoạt động điều tra theo quy định của pháp luật về tố tụng hình sự và pháp luật về tổ chức điều tra hình sự. 12. Thực hiện hợp tác quốc tế về phòng cháy, chữa cháy, cứu nạn, cứu hộ. 13. Thực hiện nhiệm vụ khác theo quy định của pháp luật về Công an nhân dân và quy định khác của pháp luật có liên quan. 14. Bộ trưởng Bộ Công an quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "173982::article_18",
+      "text": "Văn bản: LUẬT PHÒNG, CHỐNG MUA BÁN NGƯỜI SỐ 53/2024/QH15 Số hiệu: 53/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 18: Trách nhiệm của cơ quan báo chí, thông tấn tham gia phòng ngừa mua bán người Điều 18. Trách nhiệm của cơ quan báo chí, thông tấn tham gia phòng ngừa mua bán người 1. Thông tin, tuyên truyền, phổ biến kịp thời, chính xác chính sách, pháp luật về phòng, chống mua bán người; phản ánh trung thực về tình hình mua bán người và công tác phòng, chống mua bán người; nêu gương điển hình tiên tiến, mô hình phòng, chống mua bán người có hiệu quả. 2. Giữ bí mật thông tin về nạn nhân, người đang trong quá trình xác định là nạn nhân, người dưới 18 tuổi đi cùng, trừ trường hợp pháp luật có quy định khác."
+    },
+    {
+      "chunk_id": "173982::article_33",
+      "text": "Văn bản: LUẬT PHÒNG, CHỐNG MUA BÁN NGƯỜI SỐ 53/2024/QH15 Số hiệu: 53/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương IV Mục 2 Điều 33: Giấy tờ, tài liệu xác nhận nạn nhân và thẩm quyền cấp giấy tờ, tài liệu xác nhận nạn nhân Điều 33. Giấy tờ, tài liệu xác nhận nạn nhân và thẩm quyền cấp giấy tờ, tài liệu xác nhận nạn nhân 1. Giấy tờ, tài liệu xác nhận nạn nhân là một trong các giấy tờ, tài liệu sau đây: a) Giấy xác nhận là nạn nhân hoặc giấy xác nhận không phải là nạn nhân; b) Giấy tờ, tài liệu chứng minh người đó là nạn nhân do cơ quan nước ngoài cấp đã được cơ quan đại diện Việt Nam ở nước ngoài hoặc Bộ Ngoại giao Việt Nam hợp pháp hóa lãnh sự. 2. Cơ quan có thẩm quyền cấp giấy xác nhận quy định tại khoản 1 Điều này bao gồm: a) Công an cấp huyện quy định tại khoản 4 Điều 27 và khoản 1 Điều 28 của Luật này; b) Cơ quan giải cứu, tiếp nhận quy định tại các điều từ Điều 28 đến Điều 31 của Luật này; c) Cơ quan điều tra, cơ quan được giao nhiệm vụ tiến hành một số hoạt động điều tra, Viện kiểm sát nhân dân, Tòa án nhân dân; d) Cơ quan đại diện Việt Nam ở nước ngoài quy định tại khoản 1 Điều 29 của Luật này. 3. Trường hợp đã cấp giấy xác nhận quy định tại điểm a khoản 1 Điều này nhưng sau đó cơ quan có thẩm quyền quy định tại khoản 2 Điều này chứng minh được việc cấp giấy xác nhận chưa đúng thì có trách nhiệm hủy và cấp lại giấy xác nhận."
+    },
+    {
+      "chunk_id": "173982::article_48",
+      "text": "Văn bản: LUẬT PHÒNG, CHỐNG MUA BÁN NGƯỜI SỐ 53/2024/QH15 Số hiệu: 53/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương VI Điều 48: Nội dung quản lý nhà nước về phòng, chống mua bán người Điều 48. Nội dung quản lý nhà nước về phòng, chống mua bán người 1. Ban hành và tổ chức thực hiện chính sách, pháp luật về phòng, chống mua bán người. 2. Thông tin, tuyên truyền, phổ biến, giáo dục pháp luật về phòng, chống mua bán người. 3. Thực hiện công tác thống kê, báo cáo về phòng, chống mua bán người. 4. Đào tạo, bồi dưỡng người làm công tác phòng, chống mua bán người. 5. Nghiên cứu khoa học và hợp tác quốc tế về phòng, chống mua bán người. 6. Khen thưởng cơ quan, tổ chức, cá nhân có thành tích trong phòng, chống mua bán người. 7. Thanh tra, kiểm tra, giải quyết khiếu nại, tố cáo và xử lý vi phạm pháp luật về phòng, chống mua bán người."
+    },
+    {
+      "chunk_id": "173982::article_8",
+      "text": "Văn bản: LUẬT PHÒNG, CHỐNG MUA BÁN NGƯỜI SỐ 53/2024/QH15 Số hiệu: 53/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 8: Tư vấn về phòng ngừa mua bán người Điều 8. Tư vấn về phòng ngừa mua bán người Người chuẩn bị tham gia vào quan hệ về lao động, việc làm, hôn nhân, nuôi con nuôi có yếu tố nước ngoài hoặc các dịch vụ khác dễ bị lợi dụng để mua bán người được cơ quan, tổ chức quy định tại các điều 19, 20 và 21 của Luật này tư vấn các nội dung sau đây: 1. Kiến thức pháp luật về phòng, chống mua bán người; 2. Hướng nghiệp, việc làm, di cư an toàn; thông tin về mục đích, thủ đoạn, hành vi mua bán người, kỹ năng xử lý trong trường hợp là nạn nhân bị mua bán và hướng dẫn kỹ năng ứng xử trong trường hợp có nghi ngờ về việc mua bán người; 3. Thông tin về quyền, nghĩa vụ của nạn nhân, người đang trong quá trình xác định là nạn nhân và hướng dẫn cách thức thực hiện quyền, nghĩa vụ đó."
+    },
+    {
+      "chunk_id": "174877::article_14",
+      "text": "Văn bản: Luật Dữ liệu số 60/2024/QH15 Số hiệu: 60/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 14: Hoạt động lưu trữ dữ liệu Điều 14. Hoạt động lưu trữ dữ liệu 1. Cơ quan nhà nước chịu trách nhiệm tổ chức lưu trữ dữ liệu bảo đảm an toàn. 2. Tổ chức, cá nhân không thuộc quy định tại khoản 1 Điều này là chủ sở hữu dữ liệu được quyền quyết định việc lưu trữ dữ liệu do mình thu thập, tạo lập, sở hữu; trường hợp lưu trữ dữ liệu cốt lõi, dữ liệu quan trọng phải bảo đảm tuân thủ theo quy định tại khoản 3 Điều 27 của Luật này. 3. Cơ sở dữ liệu quốc gia phải được lưu trữ dữ liệu trên cơ sở hạ tầng của Trung tâm dữ liệu quốc gia. 4. Cơ sở dữ liệu chuyên ngành và cơ sở dữ liệu khác của cơ quan nhà nước được lưu trữ dữ liệu trên hạ tầng của Trung tâm dữ liệu quốc gia hoặc hạ tầng của cơ quan, tổ chức khác đáp ứng tiêu chuẩn về trung tâm dữ liệu. Đối với dữ liệu dùng riêng và dữ liệu thuộc lĩnh vực quốc phòng, an ninh, đối ngoại, cơ yếu thực hiện lưu trữ dữ liệu trên cơ sở hạ tầng của Trung tâm dữ liệu quốc gia khi được sự đồng ý của chủ sở hữu dữ liệu. Tổ chức, cá nhân không thuộc quy định tại khoản 1 Điều này là chủ sở hữu dữ liệu được quyền thỏa thuận lưu trữ dữ liệu trên cơ sở hạ tầng của Trung tâm dữ liệu quốc gia bằng hợp đồng cung cấp dịch vụ giữa tổ chức, cá nhân đó với tổ chức cung cấp dịch vụ khai thác dữ liệu, cơ sở hạ tầng tại Trung tâm dữ liệu quốc gia. 5. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "174877::article_25",
+      "text": "Văn bản: Luật Dữ liệu số 60/2024/QH15 Số hiệu: 60/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Điều 25: Xác định và quản lý rủi ro phát sinh trong xử lý dữ liệu Điều 25. Xác định và quản lý rủi ro phát sinh trong xử lý dữ liệu 1. Rủi ro phát sinh trong xử lý dữ liệu bao gồm: rủi ro quyền riêng tư, rủi ro an ninh mạng, rủi ro nhận dạng và quản lý truy cập, rủi ro khác trong xử lý dữ liệu. 2. Cơ quan nhà nước phải xác định, thiết lập cơ chế cảnh báo sớm về rủi ro phát sinh trong xử lý dữ liệu, xây dựng biện pháp để bảo vệ dữ liệu. 3. Chủ quản dữ liệu không thuộc quy định tại khoản 2 Điều này tự đánh giá, xác định rủi ro và thực hiện các biện pháp để bảo vệ dữ liệu; kịp thời khắc phục rủi ro phát sinh và thông báo cho chủ thể dữ liệu, cơ quan, tổ chức, cá nhân có liên quan. 4. Chủ quản dữ liệu cốt lõi, dữ liệu quan trọng phải định kỳ tiến hành đánh giá rủi ro đối với các hoạt động xử lý dữ liệu đó theo quy định và thông báo tới đơn vị chuyên trách về an ninh mạng, an toàn thông tin thuộc Bộ Công an, Bộ Quốc phòng và cơ quan có liên quan để phối hợp thực hiện việc bảo vệ an toàn, an ninh dữ liệu. 5. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "174877::article_35",
+      "text": "Văn bản: Luật Dữ liệu số 60/2024/QH15 Số hiệu: 60/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương III Mục 2 Điều 35: Khai thác và sử dụng Cơ sở dữ liệu tổng hợp quốc gia Điều 35. Khai thác và sử dụng Cơ sở dữ liệu tổng hợp quốc gia 1. Cơ sở dữ liệu tổng hợp quốc gia được xây dựng phục vụ việc khai thác, sử dụng chung đáp ứng hoạt động của cơ quan Đảng, Nhà nước, Ủy ban Mặt trận Tổ quốc Việt Nam và các tổ chức chính trị - xã hội; phục vụ thực hiện thủ tục hành chính, dịch vụ công, phục vụ chỉ đạo điều hành của Chính phủ; phục vụ công tác thống kê, hoạch định chính sách, xây dựng quy hoạch, chiến lược phát triển kinh tế - xã hội, quốc phòng, an ninh, đối ngoại, cơ yếu, đấu tranh phòng, chống tội phạm, xử lý vi phạm pháp luật; phục vụ nhu cầu khai thác, sử dụng, ứng dụng dữ liệu của tổ chức, cá nhân. 2. Dữ liệu trong Cơ sở dữ liệu tổng hợp quốc gia có giá trị khai thác và sử dụng như dữ liệu gốc. 3. Chủ thể khai thác và sử dụng dữ liệu trong Cơ sở dữ liệu tổng hợp quốc gia, bao gồm: a) Cơ quan Đảng, Nhà nước, Ủy ban Mặt trận Tổ quốc Việt Nam và các tổ chức chính trị - xã hội được khai thác và sử dụng dữ liệu phù hợp với chức năng, nhiệm vụ của cơ quan, tổ chức đó; b) Chủ thể dữ liệu được khai thác và sử dụng dữ liệu phản ánh về chủ thể dữ liệu đó; c) Tổ chức và cá nhân không thuộc quy định tại điểm a và điểm b khoản này được khai thác và sử dụng dữ liệu như sau: tự do khai thác và sử dụng dữ liệu mở; khai thác và sử dụng dữ liệu cá nhân khi được sự đồng ý của Trung tâm dữ liệu quốc gia và cá nhân là chủ thể dữ liệu được khai thác; khai thác và sử dụng dữ liệu khác khi được sự đồng ý của Trung tâm dữ liệu quốc gia. 4. Việc khai thác và sử dụng dữ liệu thực hiện qua các phương thức sau đây: a) Kết nối, chia sẻ dữ liệu giữa cơ sở dữ liệu quốc gia, cơ sở dữ liệu chuyên ngành, cơ sở dữ liệu, hệ thống thông tin khác với Cơ sở dữ liệu tổng hợp quốc gia; b) Cổng dữ liệu quốc gia, Cổng Dịch vụ công quốc gia, cổng thông tin điện tử, hệ thống thông tin giải quyết thủ tục hành chính; c) Nền tảng định danh và xác thực điện tử; d) Ứng dụng định danh quốc gia; đ) Thiết bị, phương tiện, phần mềm do Trung tâm dữ liệu quốc gia cung cấp; e) Phương thức khác. 5. Chính phủ quy định chi tiết Điều này."
+    },
+    {
+      "chunk_id": "175425::article_135",
+      "text": "Văn bản: Luật Tư pháp người chưa thành niên số 59/2024/QH15 Số hiệu: 59/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Phần thứ ba Chương VII Mục 2 Điều 135: Các biện pháp ngăn chặn, biện pháp cưỡng chế Điều 135. Các biện pháp ngăn chặn, biện pháp cưỡng chế 1. Các biện pháp ngăn chặn áp dụng đối với người chưa thành niên bao gồm: a) Giữ người trong trường hợp khẩn cấp; b) Bắt người theo các trường hợp quy định tại Bộ luật Tố tụng hình sự; c) Tạm giữ; d) Tạm giam; đ) Giám sát điện tử; e) Giám sát bởi người đại diện; g) Bảo lĩnh; h) Đặt tiền để bảo đảm; i) Cấm đi khỏi nơi cư trú; k) Tạm hoãn xuất cảnh. 2. Các biện pháp cưỡng chế áp dụng đối với người chưa thành niên bao gồm: a) Áp giải, dẫn giải; b) Kê biên tài sản; c) Phong tỏa tài khoản. 3. Sau khi giữ người trong trường hợp khẩn cấp, bắt, tạm giữ, tạm giam, người ra lệnh giữ người, lệnh hoặc quyết định bắt, tạm giữ, tạm giam người chưa thành niên phải thông báo ngay bằng văn bản cho gia đình của họ, Ủy ban nhân dân cấp xã nơi người đó cư trú hoặc cơ quan, tổ chức nơi người đó làm việc, học tập biết; trường hợp cần thiết có thể báo tin trực tiếp, qua điện thoại hoặc phương tiện điện tử khác nhưng ngay sau đó phải gửi thông báo bằng văn bản. Trong thời hạn 12 giờ kể từ khi nhận người bị giữ, bị bắt là người chưa thành niên, Cơ quan điều tra nhận người bị giữ, bị bắt phải thông báo cho gia đình người bị giữ, bị bắt, Ủy ban nhân dân cấp xã nơi người đó cư trú hoặc cơ quan, tổ chức nơi người đó làm việc, học tập biết; trường hợp người bị giữ, bị bắt là công dân nước ngoài thì phải thông báo cho cơ quan ngoại giao của Việt Nam để thông báo cho cơ quan đại diện ngoại giao của nước có công dân bị giữ, bị bắt. Nếu việc thông báo cản trở truy bắt đối tượng khác hoặc cản trở điều tra thì sau khi cản trở đó không còn, người ra lệnh giữ người, lệnh hoặc quyết định bắt người, Cơ quan điều tra nhận người bị giữ, người bị bắt phải thông báo ngay."
+    },
+    {
+      "chunk_id": "175425::article_46",
+      "text": "Văn bản: Luật Tư pháp người chưa thành niên số 59/2024/QH15 Số hiệu: 59/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Phần thứ hai Chương III Điều 46: Cấm tiếp xúc với người có nguy cơ dẫn đến người chưa thành niên phạm tội mới Điều 46. Cấm tiếp xúc với người có nguy cơ dẫn đến người chưa thành niên phạm tội mới 1. Cấm tiếp xúc với người có nguy cơ dẫn đến người chưa thành niên phạm tội mới là việc cấm người chưa thành niên phạm tội giao tiếp, liên lạc, tiếp cận với bị hại, đồng phạm, người có ảnh hưởng tiêu cực đến hành vi của người chưa thành niên có nguy cơ thúc đẩy người chưa thành niên phạm tội mới. 2. Thời hạn áp dụng biện pháp cấm tiếp xúc với người có nguy cơ dẫn đến người chưa thành niên phạm tội mới là từ 06 tháng đến 01 năm."
+    },
+    {
+      "chunk_id": "175425::article_90",
+      "text": "Văn bản: Luật Tư pháp người chưa thành niên số 59/2024/QH15 Số hiệu: 59/2024/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Phần thứ hai Chương V Mục 1 Điều 90: Thủ tục chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng Điều 90. Thủ tục chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng 1. Người chấp hành biện pháp xử lý chuyển hướng tại cộng đồng thuộc trường hợp quy định tại Điều 89 của Luật này thì người trực tiếp giám sát thi hành quyết định áp dụng biện pháp xử lý chuyển hướng báo cáo Chủ tịch Ủy ban nhân dân cấp xã lập hồ sơ đề nghị chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng và gửi cho cơ quan đã ra quyết định áp dụng biện pháp xử lý chuyển hướng. 2. Hồ sơ đề nghị chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng bao gồm: a) Đơn đề nghị của người chấp hành biện pháp xử lý chuyển hướng tại cộng đồng; b) Văn bản đề nghị của Chủ tịch Ủy ban nhân dân cấp xã; c) Báo cáo của người trực tiếp giám sát thi hành quyết định áp dụng biện pháp xử lý chuyển hướng; d) Tài liệu khác có liên quan. 3. Trong thời hạn 05 ngày làm việc kể từ ngày nhận được hồ sơ đề nghị chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng, cơ quan đã ra quyết định áp dụng biện pháp xử lý chuyển hướng phải xem xét, quyết định chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng. Trường hợp không chấp nhận thì phải trả lời bằng văn bản và nêu rõ lý do. 4. Quyết định chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng có hiệu lực pháp luật kể từ ngày ra quyết định và không bị khiếu nại, kiến nghị. 5. Quyết định chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng phải gửi ngay cho người chấp hành biện pháp xử lý chuyển hướng tại cộng đồng, người đại diện của họ, Chủ tịch Ủy ban nhân dân cấp xã đã đề nghị."
+    },
+    {
+      "chunk_id": "95942::article_117",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương VIII Điều 117: Điều kiện có hiệu lực của giao dịch dân sự Điều 117. Điều kiện có hiệu lực của giao dịch dân sự 1. Giao dịch dân sự có hiệu lực khi có đủ các điều kiện sau đây: a) Chủ thể có năng lực pháp luật dân sự, năng lực hành vi dân sự phù hợp với giao dịch dân sự được xác lập; b) Chủ thể tham gia giao dịch dân sự hoàn toàn tự nguyện; c) Mục đích và nội dung của giao dịch dân sự không vi phạm điều cấm của luật, không trái đạo đức xã hội. 2. Hình thức của giao dịch dân sự là điều kiện có hiệu lực của giao dịch dân sự trong trường hợp luật có quy định."
+    },
+    {
+      "chunk_id": "95942::article_119",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương VIII Điều 119: Hình thức giao dịch dân sự Điều 119. Hình thức giao dịch dân sự 1. Giao dịch dân sự được thể hiện bằng lời nói, bằng văn bản hoặc bằng hành vi cụ thể. Giao dịch dân sự thông qua phương tiện điện tử dưới hình thức thông điệp dữ liệu theo quy định của pháp luật về giao dịch điện tử được coi là giao dịch bằng văn bản. 2. Trường hợp luật quy định giao dịch dân sự phải được thể hiện bằng văn bản có công chứng, chứng thực, đăng ký thì phải tuân theo quy định đó."
+    },
+    {
+      "chunk_id": "95942::article_125",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương VIII Điều 125: Giao dịch dân sự vô hiệu do người chưa thành niên, người mất năng lực hành vi dân sự, người có khó khăn trong nhận thức, làm chủ hành vi, người bị hạn chế năng lực hành vi dân sự xác lập, thực hiện Điều 125. Giao dịch dân sự vô hiệu do người chưa thành niên, người mất năng lực hành vi dân sự, người có khó khăn trong nhận thức, làm chủ hành vi, người bị hạn chế năng lực hành vi dân sự xác lập, thực hiện 1. Khi giao dịch dân sự do người chưa thành niên, người mất năng lực hành vi dân sự, người có khó khăn trong nhận thức, làm chủ hành vi hoặc người bị hạn chế năng lực hành vi dân sự xác lập, thực hiện thì theo yêu cầu của người đại diện của người đó, Tòa án tuyên bố giao dịch đó vô hiệu nếu theo quy định của pháp luật giao dịch này phải do người đại diện của họ xác lập, thực hiện hoặc đồng ý, trừ trường hợp quy định tại khoản 2 Điều này. 2. Giao dịch dân sự của người quy định tại khoản 1 Điều này không bị vô hiệu trong trường hợp sau đây: a) Giao dịch dân sự của người chưa đủ sáu tuổi, người mất năng lực hành vi dân sự nhằm đáp ứng nhu cầu thiết yếu hàng ngày của người đó; b) Giao dịch dân sự chỉ làm phát sinh quyền hoặc chỉ miễn trừ nghĩa vụ cho người chưa thành niên, người mất năng lực hành vi dân sự, người có khó khăn trong nhận thức, làm chủ hành vi, người bị hạn chế năng lực hành vi dân sự với người đã xác lập, thực hiện giao dịch với họ; c) Giao dịch dân sự được người xác lập giao dịch thừa nhận hiệu lực sau khi đã thành niên hoặc sau khi khôi phục năng lực hành vi dân sự."
+    },
+    {
+      "chunk_id": "95942::article_127",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương VIII Điều 127: Giao dịch dân sự vô hiệu do bị lừa dối, đe dọa, cưỡng ép Điều 127. Giao dịch dân sự vô hiệu do bị lừa dối, đe dọa, cưỡng ép Khi một bên tham gia giao dịch dân sự do bị lừa dối hoặc bị đe dọa, cưỡng ép thì có quyền yêu cầu Tòa án tuyên bố giao dịch dân sự đó là vô hiệu. Lừa dối trong giao dịch dân sự là hành vi cố ý của một bên hoặc của người thứ ba nhằm làm cho bên kia hiểu sai lệch về chủ thể, tính chất của đối tượng hoặc nội dung của giao dịch dân sự nên đã xác lập giao dịch đó. Đe dọa, cưỡng ép trong giao dịch dân sự là hành vi cố ý của một bên hoặc người thứ ba làm cho bên kia buộc phải thực hiện giao dịch dân sự nhằm tránh thiệt hại về tính mạng, sức khoẻ, danh dự, uy tín, nhân phẩm, tài sản của mình hoặc của người thân thích của mình."
+    },
+    {
+      "chunk_id": "95942::article_132",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương VIII Điều 132: Thời hiệu yêu cầu Tòa án tuyên bố giao dịch dân sự vô hiệu Điều 132. Thời hiệu yêu cầu Tòa án tuyên bố giao dịch dân sự vô hiệu 1. Thời hiệu yêu cầu Tòa án tuyên bố giao dịch dân sự vô hiệu quy định tại các điều 125, 126, 127, 128 và 129 của Bộ luật này là 02 năm, kể từ ngày: a) Người đại diện của người chưa thành niên, người mất năng lực hành vi dân sự, người có khó khăn trong nhận thức, làm chủ hành vi, người bị hạn chế năng lực hành vi dân sự biết hoặc phải biết người được đại diện tự mình xác lập, thực hiện giao dịch; b) Người bị nhầm lẫn, bị lừa dối biết hoặc phải biết giao dịch được xác lập do bị nhầm lẫn, do bị lừa dối; c) Người có hành vi đe dọa, cưỡng ép chấm dứt hành vi đe dọa, cưỡng ép; d) Người không nhận thức và làm chủ được hành vi của mình xác lập giao dịch; đ) Giao dịch dân sự được xác lập trong trường hợp giao dịch dân sự không tuân thủ quy định về hình thức. 2. Hết thời hiệu quy định tại khoản 1 Điều này mà không có yêu cầu tuyên bố giao dịch dân sự vô hiệu thì giao dịch dân sự có hiệu lực. 3. Đối với giao dịch dân sự quy định tại Điều 123 và Điều 124 của Bộ luật này thì thời hiệu yêu cầu Tòa án tuyên bố giao dịch dân sự vô hiệu không bị hạn chế."
+    },
+    {
+      "chunk_id": "95942::article_172",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ hai Chương XI Mục 3 Điều 172: Nghĩa vụ bảo vệ môi trường Điều 172. Nghĩa vụ bảo vệ môi trường Khi thực hiện quyền sở hữu, quyền khác đối với tài sản thì chủ thể phải tuân theo quy định của pháp luật về bảo vệ môi trường; nếu làm ô nhiễm môi trường thì phải chấm dứt hành vi gây ô nhiễm, thực hiện các biện pháp để khắc phục hậu quả và bồi thường thiệt hại."
+    },
+    {
+      "chunk_id": "95942::article_21",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương III Mục 1 Điều 21: Người chưa thành niên Điều 21. Người chưa thành niên 1. Người chưa thành niên là người chưa đủ mười tám tuổi. 2. Giao dịch dân sự của người chưa đủ sáu tuổi do người đại diện theo pháp luật của người đó xác lập, thực hiện. 3. Người từ đủ sáu tuổi đến chưa đủ mười lăm tuổi khi xác lập, thực hiện giao dịch dân sự phải được người đại diện theo pháp luật đồng ý, trừ giao dịch dân sự phục vụ nhu cầu sinh hoạt hàng ngày phù hợp với lứa tuổi. 4. Người từ đủ mười lăm tuổi đến chưa đủ mười tám tuổi tự mình xác lập, thực hiện giao dịch dân sự, trừ giao dịch dân sự liên quan đến bất động sản, động sản phải đăng ký và giao dịch dân sự khác theo quy định của luật phải được người đại diện theo pháp luật đồng ý."
+    },
+    {
+      "chunk_id": "95942::article_345",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ ba Chương XV Mục 3 Điều 345: Hình thức, nội dung tín chấp Điều 345. Hình thức, nội dung tín chấp Việc cho vay có bảo đảm bằng tín chấp phải được lập thành văn bản có xác nhận của tổ chức chính trị - xã hội bảo đảm bằng tín chấp về điều kiện, hoàn cảnh của bên vay vốn. Thỏa thuận bảo đảm bằng tín chấp phải cụ thể về số tiền, mục đích, thời hạn vay, lãi suất, quyền, nghĩa vụ và trách nhiệm của người vay, tổ chức tín dụng cho vay và tổ chức chính trị - xã hội bảo đảm bằng tín chấp. Tiểu mục 8 CẦM GIỮ TÀI SẢN"
+    },
+    {
+      "chunk_id": "95942::article_351",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ ba Chương XV Mục 4 Điều 351: Trách nhiệm dân sự do vi phạm nghĩa vụ Điều 351. Trách nhiệm dân sự do vi phạm nghĩa vụ 1. Bên có nghĩa vụ mà vi phạm nghĩa vụ thì phải chịu trách nhiệm dân sự đối với bên có quyền. Vi phạm nghĩa vụ là việc bên có nghĩa vụ không thực hiện nghĩa vụ đúng thời hạn, thực hiện không đầy đủ nghĩa vụ hoặc thực hiện không đúng nội dung của nghĩa vụ. 2. Trường hợp bên có nghĩa vụ không thực hiện đúng nghĩa vụ do sự kiện bất khả kháng thì không phải chịu trách nhiệm dân sự, trừ trường hợp có thoả thuận khác hoặc pháp luật có quy định khác. 3. Bên có nghĩa vụ không phải chịu trách nhiệm dân sự nếu chứng minh được nghĩa vụ không thực hiện được là hoàn toàn do lỗi của bên có quyền."
+    },
+    {
+      "chunk_id": "95942::article_514",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ ba Chương XVI Mục 9 Điều 514: Đối tượng của hợp đồng dịch vụ Điều 514. Đối tượng của hợp đồng dịch vụ Đối tượng của hợp đồng dịch vụ là công việc có thể thực hiện được, không vi phạm điều cấm của luật, không trái đạo đức xã hội."
+    },
+    {
+      "chunk_id": "95942::article_584",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ ba Chương XX Mục 1 Điều 584: Căn cứ phát sinh trách nhiệm bồi thường thiệt hại Điều 584. Căn cứ phát sinh trách nhiệm bồi thường thiệt hại 1. Người nào có hành vi xâm phạm tính mạng, sức khoẻ, danh dự, nhân phẩm, uy tín, tài sản, quyền, lợi ích hợp pháp khác của người khác mà gây thiệt hại thì phải bồi thường, trừ trường hợp Bộ luật này, luật khác có liên quan quy định khác. 2. Người gây thiệt hại không phải chịu trách nhiệm bồi thường thiệt hại trong trường hợp thiệt hại phát sinh là do sự kiện bất khả kháng hoặc hoàn toàn do lỗi của bên bị thiệt hại, trừ trường hợp có thỏa thuận khác hoặc luật có quy định khác. 3. Trường hợp tài sản gây thiệt hại thì chủ sở hữu, người chiếm hữu tài sản phải chịu trách nhiệm bồi thường thiệt hại, trừ trường hợp thiệt hại phát sinh theo quy định tại khoản 2 Điều này."
+    },
+    {
+      "chunk_id": "95942::article_585",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ ba Chương XX Mục 1 Điều 585: Nguyên tắc bồi thường thiệt hại Điều 585. Nguyên tắc bồi thường thiệt hại 1. Thiệt hại thực tế phải được bồi thường toàn bộ và kịp thời. Các bên có thể thoả thuận về mức bồi thường, hình thức bồi thường bằng tiền, bằng hiện vật hoặc thực hiện một công việc, phương thức bồi thường một lần hoặc nhiều lần, trừ trường hợp pháp luật có quy định khác. 2. Người chịu trách nhiệm bồi thường thiệt hại có thể được giảm mức bồi thường nếu không có lỗi hoặc có lỗi vô ý và thiệt hại quá lớn so với khả năng kinh tế của mình. 3. Khi mức bồi thường không còn phù hợp với thực tế thì bên bị thiệt hại hoặc bên gây thiệt hại có quyền yêu cầu Tòa án hoặc cơ quan nhà nước có thẩm quyền khác thay đổi mức bồi thường. 4. Khi bên bị thiệt hại có lỗi trong việc gây thiệt hại thì không được bồi thường phần thiệt hại do lỗi của mình gây ra. 5. Bên có quyền, lợi ích bị xâm phạm không được bồi thường nếu thiệt hại xảy ra do không áp dụng các biện pháp cần thiết, hợp lý để ngăn chặn, hạn chế thiệt hại cho chính mình."
+    },
+    {
+      "chunk_id": "95942::article_651",
+      "text": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ tư Chương XXIII Điều 651: Người thừa kế theo pháp luật Điều 651. Người thừa kế theo pháp luật 1. Những người thừa kế theo pháp luật được quy định theo thứ tự sau đây: a) Hàng thừa kế thứ nhất gồm: vợ, chồng, cha đẻ, mẹ đẻ, cha nuôi, mẹ nuôi, con đẻ, con nuôi của người chết; b) Hàng thừa kế thứ hai gồm: ông nội, bà nội, ông ngoại, bà ngoại, anh ruột, chị ruột, em ruột của người chết; cháu ruột của người chết mà người chết là ông nội, bà nội, ông ngoại, bà ngoại; c) Hàng thừa kế thứ ba gồm: cụ nội, cụ ngoại của người chết; bác ruột, chú ruột, cậu ruột, cô ruột, dì ruột của người chết; cháu ruột của người chết mà người chết là bác ruột, chú ruột, cậu ruột, cô ruột, dì ruột; chắt ruột của người chết mà người chết là cụ nội, cụ ngoại. 2. Những người thừa kế cùng hàng được hưởng phần di sản bằng nhau. 3. Những người ở hàng thừa kế sau chỉ được hưởng thừa kế, nếu không còn ai ở hàng thừa kế trước do đã chết, không có quyền hưởng di sản, bị truất quyền hưởng di sản hoặc từ chối nhận di sản."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "exact_provision_001",
+      "query": "Điều 35 Bộ luật Lao động 45/2019/QH14 quy định gì về quyền đơn phương chấm dứt hợp đồng của người lao động?",
+      "relevant_chunk_ids": [
+        "139264::article_35"
+      ]
+    },
+    {
+      "case_id": "exact_provision_002",
+      "query": "Điều 117 Bộ luật Dân sự 91/2015/QH13 quy định những điều kiện nào để giao dịch dân sự có hiệu lực?",
+      "relevant_chunk_ids": [
+        "95942::article_117"
+      ]
+    },
+    {
+      "case_id": "exact_provision_003",
+      "query": "Điều 88 Luật Nhà ở 27/2023/QH15 quy định nguyên tắc nào khi bán, cho thuê mua hoặc cho thuê nhà ở xã hội?",
+      "relevant_chunk_ids": [
+        "169032::article_88::clauses_1-4"
+      ]
+    },
+    {
+      "case_id": "exact_provision_004",
+      "query": "Điều 49 Luật Bảo vệ môi trường 72/2020/QH14 quy định những đối tượng nào phải đăng ký môi trường?",
+      "relevant_chunk_ids": [
+        "146609::article_49"
+      ]
+    },
+    {
+      "case_id": "exact_provision_005",
+      "query": "Điều 4 Luật Bảo vệ quyền lợi người tiêu dùng 19/2023/QH15 quy định nguyên tắc bảo vệ quyền lợi người tiêu dùng ra sao?",
+      "relevant_chunk_ids": [
+        "161263::article_4"
+      ]
+    },
+    {
+      "case_id": "exact_provision_006",
+      "query": "Điều 10 Luật Khám bệnh, chữa bệnh 15/2023/QH15 quy định quyền được khám bệnh, chữa bệnh như thế nào?",
+      "relevant_chunk_ids": [
+        "168125::article_10"
+      ]
+    },
+    {
+      "case_id": "exact_provision_007",
+      "query": "Điều 8 Luật Giao dịch điện tử 20/2023/QH15 quy định giá trị pháp lý của thông điệp dữ liệu thế nào?",
+      "relevant_chunk_ids": [
+        "165913::article_8"
+      ]
+    },
+    {
+      "case_id": "exact_provision_008",
+      "query": "Điều 16 Luật Đấu thầu 22/2023/QH15 quy định những hành vi nào bị cấm trong hoạt động đấu thầu?",
+      "relevant_chunk_ids": [
+        "166581::article_16::clauses_1-5"
+      ]
+    },
+    {
+      "case_id": "exact_provision_009",
+      "query": "Điều 10 Luật Công đoàn 50/2024/QH15 quy định quyền của đoàn viên công đoàn như thế nào?",
+      "relevant_chunk_ids": [
+        "172553::article_10"
+      ]
+    },
+    {
+      "case_id": "exact_provision_010",
+      "query": "Điều 651 Bộ luật Dân sự 91/2015/QH13 quy định thứ tự người thừa kế theo pháp luật ra sao?",
+      "relevant_chunk_ids": [
+        "95942::article_651"
+      ]
+    },
+    {
+      "case_id": "semantic_001",
+      "query": "Pháp luật quy định thế nào về quyền và nghĩa vụ của bên thuê lại lao động?",
+      "relevant_chunk_ids": [
+        "139264::article_57"
+      ]
+    },
+    {
+      "case_id": "semantic_002",
+      "query": "Những quy tắc nào áp dụng đối với nghỉ lễ, tết?",
+      "relevant_chunk_ids": [
+        "139264::article_112"
+      ]
+    },
+    {
+      "case_id": "semantic_003",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến người lao động làm việc trong lĩnh vực nghệ thuật, thể dục, thể thao, hàng hải, hàng không được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "139264::article_166"
+      ]
+    },
+    {
+      "case_id": "semantic_004",
+      "query": "Pháp luật quy định thế nào về nghĩa vụ bảo vệ môi trường?",
+      "relevant_chunk_ids": [
+        "95942::article_172"
+      ]
+    },
+    {
+      "case_id": "semantic_005",
+      "query": "Những quy tắc nào áp dụng đối với hình thức, nội dung tín chấp?",
+      "relevant_chunk_ids": [
+        "95942::article_345"
+      ]
+    },
+    {
+      "case_id": "semantic_006",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến đối tượng của hợp đồng dịch vụ được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "95942::article_514"
+      ]
+    },
+    {
+      "case_id": "semantic_007",
+      "query": "Pháp luật quy định thế nào về chủ đầu tư dự án đầu tư xây dựng nhà ở phục vụ tái định cư?",
+      "relevant_chunk_ids": [
+        "169032::article_51"
+      ]
+    },
+    {
+      "case_id": "semantic_008",
+      "query": "Những quy tắc nào áp dụng đối với nguyên tắc cho thuê và quản lý vận hành nhà lưu trú công nhân trong khu công nghiệp?",
+      "relevant_chunk_ids": [
+        "169032::article_100"
+      ]
+    },
+    {
+      "case_id": "semantic_009",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến đơn vị quản lý vận hành nhà chung cư được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "169032::article_149"
+      ]
+    },
+    {
+      "case_id": "semantic_010",
+      "query": "Pháp luật quy định thế nào về phí thẩm định cấp giấy phép môi trường?",
+      "relevant_chunk_ids": [
+        "146609::article_45"
+      ]
+    },
+    {
+      "case_id": "semantic_011",
+      "query": "Những quy tắc nào áp dụng đối với hệ thống xử lý nước thải?",
+      "relevant_chunk_ids": [
+        "146609::article_87"
+      ]
+    },
+    {
+      "case_id": "semantic_012",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến công khai thông tin và sự tham gia của cộng đồng dân cư trong phòng ngừa, ứng phó sự cố môi trường được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "146609::article_129"
+      ]
+    },
+    {
+      "case_id": "semantic_013",
+      "query": "Pháp luật quy định thế nào về hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung?",
+      "relevant_chunk_ids": [
+        "161263::article_23"
+      ]
+    },
+    {
+      "case_id": "semantic_014",
+      "query": "Những quy tắc nào áp dụng đối với hợp đồng cung cấp dịch vụ liên tục?",
+      "relevant_chunk_ids": [
+        "161263::article_42"
+      ]
+    },
+    {
+      "case_id": "semantic_015",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến trình tự, thủ tục hòa giải được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "161263::article_61"
+      ]
+    },
+    {
+      "case_id": "semantic_016",
+      "query": "Pháp luật quy định thế nào về cấp lại giấy phép hành nghề?",
+      "relevant_chunk_ids": [
+        "168125::article_31"
+      ]
+    },
+    {
+      "case_id": "semantic_017",
+      "query": "Những quy tắc nào áp dụng đối với khám bệnh, chỉ định phương pháp chữa bệnh và kê đơn thuốc?",
+      "relevant_chunk_ids": [
+        "168125::article_62"
+      ]
+    },
+    {
+      "case_id": "semantic_018",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến ưu đãi đối với hoạt động chuyển giao kỹ thuật chuyên môn về khám bệnh, chữa bệnh được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "168125::article_91"
+      ]
+    },
+    {
+      "case_id": "semantic_019",
+      "query": "Pháp luật quy định thế nào về nhận thông điệp dữ liệu?",
+      "relevant_chunk_ids": [
+        "165913::article_16"
+      ]
+    },
+    {
+      "case_id": "semantic_020",
+      "query": "Những quy tắc nào áp dụng đối với dịch vụ tin cậy?",
+      "relevant_chunk_ids": [
+        "165913::article_28"
+      ]
+    },
+    {
+      "case_id": "semantic_021",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến quản lý dữ liệu, cơ sở dữ liệu dùng chung được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "165913::article_40"
+      ]
+    },
+    {
+      "case_id": "semantic_022",
+      "query": "Pháp luật quy định thế nào về tự thực hiện?",
+      "relevant_chunk_ids": [
+        "166581::article_26"
+      ]
+    },
+    {
+      "case_id": "semantic_023",
+      "query": "Những quy tắc nào áp dụng đối với thời gian tổ chức lựa chọn nhà đầu tư?",
+      "relevant_chunk_ids": [
+        "166581::article_49"
+      ]
+    },
+    {
+      "case_id": "semantic_024",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến hồ sơ hợp đồng dự án đầu tư kinh doanh được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "166581::article_72"
+      ]
+    },
+    {
+      "case_id": "semantic_025",
+      "query": "Pháp luật quy định thế nào về hành lang bảo vệ nguồn nước?",
+      "relevant_chunk_ids": [
+        "167282::article_23"
+      ]
+    },
+    {
+      "case_id": "semantic_026",
+      "query": "Những quy tắc nào áp dụng đối với khai thác tài nguyên nước cho sản xuất nông nghiệp?",
+      "relevant_chunk_ids": [
+        "167282::article_44"
+      ]
+    },
+    {
+      "case_id": "semantic_027",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến phòng, chống sụt, lún đất được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "167282::article_65"
+      ]
+    },
+    {
+      "case_id": "semantic_028",
+      "query": "Pháp luật quy định thế nào về tham gia quản lý nhà nước, quản lý kinh tế - xã hội?",
+      "relevant_chunk_ids": [
+        "172553::article_12"
+      ]
+    },
+    {
+      "case_id": "semantic_029",
+      "query": "Những quy tắc nào áp dụng đối với quyền, trách nhiệm của công đoàn đối với người lao động ở nơi chưa có tổ chức đại diện người lao động tại cơ sở?",
+      "relevant_chunk_ids": [
+        "172553::article_20"
+      ]
+    },
+    {
+      "case_id": "semantic_030",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến bảo đảm cho cán bộ công đoàn được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "172553::article_28"
+      ]
+    },
+    {
+      "case_id": "semantic_031",
+      "query": "Pháp luật quy định thế nào về thành lập phòng công chứng?",
+      "relevant_chunk_ids": [
+        "172799::article_21"
+      ]
+    },
+    {
+      "case_id": "semantic_032",
+      "query": "Những quy tắc nào áp dụng đối với bảo hiểm trách nhiệm nghề nghiệp của công chứng viên?",
+      "relevant_chunk_ids": [
+        "172799::article_39"
+      ]
+    },
+    {
+      "case_id": "semantic_033",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến công chứng hợp đồng ủy quyền trong trường hợp bên ủy quyền và bên được ủy quyền không thể cùng đến một tổ chức hành nghề công chứng được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "172799::article_57"
+      ]
+    },
+    {
+      "case_id": "semantic_034",
+      "query": "Pháp luật quy định thế nào về yêu cầu về phòng cháy, chữa cháy khi lập, điều chỉnh, phê duyệt quy hoạch đô thị và nông thôn?",
+      "relevant_chunk_ids": [
+        "173974::article_15"
+      ]
+    },
+    {
+      "case_id": "semantic_035",
+      "query": "Những quy tắc nào áp dụng đối với người chỉ huy chữa cháy?",
+      "relevant_chunk_ids": [
+        "173974::article_28"
+      ]
+    },
+    {
+      "case_id": "semantic_036",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến nhiệm vụ của lực lượng cảnh sát phòng cháy, chữa cháy và cứu nạn, cứu hộ được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "173974::article_41"
+      ]
+    },
+    {
+      "case_id": "semantic_037",
+      "query": "Pháp luật quy định thế nào về hoạt động lưu trữ dữ liệu?",
+      "relevant_chunk_ids": [
+        "174877::article_14"
+      ]
+    },
+    {
+      "case_id": "semantic_038",
+      "query": "Những quy tắc nào áp dụng đối với xác định và quản lý rủi ro phát sinh trong xử lý dữ liệu?",
+      "relevant_chunk_ids": [
+        "174877::article_25"
+      ]
+    },
+    {
+      "case_id": "semantic_039",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến khai thác và sử dụng cơ sở dữ liệu tổng hợp quốc gia được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "174877::article_35"
+      ]
+    },
+    {
+      "case_id": "semantic_040",
+      "query": "Pháp luật quy định thế nào về cấm tiếp xúc với người có nguy cơ dẫn đến người chưa thành niên phạm tội mới?",
+      "relevant_chunk_ids": [
+        "175425::article_46"
+      ]
+    },
+    {
+      "case_id": "semantic_041",
+      "query": "Những quy tắc nào áp dụng đối với thủ tục chấm dứt trước thời hạn việc chấp hành biện pháp xử lý chuyển hướng?",
+      "relevant_chunk_ids": [
+        "175425::article_90"
+      ]
+    },
+    {
+      "case_id": "semantic_042",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến các biện pháp ngăn chặn, biện pháp cưỡng chế được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "175425::article_135"
+      ]
+    },
+    {
+      "case_id": "semantic_043",
+      "query": "Pháp luật quy định thế nào về quyền, nghĩa vụ của thành viên ban kiểm soát?",
+      "relevant_chunk_ids": [
+        "166170::article_54"
+      ]
+    },
+    {
+      "case_id": "semantic_044",
+      "query": "Những quy tắc nào áp dụng đối với giao dịch điện tử trong hoạt động của tổ chức tín dụng?",
+      "relevant_chunk_ids": [
+        "166170::article_105"
+      ]
+    },
+    {
+      "case_id": "semantic_045",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến các yêu cầu, biện pháp hạn chế đối với tổ chức tín dụng, chi nhánh ngân hàng nước ngoài được can thiệp sớm được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "166170::article_157"
+      ]
+    },
+    {
+      "case_id": "semantic_046",
+      "query": "Pháp luật quy định thế nào về lắp đặt báo hiệu đường bộ?",
+      "relevant_chunk_ids": [
+        "172475::article_23"
+      ]
+    },
+    {
+      "case_id": "semantic_047",
+      "query": "Những quy tắc nào áp dụng đối với quy định chung đối với đường bộ cao tốc?",
+      "relevant_chunk_ids": [
+        "172475::article_44"
+      ]
+    },
+    {
+      "case_id": "semantic_048",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến vận tải hành khách, hàng hóa bằng xe thô sơ, xe gắn máy, xe mô tô hai bánh, xe mô tô ba bánh được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "172475::article_65"
+      ]
+    },
+    {
+      "case_id": "semantic_049",
+      "query": "Pháp luật quy định thế nào về hoạt động phát huy giá trị di tích?",
+      "relevant_chunk_ids": [
+        "173024::article_26"
+      ]
+    },
+    {
+      "case_id": "semantic_050",
+      "query": "Những quy tắc nào áp dụng đối với bảo vệ và phát huy giá trị di vật, cổ vật, bảo vật quốc gia trong nhà truyền thống, nhà lưu niệm, nhà trưng bày, thiết chế văn hóa khác?",
+      "relevant_chunk_ids": [
+        "173024::article_49"
+      ]
+    },
+    {
+      "case_id": "semantic_051",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến hoạt động kiểm kê, tư liệu hóa hiện vật của bảo tàng được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "173024::article_72"
+      ]
+    },
+    {
+      "case_id": "semantic_052",
+      "query": "Pháp luật quy định thế nào về trách nhiệm của cơ quan báo chí, thông tấn tham gia phòng ngừa mua bán người?",
+      "relevant_chunk_ids": [
+        "173982::article_18"
+      ]
+    },
+    {
+      "case_id": "semantic_053",
+      "query": "Những quy tắc nào áp dụng đối với giấy tờ, tài liệu xác nhận nạn nhân và thẩm quyền cấp giấy tờ, tài liệu xác nhận nạn nhân?",
+      "relevant_chunk_ids": [
+        "173982::article_33"
+      ]
+    },
+    {
+      "case_id": "semantic_054",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến nội dung quản lý nhà nước về phòng, chống mua bán người được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "173982::article_48"
+      ]
+    },
+    {
+      "case_id": "semantic_055",
+      "query": "Pháp luật quy định thế nào về trách nhiệm của đối tượng báo cáo đối với sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới?",
+      "relevant_chunk_ids": [
+        "157721::article_19"
+      ]
+    },
+    {
+      "case_id": "semantic_056",
+      "query": "Những quy tắc nào áp dụng đối với khai báo, cung cấp thông tin về việc vận chuyển tiền mặt, kim khí quý, đá quý và công cụ chuyển nhượng qua biên giới?",
+      "relevant_chunk_ids": [
+        "157721::article_35"
+      ]
+    },
+    {
+      "case_id": "semantic_057",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến trách nhiệm của bộ quốc phòng được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "157721::article_50"
+      ]
+    },
+    {
+      "case_id": "semantic_058",
+      "query": "Pháp luật quy định thế nào về hàng hóa, dịch vụ do nhà nước định giá?",
+      "relevant_chunk_ids": [
+        "167565::article_21"
+      ]
+    },
+    {
+      "case_id": "semantic_059",
+      "query": "Những quy tắc nào áp dụng đối với kinh phí bảo đảm cho công tác tổng hợp, phân tích, dự báo giá thị trường và cơ sở dữ liệu về giá?",
+      "relevant_chunk_ids": [
+        "167565::article_39"
+      ]
+    },
+    {
+      "case_id": "semantic_060",
+      "query": "Quyền, nghĩa vụ hoặc thủ tục liên quan đến xác định giá dịch vụ thẩm định giá được xác định ra sao?",
+      "relevant_chunk_ids": [
+        "167565::article_57"
+      ]
+    },
+    {
+      "case_id": "scenario_001",
+      "query": "Một cửa hàng thuê nhân viên làm việc 2 tháng và chỉ thỏa thuận miệng. Hình thức hợp đồng này có được chấp nhận không, và trường hợp nào bắt buộc phải lập văn bản?",
+      "relevant_chunk_ids": [
+        "139264::article_14"
+      ]
+    },
+    {
+      "case_id": "scenario_002",
+      "query": "Khi tuyển dụng, doanh nghiệp giữ bản chính bằng đại học và yêu cầu người lao động đặt cọc tiền. Những yêu cầu này có hợp pháp không?",
+      "relevant_chunk_ids": [
+        "139264::article_17"
+      ]
+    },
+    {
+      "case_id": "scenario_003",
+      "query": "Sau khi hợp đồng lao động xác định thời hạn đầu tiên hết hạn, hai bên tiếp tục ký hợp đồng xác định thời hạn lần nữa. Sau lần đó họ còn được ký loại hợp đồng nào?",
+      "relevant_chunk_ids": [
+        "139264::article_20"
+      ]
+    },
+    {
+      "case_id": "scenario_004",
+      "query": "Một doanh nghiệp muốn thử việc hai lần cho cùng một vị trí chuyên môn. Pháp luật giới hạn số lần và thời gian thử việc như thế nào?",
+      "relevant_chunk_ids": [
+        "139264::article_25"
+      ]
+    },
+    {
+      "case_id": "scenario_005",
+      "query": "Công ty trả lương thử việc bằng 80% lương chính thức. Mức này có đáp ứng mức tối thiểu theo pháp luật lao động không?",
+      "relevant_chunk_ids": [
+        "139264::article_26"
+      ]
+    },
+    {
+      "case_id": "scenario_006",
+      "query": "Do nhu cầu sản xuất đột xuất, doanh nghiệp chuyển nhân viên sang công việc khác với hợp đồng. Doanh nghiệp phải báo trước và bảo đảm quyền lợi gì?",
+      "relevant_chunk_ids": [
+        "139264::article_29"
+      ]
+    },
+    {
+      "case_id": "scenario_007",
+      "query": "Sau khi hết thời hạn tạm hoãn hợp đồng, người lao động quay lại sau 10 ngày. Người sử dụng lao động có nghĩa vụ nhận họ trở lại không?",
+      "relevant_chunk_ids": [
+        "139264::article_31"
+      ]
+    },
+    {
+      "case_id": "scenario_008",
+      "query": "Người lao động làm theo hợp đồng không xác định thời hạn muốn nghỉ việc. Họ phải báo trước bao lâu và khi nào được nghỉ không cần báo trước?",
+      "relevant_chunk_ids": [
+        "139264::article_35"
+      ]
+    },
+    {
+      "case_id": "scenario_009",
+      "query": "Doanh nghiệp muốn đơn phương chấm dứt hợp đồng với lao động nữ đang mang thai. Trường hợp này bị hạn chế như thế nào?",
+      "relevant_chunk_ids": [
+        "139264::article_37"
+      ]
+    },
+    {
+      "case_id": "scenario_010",
+      "query": "Hợp đồng lao động vừa chấm dứt nhưng doanh nghiệp trì hoãn thanh toán các khoản liên quan. Thời hạn thanh toán thông thường là bao lâu?",
+      "relevant_chunk_ids": [
+        "139264::article_48"
+      ]
+    },
+    {
+      "case_id": "scenario_011",
+      "query": "Người lao động không thể trực tiếp nhận lương và ủy quyền cho người thân nhận thay. Người sử dụng lao động có thể trả cho người được ủy quyền không?",
+      "relevant_chunk_ids": [
+        "139264::article_94"
+      ]
+    },
+    {
+      "case_id": "scenario_012",
+      "query": "Người lao động hưởng lương theo giờ nhưng công ty muốn dồn trả mỗi tháng một lần. Kỳ hạn trả gộp tối đa được quy định thế nào?",
+      "relevant_chunk_ids": [
+        "139264::article_97"
+      ]
+    },
+    {
+      "case_id": "scenario_013",
+      "query": "Nhân viên làm thêm vào ban đêm trong ngày nghỉ hằng tuần. Tiền lương làm thêm và làm ban đêm được xác định theo nguyên tắc nào?",
+      "relevant_chunk_ids": [
+        "139264::article_98"
+      ]
+    },
+    {
+      "case_id": "scenario_014",
+      "query": "Doanh nghiệp yêu cầu nhân viên làm thêm giờ mà không hỏi ý kiến. Điều kiện về sự đồng ý và giới hạn giờ làm thêm được quy định ra sao?",
+      "relevant_chunk_ids": [
+        "139264::article_107"
+      ]
+    },
+    {
+      "case_id": "scenario_015",
+      "query": "Một người đã làm đủ 12 tháng trong điều kiện bình thường. Họ được nghỉ hằng năm tối thiểu bao nhiêu ngày và có hưởng nguyên lương không?",
+      "relevant_chunk_ids": [
+        "139264::article_113"
+      ]
+    },
+    {
+      "case_id": "scenario_016",
+      "query": "Người lao động kết hôn và muốn nghỉ việc riêng. Họ được nghỉ bao nhiêu ngày và có được hưởng lương không?",
+      "relevant_chunk_ids": [
+        "139264::article_115"
+      ]
+    },
+    {
+      "case_id": "scenario_017",
+      "query": "Doanh nghiệp xử lý kỷ luật nhưng không chứng minh được lỗi của người lao động. Việc xử lý phải tuân theo những nguyên tắc nào?",
+      "relevant_chunk_ids": [
+        "139264::article_122"
+      ]
+    },
+    {
+      "case_id": "scenario_018",
+      "query": "Người lao động tự ý bỏ việc nhiều ngày. Khi nào người sử dụng lao động có thể áp dụng hình thức sa thải?",
+      "relevant_chunk_ids": [
+        "139264::article_125"
+      ]
+    },
+    {
+      "case_id": "scenario_019",
+      "query": "Lao động nữ mang thai tháng thứ bảy bị yêu cầu làm ca đêm và đi công tác xa. Pháp luật bảo vệ thai sản trong tình huống này thế nào?",
+      "relevant_chunk_ids": [
+        "139264::article_137"
+      ]
+    },
+    {
+      "case_id": "scenario_020",
+      "query": "Một cơ sở muốn thuê trẻ chưa đủ 15 tuổi. Hợp đồng, thời giờ làm việc và người đại diện phải đáp ứng điều kiện gì?",
+      "relevant_chunk_ids": [
+        "139264::article_145"
+      ]
+    },
+    {
+      "case_id": "scenario_021",
+      "query": "Một người 14 tuổi tự mua tài sản có giá trị lớn mà không có sự đồng ý của người đại diện. Giao dịch của người chưa thành niên được pháp luật điều chỉnh thế nào?",
+      "relevant_chunk_ids": [
+        "95942::article_21"
+      ]
+    },
+    {
+      "case_id": "scenario_022",
+      "query": "Hai bên ký giao dịch nhưng một bên không hoàn toàn tự nguyện. Giao dịch muốn có hiệu lực phải đáp ứng các điều kiện nào?",
+      "relevant_chunk_ids": [
+        "95942::article_117"
+      ]
+    },
+    {
+      "case_id": "scenario_023",
+      "query": "Các bên chỉ thể hiện giao dịch bằng hành vi cụ thể thay vì văn bản. Pháp luật công nhận những hình thức giao dịch dân sự nào?",
+      "relevant_chunk_ids": [
+        "95942::article_119"
+      ]
+    },
+    {
+      "case_id": "scenario_024",
+      "query": "Người mất năng lực hành vi dân sự tự mình xác lập giao dịch mua bán. Ai có quyền yêu cầu tuyên giao dịch vô hiệu và có ngoại lệ nào?",
+      "relevant_chunk_ids": [
+        "95942::article_125"
+      ]
+    },
+    {
+      "case_id": "scenario_025",
+      "query": "Một người ký hợp đồng vì bị đe dọa và cưỡng ép. Họ có thể yêu cầu Tòa án xử lý hiệu lực giao dịch thế nào?",
+      "relevant_chunk_ids": [
+        "95942::article_127"
+      ]
+    },
+    {
+      "case_id": "scenario_026",
+      "query": "Một bên phát hiện giao dịch được xác lập do bị lừa dối. Thời hiệu yêu cầu Tòa án tuyên giao dịch vô hiệu được tính thế nào?",
+      "relevant_chunk_ids": [
+        "95942::article_132"
+      ]
+    },
+    {
+      "case_id": "scenario_027",
+      "query": "Bên có nghĩa vụ không thực hiện đúng cam kết vì sự kiện bất khả kháng. Trách nhiệm dân sự được xác định theo nguyên tắc nào?",
+      "relevant_chunk_ids": [
+        "95942::article_351"
+      ]
+    },
+    {
+      "case_id": "scenario_028",
+      "query": "Một người gây thiệt hại đến tài sản của người khác. Những căn cứ nào làm phát sinh trách nhiệm bồi thường ngoài hợp đồng?",
+      "relevant_chunk_ids": [
+        "95942::article_584"
+      ]
+    },
+    {
+      "case_id": "scenario_029",
+      "query": "Thiệt hại thực tế xảy ra nhưng người bị thiệt hại cũng có lỗi. Mức bồi thường được xác định theo những nguyên tắc nào?",
+      "relevant_chunk_ids": [
+        "95942::article_585"
+      ]
+    },
+    {
+      "case_id": "scenario_030",
+      "query": "Một người mất không để lại di chúc. Vợ, con, cha mẹ và anh chị em của họ được xếp vào các hàng thừa kế nào?",
+      "relevant_chunk_ids": [
+        "95942::article_651"
+      ]
+    },
+    {
+      "case_id": "scenario_031",
+      "query": "Một cá nhân nước ngoài sở hữu nhà ở tại Việt Nam muốn cho thuê và ủy quyền quản lý. Họ có những quyền nào đối với nhà ở?",
+      "relevant_chunk_ids": [
+        "169032::article_20"
+      ]
+    },
+    {
+      "case_id": "scenario_032",
+      "query": "Một người thuộc diện được mua nhà ở xã hội muốn đồng thời mua hai căn. Nguyên tắc bán và cho thuê mua nhà ở xã hội giới hạn thế nào?",
+      "relevant_chunk_ids": [
+        "169032::article_88::clauses_1-4"
+      ]
+    },
+    {
+      "case_id": "scenario_033",
+      "query": "Một dự án đầu tư có nguy cơ tác động xấu đến môi trường ở mức độ cao. Dự án có thuộc đối tượng phải đánh giá tác động môi trường không?",
+      "relevant_chunk_ids": [
+        "146609::article_30"
+      ]
+    },
+    {
+      "case_id": "scenario_034",
+      "query": "Một cơ sở sản xuất có phát sinh chất thải nhưng không thuộc diện phải có giấy phép môi trường. Cơ sở có phải đăng ký môi trường không?",
+      "relevant_chunk_ids": [
+        "146609::article_49"
+      ]
+    },
+    {
+      "case_id": "scenario_035",
+      "query": "Hộ gia đình phân loại chất thải sinh hoạt tại nguồn và chuyển giao đúng nơi quy định. Pháp luật đặt ra những trách nhiệm môi trường nào cho hộ gia đình?",
+      "relevant_chunk_ids": [
+        "146609::article_60"
+      ]
+    },
+    {
+      "case_id": "temporal_current_001",
+      "query": "Hiện nay, quy định về quyền và nghĩa vụ của bên thuê lại lao động đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "139264::article_57"
+      ]
+    },
+    {
+      "case_id": "temporal_current_002",
+      "query": "Hiện nay, quy định về nghĩa vụ bảo vệ môi trường đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "95942::article_172"
+      ]
+    },
+    {
+      "case_id": "temporal_current_003",
+      "query": "Hiện nay, quy định về chủ đầu tư dự án đầu tư xây dựng nhà ở phục vụ tái định cư đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "169032::article_51"
+      ]
+    },
+    {
+      "case_id": "temporal_current_004",
+      "query": "Hiện nay, quy định về phí thẩm định cấp giấy phép môi trường đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "146609::article_45"
+      ]
+    },
+    {
+      "case_id": "temporal_current_005",
+      "query": "Hiện nay, quy định về hợp đồng giao kết với người tiêu dùng, hợp đồng theo mẫu, điều kiện giao dịch chung đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "161263::article_23"
+      ]
+    },
+    {
+      "case_id": "temporal_current_006",
+      "query": "Hiện nay, quy định về cấp lại giấy phép hành nghề đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "168125::article_31"
+      ]
+    },
+    {
+      "case_id": "temporal_current_007",
+      "query": "Hiện nay, quy định về nhận thông điệp dữ liệu đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "165913::article_16"
+      ]
+    },
+    {
+      "case_id": "temporal_current_008",
+      "query": "Hiện nay, quy định về tự thực hiện đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "166581::article_26"
+      ]
+    },
+    {
+      "case_id": "temporal_current_009",
+      "query": "Hiện nay, quy định về hành lang bảo vệ nguồn nước đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "167282::article_23"
+      ]
+    },
+    {
+      "case_id": "temporal_current_010",
+      "query": "Hiện nay, quy định về tham gia quản lý nhà nước, quản lý kinh tế - xã hội đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "172553::article_12"
+      ]
+    },
+    {
+      "case_id": "temporal_current_011",
+      "query": "Hiện nay, quy định về thành lập phòng công chứng đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "172799::article_21"
+      ]
+    },
+    {
+      "case_id": "temporal_current_012",
+      "query": "Hiện nay, quy định về yêu cầu về phòng cháy, chữa cháy khi lập, điều chỉnh, phê duyệt quy hoạch đô thị và nông thôn đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "173974::article_15"
+      ]
+    },
+    {
+      "case_id": "temporal_current_013",
+      "query": "Hiện nay, quy định về hoạt động lưu trữ dữ liệu đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "174877::article_14"
+      ]
+    },
+    {
+      "case_id": "temporal_current_014",
+      "query": "Hiện nay, quy định về cấm tiếp xúc với người có nguy cơ dẫn đến người chưa thành niên phạm tội mới đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "175425::article_46"
+      ]
+    },
+    {
+      "case_id": "temporal_current_015",
+      "query": "Hiện nay, quy định về quyền, nghĩa vụ của thành viên ban kiểm soát đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "166170::article_54"
+      ]
+    },
+    {
+      "case_id": "temporal_current_016",
+      "query": "Hiện nay, quy định về lắp đặt báo hiệu đường bộ đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "172475::article_23"
+      ]
+    },
+    {
+      "case_id": "temporal_current_017",
+      "query": "Hiện nay, quy định về hoạt động phát huy giá trị di tích đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "173024::article_26"
+      ]
+    },
+    {
+      "case_id": "temporal_current_018",
+      "query": "Hiện nay, quy định về trách nhiệm của cơ quan báo chí, thông tấn tham gia phòng ngừa mua bán người đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "173982::article_18"
+      ]
+    },
+    {
+      "case_id": "temporal_current_019",
+      "query": "Hiện nay, quy định về trách nhiệm của đối tượng báo cáo đối với sản phẩm, dịch vụ mới; sản phẩm, dịch vụ hiện có áp dụng công nghệ đổi mới đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "157721::article_19"
+      ]
+    },
+    {
+      "case_id": "temporal_current_020",
+      "query": "Hiện nay, quy định về hàng hóa, dịch vụ do nhà nước định giá đang được áp dụng như thế nào?",
+      "relevant_chunk_ids": [
+        "167565::article_21"
+      ]
+    },
+    {
+      "case_id": "confusable_001",
+      "query": "Trong Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15, Điều 4 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "161263::article_4"
+      ]
+    },
+    {
+      "case_id": "confusable_002",
+      "query": "Trong Luật Giao dịch điện tử số 20/2023/QH15, Điều 8 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "165913::article_8"
+      ]
+    },
+    {
+      "case_id": "confusable_003",
+      "query": "Trong Luật Đấu thầu số 22/2023/QH15, Điều 16 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "166581::article_16::clauses_1-5"
+      ]
+    },
+    {
+      "case_id": "confusable_004",
+      "query": "Trong Luật Nhà ở số 27/2023/QH15, Điều 20 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "169032::article_20"
+      ]
+    },
+    {
+      "case_id": "confusable_005",
+      "query": "Trong Luật Tài nguyên nước số 28/2023/QH15, Điều 10 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "167282::article_10"
+      ]
+    },
+    {
+      "case_id": "confusable_006",
+      "query": "Trong Luật Di sản văn hóa số 45/2024/QH15, Điều 10 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "173024::article_10"
+      ]
+    },
+    {
+      "case_id": "confusable_007",
+      "query": "Trong Luật Công chứng số 46/2024/QH15, Điều 8 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "172799::article_8"
+      ]
+    },
+    {
+      "case_id": "confusable_008",
+      "query": "Trong Luật Công đoàn số 50/2024/QH15, Điều 10 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "172553::article_10"
+      ]
+    },
+    {
+      "case_id": "confusable_009",
+      "query": "Trong Luật Phòng, chống mua bán người số 53/2024/QH15, Điều 8 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "173982::article_8"
+      ]
+    },
+    {
+      "case_id": "confusable_010",
+      "query": "Trong Luật Phòng cháy, chữa cháy và cứu nạn, cứu hộ số 55/2024/QH15, Điều 10 quy định nội dung gì?",
+      "relevant_chunk_ids": [
+        "173974::article_10"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 from datetime import date
 
-from lawchat.database import LegalStatus, RelationshipType
-from lawchat.ingestion.postgres_loader import (
+from database import LegalStatus, RelationshipType
+from ingestion.postgres_loader import (
     derive_effective_periods,
     normalize_date,
     normalize_legal_status,
@@ -73,3 +73,60 @@ def test_relationship_mapping_preserves_only_confident_semantics():
         normalize_relationship_type("Văn bản liên quan khác")
         == RelationshipType.RELATED_TO.value
     )
+    assert normalize_relationship_type("Văn bản quy định hết hiệu lực") == RelationshipType.REPEALS.value
+    assert normalize_relationship_type("Văn bản hết hiệu lực") == RelationshipType.REPEALS.value
+    assert normalize_relationship_type("Văn bản sửa đổi") == RelationshipType.AMENDS.value
+    assert normalize_relationship_type("Văn bản được sửa đổi") == RelationshipType.AMENDS.value
+    assert normalize_relationship_type("Văn bản được bổ sung") == RelationshipType.SUPPLEMENTS.value
+    assert normalize_relationship_type("Văn bản quy định hết hiệu lực 1 phần") == RelationshipType.AMENDS.value
+    assert normalize_relationship_type("Văn bản bị hết hiệu lực 1 phần") == RelationshipType.AMENDS.value
+
+
+def test_inverted_relationship_normalizes_edges_correctly():
+    from unittest.mock import MagicMock
+    from ingestion.postgres_loader import PostgresMetadataLoader
+
+    loader = PostgresMetadataLoader(MagicMock())
+
+    # 'Văn bản quy định hết hiệu lực' means other_doc_id is the repealing document, doc_id is repealed.
+    # The normalizer should invert so source becomes actor (repealing) and target becomes repealed.
+    inverted_row = {
+        "doc_id": "old_doc_1",
+        "other_doc_id": "new_repealing_doc_2",
+        "relationship": "Văn bản quy định hết hiệu lực",
+    }
+    norm = loader._normalize_relationship_row(inverted_row)
+    assert norm is not None
+    source_id, target_id, label, relation_type, meta = norm
+    assert source_id == "new_repealing_doc_2"
+    assert target_id == "old_doc_1"
+    assert relation_type == RelationshipType.REPEALS.value
+
+    # Standard relationship should NOT invert
+    normal_row = {
+        "doc_id": "new_doc",
+        "other_doc_id": "old_doc",
+        "relationship": "Thay thế",
+    }
+    norm_std = loader._normalize_relationship_row(normal_row)
+    assert norm_std is not None
+    source_id, target_id, label, relation_type, meta = norm_std
+    assert source_id == "new_doc"
+    assert target_id == "old_doc"
+    assert relation_type == RelationshipType.REPLACES.value
+
+
+
+def test_effective_document_past_expiry_auto_transitions_to_expired():
+    periods = derive_effective_periods(
+        source_status="Còn hiệu lực",
+        issued_date=date(2010, 1, 1),
+        effective_date=date(2010, 2, 1),
+        expiry_date=date(2020, 1, 1),
+    )
+
+    assert [(item.status, item.valid_from, item.valid_to) for item in periods] == [
+        (LegalStatus.EFFECTIVE.value, date(2010, 2, 1), date(2020, 1, 1)),
+        (LegalStatus.EXPIRED.value, date(2020, 1, 1), None),
+    ]
+

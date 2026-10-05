@@ -6,12 +6,12 @@ import numpy as np
 import pytest
 from qdrant_client import QdrantClient
 
-from lawchat.indexing.qdrant_index import (
+from indexing.qdrant_index import (
     IndexableChunk,
     QdrantDenseIndex,
     stable_point_id,
 )
-from lawchat.retrieval import DenseSearchFilter, DenseSearcher
+from retrieval import DenseSearchFilter, DenseSearcher
 
 
 class KeywordEmbedder:

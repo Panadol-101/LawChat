@@ -7,7 +7,7 @@ import uuid
 import pytest
 from sqlalchemy import create_engine, text
 
-from lawchat.ingestion import OfficialEnrichmentLoader
+from ingestion import OfficialEnrichmentLoader
 
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")

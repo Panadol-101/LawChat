@@ -12,7 +12,10 @@ from typing import Any, Callable, Iterator, Protocol
 import tantivy
 from sqlalchemy import Engine, text
 
-from ..config import FeatureFlag, get_feature_flags
+try:
+    from config import FeatureFlag, get_feature_flags
+except (ImportError, ValueError):
+    from config import FeatureFlag, get_feature_flags
 
 
 logger = logging.getLogger(__name__)

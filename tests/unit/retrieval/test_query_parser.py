@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from lawchat.retrieval import AmbiguousTemporalQuery, LegalQueryParser
+from retrieval import AmbiguousTemporalQuery, LegalQueryParser
 
 
 def test_parser_extracts_vietnamese_date_document_and_structure():

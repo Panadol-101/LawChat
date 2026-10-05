@@ -9,7 +9,7 @@ import pyarrow.parquet as pq
 from lxml import etree
 from lxml import html as lxml_html
 
-from lawchat.preprocessing.html_cleaner import (
+from preprocessing.html_cleaner import (
     CLEANER_VERSION,
     FILLER_PLACEHOLDER,
     TABLE_END_MARKER,

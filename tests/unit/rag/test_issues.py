@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from lawchat.rag import (
+from rag import (
     InvalidStructuredResponseError,
     IssueDecompositionRequest,
     IssuePlan,
@@ -10,7 +10,7 @@ from lawchat.rag import (
     OpenAICompatibleSettings,
     retrieve_issue_plan,
 )
-from lawchat.retrieval import (
+from retrieval import (
     LegalCitation,
     LegalDataCutoffExceeded,
     LegalIssue,

@@ -8,9 +8,9 @@ from pathlib import Path
 import pytest
 from qdrant_client import QdrantClient, models
 
-from lawchat.evaluation import RetrievalCase, evaluate_rankings
-from lawchat.indexing import SentenceTransformerEmbedder
-from lawchat.retrieval import DenseSearcher
+from evaluation import RetrievalCase, evaluate_rankings
+from indexing import SentenceTransformerEmbedder
+from retrieval import DenseSearcher
 
 
 pytestmark = pytest.mark.skipif(

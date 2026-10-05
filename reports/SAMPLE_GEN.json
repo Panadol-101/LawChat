@@ -1,0 +1,101 @@
+{
+  "benchmark_version": "2.0.0",
+  "corpus_release": "chunker-v4-bge-m3-20260830",
+  "metrics": {
+    "total_cases": 1,
+    "semantic_flagged_cases": 0,
+    "semantic_error_cases": 0,
+    "semantic_checked_cases": 0,
+    "coverage_complete_cases": 0,
+    "coverage_incomplete_cases": 0,
+    "answerable_cases": 1,
+    "unanswerable_cases": 0,
+    "expected_refusal_cases": 0,
+    "verified_rate": 0.0,
+    "answerable_verified_rate": 0.0,
+    "false_refusal_rate": 1.0,
+    "unsafe_answer_rate": null,
+    "repair_rate": 0.0,
+    "generation_failure_rate": 0.0,
+    "grounding_document_precision": null,
+    "latency_seconds": {
+      "p50": 19.983,
+      "p90": 19.983,
+      "p95": 19.983,
+      "p99": 19.983,
+      "max": 19.983
+    }
+  },
+  "results": [
+    {
+      "case_id": "exact_document_number_001",
+      "answerable": true,
+      "status": "REFUSED",
+      "attempts": 0,
+      "expected_document_ids": [
+        "139264"
+      ],
+      "cited_document_ids": [],
+      "verification_codes": [
+        "UNRESOLVED_PROVISION_STATUS"
+      ],
+      "latency_seconds": 19.983,
+      "semantic_mode": "enforce",
+      "semantic_status": "NOT_CHECKED",
+      "coverage_status": "NOT_CHECKED",
+      "semantic_observations": [],
+      "generation_telemetry": [],
+      "answer": {
+        "answer": "Không đủ căn cứ trong evidence đã được xác minh để trả lời câu hỏi này.",
+        "claims": [],
+        "limitations": [
+          "Cần bổ sung nguồn pháp lý phù hợp và đã được xác minh."
+        ],
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "evidence_id": "G1",
+          "document_id": "139264",
+          "text": "45/2019/QH14 AMENDS 58/2014/QH13 Trạng thái văn bản nguồn: PARTIALLY_EFFECTIVE. Trạng thái văn bản đích: EXPIRED. Thời gian áp dụng quan hệ: từ 2021-01-01 đến -."
+        },
+        {
+          "evidence_id": "G2",
+          "document_id": "139264",
+          "text": "45/2019/QH14 AMENDS 92/2015/QH13 Trạng thái văn bản nguồn: PARTIALLY_EFFECTIVE. Trạng thái văn bản đích: PARTIALLY_EFFECTIVE. Thời gian áp dụng quan hệ: từ 2021-01-01 đến -."
+        },
+        {
+          "evidence_id": "E1",
+          "document_id": "46744",
+          "text": "Điều 57. Điều chỉnh lương hưu Chính phủ quy định việc điều chỉnh lương hưu trên cơ sở mức tăng của chỉ số giá tiêu dùng và tăng trưởng kinh tế phù hợp với ngân sách nhà nước và quỹ bảo hiểm xã hội."
+        },
+        {
+          "evidence_id": "E2",
+          "document_id": "46744",
+          "text": "Điều 1. Phạm vi điều chỉnh Luật này quy định chế độ, chính sách bảo hiểm xã hội; quyền và trách nhiệm của người lao động, người sử dụng lao động; cơ quan, tổ chức, cá nhân có liên quan đến bảo hiểm xã hội, tổ chức đại diện tập thể lao động, tổ chức đại diện người sử dụng lao động; cơ quan bảo hiểm xã hội; quỹ bảo hiểm xã hội; thủ tục thực hiện bảo hiểm xã hội và quản lý nhà nước về bảo hiểm xã hội."
+        },
+        {
+          "evidence_id": "E3",
+          "document_id": "46744",
+          "text": "Điều 98. Điều chỉnh thông tin tham gia bảo hiểm xã hội 1. Người sử dụng lao động phải thông báo bằng văn bản với cơ quan bảo hiểm xã hội khi có thay đổi thông tin tham gia bảo hiểm xã hội. 2. Hồ sơ điều chỉnh thông tin cá nhân của người lao động tham gia bảo hiểm xã hội bao gồm: a) Tờ khai điều chỉnh thông tin cá nhân; b) Sổ bảo hiểm xã hội; c) Bản sao giấy tờ của cơ quan nhà nước có thẩm quyền liên quan đến việc điều chỉnh thông tin cá nhân theo quy định của pháp luật."
+        },
+        {
+          "evidence_id": "E4",
+          "document_id": "46744",
+          "text": "Điều 63. Điều chỉnh tiền lương đã đóng bảo hiểm xã hội 1. Tiền lương đã đóng bảo hiểm xã hội để làm căn cứ tính mức bình quân tiền lương tháng đóng bảo hiểm xã hội đối với người lao động quy định tại khoản 1 Điều 89 của Luật này được điều chỉnh theo mức lương cơ sở tại thời điểm hưởng chế độ hưu trí đối với người lao động tham gia bảo hiểm xã hội trước ngày 01 tháng 01 năm 2016. Đối với người lao động bắt đầu tham gia bảo hiểm xã hội từ ngày 01 tháng 01 năm 2016 trở đi thì tiền lương đã đóng bảo hiểm xã hội để làm căn cứ tính mức bình quân tiền lương tháng đóng bảo hiểm xã hội được điều chỉnh như quy định tại khoản 2 Điều này. 2. Tiền lương đã đóng bảo hiểm xã hội để làm căn cứ tính mức bình quân tiền lương tháng đóng bảo hiểm xã hội đối với người lao động quy định tại khoản 2 Điều 89 của Luật này được điều chỉnh trên cơ sở chỉ số giá tiêu dùng của từng thời kỳ theo quy định của Chính phủ."
+        },
+        {
+          "evidence_id": "E5",
+          "document_id": "46744",
+          "text": "Điều 9. Hiện đại hóa quản lý bảo hiểm xã hội 1. Nhà nước khuyến khích đầu tư phát triển công nghệ và phương tiện kỹ thuật tiên tiến để quản lý, thực hiện bảo hiểm xã hội. 2. Đến năm 2020, hoàn thành việc xây dựng và vận hành cơ sở dữ liệu điện tử về quản lý bảo hiểm xã hội trong phạm vi cả nước."
+        }
+      ],
+      "query": "Văn bản 45/2019/QH14 điều chỉnh lĩnh vực gì và có nội dung chính nào?",
+      "retrieval_answerable": true,
+      "expected_refusal_reason": null,
+      "legal_issues": [],
+      "retrieval_trace": {},
+      "context_dropped_chunk_ids": []
+    }
+  ]
+}

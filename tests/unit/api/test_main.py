@@ -4,13 +4,13 @@ from datetime import date
 import pytest
 from fastapi import HTTPException
 
-from lawchat.api.main import (
+from api.main import (
     SearchBody,
     open_document_source,
     search,
 )
-from lawchat.retrieval import AmbiguousTemporalQuery, RetrievalResponse
-from lawchat.sources import SourceResolution
+from retrieval import AmbiguousTemporalQuery, RetrievalResponse
+from sources import SourceResolution
 
 
 class FakeService:

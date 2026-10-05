@@ -11,15 +11,15 @@ from dataclasses import asdict, replace
 from datetime import UTC, date, datetime
 from pathlib import Path
 
-from lawchat.database import DatabaseSettings, create_db_engine
-from lawchat.evaluation import (
+from database import DatabaseSettings, create_db_engine
+from evaluation import (
     GenerationCaseResult,
     HistoricalGateObservation,
     evaluate_historical_gate,
     summarize_generation_results,
 )
-from lawchat.indexing import QdrantSettings, SentenceTransformerEmbedder
-from lawchat.rag import (
+from indexing import QdrantSettings, SentenceTransformerEmbedder
+from rag import (
     Evidence,
     GenerationRequest,
     GeneratedAnswer,
@@ -33,15 +33,15 @@ from lawchat.rag import (
     create_rag_runtime,
     retrieve_issue_plan,
 )
-from lawchat.rag.generator import SupportingQuote
-from lawchat.rag.semantic import (
+from rag.generator import SupportingQuote
+from rag.semantic import (
     JUDGE_PROMPT_VERSION,
     OpenAICompatibleClaimJudge,
     SemanticVerifier,
 )
 from scripts import dispatch
-from lawchat.retrieval import LegalQueryParser, RetrievalRequest
-from lawchat.retrieval.runtime import create_hybrid_retrieval_service
+from retrieval import LegalQueryParser, RetrievalRequest
+from retrieval.runtime import create_hybrid_retrieval_service
 
 
 def generation_main() -> None:
@@ -91,6 +91,10 @@ def generation_main() -> None:
             if case.get("request", {}).get("as_of"):
                 request_options["as_of"] = date.fromisoformat(
                     case["request"]["as_of"]
+                )
+            if case.get("request", {}).get("statuses"):
+                request_options["statuses"] = tuple(
+                    case["request"]["statuses"]
                 )
             base_request = RetrievalRequest(**request_options)
             issue_plan = None
@@ -273,7 +277,7 @@ def _stratified_sample(cases: list[dict], sample_size: int) -> list[dict]:
 
 
 def case_request(case):
-    from lawchat.retrieval import LegalCitation
+    from retrieval import LegalCitation
 
     citation = LegalCitation(
         document_id="synthetic",

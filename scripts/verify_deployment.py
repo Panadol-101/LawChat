@@ -8,8 +8,8 @@ from dataclasses import asdict, dataclass
 import numpy as np
 from sqlalchemy import text
 
-from lawchat.database import DatabaseSettings, create_db_engine
-from lawchat.indexing import QdrantSettings, SentenceTransformerEmbedder
+from database import DatabaseSettings, create_db_engine
+from indexing import QdrantSettings, SentenceTransformerEmbedder
 from scripts import dispatch
 
 

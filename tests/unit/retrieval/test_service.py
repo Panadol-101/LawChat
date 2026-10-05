@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from lawchat.retrieval import (
+from retrieval import (
     DenseSearchResult,
     HydratedLegalChunk,
     LegalQueryParser,
@@ -34,6 +34,12 @@ class FakeHydrator:
         self.filters.append(filters)
         # Point 1 simulates a high-scoring but legally invalid candidate.
         return [_chunk(point_id) for point_id in point_ids if point_id != "1"]
+
+
+class DiagnosticFakeHydrator(FakeHydrator):
+    def rejection_reasons(self, point_ids, filters, *, collection=None):
+        del filters, collection
+        return {"UNRESOLVED_PROVISION_STATUS": int("1" in point_ids)}
 
 
 def _chunk(point_id: str) -> HydratedLegalChunk:
@@ -87,6 +93,26 @@ def test_service_expands_candidates_and_keeps_qdrant_ranking():
     assert response.results[0].citation.label == "Điều 36 Khoản 2, 45/2019/QH14"
     assert "Đoạn liên quan:\nNội dung hợp lệ 2" in response.results[0].context_text
     assert hydrator.filters[-1].as_of == date(2025, 1, 1)
+
+
+def test_service_reports_unresolved_provision_rejection_reason():
+    service = LegalRetrievalService(
+        FakeSearcher(),
+        DiagnosticFakeHydrator(),
+        query_parser=LegalQueryParser(today=lambda: date(2025, 1, 1)),
+    )
+
+    response = service.retrieve(
+        RetrievalRequest(
+            query="Điều 19 Nghị định 95/2013/NĐ-CP quy định gì?",
+            limit=2,
+            candidate_limit=2,
+            max_candidate_limit=2,
+        )
+    )
+
+    assert response.rejection_reasons == {"UNRESOLVED_PROVISION_STATUS": 1}
+    assert "UNRESOLVED_PROVISION_STATUS" in response.warnings
 
 
 def test_service_uses_postgres_for_status_and_merges_document_number():

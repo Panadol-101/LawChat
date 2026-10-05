@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from lawchat.database import (
+from database import (
     Chunk,
     Document,
     DocumentVersion,
@@ -45,7 +45,11 @@ def session():
         engine.dispose()
 
 
-def _legal_document(session: Session) -> tuple[Document, DocumentVersion, Chunk]:
+def _legal_document(
+    session: Session,
+    *,
+    status: str = LegalStatus.EFFECTIVE.value,
+) -> tuple[Document, DocumentVersion, Chunk]:
     suffix = uuid.uuid4().hex
     document = Document(
         external_id=f"doc-{suffix}",
@@ -54,7 +58,7 @@ def _legal_document(session: Session) -> tuple[Document, DocumentVersion, Chunk]
         document_type="Nghị định",
         authority="Chính phủ",
         effective_date=date(2026, 1, 1),
-        status=LegalStatus.EFFECTIVE.value,
+        status=status,
         legal_field="Doanh nghiệp",
         source_url=f"https://example.test/{suffix}",
     )
@@ -67,6 +71,8 @@ def _legal_document(session: Session) -> tuple[Document, DocumentVersion, Chunk]
         content_hash=hashlib.sha256(suffix.encode()).hexdigest(),
         source_url=document.source_url,
         is_current=True,
+        content_valid_from=date(2026, 1, 1),
+        content_valid_to=date(2027, 1, 1),
     )
     session.add(version)
     session.flush()
@@ -91,7 +97,7 @@ def _legal_document(session: Session) -> tuple[Document, DocumentVersion, Chunk]
             EffectiveStatus(
                 document_id=document.id,
                 source_version_id=version.id,
-                status=LegalStatus.EFFECTIVE.value,
+                status=status,
                 valid_from=date(2026, 1, 1),
                 valid_to=date(2027, 1, 1),
             ),
@@ -192,3 +198,62 @@ def test_hydration_prefers_exact_provision_status_over_document_status(session):
     assert row["status"] == "SUSPENDED"
     assert row["status_scope"] == "provision"
     assert row["valid_from"] == date(2026, 2, 1)
+
+
+def test_current_law_rejects_unknown_partial_provision_but_historical_keeps_it(
+    session,
+):
+    document, version, chunk = _legal_document(
+        session,
+        status=LegalStatus.PARTIALLY_EFFECTIVE.value,
+    )
+    session.add(
+        ProvisionEffectiveStatus(
+            document_id=document.id,
+            source_version_id=version.id,
+            provision_key=provision_key("1"),
+            article="1",
+            status=LegalStatus.UNKNOWN.value,
+            valid_from=date(2026, 1, 1),
+            valid_to=None,
+        )
+    )
+    session.flush()
+
+    current = session.execute(
+        MetadataQueries.hydrate_qdrant_points(
+            [chunk.qdrant_point_id],
+            LegalMetadataFilter(
+                as_of=date(2026, 6, 1),
+                temporal_intent="current_law",
+            ),
+            collection="legal-v1",
+        )
+    ).mappings().all()
+    rejected = session.scalars(
+        MetadataQueries.unresolved_provision_point_ids(
+            [chunk.qdrant_point_id],
+            LegalMetadataFilter(
+                as_of=date(2026, 6, 1),
+                temporal_intent="current_law",
+            ),
+            collection="legal-v1",
+        )
+    ).all()
+    historical = session.execute(
+        MetadataQueries.hydrate_qdrant_points(
+            [chunk.qdrant_point_id],
+            LegalMetadataFilter(
+                as_of=date(2026, 6, 1),
+                statuses=(LegalStatus.PARTIALLY_EFFECTIVE.value,),
+                content_scope="historical",
+                temporal_intent="historical",
+            ),
+            collection="legal-v1",
+        )
+    ).mappings().one()
+
+    assert current == []
+    assert rejected == [chunk.qdrant_point_id]
+    assert historical["status"] == LegalStatus.PARTIALLY_EFFECTIVE.value
+    assert historical["status_scope"] == "document"

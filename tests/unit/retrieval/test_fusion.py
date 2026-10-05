@@ -1,6 +1,6 @@
 import pytest
 
-from lawchat.retrieval import (
+from retrieval import (
     RRFSettings,
     RetrievalCandidate,
     reciprocal_rank_fusion,

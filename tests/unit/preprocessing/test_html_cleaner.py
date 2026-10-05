@@ -1,4 +1,4 @@
-from lawchat.preprocessing.html_cleaner import clean_html
+from preprocessing.html_cleaner import clean_html
 
 
 def test_cleaner_uses_body_and_drops_document_title():

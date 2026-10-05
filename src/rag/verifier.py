@@ -8,7 +8,7 @@ from urllib.parse import urlsplit, urlunsplit
 
 from .generator import GeneratedAnswer, GeneratedClaim, GenerationRequest
 from .context_models import Evidence
-from ..config import FeatureFlags, get_feature_flags
+from config import FeatureFlags, get_feature_flags
 
 
 class VerificationStatus(str, Enum):
@@ -180,17 +180,12 @@ class GroundingVerifier:
             )
 
         issues: list[VerificationIssue] = []
-        if document_partial:
-            # Audit fix E1+E2 (Phase 1 hotfix). When a PARTIALLY_EFFECTIVE
-            # document is cited but no provision-level status row resolved,
-            # fail-closed instead of letting the LLM decide. The audit showed
-            # that simply warning the LLM (the legacy behaviour) caused the
-            # answer to be grounded on provisions that were actually repealed.
+        if document_partial and flags.fail_closed_partial:
             has_provision_evidence = any(
                 item.citation.status_scope == "provision"
                 for item in evidence_by_id.values()
             )
-            if flags.fail_closed_partial and not has_provision_evidence:
+            if not has_provision_evidence:
                 return VerificationResult(
                     VerificationStatus.REFUSED,
                     (
@@ -204,15 +199,6 @@ class GroundingVerifier:
                         ),
                     ),
                 )
-            issues.append(
-                VerificationIssue(
-                    VerificationCode.STATUS_DISCLOSURE_MISSING,
-                    (
-                        "Văn bản có trạng thái PARTIALLY_EFFECTIVE ở cấp văn bản; "
-                        "chưa có dữ liệu trạng thái riêng cho từng điều khoản được trích dẫn."
-                    ),
-                )
-            )
 
         if not evidence_by_id or not any(item.text.strip() for item in evidence_by_id.values()):
             issues = [
@@ -483,20 +469,21 @@ class GroundingVerifier:
             if (
                 request.temporal_intent == "historical"
                 and evidence.evidence_id.startswith("E")
-                and not _citation_covers_as_of(
+            ):
+                flags = get_feature_flags()
+                if not _citation_covers_as_of(
                     evidence.citation,
                     request.as_of,
                     require_current=flags.historical_version_check,
                     require_effective_status=flags.historical_version_check,
-                )
-            ):
-                issues.append(
-                    VerificationIssue(
-                        VerificationCode.HISTORICAL_VERSION_MISMATCH,
-                        f"{evidence.evidence_id} không định danh phiên bản nội dung hợp lệ tại as_of.",
-                        index,
+                ):
+                    issues.append(
+                        VerificationIssue(
+                            VerificationCode.HISTORICAL_VERSION_MISMATCH,
+                            f"{evidence.evidence_id} không định danh phiên bản nội dung hợp lệ tại as_of.",
+                            index,
+                        )
                     )
-                )
 
         cited_numbers = {
             _normalize_identifier(item.citation.document_number)

@@ -27,30 +27,145 @@ BASE_DIR = Path(__file__).resolve().parent
 PUBLIC_BASE_URL = os.getenv("LAWCHAT_PUBLIC_BASE_URL", "http://localhost:8501")
 
 
-@st.cache_resource
-def api_client() -> LawChatAPI:
-    return LawChatAPI()
+
+def get_api_client() -> LawChatAPI:
+    if "api_client" not in st.session_state:
+        st.session_state.api_client = LawChatAPI()
+
+    return st.session_state.api_client
 
 
-api = api_client()
+api = get_api_client()
 
+def login_screen() -> None:
+    st.markdown(
+        '<div class="lawchat-brand">⚖ LawChat</div>',
+        unsafe_allow_html=True,
+    )
+
+    login_tab, register_tab = st.tabs(["Đăng nhập", "Đăng ký"])
+
+    with login_tab:
+        st.subheader("Đăng nhập")
+
+        with st.form("login_form"):
+            username = st.text_input(
+                "Tên đăng nhập",
+                key="login_username",
+            )
+            password = st.text_input(
+                "Mật khẩu",
+                type="password",
+                key="login_password",
+            )
+
+            if st.form_submit_button(
+                "Đăng nhập",
+                use_container_width=True,
+            ):
+                if not username.strip() or not password:
+                    st.warning(
+                        "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu."
+                    )
+                else:
+                    try:
+                        user = api.login(
+                            username.strip(),
+                            password,
+                        )
+
+                        st.session_state.authenticated = True
+                        st.session_state.auth_user = user
+
+                        st.rerun()
+
+                    except APIError as exc:
+                        fail(str(exc))
+
+    with register_tab:
+        st.subheader("Tạo tài khoản")
+
+        with st.form("register_form"):
+            username = st.text_input(
+                "Tên đăng nhập",
+                key="register_username",
+            )
+            password = st.text_input(
+                "Mật khẩu",
+                type="password",
+                key="register_password",
+            )
+            confirm_password = st.text_input(
+                "Nhập lại mật khẩu",
+                type="password",
+                key="register_confirm_password",
+            )
+
+            if st.form_submit_button(
+                "Đăng ký",
+                use_container_width=True,
+            ):
+                if not username.strip():
+                    st.warning("Vui lòng nhập tên đăng nhập.")
+                elif password != confirm_password:
+                    st.warning("Mật khẩu nhập lại không khớp.")
+                else:
+                    try:
+                        api.register(
+                            username.strip(),
+                            password,
+                            confirm_password,
+                        )
+
+                        st.success(
+                            "Đăng ký thành công. Bạn có thể đăng nhập ngay."
+                        )
+
+                    except APIError as exc:
+                        fail(str(exc))
+
+
+def require_auth() -> None:
+    if st.session_state.get("authenticated"):
+        return
+
+    try:
+        user = api.me()
+        st.session_state.authenticated = True
+        st.session_state.auth_user = user
+        return
+    except APIError:
+        pass
+
+
+    login_screen()
+    st.stop()
 
 def _background_css() -> str:
     image_path = BASE_DIR / "assets" / "lawchat-bg.jpg"
     if not image_path.exists():
         return ""
+
     encoded = base64.b64encode(image_path.read_bytes()).decode()
+
     return f"""
     .stApp::before {{
-        content: ""; position: fixed; inset: 0;
-        background: url("data:image/png;base64,{encoded}") center/cover no-repeat;
-        opacity: .58; filter: saturate(1.18) contrast(1.12) brightness(1.08); pointer-events: none;
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: url("data:image/jpeg;base64,{encoded}") center/cover no-repeat;
+        opacity: .14;
+        filter: saturate(1.05) contrast(1.02) brightness(1.05);
+        pointer-events: none;
     }}
+
     .stApp::after {{
-        content: ""; position: fixed; inset: 0;
-        background:
-            radial-gradient(circle at 52% 14%, rgba(255,205,95,.14), transparent 42%),
-            linear-gradient(180deg, rgba(12,13,17,.08), rgba(9,10,14,.52));
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background: rgba(10, 11, 15, .18);
         pointer-events: none;
     }}
     """
@@ -59,31 +174,140 @@ def _background_css() -> str:
 st.markdown(
     f"""
     <style>
-    html, body, .stApp {{ background:#101116; color:#f7f7f8; }}
+
+    /* =========================
+       Streamlit header / toolbar
+       ========================= */
+
+    header[data-testid="stHeader"] {{
+        display: none !important;
+    }}
+
+    div[data-testid="stDecoration"] {{
+        display: none !important;
+    }}
+
+    div[data-testid="stToolbar"] {{
+        display: none !important;
+    }}
+
+    footer {{
+        display: none !important;
+    }}
+
+
+    /* =========================
+       App
+       ========================= */
+
+    html, body, .stApp {{
+        background:#101116;
+        color:#f7f7f8;
+    }}
+
     {_background_css()}
+
+    [data-testid="stAppViewContainer"] {{
+        padding-top: 0 !important;
+    }}
+
     [data-testid="stAppViewContainer"] > .main,
-    [data-testid="stSidebar"] {{ position:relative; z-index:2; }}
     [data-testid="stSidebar"] {{
-        background:rgba(11,12,16,.97); border-right:1px solid rgba(255,255,255,.07);
+        position: relative;
+        z-index: 2;
     }}
-    .block-container {{ max-width:980px; padding-top:1.3rem; padding-bottom:7rem; }}
+
+    [data-testid="stSidebar"] {{
+        background:rgba(11,12,16,.97);
+        border-right:1px solid rgba(255,255,255,.07);
+    }}
+
+    .block-container {{
+        max-width:980px;
+        padding-top:1rem !important;
+        padding-bottom:7rem;
+    }}
+
+
+    /* =========================
+       Chat messages
+       ========================= */
+
     div[data-testid="stChatMessage"] {{
-        padding:15px 17px; margin-bottom:12px; border-radius:18px;
-        border:1px solid rgba(255,255,255,.07); background:rgba(23,25,31,.84);
+        padding:15px 17px;
+        margin-bottom:12px;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,.07);
+        background:rgba(23,25,31,.84);
     }}
+
+
+    /* =========================
+       Chat input - remove black bar
+       ========================= */
+
+    div[data-testid="stBottom"] {{
+        background: transparent !important;
+    }}
+
+    div[data-testid="stBottomBlockContainer"] {{
+        background: transparent !important;
+    }}
+
+    div[data-testid="stBottomBlockContainer"] > div {{
+        background: transparent !important;
+    }}
+
+    div[data-testid="stChatInput"] {{
+        background: transparent !important;
+    }}
+
     div[data-testid="stChatInput"] > div {{
-        border-radius:24px; background:rgba(30,32,39,.97);
+        border-radius:24px;
+        background:rgba(25,27,34,.98);
+        border:1px solid rgba(255,255,255,.10);
     }}
-    .lawchat-brand {{ font-size:21px; font-weight:700; margin-bottom:4px; }}
-    .lawchat-subtitle {{ color:#999faa; font-size:12px; margin-bottom:24px; }}
-    .hero {{ font-size:43px; line-height:1.1; font-weight:680; margin:65px 0 16px; }}
-    .hero-note {{ color:#a4a8b1; max-width:620px; line-height:1.65; }}
+
+
+    /* =========================
+       LawChat
+       ========================= */
+
+    .lawchat-brand {{
+        font-size:21px;
+        font-weight:700;
+        margin-bottom:4px;
+    }}
+
+    .lawchat-subtitle {{
+        color:#999faa;
+        font-size:12px;
+        margin-bottom:24px;
+    }}
+
+    .hero {{
+        font-size:43px;
+        line-height:1.1;
+        font-weight:680;
+        margin:65px 0 16px;
+    }}
+
+    .hero-note {{
+        color:#a4a8b1;
+        max-width:620px;
+        line-height:1.65;
+    }}
+
     .unofficial {{
-        color:#d8bd8a; border:1px solid rgba(216,189,138,.25);
-        background:rgba(216,189,138,.08); padding:7px 10px; border-radius:10px;
-        font-size:11px; margin-bottom:18px;
+        color:#d8bd8a;
+        border:1px solid rgba(216,189,138,.25);
+        background:rgba(216,189,138,.08);
+        padding:7px 10px;
+        border-radius:10px;
+        font-size:11px;
+        margin-bottom:18px;
     }}
-    #MainMenu, footer {{ visibility:hidden; }}
+
     </style>
     """,
     unsafe_allow_html=True,
@@ -116,8 +340,11 @@ if share_token:
 
 if "active_conversation_id" not in st.session_state:
     st.session_state.active_conversation_id = None
+
 if "active_project_id" not in st.session_state:
     st.session_state.active_project_id = None
+
+require_auth()
 
 try:
     projects = api.list_projects()
@@ -131,95 +358,664 @@ project_names = {item["id"]: item["name"] for item in projects}
 
 
 with st.sidebar:
-    st.markdown('<div class="lawchat-brand">⚖️ LawChat</div>', unsafe_allow_html=True)
+
+    # ============================================================
+    # LAWCHAT BRAND
+    # ============================================================
+
+    st.markdown(
+        '<div class="lawchat-brand">⚖️ LawChat</div>',
+        unsafe_allow_html=True,
+    )
+
     st.caption("Vietnamese Legal RAG")
-    if st.button("＋ Cuộc trò chuyện mới", use_container_width=True):
+
+
+    # ============================================================
+    # NEW CHAT
+    # ============================================================
+
+    if st.button(
+        "",
+        icon=":material/edit_square:",
+        help="Cuộc trò chuyện mới",
+        type="secondary",
+        use_container_width=True,
+        key="new-chat",
+    ):
         st.session_state.active_conversation_id = None
+        st.session_state.pop("share_url", None)
         st.rerun()
+
+
+    # ============================================================
+    # CREATE PROJECT
+    # ============================================================
 
     with st.expander("Tạo dự án"):
-        with st.form("create_project", clear_on_submit=True):
-            project_name = st.text_input("Tên dự án")
-            if st.form_submit_button("Tạo", use_container_width=True):
+
+        with st.form(
+            "create_project",
+            clear_on_submit=True,
+        ):
+
+            project_name = st.text_input(
+                "Tên dự án"
+            )
+
+            if st.form_submit_button(
+                "Tạo",
+                use_container_width=True,
+            ):
+
                 if project_name.strip():
+
                     try:
-                        created = api.create_project(project_name.strip())
-                        st.session_state.active_project_id = created["id"]
+
+                        created = api.create_project(
+                            project_name.strip()
+                        )
+
+                        st.session_state.active_project_id = (
+                            created["id"]
+                        )
+
+                        st.session_state.active_conversation_id = None
+
                         st.rerun()
+
                     except APIError as exc:
                         fail(str(exc))
 
-    project_options = {"Tất cả cuộc trò chuyện": None}
-    project_options.update({item["name"]: item["id"] for item in projects})
+
+    # ============================================================
+    # PROJECT SELECTOR
+    # ============================================================
+
+    project_options = {
+        "Tất cả cuộc trò chuyện": None
+    }
+
+    project_options.update(
+        {
+            item["name"]: item["id"]
+            for item in projects
+        }
+    )
+
+
     current_project_label = next(
-        (label for label, value in project_options.items()
-         if value == st.session_state.active_project_id),
+        (
+            label
+            for label, value in project_options.items()
+            if value == st.session_state.active_project_id
+        ),
         "Tất cả cuộc trò chuyện",
     )
+
+
     selected_project_label = st.selectbox(
-        "Dự án", list(project_options),
-        index=list(project_options).index(current_project_label),
+        "Dự án",
+        list(project_options),
+        index=list(project_options).index(
+            current_project_label
+        ),
+        key="project-selector",
     )
-    selected_project_id = project_options[selected_project_label]
+
+
+    selected_project_id = project_options[
+        selected_project_label
+    ]
+
+
     if selected_project_id != st.session_state.active_project_id:
-        st.session_state.active_project_id = selected_project_id
+
+        st.session_state.active_project_id = (
+            selected_project_id
+        )
+
+        st.session_state.active_conversation_id = None
+        st.session_state.pop("share_url", None)
+
         st.rerun()
 
+
+    # ============================================================
+    # PROJECT ACTIONS
+    # ============================================================
+
     if selected_project_id:
-        with st.expander("Quản lý dự án"):
-            with st.form("rename_project"):
-                renamed_project = st.text_input(
-                    "Tên dự án", value=project_names.get(selected_project_id, "")
+
+        project_menu_col, project_chat_col = st.columns(
+            [1, 1],
+            gap="small",
+        )
+
+
+        # ========================================================
+        # PROJECT "..."
+        # ========================================================
+
+        with project_menu_col:
+
+            with st.popover(
+                "",
+                icon=":material/more_horiz:",
+                help="Tùy chọn dự án",
+                use_container_width=True,
+            ):
+
+                st.caption(
+                    project_names.get(
+                        selected_project_id,
+                        "Dự án",
+                    )
                 )
-                if st.form_submit_button("Lưu tên", use_container_width=True):
+
+
+                # ------------------------------------------------
+                # PROJECT HOME
+                # ------------------------------------------------
+
+                if st.button(
+                    "Trang chủ dự án",
+                    icon=":material/home:",
+                    use_container_width=True,
+                    key=f"project-home-{selected_project_id}",
+                ):
+
+                    st.session_state.active_conversation_id = None
+                    st.session_state.pop("share_url", None)
+
+                    st.rerun()
+
+
+                # ------------------------------------------------
+                # RENAME PROJECT
+                # ------------------------------------------------
+
+                with st.popover(
+                    "Đổi tên dự án",
+                    icon=":material/edit:",
+                    use_container_width=True,
+                ):
+
+                    renamed_project = st.text_input(
+                        "Tên dự án",
+                        value=project_names.get(
+                            selected_project_id,
+                            "",
+                        ),
+                        key=f"rename-project-input-{selected_project_id}",
+                    )
+
+
+                    if st.button(
+                        "Lưu",
+                        type="primary",
+                        use_container_width=True,
+                        key=f"rename-project-save-{selected_project_id}",
+                    ):
+
+                        new_name = renamed_project.strip()
+
+                        if not new_name:
+
+                            st.warning(
+                                "Tên dự án không được để trống."
+                            )
+
+                        else:
+
+                            try:
+
+                                api.rename_project(
+                                    selected_project_id,
+                                    new_name,
+                                )
+
+                                st.rerun()
+
+                            except APIError as exc:
+                                fail(str(exc))
+
+
+                # ------------------------------------------------
+                # SHARE PROJECT
+                # ------------------------------------------------
+
+                if st.button(
+                    "Chia sẻ dự án",
+                    icon=":material/share:",
+                    use_container_width=True,
+                    key=f"share-project-{selected_project_id}",
+                ):
+
+                    st.info(
+                        "Chia sẻ dự án chưa được backend hỗ trợ. "
+                        "Hiện tại LawChat chỉ hỗ trợ chia sẻ từng cuộc trò chuyện."
+                    )
+
+
+                # ------------------------------------------------
+                # PIN PROJECT
+                # ------------------------------------------------
+
+                pinned_projects = st.session_state.setdefault(
+                    "pinned_projects",
+                    set(),
+                )
+
+                is_project_pinned = (
+                    selected_project_id
+                    in pinned_projects
+                )
+
+
+                if st.button(
+                    "Bỏ ghim dự án"
+                    if is_project_pinned
+                    else "Ghim dự án",
+                    icon=":material/push_pin:",
+                    use_container_width=True,
+                    key=f"pin-project-{selected_project_id}",
+                ):
+
+                    if is_project_pinned:
+
+                        pinned_projects.remove(
+                            selected_project_id
+                        )
+
+                    else:
+
+                        pinned_projects.add(
+                            selected_project_id
+                        )
+
+                    st.rerun()
+
+
+                st.divider()
+
+
+                # ------------------------------------------------
+                # DELETE PROJECT
+                # ------------------------------------------------
+
+                if st.button(
+                    "Xóa dự án",
+                    icon=":material/delete:",
+                    type="secondary",
+                    use_container_width=True,
+                    key=f"delete-project-{selected_project_id}",
+                ):
+
                     try:
-                        api.rename_project(selected_project_id, renamed_project)
+
+                        api.delete_project(
+                            selected_project_id
+                        )
+
+                        st.session_state.active_project_id = None
+                        st.session_state.active_conversation_id = None
+
+                        pinned_projects.discard(
+                            selected_project_id
+                        )
+
+                        st.session_state.pop(
+                            "share_url",
+                            None,
+                        )
+
                         st.rerun()
+
                     except APIError as exc:
                         fail(str(exc))
+
+
+        # ========================================================
+        # NEW CHAT IN PROJECT
+        # ========================================================
+
+        with project_chat_col:
+
             if st.button(
-                "Xóa dự án", key="delete-active-project", use_container_width=True
+                "",
+                icon=":material/edit_square:",
+                help="Cuộc trò chuyện mới trong dự án",
+                type="secondary",
+                use_container_width=True,
+                key=f"new-project-chat-{selected_project_id}",
             ):
+
+                st.session_state.active_conversation_id = None
+                st.session_state.pop("share_url", None)
+
+                st.rerun()
+
+
+    # ============================================================
+    # CONVERSATIONS
+    # ============================================================
+
+    st.markdown(
+        """
+        <div style="
+            margin-top:18px;
+            margin-bottom:8px;
+            color:#999faa;
+            font-size:13px;
+            font-weight:600;
+        ">
+            CUỘC TRÒ CHUYỆN
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+    visible = [
+        item
+        for item in conversations
+        if (
+            selected_project_id is None
+            or item.get("project_id") == selected_project_id
+        )
+    ]
+
+
+    # ============================================================
+    # CONVERSATION ROW
+    # ============================================================
+
+    for conversation in visible:
+
+        conversation_id = conversation["id"]
+        is_pinned = bool(
+            conversation.get("pinned", False)
+        )
+
+
+        row = st.columns(
+            [8, 1, 1],
+            gap="small",
+        )
+
+
+        # --------------------------------------------------------
+        # CHAT TITLE
+        # --------------------------------------------------------
+
+        with row[0]:
+
+            label = conversation["title"]
+
+
+            if st.button(
+                label,
+                key=f"open-{conversation_id}",
+                use_container_width=True,
+                type=(
+                    "primary"
+                    if (
+                        st.session_state.active_conversation_id
+                        == conversation_id
+                    )
+                    else "secondary"
+                ),
+            ):
+
+                st.session_state.active_conversation_id = (
+                    conversation_id
+                )
+
+                st.session_state.pop(
+                    "share_url",
+                    None,
+                )
+
+                st.rerun()
+
+
+        # --------------------------------------------------------
+        # PIN
+        # --------------------------------------------------------
+
+        with row[1]:
+
+            if st.button(
+                "",
+                icon=":material/push_pin:",
+                help=(
+                    "Bỏ ghim"
+                    if is_pinned
+                    else "Ghim cuộc trò chuyện"
+                ),
+                type="tertiary",
+                use_container_width=True,
+                key=f"pin-{conversation_id}",
+            ):
+
                 try:
-                    api.delete_project(selected_project_id)
-                    st.session_state.active_project_id = None
+
+                    api.update_conversation(
+                        conversation_id,
+                        pinned=not is_pinned,
+                    )
+
                     st.rerun()
+
                 except APIError as exc:
                     fail(str(exc))
 
-    st.caption("CUỘC TRÒ CHUYỆN")
-    visible = [
-        item for item in conversations
-        if selected_project_id is None or item.get("project_id") == selected_project_id
-    ]
-    for conversation in visible:
-        row = st.columns([7, 1, 1])
-        label = ("📌 " if conversation["pinned"] else "") + conversation["title"]
-        if row[0].button(
-            label, key=f"open-{conversation['id']}", use_container_width=True
+
+        # --------------------------------------------------------
+        # MORE MENU
+        # --------------------------------------------------------
+
+        with row[2]:
+
+            with st.popover(
+                "",
+                icon=":material/more_horiz:",
+                help="Tùy chọn cuộc trò chuyện",
+                use_container_width=True,
+            ):
+
+                # =================================================
+                # RENAME
+                # =================================================
+
+                with st.popover(
+                    "Đổi tên",
+                    icon=":material/edit:",
+                    use_container_width=True,
+                ):
+
+                    new_title = st.text_input(
+                        "Tên cuộc trò chuyện",
+                        value=conversation["title"],
+                        key=f"rename-chat-input-{conversation_id}",
+                    )
+
+
+                    if st.button(
+                        "Lưu",
+                        type="primary",
+                        use_container_width=True,
+                        key=f"rename-chat-save-{conversation_id}",
+                    ):
+
+                        title = new_title.strip()
+
+                        if not title:
+
+                            st.warning(
+                                "Tên cuộc trò chuyện không được để trống."
+                            )
+
+                        else:
+
+                            try:
+
+                                api.update_conversation(
+                                    conversation_id,
+                                    title=title,
+                                )
+
+                                st.rerun()
+
+                            except APIError as exc:
+                                fail(str(exc))
+
+
+                # =================================================
+                # PIN / UNPIN
+                # =================================================
+
+                if st.button(
+                    "Bỏ ghim"
+                    if is_pinned
+                    else "Ghim",
+                    icon=":material/push_pin:",
+                    use_container_width=True,
+                    key=f"menu-pin-{conversation_id}",
+                ):
+
+                    try:
+
+                        api.update_conversation(
+                            conversation_id,
+                            pinned=not is_pinned,
+                        )
+
+                        st.rerun()
+
+                    except APIError as exc:
+                        fail(str(exc))
+
+
+                # =================================================
+                # SHARE
+                # =================================================
+
+                if st.button(
+                    "Chia sẻ",
+                    icon=":material/share:",
+                    use_container_width=True,
+                    key=f"share-{conversation_id}",
+                ):
+
+                    try:
+
+                        token = api.share_conversation(
+                            conversation_id
+                        )
+
+                        st.session_state.share_url = (
+                            PUBLIC_BASE_URL.rstrip("/")
+                            + "/?share="
+                            + token
+                        )
+
+                        st.session_state.active_conversation_id = (
+                            conversation_id
+                        )
+
+                        st.rerun()
+
+                    except APIError as exc:
+                        fail(str(exc))
+
+
+                st.divider()
+
+
+                # =================================================
+                # DELETE
+                # =================================================
+
+                if st.button(
+                    "Xóa",
+                    icon=":material/delete:",
+                    type="secondary",
+                    use_container_width=True,
+                    key=f"delete-{conversation_id}",
+                ):
+
+                    try:
+
+                        api.delete_conversation(
+                            conversation_id
+                        )
+
+                        if (
+                            st.session_state.active_conversation_id
+                            == conversation_id
+                        ):
+                            st.session_state.active_conversation_id = None
+
+
+                        st.session_state.pop(
+                            "share_url",
+                            None,
+                        )
+
+
+                        st.rerun()
+
+                    except APIError as exc:
+                        fail(str(exc))
+
+
+    # ============================================================
+    # USER
+    # ============================================================
+
+    user = st.session_state.get("auth_user")
+
+
+    if user:
+
+        st.divider()
+
+        st.caption(
+            f"Đang đăng nhập: **{user.get('username', '')}**"
+        )
+
+
+        if st.button(
+            "Đăng xuất",
+            icon=":material/logout:",
+            use_container_width=True,
+            key="logout",
         ):
-            st.session_state.active_conversation_id = conversation["id"]
-            st.rerun()
-        if row[1].button("★", key=f"pin-{conversation['id']}"):
+
             try:
-                api.update_conversation(
-                    conversation["id"], pinned=not conversation["pinned"]
-                )
+                api.logout()
+
+            finally:
+
+                st.session_state.clear()
                 st.rerun()
-            except APIError as exc:
-                fail(str(exc))
-        if row[2].button("×", key=f"delete-{conversation['id']}"):
-            try:
-                api.delete_conversation(conversation["id"])
-                if st.session_state.active_conversation_id == conversation["id"]:
-                    st.session_state.active_conversation_id = None
-                st.rerun()
-            except APIError as exc:
-                fail(str(exc))
+
+
+    # ============================================================
+    # API STATUS
+    # ============================================================
 
     st.divider()
+
     online = api.health()
-    st.caption("● API online" if online else "● API unavailable")
+
+    st.caption(
+        "● API online"
+        if online
+        else "● API unavailable"
+    )
 
 
 st.markdown('<div class="lawchat-brand">⚖️ LawChat</div>', unsafe_allow_html=True)

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Iterable, Sequence
 
-from sqlalchemy import Select, and_, case, func, or_, select
+from sqlalchemy import Select, Subquery, and_, case, func, or_, select
 from sqlalchemy.orm import aliased
 
 from .models import (
@@ -40,6 +40,7 @@ class LegalMetadataFilter:
     content_scope: str = "current"
     temporal_intent: str = "current_law"
     include_translations: bool = False
+    strict_partial_refusal: bool = False
 
     def __post_init__(self) -> None:
         if not self.statuses:
@@ -55,6 +56,27 @@ class LegalMetadataFilter:
             raise ValueError(
                 "temporal_intent must be current_law, status_lookup or historical"
             )
+
+
+def _target_points_subquery(
+    point_ids: Sequence[str],
+    collection: str | None = None,
+) -> Subquery:
+    target_vref = select(
+        ChunkVectorRef.chunk_id.label("chunk_id"),
+        ChunkVectorRef.point_id.label("point_id"),
+    ).where(ChunkVectorRef.point_id.in_(tuple(point_ids)))
+    if collection is not None:
+        target_vref = target_vref.where(ChunkVectorRef.collection == collection)
+
+    target_legacy = select(
+        Chunk.id.label("chunk_id"),
+        Chunk.qdrant_point_id.label("point_id"),
+    ).where(Chunk.qdrant_point_id.in_(tuple(point_ids)))
+    if collection is not None:
+        target_legacy = target_legacy.where(Chunk.qdrant_collection == collection)
+
+    return target_vref.union(target_legacy).subquery("target_points")
 
 
 class MetadataQueries:
@@ -147,8 +169,7 @@ class MetadataQueries:
             ProvisionEffectiveStatus,
             name="provision_status",
         )
-        vector_ref = aliased(ChunkVectorRef, name="vector_ref")
-        point_id = func.coalesce(vector_ref.point_id, Chunk.qdrant_point_id)
+        target_points = _target_points_subquery(point_ids, collection)
         provision_key = func.concat(
             "article:",
             func.lower(
@@ -193,7 +214,7 @@ class MetadataQueries:
         )
         query = (
             select(
-                point_id.label("point_id"),
+                target_points.c.point_id.label("point_id"),
                 Chunk.external_id.label("chunk_id"),
                 Chunk.chunk_type,
                 Chunk.text_content.label("text"),
@@ -231,17 +252,11 @@ class MetadataQueries:
                     else_="document",
                 ).label("status_scope"),
             )
-            .select_from(Chunk)
+            .select_from(target_points)
+            .join(Chunk, Chunk.id == target_points.c.chunk_id)
             .join(DocumentVersion, DocumentVersion.id == Chunk.version_id)
             .join(Document, Document.id == Chunk.document_id)
             .join(EffectiveStatus, EffectiveStatus.document_id == Document.id)
-            .outerjoin(
-                vector_ref,
-                and_(
-                    vector_ref.chunk_id == Chunk.id,
-                    vector_ref.collection == collection,
-                ),
-            )
             .outerjoin(Article, Article.id == Chunk.article_id)
             .outerjoin(
                 provision_status,
@@ -255,47 +270,31 @@ class MetadataQueries:
             .where(
                 _content_version_predicate(DocumentVersion, filters),
                 Chunk.is_indexable.is_(True),
-                point_id.in_(tuple(point_ids)),
                 resolved_status.in_(filters.statuses),
                 EffectiveStatus.valid_period.op("@>")(filters.as_of),
             )
         )
         if filters.temporal_intent == "current_law":
-            # Audit fix E1+E2 (Phase 1 hotfix). The legacy WHERE only
-            # excluded REPEALED provision rows, so a PARTIALLY_EFFECTIVE
-            # document with no resolved provision status would still pass
-            # through and only be flagged as a soft warning downstream.
-            # We now additionally require that for PARTIALLY_EFFECTIVE
-            # documents, the joined provision status is present and not
-            # UNKNOWN. Combined with the verifier fail-closed branch this
-            # makes the pipeline refuse such answers entirely.
-            document_partial_subquery = (
-                select(EffectiveStatus.document_id)
-                .where(
-                    EffectiveStatus.document_id == Document.id,
-                    EffectiveStatus.status == LegalStatus.PARTIALLY_EFFECTIVE.value,
-                    EffectiveStatus.valid_period.op("@>")(filters.as_of),
-                )
-                .exists()
-            )
-            query = query.where(
+            current_predicates = [
                 or_(
                     provision_status.status.is_(None),
-                    provision_status.status != LegalStatus.REPEALED.value,
+                    ~provision_status.status.in_([
+                        LegalStatus.REPEALED.value,
+                        LegalStatus.EXPIRED.value,
+                    ]),
                 ),
-                or_(
-                    ~document_partial_subquery,
-                    and_(
-                        provision_status.id.is_not(None),
-                        provision_status.status != LegalStatus.UNKNOWN.value,
-                    ),
-                ),
-            )
-        if collection is not None:
-            query = query.where(
-                (vector_ref.collection == collection)
-                | (Chunk.qdrant_collection == collection)
-            )
+            ]
+            if filters.strict_partial_refusal:
+                current_predicates.append(
+                    or_(
+                        EffectiveStatus.status != LegalStatus.PARTIALLY_EFFECTIVE.value,
+                        and_(
+                            provision_status.id.is_not(None),
+                            provision_status.status != LegalStatus.UNKNOWN.value,
+                        ),
+                    )
+                )
+            query = query.where(*current_predicates)
         return _apply_document_filters(query, filters)
 
     @staticmethod
@@ -306,12 +305,11 @@ class MetadataQueries:
         collection: str | None = None,
     ) -> Select:
         """Identify current-law candidates rejected for unresolved partial status."""
+        target_points = _target_points_subquery(point_ids, collection)
         provision_status = aliased(
             ProvisionEffectiveStatus,
             name="diagnostic_provision_status",
         )
-        vector_ref = aliased(ChunkVectorRef, name="diagnostic_vector_ref")
-        point_id = func.coalesce(vector_ref.point_id, Chunk.qdrant_point_id)
         provision_key = func.concat(
             "article:",
             func.lower(
@@ -337,18 +335,12 @@ class MetadataQueries:
             ),
         )
         query = (
-            select(point_id.label("point_id"))
-            .select_from(Chunk)
+            select(target_points.c.point_id.label("point_id"))
+            .select_from(target_points)
+            .join(Chunk, Chunk.id == target_points.c.chunk_id)
             .join(DocumentVersion, DocumentVersion.id == Chunk.version_id)
             .join(Document, Document.id == Chunk.document_id)
             .join(EffectiveStatus, EffectiveStatus.document_id == Document.id)
-            .outerjoin(
-                vector_ref,
-                and_(
-                    vector_ref.chunk_id == Chunk.id,
-                    vector_ref.collection == collection,
-                ),
-            )
             .outerjoin(Article, Article.id == Chunk.article_id)
             .outerjoin(
                 provision_status,
@@ -362,7 +354,6 @@ class MetadataQueries:
                 filters.temporal_intent == "current_law",
                 _content_version_predicate(DocumentVersion, filters),
                 Chunk.is_indexable.is_(True),
-                point_id.in_(tuple(point_ids)),
                 EffectiveStatus.status
                 == LegalStatus.PARTIALLY_EFFECTIVE.value,
                 EffectiveStatus.valid_period.op("@>")(filters.as_of),
@@ -372,15 +363,10 @@ class MetadataQueries:
                 ),
             )
         )
-        if collection is not None:
-            query = query.where(
-                (vector_ref.collection == collection)
-                | (Chunk.qdrant_collection == collection)
-            )
         return _apply_document_filters(query, filters)
 
-
-def rejected_candidate_reasons(
+    @staticmethod
+    def rejected_candidate_reasons(
         point_ids: Sequence[str],
         filters: LegalMetadataFilter,
         *,
@@ -393,11 +379,10 @@ def rejected_candidate_reasons(
         ``NOT_YET_EFFECTIVE``, ``UNRESOLVED_PROVISION_STATUS``,
         ``MISSING_SOURCE``).
         """
-        vector_ref = aliased(ChunkVectorRef, name="rejected_vector_ref")
-        point_id = func.coalesce(vector_ref.point_id, Chunk.qdrant_point_id)
+        target_points = _target_points_subquery(point_ids, collection)
         query = (
             select(
-                point_id.label("point_id"),
+                target_points.c.point_id.label("point_id"),
                 # Audit fix (Phase 1 hotfix 1.6): the row is read back by
                 # :func:`src.retrieval.hydration.hydration_rejection_reasons`
                 # via ``row.get("reason")``. The legacy label was
@@ -405,21 +390,14 @@ def rejected_candidate_reasons(
                 # reason into ``"UNKNOWN"`` and broke retrieval diagnostics.
                 EffectiveStatus.status.label("reason"),
             )
-            .select_from(Chunk)
+            .select_from(target_points)
+            .join(Chunk, Chunk.id == target_points.c.chunk_id)
             .join(DocumentVersion, DocumentVersion.id == Chunk.version_id)
             .join(Document, Document.id == Chunk.document_id)
             .join(EffectiveStatus, EffectiveStatus.document_id == Document.id)
-            .outerjoin(
-                vector_ref,
-                and_(
-                    vector_ref.chunk_id == Chunk.id,
-                    vector_ref.collection == collection,
-                ),
-            )
             .where(
                 _content_version_predicate(DocumentVersion, filters),
                 Chunk.is_indexable.is_(True),
-                point_id.in_(tuple(point_ids)),
                 or_(
                     EffectiveStatus.status == LegalStatus.REPEALED.value,
                     EffectiveStatus.status == LegalStatus.EXPIRED.value,
@@ -428,11 +406,6 @@ def rejected_candidate_reasons(
                 ),
             )
         )
-        if collection is not None:
-            query = query.where(
-                (vector_ref.collection == collection)
-                | (Chunk.qdrant_collection == collection)
-            )
         return _apply_document_filters(query, filters)
 
 

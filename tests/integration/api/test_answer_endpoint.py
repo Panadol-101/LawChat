@@ -8,12 +8,12 @@ from datetime import date
 import pytest
 from fastapi.testclient import TestClient
 
-from lawchat.api.main import (
+from api.main import (
     app,
     get_rag_runtime,
     get_retrieval_service,
 )
-from lawchat.rag import (
+from rag import (
     FakeLegalAnswerGenerator,
     GeneratedAnswer,
     GeneratedClaim,
@@ -25,7 +25,7 @@ from lawchat.rag import (
     IssueResolution,
     SupportingQuote,
 )
-from lawchat.retrieval import (
+from retrieval import (
     AmbiguousTemporalQuery,
     LegalCitation,
     RetrievalResponse,
@@ -299,8 +299,8 @@ def test_answer_endpoint_enforces_total_request_deadline():
 
 
 def test_answer_endpoint_exposes_shadow_flag_and_review_usage():
-    from lawchat.rag.semantic import SemanticVerifier, SemanticReview, ClaimCheck
-    from lawchat.rag.generator import GenerationTelemetry
+    from rag.semantic import SemanticVerifier, SemanticReview, ClaimCheck
+    from rag.generator import GenerationTelemetry
 
     class Judge:
         async def generate_async(self, request):

@@ -22,6 +22,36 @@ _DOCUMENT_NUMBER_RE = re.compile(
     r"[A-ZÀ-ỸĐ][A-ZÀ-ỸĐ0-9-]*",
     re.IGNORECASE,
 )
+_COMMON_LAW_ALIASES: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\b(?:bộ\s+luật\s+lao\s+động\s*(?:năm\s*)?2019|bllđ\s*2019)\b", re.IGNORECASE), "45/2019/QH14"),
+    (re.compile(r"\b(?:bộ\s+luật\s+lao\s+động\s*(?:năm\s*)?2012|bllđ\s*2012)\b", re.IGNORECASE), "10/2012/QH13"),
+    (re.compile(r"\b(?:bộ\s+luật\s+lao\s+động|bllđ)\b", re.IGNORECASE), "45/2019/QH14"),
+    (re.compile(r"\b(?:bộ\s+luật\s+hình\s+sự\s*(?:năm\s*)?2015|blhs\s*2015)\b", re.IGNORECASE), "100/2015/QH13"),
+    (re.compile(r"\b(?:bộ\s+luật\s+hình\s+sự|blhs)\b", re.IGNORECASE), "100/2015/QH13"),
+    (re.compile(r"\b(?:bộ\s+luật\s+dân\s+sự\s*(?:năm\s*)?2015|blds\s*2015)\b", re.IGNORECASE), "91/2015/QH13"),
+    (re.compile(r"\b(?:bộ\s+luật\s+dân\s+sự|blds)\b", re.IGNORECASE), "91/2015/QH13"),
+    (re.compile(r"\b(?:luật\s+doanh\s+nghiệp\s*(?:năm\s*)?2020|ldn\s*2020)\b", re.IGNORECASE), "59/2020/QH14"),
+    (re.compile(r"\b(?:luật\s+doanh\s+nghiệp\s*(?:năm\s*)?2014|ldn\s*2014)\b", re.IGNORECASE), "68/2014/QH13"),
+    (re.compile(r"\b(?:luật\s+doanh\s+nghiệp|ldn)\b", re.IGNORECASE), "59/2020/QH14"),
+    (re.compile(r"\b(?:luật\s+đầu\s+tư\s*(?:năm\s*)?2020|luật\s+đầu\s+tư)\b", re.IGNORECASE), "61/2020/QH14"),
+    (re.compile(r"\b(?:luật\s+đất\s+đai\s*(?:năm\s*)?2024)\b", re.IGNORECASE), "31/2024/QH15"),
+    (re.compile(r"\b(?:luật\s+đất\s+đai\s*(?:năm\s*)?2013|luật\s+đất\s+đai)\b", re.IGNORECASE), "45/2013/QH13"),
+    (re.compile(r"\b(?:bộ\s+luật\s+tố\s+tụng\s+hình\s+sự\s*(?:năm\s*)?2015|bltths\s*2015|bộ\s+luật\s+tố\s+tụng\s+hình\s+sự)\b", re.IGNORECASE), "101/2015/QH13"),
+    (re.compile(r"\b(?:bộ\s+luật\s+tố\s+tụng\s+dân\s+sự\s*(?:năm\s*)?2015|blttds\s*2015|bộ\s+luật\s+tố\s+tụng\s+dân\s+sự)\b", re.IGNORECASE), "92/2015/QH13"),
+    (re.compile(r"\b(?:luật\s+hôn\s+nhân\s+và\s+gia\s+đình\s*(?:năm\s*)?2014|luật\s+hôn\s+nhân\s+và\s+gia\s+đình)\b", re.IGNORECASE), "52/2014/QH13"),
+    (re.compile(r"\b(?:luật\s+thương\s+mại\s*(?:năm\s*)?2005|luật\s+thương\s+mại)\b", re.IGNORECASE), "36/2005/QH11"),
+    (re.compile(r"\b(?:luật\s+xử\s+lý\s+vi\s+phạm\s+hành\s+chính)\b", re.IGNORECASE), "15/2012/QH13"),
+    (re.compile(r"\b(?:luật\s+ban\s+hành\s+văn\s+bản\s+quy\s+phạm\s+pháp\s+luật\s*(?:năm\s*)?2015)\b", re.IGNORECASE), "80/2015/QH13"),
+    (re.compile(r"\b(?:luật\s+nhà\s+ở\s*(?:năm\s*)?2023)\b", re.IGNORECASE), "27/2023/QH15"),
+    (re.compile(r"\b(?:luật\s+nhà\s+ở\s*(?:năm\s*)?2014|luật\s+nhà\s+ở)\b", re.IGNORECASE), "65/2014/QH13"),
+    (re.compile(r"\b(?:luật\s+xây\s+dựng\s*(?:năm\s*)?2014|luật\s+xây\s+dựng)\b", re.IGNORECASE), "50/2014/QH13"),
+    (re.compile(r"\b(?:luật\s+bảo\s+hiểm\s+xã\s+hội\s*(?:năm\s*)?2024)\b", re.IGNORECASE), "41/2024/QH15"),
+    (re.compile(r"\b(?:luật\s+bảo\s+hiểm\s+xã\s+hội\s*(?:năm\s*)?2014|luật\s+bảo\s+hiểm\s+xã\s+hội)\b", re.IGNORECASE), "58/2014/QH13"),
+    (re.compile(r"\b(?:luật\s+căn\s+cước\s*(?:năm\s*)?2023)\b", re.IGNORECASE), "26/2023/QH15"),
+    (re.compile(r"\b(?:luật\s+căn\s+cước\s+công\s+dân\s*(?:năm\s*)?2014|luật\s+căn\s+cước\s+công\s+dân)\b", re.IGNORECASE), "59/2014/QH13"),
+    (re.compile(r"\b(?:luật\s+an\s+ninh\s+mạng\s*(?:năm\s*)?2018|luật\s+an\s+ninh\s+mạng)\b", re.IGNORECASE), "24/2018/QH14"),
+)
+
 _ARTICLE_RE = re.compile(r"\bđiều\s+(\d+[a-z]?)\b", re.IGNORECASE)
 _CLAUSE_RE = re.compile(r"\bkhoản\s+(\d+[a-z]?)\b", re.IGNORECASE)
 _POINT_RE = re.compile(r"\bđiểm\s+([a-zđ])\b", re.IGNORECASE)
@@ -101,10 +131,7 @@ class LegalQueryParser:
                     f"{effective_as_of.strftime('%d/%m/%Y')}."
                 )
 
-        document_numbers = tuple(
-            value.replace(" ", "")
-            for value in _unique_matches(_DOCUMENT_NUMBER_RE, normalized, upper=True)
-        )
+        document_numbers = _extract_document_numbers(normalized)
         articles = _unique_matches(_ARTICLE_RE, normalized)
         clauses = _unique_matches(_CLAUSE_RE, normalized)
         points = _unique_matches(_POINT_RE, normalized)
@@ -190,6 +217,17 @@ def _unique_matches(
     ]
     normalized = [item.upper() if upper else item.casefold() for item in matches]
     return tuple(dict.fromkeys(normalized))
+
+
+def _extract_document_numbers(text: str) -> tuple[str, ...]:
+    numbers = list(
+        value.replace(" ", "")
+        for value in _unique_matches(_DOCUMENT_NUMBER_RE, text, upper=True)
+    )
+    for pattern, doc_no in _COMMON_LAW_ALIASES:
+        if pattern.search(text) and doc_no not in numbers:
+            numbers.append(doc_no)
+    return tuple(dict.fromkeys(numbers))
 
 
 def _build_semantic_query(query: str) -> str:
@@ -284,12 +322,18 @@ def _relationship_direction(
 def _flags_or_default():
     """Resolve feature flags without hard-failing when config is unavailable."""
     try:
-        from ..config import get_feature_flags  # type: ignore[import-not-found]
+        try:
+            from config import get_feature_flags
+        except (ImportError, ValueError):
+            from ..config import get_feature_flags  # type: ignore[import-not-found]
 
         return get_feature_flags()
     except Exception:
         from dataclasses import replace
 
-        from ..config import load_feature_flags
+        try:
+            from config import load_feature_flags
+        except (ImportError, ValueError):
+            from ..config import load_feature_flags
 
         return replace(load_feature_flags(), semantic_rewriter_v2=False)

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from lawchat.retrieval import (
+from retrieval import (
     DenseSearchResult,
     HydratedLegalChunk,
     HybridRetrievalService,
@@ -16,7 +16,7 @@ from lawchat.retrieval import (
     RerankerSettings,
     SeedResolution,
 )
-from lawchat.retrieval.hybrid import _promote_confident_seed_match
+from retrieval.hybrid import _promote_confident_seed_match
 
 
 class FakeDense:

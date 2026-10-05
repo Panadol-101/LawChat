@@ -1,0 +1,385 @@
+{
+  "metrics": {
+    "cases": 10,
+    "recall_at_k": 0.9,
+    "hit_rate_at_k": 0.9,
+    "mean_reciprocal_rank": 0.75,
+    "ndcg_at_k": 0.7892789260714373
+  },
+  "benchmark": {
+    "selected_cases": 10,
+    "evaluated_answerable_cases": 10,
+    "excluded_cases": {},
+    "strict_hit_rate_at_k": 0.9,
+    "chunk_hit_rate_at_k": 0.9,
+    "document_hit_rate_at_k": 0.9,
+    "structure_accuracy_at_k": 0.9,
+    "correct_legal_provision_retrieval_rate": 0.9,
+    "status_accuracy_at_k": 0.9,
+    "status_metadata_accuracy": null,
+    "status_selection_accuracy": null,
+    "category_hit_rate_at_k": {
+      "confusable": 1.0,
+      "exact_provision": 1.0,
+      "scenario": 0.5,
+      "semantic": 1.0,
+      "temporal_current": 1.0
+    },
+    "ranks": {
+      "exact_provision_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_001": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 1,
+        "structure": 2,
+        "status": 1
+      },
+      "semantic_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_001": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "scenario_002": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_current_001": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 1,
+        "structure": 2,
+        "status": 1
+      },
+      "temporal_current_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      }
+    }
+  },
+  "rankings": {
+    "exact_provision_001": [
+      "139264::article_35"
+    ],
+    "exact_provision_002": [
+      "95942::article_117"
+    ],
+    "semantic_001": [
+      "139264::article_58",
+      "139264::article_57",
+      "139264::article_56",
+      "139264::article_55",
+      "152668::article_13",
+      "139264::article_52",
+      "139264::article_53",
+      "152668::article_14",
+      "70811::article_65",
+      "152668::article_31"
+    ],
+    "semantic_002": [
+      "139264::article_112",
+      "163444::article_10",
+      "34095::article_23",
+      "179770::article_8",
+      "46390::article_7",
+      "179023::article_8",
+      "1386::article_1",
+      "2140::document::block_3",
+      "67713::article_6",
+      "131271::article_6"
+    ],
+    "scenario_001": [
+      "161263::article_44",
+      "139264::article_14",
+      "153913::article_9",
+      "2548::section_I::block_2",
+      "139264::article_24",
+      "65149::article_10",
+      "2521::article_26",
+      "137809::article_9",
+      "137809::article_11",
+      "5919::article_6"
+    ],
+    "scenario_002": [
+      "107584::document::block_3",
+      "23431::article_3",
+      "1210::article_2::point_C",
+      "1210::article_2::point_c",
+      "39998::article_15",
+      "81024::article_16",
+      "20780::article_17::fragment_2",
+      "130496::article_16",
+      "46822::article_39",
+      "177727::article_16"
+    ],
+    "temporal_current_001": [
+      "139264::article_58",
+      "139264::article_57",
+      "139264::article_56",
+      "152668::article_13",
+      "139264::article_52",
+      "139264::article_53",
+      "152668::article_14",
+      "134611::article_3",
+      "139264::article_55",
+      "70811::article_65"
+    ],
+    "temporal_current_002": [
+      "95942::article_172",
+      "146609::article_4",
+      "168754::article_152::clauses_4-7",
+      "168754::article_151::clauses_1-5",
+      "168754::article_152::clauses_1-3",
+      "163508::article_3::clauses_1",
+      "146609::article_59",
+      "168754::article_11",
+      "146609::article_166",
+      "146609::article_167"
+    ],
+    "confusable_001": [
+      "161263::article_4"
+    ],
+    "confusable_002": [
+      "165913::article_8"
+    ]
+  },
+  "diagnostics": {
+    "exact_provision_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000145,
+        "dense": 3.841681,
+        "sparse": 0.021244,
+        "fusion": 5.7e-05,
+        "hydration": 0.230389,
+        "reranker": 0.0,
+        "seed_and_graph": 0.197065,
+        "total": 4.270522
+      }
+    },
+    "exact_provision_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000195,
+        "dense": 0.316394,
+        "sparse": 0.009249,
+        "fusion": 8e-05,
+        "hydration": 0.392992,
+        "reranker": 0.0,
+        "seed_and_graph": 0.080666,
+        "total": 0.791593
+      }
+    },
+    "semantic_001": {
+      "sources": [
+        "dense",
+        "sparse",
+        "reranker"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 41,
+      "timings": {
+        "query_parse": 6.5e-05,
+        "dense": 1.726183,
+        "sparse": 0.179391,
+        "fusion": 0.000967,
+        "hydration": 14.488715,
+        "reranker": 17.190274,
+        "seed_and_graph": 2.6e-05,
+        "total": 33.408051
+      }
+    },
+    "semantic_002": {
+      "sources": [
+        "dense",
+        "sparse",
+        "reranker"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 3.3e-05,
+        "dense": 2.51795,
+        "sparse": 0.129135,
+        "fusion": 0.000943,
+        "hydration": 16.472477,
+        "reranker": 11.54291,
+        "seed_and_graph": 3.3e-05,
+        "total": 30.535671
+      }
+    },
+    "scenario_001": {
+      "sources": [
+        "dense",
+        "sparse",
+        "reranker"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 76,
+      "timings": {
+        "query_parse": 5.4e-05,
+        "dense": 2.749052,
+        "sparse": 0.377419,
+        "fusion": 0.001345,
+        "hydration": 15.811268,
+        "reranker": 21.572202,
+        "seed_and_graph": 2.8e-05,
+        "total": 40.135622
+      }
+    },
+    "scenario_002": {
+      "sources": [
+        "dense",
+        "sparse",
+        "reranker"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 63,
+      "timings": {
+        "query_parse": 7.1e-05,
+        "dense": 2.915218,
+        "sparse": 0.174751,
+        "fusion": 0.00104,
+        "hydration": 17.558466,
+        "reranker": 26.462523,
+        "seed_and_graph": 3.3e-05,
+        "total": 46.938935
+      }
+    },
+    "temporal_current_001": {
+      "sources": [
+        "dense",
+        "sparse",
+        "reranker"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 33,
+      "timings": {
+        "query_parse": 6.1e-05,
+        "dense": 2.777321,
+        "sparse": 0.208303,
+        "fusion": 0.001128,
+        "hydration": 16.424776,
+        "reranker": 11.923886,
+        "seed_and_graph": 1.9e-05,
+        "total": 31.128463
+      }
+    },
+    "temporal_current_002": {
+      "sources": [
+        "dense",
+        "sparse",
+        "reranker"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 53,
+      "timings": {
+        "query_parse": 5.2e-05,
+        "dense": 2.994442,
+        "sparse": 0.157994,
+        "fusion": 0.000707,
+        "hydration": 16.113558,
+        "reranker": 25.552241,
+        "seed_and_graph": 1.5e-05,
+        "total": 44.662259
+      }
+    },
+    "confusable_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000135,
+        "dense": 0.278973,
+        "sparse": 0.040613,
+        "fusion": 3.6e-05,
+        "hydration": 0.082937,
+        "reranker": 0.0,
+        "seed_and_graph": 0.088015,
+        "total": 0.450945
+      }
+    },
+    "confusable_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.0001,
+        "dense": 0.25686,
+        "sparse": 0.039504,
+        "fusion": 8.6e-05,
+        "hydration": 0.065015,
+        "reranker": 0.0,
+        "seed_and_graph": 0.094389,
+        "total": 0.417489
+      }
+    }
+  }
+}

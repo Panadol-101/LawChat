@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from lawchat.indexing import SentenceTransformerEmbedder
+from indexing import SentenceTransformerEmbedder
 
 
 class _FakeSentenceTransformer:

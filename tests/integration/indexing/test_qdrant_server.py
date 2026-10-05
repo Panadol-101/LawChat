@@ -7,8 +7,8 @@ import numpy as np
 import pytest
 from qdrant_client import QdrantClient
 
-from lawchat.indexing.qdrant_index import IndexableChunk, QdrantDenseIndex
-from lawchat.retrieval import DenseSearcher
+from indexing.qdrant_index import IndexableChunk, QdrantDenseIndex
+from retrieval import DenseSearcher
 
 
 QDRANT_TEST_URL = os.getenv("QDRANT_TEST_URL")

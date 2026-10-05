@@ -1,0 +1,25 @@
+{
+  "metrics": {
+    "cases": 3,
+    "recall_at_k": 0.6666666666666666,
+    "hit_rate_at_k": 0.6666666666666666,
+    "mean_reciprocal_rank": 0.5,
+    "ndcg_at_k": 0.5436432511904858
+  },
+  "benchmark": {
+    "selected_cases": 3,
+    "evaluated_answerable_cases": 3,
+    "excluded_cases": {},
+    "strict_hit_rate_at_k": 0.6666666666666666,
+    "chunk_hit_rate_at_k": 0.6666666666666666,
+    "document_hit_rate_at_k": 0.6666666666666666,
+    "structure_accuracy_at_k": 0.6666666666666666,
+    "correct_legal_provision_retrieval_rate": 0.6666666666666666,
+    "status_accuracy_at_k": 0.6666666666666666,
+    "status_metadata_accuracy": null,
+    "status_selection_accuracy": null,
+    "category_hit_rate_at_k": {
+      "scenario": 0.6666666666666666
+    }
+  }
+}

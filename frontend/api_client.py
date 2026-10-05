@@ -139,9 +139,62 @@ class LawChatAPI:
         except httpx.HTTPError as exc:
             raise APIError("Không thể kết nối tới LawChat API.") from exc
 
+    def register(
+        self,
+        username: str,
+        password: str,
+        confirm_password: str,
+    ) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/api/v1/auth/register",
+            json={
+                "username": username,
+                "password": password,
+                "confirm_password": confirm_password,
+            },
+        )
+
+    def login(self, username: str, password: str) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/api/v1/auth/login",
+            json={"username": username, "password": password},
+        )
+
+    def verify_totp(
+        self,
+        username: str,
+        password: str,
+        code: str,
+    ) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/api/v1/auth/totp",
+            json={
+                "username": username,
+                "password": password,
+                "code": code,
+            },
+        )
+
+    def me(self) -> dict[str, Any]:
+        return self._request("GET", "/api/v1/auth/me")
+
+    def logout(self) -> None:
+        self._request("POST", "/api/v1/auth/logout")
+
     def _request(self, method: str, path: str, **kwargs: Any) -> Any:
         try:
             response = self.client.request(method, path, **kwargs)
+            session_cookie = response.cookies.get("lawchat_session")
+            if session_cookie:
+                self.client.cookies.set(
+                    "lawchat_session",
+                    session_cookie,
+                    domain="127.0.0.1",
+                    path="/",
+                )
         except httpx.TimeoutException as exc:
             raise APIError("LawChat API phản hồi quá chậm.") from exc
         except httpx.HTTPError as exc:
@@ -151,15 +204,19 @@ class LawChatAPI:
             return None
         return response.json()
 
+    
     @staticmethod
     def _raise_for_status(response: httpx.Response) -> None:
         if response.is_success:
-            return
+           return
+
         try:
+            response.read()
             detail = response.json().get("detail")
-        except (ValueError, AttributeError):
+        except (ValueError, AttributeError, httpx.ResponseNotRead):
             detail = None
+
         raise APIError(
-            str(detail or f"LawChat API returned HTTP {response.status_code}"),
-            status_code=response.status_code,
+           str(detail or f"LawChat API returned HTTP {response.status_code}"),
+           status_code=response.status_code,
         )

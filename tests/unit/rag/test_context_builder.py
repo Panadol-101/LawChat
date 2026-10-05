@@ -6,8 +6,8 @@ from datetime import date
 
 import pytest
 
-from lawchat.rag import RAGContextBuilder, TokenBudget
-from lawchat.retrieval import (
+from rag import RAGContextBuilder, TokenBudget
+from retrieval import (
     LegalCitation,
     LegalGraphEdge,
     LegalGraphDocument,

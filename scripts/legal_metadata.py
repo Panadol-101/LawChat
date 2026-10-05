@@ -9,15 +9,16 @@ from pathlib import Path
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
-from lawchat.database import (
+from database import (
     DatabaseSettings,
     Document,
     LegalStatus,
     ProvisionEffectiveStatus,
+    StatusReconciler,
     create_db_engine,
     provision_key,
 )
-from lawchat.ingestion import OfficialEnrichmentLoader
+from ingestion import OfficialEnrichmentLoader
 from scripts import dispatch
 
 
@@ -355,6 +356,12 @@ def _to_status(session: Session, row: dict) -> ProvisionEffectiveStatus:
     article = str(row["article"]).strip()
     clause = _optional(row.get("clause"))
     point = _optional(row.get("point"))
+    review_status = str(
+        row.get("review_status") or row.get("verification_status") or ""
+    ).strip().upper()
+    metadata = {"source": row.get("source") or "curated"}
+    if review_status:
+        metadata["review_status"] = review_status
     return ProvisionEffectiveStatus(
         document_id=document.id,
         provision_key=provision_key(article, clause, point),
@@ -366,7 +373,7 @@ def _to_status(session: Session, row: dict) -> ProvisionEffectiveStatus:
         valid_to=date.fromisoformat(row["valid_to"]) if row.get("valid_to") else None,
         reason=row.get("reason"),
         source_url=row.get("source_url"),
-        metadata_json={"source": row.get("source") or "curated"},
+        metadata_json=metadata,
     )
 
 
@@ -381,13 +388,15 @@ def audit_provision_status_main() -> None:
         with engine.connect() as connection:
             row = connection.execute(text(PROVISION_AUDIT_SQL)).mappings().one()
         total = int(row["total_current_provisions"])
-        curated = int(row["curated_provisions"])
+        partial = int(row["partially_effective_document_provisions"])
+        resolved = int(row["resolved_provisions"])
         report = {
             **{key: int(value) for key, value in row.items()},
-            "coverage_rate": curated / total if total else 0.0,
+            "coverage_rate": resolved / partial if partial else 0.0,
+            "overall_coverage_rate": resolved / total if total else 0.0,
             "policy": (
-                "Missing provision status is never inferred. Runtime falls back "
-                "to document status and requires an explicit limitation."
+                "Current-law retrieval rejects PARTIALLY_EFFECTIVE provisions "
+                "unless exact, reviewed provision validity is resolved."
             ),
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
@@ -411,20 +420,98 @@ WITH current_provisions AS (
   LEFT JOIN articles a ON a.id = c.article_id
   WHERE v.is_current AND c.is_indexable
     AND coalesce(c.metadata->>'article', a.article_number) IS NOT NULL
-), curated AS (
-  SELECT DISTINCT document_id, provision_key FROM provision_effective_status
+), resolved AS (
+  SELECT DISTINCT document_id, provision_key
+  FROM provision_effective_status p
+  WHERE p.status <> 'UNKNOWN'
+    AND p.article IS NOT NULL
+    AND btrim(p.article) <> ''
+    AND p.provision_key = concat(
+      'article:', lower(btrim(p.article)),
+      '/clause:', lower(btrim(coalesce(p.clause, ''))),
+      '/point:', lower(btrim(coalesce(p.point, '')))
+    )
+    AND p.valid_from IS NOT NULL
+    AND p.valid_period IS NOT NULL
+    AND upper(coalesce(
+      p.metadata->>'review_status',
+      p.metadata->>'verification_status',
+      ''
+    )) = 'VERIFIED'
 )
 SELECT
   count(*) AS total_current_provisions,
   count(*) FILTER (WHERE cp.document_status = 'PARTIALLY_EFFECTIVE')
     AS partially_effective_document_provisions,
-  count(*) FILTER (WHERE curated.document_id IS NOT NULL) AS curated_provisions,
+  count(*) FILTER (WHERE resolved.document_id IS NOT NULL) AS curated_provisions,
   count(*) FILTER (
-    WHERE cp.document_status = 'PARTIALLY_EFFECTIVE' AND curated.document_id IS NULL
+    WHERE cp.document_status = 'PARTIALLY_EFFECTIVE'
+      AND resolved.document_id IS NOT NULL
+  ) AS resolved_provisions,
+  count(*) FILTER (
+    WHERE cp.document_status = 'PARTIALLY_EFFECTIVE' AND resolved.document_id IS NULL
   ) AS high_priority_missing
 FROM current_provisions cp
-LEFT JOIN curated USING (document_id, provision_key)
+LEFT JOIN resolved USING (document_id, provision_key)
 """
+
+
+def reconcile_status_main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Reconcile stale legal statuses (EFFECTIVE/PARTIALLY_EFFECTIVE -> EXPIRED)."
+    )
+    parser.add_argument(
+        "--as-of",
+        type=date.fromisoformat,
+        default=date.today(),
+        help="Target date for status validity check (default: today)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Simulate reconciliation and print targets without modifying data",
+    )
+    parser.add_argument(
+        "--skip-qdrant",
+        action="store_true",
+        help="Skip updating Qdrant vector payloads",
+    )
+    parser.add_argument(
+        "--sync-all-to-qdrant",
+        action="store_true",
+        help="Sync all previously reconciled documents in Postgres to Qdrant",
+    )
+    args = parser.parse_args()
+    engine = create_db_engine(DatabaseSettings.from_env())
+    try:
+        qdrant_client = None
+        if not args.skip_qdrant and not args.dry_run:
+            try:
+                from qdrant_client import QdrantClient
+                import os
+                qdrant_client = QdrantClient(
+                    url=os.getenv("QDRANT_URL", "http://localhost:6333"),
+                    api_key=os.getenv("QDRANT_API_KEY") or None,
+                    timeout=60.0,
+                )
+            except Exception as exc:
+                print(f"Warning: Failed to initialize QdrantClient ({exc}), proceeding without vector sync.")
+
+        reconciler = StatusReconciler(engine, qdrant_client=qdrant_client)
+        if args.sync_all_to_qdrant:
+            if qdrant_client is None:
+                raise SystemExit("QdrantClient is required for --sync-all-to-qdrant")
+            synced = reconciler.sync_all_reconciled_to_qdrant()
+            print(json.dumps({"sync_all_to_qdrant": True, "documents_synced": synced}, indent=2))
+        else:
+            report = reconciler.reconcile(
+                as_of=args.as_of,
+                dry_run=args.dry_run,
+                sync_qdrant=not args.skip_qdrant and qdrant_client is not None,
+            )
+            print(json.dumps(report.to_dict(), ensure_ascii=False, indent=2))
+    finally:
+        engine.dispose()
 
 
 def main() -> None:
@@ -435,6 +522,7 @@ def main() -> None:
             "load-official": load_official_main,
             "load-provision-status": load_provision_status_main,
             "audit-provision-status": audit_provision_status_main,
+            "reconcile-status": reconcile_status_main,
         },
     )
 

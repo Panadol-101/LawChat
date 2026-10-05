@@ -1,6 +1,6 @@
 import pytest
 
-from lawchat.database import provision_key
+from database import provision_key
 
 
 def test_provision_key_is_normalized_and_hierarchical():

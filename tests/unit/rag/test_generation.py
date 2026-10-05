@@ -6,7 +6,7 @@ from dataclasses import replace
 from datetime import date
 from pathlib import Path
 
-from lawchat.rag import (
+from rag import (
     Evidence,
     FakeLegalAnswerGenerator,
     GeneratedAnswer,
@@ -20,8 +20,8 @@ from lawchat.rag import (
     VerificationCode,
     VerificationStatus,
 )
-from lawchat.rag.prompts import OUTPUT_CONTRACT, SYSTEM_PROMPT, build_user_prompt
-from lawchat.retrieval import LegalCitation
+from rag.prompts import OUTPUT_CONTRACT, SYSTEM_PROMPT, build_user_prompt
+from retrieval import LegalCitation
 
 
 AS_OF = date(2026, 8, 31)
@@ -333,8 +333,48 @@ def test_historical_query_without_historical_content_is_refused_and_disclosed():
     assert generator.requests == []
     assert result.answer.claims == ()
     assert "phiên bản hiện tại" in result.answer.limitations[0]
-    assert VerificationCode.HISTORICAL_SOURCE_UNAVAILABLE in _codes(result.verification)
-    assert VerificationCode.HISTORICAL_LIMITATION_MISSING not in _codes(result.verification)
+    assert VerificationCode.HISTORICAL_SOURCE_UNAVAILABLE in _codes(
+        result.verification
+    )
+    assert VerificationCode.HISTORICAL_LIMITATION_MISSING not in _codes(
+        result.verification
+    )
+
+
+def test_current_law_refuses_unresolved_partial_provision_before_generation(monkeypatch):
+    monkeypatch.setenv("LAWCHAT_FLAG_FAIL_CLOSED_PARTIAL", "true")
+    partial = replace(
+        _evidence(status="PARTIALLY_EFFECTIVE"),
+        citation=replace(
+            _evidence(status="PARTIALLY_EFFECTIVE").citation,
+            status_scope="document",
+        ),
+    )
+    generator = FakeLegalAnswerGenerator([_answer()])
+
+    result = GroundedRAGService(generator).answer(_request(partial))
+
+    assert result.status is VerificationStatus.REFUSED
+    assert result.attempts == 0
+    assert generator.requests == []
+    assert VerificationCode.UNRESOLVED_PROVISION_STATUS in _codes(
+        result.verification
+    )
+
+
+def test_current_law_allows_partial_provision_by_default():
+    partial = replace(
+        _evidence(status="PARTIALLY_EFFECTIVE"),
+        citation=replace(
+            _evidence(status="PARTIALLY_EFFECTIVE").citation,
+            status_scope="document",
+        ),
+    )
+    generator = FakeLegalAnswerGenerator([_answer()])
+
+    result = GroundedRAGService(generator).answer(_request(partial))
+
+    assert result.status is VerificationStatus.VERIFIED
 
 
 def test_historical_claim_requires_version_identity_and_covering_interval():
@@ -453,7 +493,7 @@ def test_repair_provider_failure_preserves_first_verification_issues():
 
 
 def test_truncated_provider_response_has_a_distinct_safe_failure_code():
-    from lawchat.rag import TruncatedGenerationError
+    from rag import TruncatedGenerationError
 
     generator = FakeLegalAnswerGenerator(
         [TruncatedGenerationError("raw provider detail")]

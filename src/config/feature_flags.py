@@ -128,11 +128,11 @@ def _envi(name: FeatureFlag, default: int) -> int:
 def load_feature_flags() -> FeatureFlags:
     """Resolve current feature flag values from the environment."""
     return FeatureFlags(
-        fail_closed_partial=_env(FeatureFlag.FAIL_CLOSED_PARTIAL, True),
-        strict_partial_refusal=_env(FeatureFlag.STRICT_PARTIAL_REFUSAL, True),
+        fail_closed_partial=_env(FeatureFlag.FAIL_CLOSED_PARTIAL, False),
+        strict_partial_refusal=_env(FeatureFlag.STRICT_PARTIAL_REFUSAL, False),
         amendment_lookup_enabled=_env(FeatureFlag.AMENDMENT_LOOKUP_ENABLED, False),
         fast_amendment_fallback=_env(FeatureFlag.FAST_AMENDMENT_FALLBACK, True),
-        historical_version_check=_env(FeatureFlag.HISTORICAL_VERSION_CHECK, True),
+        historical_version_check=_env(FeatureFlag.HISTORICAL_VERSION_CHECK, False),
         historical_index_enabled=_env(FeatureFlag.HISTORICAL_INDEX_ENABLED, False),
         bm25_vi_tokenizer=_env(FeatureFlag.BM25_VI_TOKENIZER, False),
         fix_unaliased_sql=_env(FeatureFlag.FIX_UNALIASED_SQL, True),

@@ -1,0 +1,6726 @@
+{
+  "metrics": {
+    "cases": 155,
+    "recall_at_k": 0.7741935483870968,
+    "hit_rate_at_k": 0.7741935483870968,
+    "mean_reciprocal_rank": 0.5888120839733744,
+    "ndcg_at_k": 0.6336404346717205
+  },
+  "benchmark": {
+    "selected_cases": 200,
+    "evaluated_answerable_cases": 190,
+    "excluded_cases": {
+      "insufficient_evidence": 10
+    },
+    "strict_hit_rate_at_k": 0.7526315789473684,
+    "chunk_hit_rate_at_k": 0.7741935483870968,
+    "document_hit_rate_at_k": 0.7631578947368421,
+    "structure_accuracy_at_k": 0.7526315789473684,
+    "correct_legal_provision_retrieval_rate": 0.7741935483870968,
+    "status_accuracy_at_k": 0.7631578947368421,
+    "status_metadata_accuracy": 1.0,
+    "status_selection_accuracy": 0.7333333333333333,
+    "category_hit_rate_at_k": {
+      "confusable": 1.0,
+      "exact_document_number": 0.3,
+      "exact_provision": 1.0,
+      "expired_status": 0.9333333333333333,
+      "legal_relationship": 0.6,
+      "scenario": 0.9142857142857143,
+      "semantic": 0.8166666666666667,
+      "temporal_current": 0.95,
+      "temporal_historical": 0.0
+    },
+    "ranks": {
+      "exact_document_number_001": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_document_number_002": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_document_number_003": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_document_number_004": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_document_number_005": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_document_number_006": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_document_number_007": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_document_number_008": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_document_number_009": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_document_number_010": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "exact_provision_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_003": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_004": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_005": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_006": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_007": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_008": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_009": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "exact_provision_010": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_002": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "semantic_003": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_004": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_005": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "semantic_006": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 1,
+        "structure": 2,
+        "status": 1
+      },
+      "semantic_007": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "semantic_008": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_009": {
+        "strict": 4,
+        "chunk": 4,
+        "document": 3,
+        "structure": 4,
+        "status": 3
+      },
+      "semantic_010": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_011": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_012": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_013": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "semantic_014": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_015": {
+        "strict": 6,
+        "chunk": 6,
+        "document": 6,
+        "structure": 6,
+        "status": 6
+      },
+      "semantic_016": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "semantic_017": {
+        "strict": 7,
+        "chunk": 7,
+        "document": 7,
+        "structure": 7,
+        "status": 7
+      },
+      "semantic_018": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_019": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_020": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_021": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_022": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_023": {
+        "strict": 8,
+        "chunk": 8,
+        "document": 8,
+        "structure": 8,
+        "status": 8
+      },
+      "semantic_024": {
+        "strict": 10,
+        "chunk": 10,
+        "document": 1,
+        "structure": 10,
+        "status": 1
+      },
+      "semantic_025": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "semantic_026": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_027": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_028": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_029": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_030": {
+        "strict": null,
+        "chunk": null,
+        "document": 1,
+        "structure": null,
+        "status": 1
+      },
+      "semantic_031": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_032": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_033": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_034": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_035": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_036": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_037": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_038": {
+        "strict": 7,
+        "chunk": 7,
+        "document": 7,
+        "structure": 7,
+        "status": 7
+      },
+      "semantic_039": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "semantic_040": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_041": {
+        "strict": 9,
+        "chunk": 9,
+        "document": 9,
+        "structure": 9,
+        "status": 9
+      },
+      "semantic_042": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_043": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_044": {
+        "strict": 7,
+        "chunk": 7,
+        "document": 7,
+        "structure": 7,
+        "status": 7
+      },
+      "semantic_045": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_046": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_047": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_048": {
+        "strict": 4,
+        "chunk": 4,
+        "document": 4,
+        "structure": 4,
+        "status": 4
+      },
+      "semantic_049": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "semantic_050": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "semantic_051": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_052": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_053": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_054": {
+        "strict": null,
+        "chunk": null,
+        "document": 2,
+        "structure": null,
+        "status": 2
+      },
+      "semantic_055": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_056": {
+        "strict": 6,
+        "chunk": 6,
+        "document": 6,
+        "structure": 6,
+        "status": 6
+      },
+      "semantic_057": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_058": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "semantic_059": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "semantic_060": {
+        "strict": 5,
+        "chunk": 5,
+        "document": 1,
+        "structure": 5,
+        "status": 1
+      },
+      "scenario_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_002": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "scenario_003": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_004": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_005": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_006": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_007": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "scenario_008": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "scenario_009": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 1,
+        "structure": 2,
+        "status": 1
+      },
+      "scenario_010": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_011": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_012": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_013": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "scenario_014": {
+        "strict": 7,
+        "chunk": 7,
+        "document": 2,
+        "structure": 7,
+        "status": 2
+      },
+      "scenario_015": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_016": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_017": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "scenario_018": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "scenario_019": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_020": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "scenario_021": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_022": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_023": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_024": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 1,
+        "structure": 2,
+        "status": 1
+      },
+      "scenario_025": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_026": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_027": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_028": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "scenario_029": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_030": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "scenario_031": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_032": {
+        "strict": 4,
+        "chunk": 4,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "scenario_033": {
+        "strict": 6,
+        "chunk": 6,
+        "document": 4,
+        "structure": 6,
+        "status": 4
+      },
+      "scenario_034": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "scenario_035": {
+        "strict": 8,
+        "chunk": 8,
+        "document": 8,
+        "structure": 8,
+        "status": 8
+      },
+      "temporal_current_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_003": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "temporal_current_004": {
+        "strict": 5,
+        "chunk": 5,
+        "document": 5,
+        "structure": 5,
+        "status": 5
+      },
+      "temporal_current_005": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "temporal_current_006": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "temporal_current_007": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_008": {
+        "strict": 4,
+        "chunk": 4,
+        "document": 4,
+        "structure": 4,
+        "status": 4
+      },
+      "temporal_current_009": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_current_010": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_011": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_012": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_013": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "temporal_current_014": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_015": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 2,
+        "structure": 3,
+        "status": 2
+      },
+      "temporal_current_016": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_017": {
+        "strict": 3,
+        "chunk": 3,
+        "document": 3,
+        "structure": 3,
+        "status": 3
+      },
+      "temporal_current_018": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_current_019": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "temporal_current_020": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "temporal_historical_001": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_002": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_003": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_004": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_005": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_006": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_007": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_008": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_009": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_010": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_011": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_012": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_013": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_014": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_015": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_016": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_017": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_018": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_019": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "temporal_historical_020": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "expired_status_001": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_002": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_003": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_004": {
+        "strict": 2,
+        "chunk": null,
+        "document": 2,
+        "structure": 2,
+        "status": 2
+      },
+      "expired_status_005": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_006": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_007": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_008": {
+        "strict": 4,
+        "chunk": null,
+        "document": 4,
+        "structure": 4,
+        "status": 4
+      },
+      "expired_status_009": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "expired_status_010": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_011": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_012": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_013": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_014": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "expired_status_015": {
+        "strict": 9,
+        "chunk": null,
+        "document": 9,
+        "structure": 9,
+        "status": 9
+      },
+      "legal_relationship_001": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "legal_relationship_002": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "legal_relationship_003": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "legal_relationship_004": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "legal_relationship_005": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "legal_relationship_006": {
+        "strict": null,
+        "chunk": null,
+        "document": null,
+        "structure": null,
+        "status": null
+      },
+      "legal_relationship_007": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "legal_relationship_008": {
+        "strict": 9,
+        "chunk": null,
+        "document": 9,
+        "structure": 9,
+        "status": 9
+      },
+      "legal_relationship_009": {
+        "strict": 10,
+        "chunk": null,
+        "document": 10,
+        "structure": 10,
+        "status": 10
+      },
+      "legal_relationship_010": {
+        "strict": 1,
+        "chunk": null,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_001": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_002": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_003": {
+        "strict": 2,
+        "chunk": 2,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_004": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_005": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_006": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_007": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_008": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_009": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      },
+      "confusable_010": {
+        "strict": 1,
+        "chunk": 1,
+        "document": 1,
+        "structure": 1,
+        "status": 1
+      }
+    }
+  },
+  "rankings": {
+    "exact_document_number_001": [
+      "46744::article_1",
+      "46744::article_57",
+      "46744::article_98",
+      "46744::article_121",
+      "96115::article_298",
+      "96115::article_193",
+      "46744::article_63",
+      "96115::article_1",
+      "46744::article_7",
+      "46744::article_49"
+    ],
+    "exact_document_number_002": [
+      "95942::article_4",
+      "95942::article_640",
+      "70827::article_1",
+      "95942::article_398",
+      "95942::article_420",
+      "95942::article_1",
+      "95942::article_403",
+      "95942::article_389",
+      "95942::article_6",
+      "95942::article_36"
+    ],
+    "exact_document_number_003": [
+      "136038::article_43",
+      "136038::article_67",
+      "142867::article_41",
+      "142867::article_63",
+      "136038::article_34",
+      "136038::article_73",
+      "46742::article_173",
+      "46742::article_167",
+      "136038::article_44",
+      "142867::article_33::clauses_3-5"
+    ],
+    "exact_document_number_004": [
+      "136038::article_43",
+      "136038::article_67",
+      "96119::article_1",
+      "27616::article_22",
+      "136038::article_73",
+      "136038::article_44",
+      "96119::article_23",
+      "96119::article_20",
+      "136038::article_34",
+      "136038::article_11"
+    ],
+    "exact_document_number_005": [
+      "139264::article_33",
+      "139264::article_166",
+      "139264::article_84",
+      "139264::article_8",
+      "139264::article_67",
+      "139264::article_212",
+      "139264::article_1",
+      "139264::article_21",
+      "96115::article_244",
+      "142881::document::block_11"
+    ],
+    "exact_document_number_006": [
+      "131014::article_53",
+      "131014::article_57::clauses_4-3",
+      "131014::article_54",
+      "30615::article_1::clauses_9-1",
+      "30615::article_1::clauses_1-3",
+      "131014::article_1",
+      "131014::article_25",
+      "131014::article_26",
+      "131014::article_57::clauses_8-9",
+      "131014::article_57::clauses_1-4"
+    ],
+    "exact_document_number_007": [
+      "70821::article_39",
+      "96119::article_1",
+      "142867::article_41",
+      "70821::article_8",
+      "70821::article_11",
+      "142867::article_63",
+      "70821::article_35",
+      "70821::article_13",
+      "70821::article_23",
+      "96119::article_23"
+    ],
+    "exact_document_number_008": [
+      "166581::article_70",
+      "166581::article_64::clauses_3-6",
+      "166581::article_76",
+      "166581::article_73",
+      "166581::article_83",
+      "166581::article_1",
+      "166581::article_57",
+      "166581::article_4::clauses_8-19",
+      "166581::article_86",
+      "166581::article_52"
+    ],
+    "exact_document_number_009": [
+      "172553::article_2",
+      "172553::article_15",
+      "172553::article_33",
+      "172553::article_18",
+      "172553::article_11",
+      "172553::article_12",
+      "172553::article_36",
+      "172553::article_17",
+      "172553::article_13",
+      "172553::article_3"
+    ],
+    "exact_document_number_010": [
+      "165913::article_1",
+      "165913::residual_content::block_5",
+      "165913::article_44",
+      "165913::article_49",
+      "165913::article_51",
+      "165913::article_4",
+      "165913::article_40",
+      "165913::article_47",
+      "165913::residual_content::block_7",
+      "165913::article_50"
+    ],
+    "exact_provision_001": [
+      "139264::article_35"
+    ],
+    "exact_provision_002": [
+      "95942::article_117"
+    ],
+    "exact_provision_003": [
+      "169032::article_88::clauses_1-4",
+      "169032::article_88::clauses_5-10"
+    ],
+    "exact_provision_004": [
+      "146609::article_49"
+    ],
+    "exact_provision_005": [
+      "161263::article_4"
+    ],
+    "exact_provision_006": [
+      "168125::article_10"
+    ],
+    "exact_provision_007": [
+      "165913::article_8"
+    ],
+    "exact_provision_008": [
+      "166581::article_16::clauses_1-5",
+      "166581::article_16::clause_6",
+      "166581::article_16::clauses_7-9"
+    ],
+    "exact_provision_009": [
+      "172553::article_10"
+    ],
+    "exact_provision_010": [
+      "95942::article_651"
+    ],
+    "semantic_001": [
+      "139264::article_57",
+      "139264::article_56",
+      "139264::article_58",
+      "152668::article_13",
+      "139264::article_53",
+      "139264::article_55",
+      "152668::article_14",
+      "139264::article_52",
+      "70811::article_65",
+      "152668::article_31"
+    ],
+    "semantic_002": [
+      "1386::article_1",
+      "139264::article_112",
+      "179770::article_8",
+      "34095::article_23",
+      "2140::document::block_3",
+      "163444::article_10",
+      "46390::article_7",
+      "179023::article_8",
+      "67713::article_6",
+      "131271::article_6"
+    ],
+    "semantic_003": [
+      "127767::article_7",
+      "127767::article_10",
+      "127767::article_5",
+      "127767::article_3",
+      "127767::article_2",
+      "127767::residual_content::block_2",
+      "127767::article_1",
+      "127767::article_6",
+      "127767::article_9",
+      "127767::article_11"
+    ],
+    "semantic_004": [
+      "95942::article_172",
+      "146609::article_4",
+      "146609::article_166",
+      "146609::article_165",
+      "146609::article_167",
+      "168754::article_151::clauses_1-5",
+      "163508::article_3::clauses_1",
+      "168754::article_152::clauses_4-7",
+      "146609::article_19",
+      "168754::article_161"
+    ],
+    "semantic_005": [
+      "9689::article_6",
+      "9700::article_6",
+      "95942::article_345",
+      "145859::article_4::clause_1",
+      "67618::article_5",
+      "168108::article_45",
+      "138989::article_4::clause_1",
+      "2955::article_3::line_53",
+      "118230::article_4",
+      "118230::article_27"
+    ],
+    "semantic_006": [
+      "95942::article_513",
+      "95942::article_514",
+      "21945::article_18",
+      "95942::article_515",
+      "179121::article_10::clause_3",
+      "179121::article_10::clauses_1-2",
+      "ced51c40-7a19-11f1-88f2-57aec1a21e5e::article_11",
+      "5752::article_11",
+      "100624::article_29",
+      "126723::article_32"
+    ],
+    "semantic_007": [
+      "41421::article_11",
+      "169032::article_51",
+      "169032::article_68",
+      "169711::article_15",
+      "169032::article_60::clauses_5-11",
+      "169032::article_53",
+      "171371::article_3",
+      "169711::article_17::clauses_7-9",
+      "171371::article_2",
+      "169711::article_16"
+    ],
+    "semantic_008": [
+      "175475::article_3",
+      "171373::article_3",
+      "e0a2a200-5ef1-11f1-96be-9583049f7b1a::article_4",
+      "e0a2a200-5ef1-11f1-96be-9583049f7b1a::residual_content::block_2",
+      "187921::article_4",
+      "174862::article_3",
+      "180933::article_4",
+      "184339::article_4::clauses_4-6",
+      "177174::article_3",
+      "172528::article_4::clauses_5-7"
+    ],
+    "semantic_009": [
+      "58371::article_17",
+      "170899::article_12",
+      "169032::article_150",
+      "169032::article_149",
+      "171488::article_3::clauses_1-4",
+      "171488::article_3::clauses_5-6",
+      "169709::article_59",
+      "58371::article_13",
+      "169032::article_148",
+      "58371::article_15"
+    ],
+    "semantic_010": [
+      "146609::article_45",
+      "154771::residual_content::block_8",
+      "496ec2c0-84a2-11f1-83d1-6f7c0080cf0c::residual_content::block_6",
+      "178624::article_12",
+      "154771::residual_content::block_4",
+      "157808::article_2",
+      "154957::article_3",
+      "157808::residual_content::block_1",
+      "184780::article_16",
+      "154957::article_4"
+    ],
+    "semantic_011": [
+      "146609::article_87",
+      "156166::article_7",
+      "36921::article_22",
+      "36921::article_4",
+      "184421::article_4",
+      "36921::article_3",
+      "183996::article_4",
+      "36921::article_16",
+      "156166::article_3::line_96",
+      "156166::article_10"
+    ],
+    "semantic_012": [
+      "146609::article_129",
+      "146609::article_159",
+      "d1610f70-7454-11f1-9cc1-fd58c39710b3::article_38",
+      "d1610f70-7454-11f1-9cc1-fd58c39710b3::article_41",
+      "187827::article_18",
+      "182758::article_46",
+      "177812::article_18",
+      "146609::article_122",
+      "148424::article_7",
+      "146609::article_121"
+    ],
+    "semantic_013": [
+      "185594::article_2",
+      "161263::article_23",
+      "161263::article_25",
+      "167804::article_1",
+      "161263::article_24",
+      "167051::article_6",
+      "167051::article_7",
+      "161263::article_28",
+      "185594::residual_content::block_2",
+      "179725::article_1"
+    ],
+    "semantic_014": [
+      "161263::article_42",
+      "175164::article_14",
+      "5752::article_8",
+      "143881::article_54",
+      "161263::article_41",
+      "5752::article_11",
+      "126723::article_32",
+      "13851::article_44",
+      "185838::article_15",
+      "43644::article_5"
+    ],
+    "semantic_015": [
+      "119091::article_13",
+      "147588::article_14",
+      "32515::article_17",
+      "147588::article_8",
+      "119091::article_24",
+      "161263::article_61",
+      "147588::article_23",
+      "147588::article_1",
+      "32515::article_9",
+      "167755::article_18"
+    ],
+    "semantic_016": [
+      "168128::article_131",
+      "168125::article_31",
+      "168128::article_23",
+      "168128::article_15",
+      "164372::article_64::clause_2",
+      "168128::article_132::clauses_14-15",
+      "168128::article_24::clauses_1-3",
+      "168128::article_132::clauses_1-3",
+      "168128::article_16::clauses_14-15",
+      "168128::article_16::clauses_1-3"
+    ],
+    "semantic_017": [
+      "185609::article_3",
+      "185609::residual_content::block_6",
+      "179735::article_4",
+      "185609::appendix_PHỤ_LỤC_II::block_5",
+      "185609::article_15",
+      "185609::article_4",
+      "168125::article_62",
+      "185609::article_8",
+      "179735::article_12::clauses_1-5",
+      "168125::article_63"
+    ],
+    "semantic_018": [
+      "168125::article_91",
+      "168125::article_90",
+      "177730::article_12",
+      "179711::article_45",
+      "168128::article_85",
+      "168128::article_84",
+      "168128::article_96::clauses_5-7",
+      "177730::article_8",
+      "168128::article_86::clauses_1-2",
+      "168128::article_147::clauses_2-23"
+    ],
+    "semantic_019": [
+      "165913::article_16",
+      "165913::article_17",
+      "165913::article_18",
+      "165913::article_13",
+      "153919::article_14",
+      "165913::article_14",
+      "165913::article_9",
+      "95908::article_10",
+      "165913::article_37",
+      "165913::article_15"
+    ],
+    "semantic_020": [
+      "175484::article_1::line_1277",
+      "175484::article_18::clauses_1-3",
+      "175484::article_21",
+      "175484::article_23",
+      "175484::article_19",
+      "175484::article_33",
+      "175484::article_31",
+      "175484::article_20",
+      "175484::appendix_Mẫu_số_08::block_5",
+      "175484::article_25"
+    ],
+    "semantic_021": [
+      "152995::article_11",
+      "152995::article_12",
+      "152995::article_3::line_73",
+      "159245::article_16",
+      "152995::article_14",
+      "157269::article_20",
+      "157269::article_5",
+      "157269::article_21",
+      "157269::article_15",
+      "157269::article_3::line_67"
+    ],
+    "semantic_022": [
+      "7042::article_63",
+      "43797::article_32",
+      "180764::article_83",
+      "10239::article_47",
+      "17741::article_3",
+      "183407::article_4",
+      "6ab41fe0-7ea1-11f1-bde4-ef08d13fbb68::article_4",
+      "183407::article_5",
+      "101950::article_7::clauses_6-7",
+      "185952::article_36"
+    ],
+    "semantic_023": [
+      "11957::section_IV::block_1",
+      "11957::section_I::block_1::dup_4",
+      "170529::appendix_PHỤ_LỤC_II::table_1::block_1",
+      "166585::appendix_Phụ_lục_I::table_1::block_1",
+      "11957::section_VI::block_1::dup_2",
+      "170529::appendix_PHỤ_LỤC_II::block_2",
+      "166585::appendix_Phụ_lục_I::block_3",
+      "166581::article_49",
+      "11957::section_I::block_1::dup_3",
+      "166581::article_45"
+    ],
+    "semantic_024": [
+      "166581::article_73",
+      "166585::appendix_Phụ_lục_II::block_4",
+      "166585::appendix_Phụ_lục_II::block_3",
+      "170529::appendix_PHỤ_LỤC_III::block_5",
+      "166581::article_71",
+      "36867::article_68",
+      "174098::article_95",
+      "37752::article_16",
+      "9b8adda0-7e62-11f1-9c26-91051af51cab::appendix_Mẫu_số_03::block_3::dup_3",
+      "166581::article_72"
+    ],
+    "semantic_025": [
+      "172414::article_7::clauses_2-5",
+      "172414::article_8",
+      "167282::article_23",
+      "167313::article_21",
+      "167313::article_24",
+      "172414::article_14",
+      "172414::article_7::clause_1",
+      "172414::article_3",
+      "172414::article_13",
+      "167313::article_30"
+    ],
+    "semantic_026": [
+      "167282::article_44",
+      "167282::article_41",
+      "167282::article_47",
+      "167282::article_52::clauses_1-3",
+      "167282::article_43",
+      "167282::article_52::clauses_4-9",
+      "167315::article_44",
+      "167282::article_42",
+      "84200::article_4",
+      "167282::article_55"
+    ],
+    "semantic_027": [
+      "167282::article_65",
+      "187307::article_11",
+      "150547::article_6::clauses_3-4",
+      "150547::article_7::clauses_2-3",
+      "150547::article_7::clauses_4-5",
+      "155950::article_5",
+      "159793::article_2::clause_10",
+      "141558::article_28",
+      "183653::article_14",
+      "20511::article_17"
+    ],
+    "semantic_028": [
+      "172553::article_12",
+      "32647::article_5",
+      "32647::article_6",
+      "32647::article_7",
+      "32647::article_3",
+      "32647::article_8",
+      "f5a739a0-751b-11f1-8163-778390eda629::article_20",
+      "183407::article_27",
+      "46790::article_40",
+      "32647::article_1"
+    ],
+    "semantic_029": [
+      "32525::article_13",
+      "32525::article_4",
+      "32525::article_9",
+      "32525::article_11",
+      "32525::article_8",
+      "32525::article_6",
+      "32525::article_5",
+      "130585::article_5",
+      "44440::article_5::clauses_6-9",
+      "32525::article_3"
+    ],
+    "semantic_030": [
+      "172553::article_26",
+      "130585::article_12",
+      "44440::article_9",
+      "172553::article_11",
+      "130585::article_4",
+      "32525::article_3",
+      "130585::article_6",
+      "130585::article_7",
+      "130585::preamble",
+      "130585::article_13"
+    ],
+    "semantic_031": [
+      "172799::article_21",
+      "172799::article_20",
+      "172799::article_24",
+      "41323::residual_content::block_9",
+      "172799::article_19",
+      "178104::article_19",
+      "41323::residual_content::block_12",
+      "41323::residual_content::block_11",
+      "178104::article_16",
+      "178104::article_11"
+    ],
+    "semantic_032": [
+      "172799::article_39",
+      "178104::article_30",
+      "178104::article_32",
+      "178104::article_34",
+      "27906::article_5",
+      "178104::article_28",
+      "27906::article_2::line_59",
+      "27593::article_3",
+      "27906::article_1::line_55",
+      "27906::article_10"
+    ],
+    "semantic_033": [
+      "172799::article_57",
+      "68071::article_2",
+      "172799::article_35",
+      "170347::article_14",
+      "76738::article_2",
+      "172799::article_18",
+      "83258::article_2",
+      "83258::article_5",
+      "170347::article_6",
+      "178104::article_63"
+    ],
+    "semantic_034": [
+      "173974::article_15",
+      "177733::article_5",
+      "173974::article_16",
+      "155783::article_45",
+      "177733::article_6::clause_3",
+      "155783::article_48",
+      "187393::article_1",
+      "187393::residual_content::block_2",
+      "140211::article_5",
+      "177733::article_1::clauses_1-10"
+    ],
+    "semantic_035": [
+      "173974::article_28",
+      "140211::article_11",
+      "94406::article_2",
+      "173974::article_34",
+      "16005::article_10",
+      "94406::article_15",
+      "121776::article_11",
+      "150444::article_11",
+      "177835::article_11",
+      "177835::article_9"
+    ],
+    "semantic_036": [
+      "173974::article_41",
+      "177835::article_11",
+      "177835::article_15",
+      "173974::article_8::clauses_1-4",
+      "173974::article_38",
+      "185095::article_8",
+      "173974::article_33",
+      "177733::article_40",
+      "173974::article_40",
+      "175546::article_19"
+    ],
+    "semantic_037": [
+      "174877::article_14",
+      "179108::article_5",
+      "170517::article_53",
+      "115912::article_16",
+      "178296::article_37",
+      "178296::article_7",
+      "174877::article_27",
+      "180306::article_26",
+      "178296::article_21",
+      "174877::article_5"
+    ],
+    "semantic_038": [
+      "150998::article_4",
+      "150998::article_3",
+      "150998::article_9",
+      "17bc0d00-8038-11f1-a487-f7a1eeeb1960::article_7::clauses_4-6",
+      "150998::article_8",
+      "175217::article_4",
+      "174877::article_25",
+      "179108::article_15",
+      "179107::article_25",
+      "186792::article_24"
+    ],
+    "semantic_039": [
+      "160223::article_16",
+      "174877::article_35",
+      "174877::article_31",
+      "179830::article_38",
+      "174877::article_33",
+      "179830::article_11",
+      "179108::article_23",
+      "15066::article_58",
+      "179830::article_10",
+      "160223::article_14"
+    ],
+    "semantic_040": [
+      "175425::article_46",
+      "175425::article_47",
+      "175425::article_36",
+      "175425::article_3",
+      "175425::article_158",
+      "175425::article_116",
+      "163114::article_14",
+      "175425::article_12",
+      "96122::article_91",
+      "133062::article_10"
+    ],
+    "semantic_041": [
+      "187273::article_11",
+      "187273::article_12::clauses_4-6",
+      "187273::article_9",
+      "187273::article_13",
+      "187273::article_5",
+      "187273::article_8",
+      "187273::article_12::clauses_1-3",
+      "187273::article_10",
+      "175425::article_90",
+      "175425::article_89"
+    ],
+    "semantic_042": [
+      "96172::article_126",
+      "159513::article_73::clauses_1-2",
+      "96172::article_241",
+      "187271::article_44",
+      "159513::article_74",
+      "187271::article_38",
+      "25558::article_4",
+      "38005::article_15::clauses_3-6",
+      "96172::article_347",
+      "187271::article_46"
+    ],
+    "semantic_043": [
+      "166170::article_54",
+      "166170::article_53",
+      "146467::article_287",
+      "142881::document::block_59",
+      "166170::article_93",
+      "11739::article_54",
+      "146467::article_288",
+      "166170::article_52",
+      "11739::article_74",
+      "166170::article_94"
+    ],
+    "semantic_044": [
+      "132713::article_4",
+      "14644::article_4",
+      "17291::article_3::line_69",
+      "150512::article_4",
+      "17291::article_4",
+      "185789::article_13",
+      "166170::article_105",
+      "132713::article_14",
+      "132713::article_2",
+      "132713::article_3::clauses_1-6"
+    ],
+    "semantic_045": [
+      "166170::article_157",
+      "166170::article_156",
+      "183791::article_14",
+      "166170::article_143",
+      "166170::article_1",
+      "154630::article_23::clauses_1-5",
+      "166170::article_10",
+      "166170::article_161",
+      "166170::article_160",
+      "178536::article_41"
+    ],
+    "semantic_046": [
+      "172475::article_23",
+      "148872::article_9",
+      "172475::article_18",
+      "129082::article_16",
+      "60390::article_41::clauses_1-2",
+      "173121::residual_content::block_2",
+      "170620::document::block_5",
+      "27784::residual_content::block_3",
+      "129231::article_12",
+      "96855::article_25"
+    ],
+    "semantic_047": [
+      "172475::article_44",
+      "172475::article_45",
+      "172772::appendix_PHỤ_LỤC::block_2",
+      "173068::article_5",
+      "172772::article_1",
+      "15456::document::block_4",
+      "172772::article_3",
+      "172475::article_47",
+      "172772::residual_content::block_3",
+      "172772::article_12::clauses_4-6"
+    ],
+    "semantic_048": [
+      "11730::article_6",
+      "11730::article_5",
+      "11730::article_7",
+      "172475::article_65",
+      "54215::article_12",
+      "11730::article_1",
+      "149043::article_2",
+      "54215::article_3::line_59",
+      "186323::article_3::line_54",
+      "173188::article_3::line_85"
+    ],
+    "semantic_049": [
+      "eafb5170-500a-11f1-b944-cf124b24cc44::article_10",
+      "9b781560-7450-11f1-920f-8dc1bf27f4b3::article_6",
+      "173024::article_26",
+      "183436::article_5",
+      "eafb5170-500a-11f1-b944-cf124b24cc44::article_2::line_77",
+      "118487::article_14",
+      "116298::article_8",
+      "116298::article_20",
+      "127393::article_3::line_126",
+      "144679::article_2::line_83"
+    ],
+    "semantic_050": [
+      "146635::article_3::line_101",
+      "177775::appendix_Phụ_lục_03::block_4",
+      "173024::article_49",
+      "146635::article_15",
+      "184146::article_39",
+      "173024::article_6",
+      "184146::article_43",
+      "177775::appendix_Phụ_lục_03::table_1::block_1",
+      "173024::article_46",
+      "32660450-5eee-11f1-891d-2fabef7c5e70::article_8"
+    ],
+    "semantic_051": [
+      "173024::article_72",
+      "177775::article_14::clauses_1-3",
+      "173024::article_68",
+      "86584::article_2::clauses_1-3",
+      "11750::article_1::clauses_6-7",
+      "177775::article_14::clauses_7-8",
+      "177775::article_5::line_1849",
+      "86616::article_2::clauses_1-3",
+      "177775::article_6::line_1871",
+      "173024::article_73"
+    ],
+    "semantic_052": [
+      "173982::article_18",
+      "173982::article_19",
+      "173982::article_21",
+      "173982::article_50",
+      "26741::article_50",
+      "26741::article_16",
+      "26741::article_21",
+      "173982::article_14",
+      "26741::article_41",
+      "173982::article_15"
+    ],
+    "semantic_053": [
+      "173982::article_33",
+      "26741::article_28",
+      "179697::article_8",
+      "179251::article_28",
+      "173982::article_32",
+      "153459::document::block_18",
+      "154317::article_13",
+      "153459::document::block_30",
+      "153459::document::block_6",
+      "179697::article_29"
+    ],
+    "semantic_054": [
+      "26741::article_41",
+      "173982::article_49",
+      "173982::article_9",
+      "26741::article_21",
+      "173982::article_50",
+      "179697::article_45",
+      "26741::article_43",
+      "26741::article_42",
+      "173982::article_24",
+      "173982::article_51"
+    ],
+    "semantic_055": [
+      "157721::article_19",
+      "23609::article_8",
+      "123514::article_47",
+      "34077::article_12",
+      "183411::article_54",
+      "161263::article_22",
+      "15062::article_62",
+      "129237::article_26",
+      "161263::article_36",
+      "134061::article_18"
+    ],
+    "semantic_056": [
+      "44175::article_15",
+      "44175::article_4",
+      "44175::article_16",
+      "44175::article_1",
+      "182692::article_10",
+      "157721::article_35",
+      "182189::article_11",
+      "32495::article_35",
+      "44175::article_11",
+      "44209::article_1"
+    ],
+    "semantic_057": [
+      "70817::article_55",
+      "132955::article_35",
+      "167216::article_43",
+      "133132::article_8",
+      "139879::article_41",
+      "96120::article_45",
+      "19986::article_11",
+      "133132::article_10::clause_1",
+      "169571::article_29",
+      "132955::article_34"
+    ],
+    "semantic_058": [
+      "167565::article_21",
+      "172699::article_3",
+      "167565::article_8",
+      "168505::article_15",
+      "167565::article_22",
+      "168505::article_12",
+      "167565::article_23",
+      "168505::article_1",
+      "172699::article_8::clauses_1-2",
+      "168505::residual_content::block_4"
+    ],
+    "semantic_059": [
+      "167566::article_19",
+      "167566::article_1",
+      "167566::residual_content::block_2",
+      "167566::article_22",
+      "167566::article_4",
+      "167566::article_21",
+      "167566::article_20",
+      "167566::article_18",
+      "167566::article_5",
+      "167566::article_2"
+    ],
+    "semantic_060": [
+      "167565::article_53",
+      "167565::article_56",
+      "167565::article_62",
+      "31156::article_29",
+      "167565::article_57",
+      "167565::article_61",
+      "167565::article_63",
+      "31156::article_5",
+      "167565::article_47",
+      "186831::article_5"
+    ],
+    "scenario_001": [
+      "139264::article_14",
+      "161263::article_44",
+      "153913::article_9",
+      "139264::article_24",
+      "65149::article_10",
+      "2548::section_I::block_2",
+      "2521::article_26",
+      "137809::article_9",
+      "137809::article_11",
+      "5919::article_6"
+    ],
+    "scenario_002": [
+      "107584::document::block_3",
+      "1210::article_2::point_C",
+      "23431::article_3",
+      "81024::article_16",
+      "20780::article_17::fragment_2",
+      "1210::article_2::point_c",
+      "39998::article_15",
+      "130496::article_16",
+      "46822::article_39",
+      "177727::article_16"
+    ],
+    "scenario_003": [
+      "139264::article_20",
+      "ced51c40-7a19-11f1-88f2-57aec1a21e5e::article_8",
+      "26355::article_25",
+      "179121::article_6",
+      "144137::article_19",
+      "43544::article_3",
+      "2548::section_I::block_1",
+      "31760::article_11",
+      "65149::article_10",
+      "162453::article_7::line_743"
+    ],
+    "scenario_004": [
+      "139264::article_25",
+      "34095::article_8",
+      "153913::article_10",
+      "1210::article_2::points_G-b",
+      "37366::article_7",
+      "31851::article_6",
+      "164765::article_1::clauses_2-3",
+      "139264::article_24",
+      "45212::article_13::line_162",
+      "1209::article_10"
+    ],
+    "scenario_005": [
+      "139264::article_26",
+      "37366::article_7",
+      "139094::article_5",
+      "31851::article_6",
+      "153913::article_10",
+      "6330::article_1",
+      "132862::article_5",
+      "850::document::block_2",
+      "109369::section_II::block_9",
+      "4115::article_1"
+    ],
+    "scenario_006": [
+      "139264::article_29",
+      "71860::article_18",
+      "11008::section_II::block_1",
+      "139264::article_42",
+      "146643::article_26::clause_2",
+      "74485::article_63",
+      "37502::article_18",
+      "5460::article_63",
+      "74495::article_63",
+      "74485::article_46"
+    ],
+    "scenario_007": [
+      "48298::article_10",
+      "139264::article_31",
+      "139264::article_41",
+      "134611::article_13",
+      "152668::article_29",
+      "22524::article_5",
+      "139264::article_53",
+      "185952::article_94",
+      "42589::article_28",
+      "34095::article_9"
+    ],
+    "scenario_008": [
+      "34095::article_12",
+      "34095::article_11",
+      "139264::article_35",
+      "1908::document::block_3",
+      "152668::article_7",
+      "139264::article_36",
+      "37366::article_8",
+      "94345::article_2",
+      "152668::article_89::clause_1",
+      "153297::article_2"
+    ],
+    "scenario_009": [
+      "139264::article_138",
+      "139264::article_37",
+      "84922::article_8",
+      "48298::article_11",
+      "139264::article_36",
+      "139264::article_35",
+      "139264::article_137",
+      "139264::article_39",
+      "152668::article_89::clause_1",
+      "48298::article_12"
+    ],
+    "scenario_010": [
+      "139264::article_48",
+      "139264::article_97",
+      "48808::article_44",
+      "48298::article_24",
+      "163515::article_31",
+      "146447::article_36",
+      "10732::article_18",
+      "27534::article_9",
+      "5748::article_29",
+      "1908::document::block_3"
+    ],
+    "scenario_011": [
+      "139264::article_94",
+      "139264::article_100",
+      "95942::article_576",
+      "81cb78c0-6003-11f1-9915-13d8459896e9::residual_content::block_17",
+      "77258::section_II::block_1",
+      "37366::article_13",
+      "34095::article_15",
+      "139264::article_96",
+      "139264::article_18",
+      "178260::article_7"
+    ],
+    "scenario_012": [
+      "139264::article_97",
+      "48298::article_23",
+      "75023::document::block_2",
+      "69532::article_5",
+      "37366::article_13",
+      "153297::appendix_PHỤ_LỤC_2::block_7",
+      "48298::article_24",
+      "153297::article_6",
+      "152668::article_61",
+      "152668::residual_content::block_10"
+    ],
+    "scenario_013": [
+      "113047::section_II::block_1",
+      "17601::section_II::block_1",
+      "113047::section_IV::block_5",
+      "10463::document::block_6",
+      "17601::section_IV::block_5",
+      "113047::section_V::block_1",
+      "17601::section_V::block_1",
+      "113047::section_IV::block_7",
+      "17601::section_IV::block_7",
+      "113047::section_IV::block_3"
+    ],
+    "scenario_014": [
+      "152668::article_59",
+      "139264::article_108",
+      "94345::article_6",
+      "19840::section_II::block_2",
+      "19840::section_II::block_1",
+      "19840::section_III::block_1",
+      "139264::article_107",
+      "153297::article_6",
+      "153297::appendix_PHỤ_LỤC_2::block_7",
+      "19840::appendix_MẪU_SỐ_2::block_3"
+    ],
+    "scenario_015": [
+      "139264::article_113",
+      "34095::article_23",
+      "40758::article_35",
+      "30428::article_13",
+      "6::article_32",
+      "152668::article_66",
+      "178087::article_9",
+      "139264::article_111",
+      "46390::article_7",
+      "26355::article_13"
+    ],
+    "scenario_016": [
+      "139264::article_115",
+      "34095::article_23",
+      "179770::article_7",
+      "34095::article_22",
+      "1354::article_14",
+      "139264::article_113",
+      "152668::article_89::clause_1",
+      "37366::article_9",
+      "37366::article_10",
+      "139264::article_112"
+    ],
+    "scenario_017": [
+      "91833::article_50",
+      "139264::article_122",
+      "452c1020-60ec-11f1-81af-1b5d0784b9f7::article_32",
+      "7357::article_9",
+      "27350::article_3",
+      "113423::article_3",
+      "f8e7a710-75a9-11f1-b503-37af73835bd0::article_2::clauses_1-6",
+      "60569::article_12",
+      "92478::article_25",
+      "164684::article_4"
+    ],
+    "scenario_018": [
+      "48298::article_31",
+      "139264::article_125",
+      "96122::article_162",
+      "139264::article_36",
+      "131643::article_1::clauses_3-13",
+      "1210::residual_content::block_8",
+      "139264::article_41",
+      "48298::article_11",
+      "48298::article_12",
+      "2548::section_III::block_1"
+    ],
+    "scenario_019": [
+      "139264::article_137",
+      "1718::article_7",
+      "4116::article_7",
+      "177727::article_14",
+      "139264::article_141",
+      "10651::article_7",
+      "3587::article_7",
+      "2315::article_45",
+      "152668::article_80",
+      "182609::article_7"
+    ],
+    "scenario_020": [
+      "152670::article_4",
+      "139264::article_145",
+      "43819::article_2",
+      "152670::article_3",
+      "152670::article_5",
+      "152670::appendix_Mẫu_số_03.::block_3",
+      "43819::article_1",
+      "152670::appendix_Mẫu_số_04.::block_4",
+      "152670::article_6",
+      "152670::appendix_Mẫu_số_01.::block_4"
+    ],
+    "scenario_021": [
+      "95942::article_21",
+      "36870::article_77",
+      "36870::article_76",
+      "36870::article_73",
+      "96122::article_151",
+      "175425::article_130",
+      "95942::article_59",
+      "122826::article_1::clauses_2-2",
+      "33929::article_4",
+      "175425::article_14"
+    ],
+    "scenario_022": [
+      "95942::article_117",
+      "95942::article_396",
+      "95942::article_395",
+      "95942::article_129",
+      "95942::article_120",
+      "98800::article_5::line_767",
+      "95942::article_128",
+      "11575::article_15",
+      "27390::article_16",
+      "95942::article_133"
+    ],
+    "scenario_023": [
+      "95942::article_119",
+      "95942::article_116",
+      "95942::article_121",
+      "95942::article_508",
+      "95942::article_129",
+      "14957::article_16",
+      "95942::article_120",
+      "95942::article_688",
+      "95942::article_117",
+      "95942::article_531"
+    ],
+    "scenario_024": [
+      "95942::article_128",
+      "95942::article_125",
+      "96115::article_376",
+      "95942::article_133",
+      "96115::article_379",
+      "95942::article_22",
+      "13476::article_44",
+      "187584::article_50",
+      "95942::article_132",
+      "96115::article_378"
+    ],
+    "scenario_025": [
+      "95942::article_127",
+      "36870::article_10",
+      "166581::article_94",
+      "1838::section_V::block_1",
+      "187584::article_51",
+      "84526::article_27",
+      "95942::article_396",
+      "31537140-58ab-11f1-b443-b36c00ed7382::article_42::clauses_6-8",
+      "147004::article_22",
+      "13476::article_44"
+    ],
+    "scenario_026": [
+      "95942::article_132",
+      "187584::article_50",
+      "16333::section_I::block_2",
+      "95942::article_127",
+      "19859::section_I::block_3",
+      "95942::article_126",
+      "187584::article_49",
+      "95942::article_128",
+      "96122::article_198",
+      "95942::article_129"
+    ],
+    "scenario_027": [
+      "95942::article_351",
+      "167688::article_2::clause_3",
+      "31537140-58ab-11f1-b443-b36c00ed7382::article_3",
+      "95942::article_342",
+      "95942::article_358",
+      "95942::article_413",
+      "95942::article_284",
+      "95942::article_414",
+      "95942::article_100",
+      "95942::article_356"
+    ],
+    "scenario_028": [
+      "167688::article_2::clauses_1-2",
+      "167688::article_2::clause_3",
+      "167688::article_3::clauses_2-5",
+      "15588::section_I::block_1",
+      "167688::article_10",
+      "167688::article_12",
+      "167688::article_6",
+      "15588::section_I::block_2",
+      "167688::article_3::clause_1",
+      "167688::article_5"
+    ],
+    "scenario_029": [
+      "95942::article_585",
+      "167688::article_3::clause_1",
+      "122863::article_22",
+      "12896::article_59",
+      "122863::article_4",
+      "5748::article_46",
+      "95942::article_584",
+      "15528::article_6",
+      "163442::article_59",
+      "113423::article_25"
+    ],
+    "scenario_030": [
+      "1891::article_21::clause_4",
+      "95942::article_651",
+      "95942::article_644",
+      "27397::article_37",
+      "95942::article_613",
+      "95942::article_622",
+      "1891::article_4::clauses_2-3",
+      "27392::article_44",
+      "95942::article_652",
+      "95942::article_609"
+    ],
+    "scenario_031": [
+      "169032::article_20",
+      "169032::article_21",
+      "169032::article_10",
+      "9681::article_15",
+      "169032::article_17",
+      "169709::article_7",
+      "9681::article_4",
+      "9681::article_8",
+      "169032::article_16",
+      "9681::article_14"
+    ],
+    "scenario_032": [
+      "138962::article_4",
+      "138962::article_6",
+      "169032::article_88::clauses_5-10",
+      "169032::article_88::clauses_1-4",
+      "184043::article_3",
+      "169032::article_89",
+      "169712::article_28",
+      "176308::article_4",
+      "184043::article_4",
+      "186255::article_4"
+    ],
+    "scenario_033": [
+      "8341::appendix_PHỤ_LỤC_II::block_1",
+      "8341::appendix_PHỤ_LỤC_1::block_1",
+      "9449::section_II::block_1",
+      "146609::article_28",
+      "9449::section_I::block_1",
+      "146609::article_30",
+      "8341::appendix_PHỤ_LỤC_IV::block_4",
+      "8341::appendix_PHỤ_LỤC_III::block_2",
+      "8341::document_hierarchy_context::block_1",
+      "146609::article_29"
+    ],
+    "scenario_034": [
+      "146609::article_49",
+      "168754::article_31::clauses_1-2",
+      "8886::document::block_3",
+      "10060::section_II::block_1",
+      "25807::article_11",
+      "168754::article_32",
+      "3ffcae80-6c94-11f1-881f-8d613ff990f1::article_9",
+      "3ffcae80-6c94-11f1-881f-8d613ff990f1::article_10",
+      "1a18fe70-6ab0-11f1-b449-4946d4b15033::article_7",
+      "159513::article_14::clause_1"
+    ],
+    "scenario_035": [
+      "d366d470-4d9a-11f1-b2b8-d12894b2cfce::article_7",
+      "d366d470-4d9a-11f1-b2b8-d12894b2cfce::article_9::clauses_7-11",
+      "163259::article_12",
+      "163258::article_3::line_79",
+      "157445::article_7",
+      "163258::article_5",
+      "168927::article_9",
+      "146609::article_60",
+      "157445::article_12",
+      "2d0e9470-6c5b-11f1-a372-99dc6dab0ff2::article_12"
+    ],
+    "temporal_current_001": [
+      "139264::article_57",
+      "139264::article_58",
+      "139264::article_56",
+      "152668::article_13",
+      "139264::article_53",
+      "152668::article_14",
+      "139264::article_52",
+      "134611::article_3",
+      "139264::article_55",
+      "70811::article_65"
+    ],
+    "temporal_current_002": [
+      "95942::article_172",
+      "163508::article_3::clauses_1",
+      "168754::article_152::clauses_4-7",
+      "146609::article_4",
+      "168754::article_11",
+      "168754::article_152::clauses_1-3",
+      "168754::article_151::clauses_1-5",
+      "146609::article_59",
+      "146609::article_166",
+      "146609::article_167"
+    ],
+    "temporal_current_003": [
+      "171371::article_3",
+      "171371::article_2",
+      "169032::article_51",
+      "41421::article_11",
+      "169032::article_53",
+      "169032::article_68",
+      "169711::article_15",
+      "169032::article_49",
+      "169032::article_60::clauses_5-11",
+      "169032::article_198::clause_3"
+    ],
+    "temporal_current_004": [
+      "154771::residual_content::block_8",
+      "154771::residual_content::block_4",
+      "157808::article_2",
+      "178624::article_12",
+      "146609::article_45",
+      "154957::article_5",
+      "496ec2c0-84a2-11f1-83d1-6f7c0080cf0c::residual_content::block_6",
+      "154957::article_3",
+      "154771::residual_content::block_2",
+      "157808::residual_content::block_1"
+    ],
+    "temporal_current_005": [
+      "185594::article_2",
+      "179725::article_1",
+      "161263::article_23",
+      "185594::article_1",
+      "167051::article_6",
+      "161263::article_25",
+      "167804::article_1",
+      "161263::article_24",
+      "167051::article_7",
+      "161263::article_28"
+    ],
+    "temporal_current_006": [
+      "168128::article_131",
+      "168128::article_23",
+      "168125::article_31",
+      "168128::article_15",
+      "165765::article_7",
+      "168128::article_132::clauses_14-15",
+      "168128::article_132::clauses_1-3",
+      "165765::article_40",
+      "168128::article_24::clauses_1-3",
+      "165765::article_9::clauses_5-7"
+    ],
+    "temporal_current_007": [
+      "165913::article_16",
+      "165913::article_17",
+      "165913::article_18",
+      "186174::residual_content::block_2",
+      "165913::article_13",
+      "153919::article_14",
+      "123056::article_1",
+      "165913::article_9",
+      "123056::residual_content::block_2",
+      "165913::article_37"
+    ],
+    "temporal_current_008": [
+      "7042::article_63",
+      "180764::article_83",
+      "43797::article_32",
+      "166581::article_26",
+      "101950::article_7::clauses_6-7",
+      "183407::article_4",
+      "10239::article_47",
+      "17741::article_3",
+      "6ab41fe0-7ea1-11f1-bde4-ef08d13fbb68::article_4",
+      "183407::article_5"
+    ],
+    "temporal_current_009": [
+      "172414::article_8",
+      "172414::article_7::clauses_2-5",
+      "172414::article_2",
+      "172414::article_14",
+      "172599::article_4",
+      "172414::article_13",
+      "172414::article_7::clause_1",
+      "167313::article_30",
+      "172599::article_3::line_83",
+      "172414::article_17"
+    ],
+    "temporal_current_010": [
+      "172553::article_12",
+      "32647::article_5",
+      "32647::article_6",
+      "32647::article_3",
+      "32647::article_8",
+      "32647::article_7",
+      "132855::preamble",
+      "91833::article_20",
+      "94458::section_III::block_2",
+      "132855::article_18::clause_2::point_b::fragment_1"
+    ],
+    "temporal_current_011": [
+      "172799::article_21",
+      "172799::article_20",
+      "58809::residual_content::block_5",
+      "178104::article_11",
+      "172799::article_76::clauses_6-11",
+      "172799::article_24",
+      "41323::residual_content::block_9",
+      "178104::article_16",
+      "178104::article_66",
+      "178104::article_19"
+    ],
+    "temporal_current_012": [
+      "173974::article_15",
+      "177733::article_5",
+      "184134::article_1",
+      "173974::article_16",
+      "84769::document::preamble_1",
+      "177733::article_6::clause_3",
+      "183452::article_1",
+      "187393::article_1",
+      "187393::residual_content::block_2",
+      "177733::article_1::clauses_1-10"
+    ],
+    "temporal_current_013": [
+      "82673::article_8",
+      "174877::article_14",
+      "179108::article_5",
+      "115912::article_16",
+      "178296::article_37",
+      "170517::article_53",
+      "177682::article_33",
+      "178296::article_7",
+      "135765::article_11",
+      "180306::article_26"
+    ],
+    "temporal_current_014": [
+      "175425::article_46",
+      "175425::article_47",
+      "175425::article_12",
+      "175425::article_158",
+      "175425::article_116",
+      "175425::article_36",
+      "175425::article_138",
+      "96122::article_91",
+      "133062::article_10",
+      "175425::article_15"
+    ],
+    "temporal_current_015": [
+      "146467::article_287",
+      "166170::article_53",
+      "166170::article_54",
+      "142881::document::block_59",
+      "146467::article_288",
+      "160343::article_27",
+      "11739::article_54",
+      "11739::article_74",
+      "166170::article_51",
+      "513ad050-8413-11f1-af97-3f2af4623338::article_11"
+    ],
+    "temporal_current_016": [
+      "172475::article_23",
+      "129231::article_12",
+      "148872::article_9",
+      "173121::residual_content::block_2",
+      "60390::article_41::clauses_1-2",
+      "129082::article_16",
+      "173121::article_2",
+      "166909::article_9",
+      "173121::article_1",
+      "152577::article_8::clauses_1-2"
+    ],
+    "temporal_current_017": [
+      "eafb5170-500a-11f1-b944-cf124b24cc44::article_10",
+      "127393::article_1::line_106",
+      "173024::article_26",
+      "eafb5170-500a-11f1-b944-cf124b24cc44::article_2::line_77",
+      "9b781560-7450-11f1-920f-8dc1bf27f4b3::article_6",
+      "149606::article_6",
+      "144679::article_7",
+      "183436::article_5",
+      "118487::article_14",
+      "144679::article_2::line_83"
+    ],
+    "temporal_current_018": [
+      "173982::article_18",
+      "26741::article_50",
+      "26741::article_16",
+      "173982::article_50",
+      "26741::article_21",
+      "26741::article_41",
+      "26741::article_42",
+      "173982::article_49",
+      "173982::article_16",
+      "179697::article_45"
+    ],
+    "temporal_current_019": [
+      "179109::article_19",
+      "157721::article_19",
+      "23609::article_8",
+      "34077::article_12",
+      "123514::article_47",
+      "150694::article_8",
+      "162387::article_16",
+      "154521::article_10",
+      "129237::article_26",
+      "129237::article_40"
+    ],
+    "temporal_current_020": [
+      "167565::article_21",
+      "172699::article_29::clauses_1-3",
+      "168505::residual_content::block_11",
+      "168505::residual_content::block_12",
+      "172699::article_3",
+      "181217::article_9",
+      "168505::residual_content::block_2",
+      "168505::residual_content::block_13",
+      "168505::article_15",
+      "168505::article_1"
+    ],
+    "temporal_historical_001": [],
+    "temporal_historical_002": [],
+    "temporal_historical_003": [],
+    "temporal_historical_004": [],
+    "temporal_historical_005": [],
+    "temporal_historical_006": [],
+    "temporal_historical_007": [],
+    "temporal_historical_008": [],
+    "temporal_historical_009": [],
+    "temporal_historical_010": [],
+    "temporal_historical_011": [],
+    "temporal_historical_012": [],
+    "temporal_historical_013": [],
+    "temporal_historical_014": [],
+    "temporal_historical_015": [],
+    "temporal_historical_016": [],
+    "temporal_historical_017": [],
+    "temporal_historical_018": [],
+    "temporal_historical_019": [],
+    "temporal_historical_020": [],
+    "expired_status_001": [
+      "cfd1d7c0-660d-11f1-a9ca-1b9da780b437::preamble",
+      "cfd1d7c0-660d-11f1-a9ca-1b9da780b437::residual_content::block_2",
+      "cfd1d7c0-660d-11f1-a9ca-1b9da780b437::article_1",
+      "cfd1d7c0-660d-11f1-a9ca-1b9da780b437::residual_content::block_1",
+      "cfd1d7c0-660d-11f1-a9ca-1b9da780b437::article_3",
+      "cfd1d7c0-660d-11f1-a9ca-1b9da780b437::article_2"
+    ],
+    "expired_status_002": [
+      "7797e7f0-5a7a-11f1-a38f-151b002e0962::residual_content::block_1",
+      "7797e7f0-5a7a-11f1-a38f-151b002e0962::preamble",
+      "7797e7f0-5a7a-11f1-a38f-151b002e0962::appendix_Phụ_lục::table_1::block_1",
+      "7797e7f0-5a7a-11f1-a38f-151b002e0962::appendix_Phụ_lục::block_2",
+      "7797e7f0-5a7a-11f1-a38f-151b002e0962::article_2",
+      "7797e7f0-5a7a-11f1-a38f-151b002e0962::article_1"
+    ],
+    "expired_status_003": [
+      "187216::residual_content::block_2",
+      "187216::residual_content::block_1",
+      "187216::article_2",
+      "187216::residual_content::block_3",
+      "187216::article_1",
+      "187216::article_3"
+    ],
+    "expired_status_004": [
+      "186356::residual_content::block_5",
+      "187196::article_1",
+      "186356::article_1",
+      "186356::residual_content::block_1",
+      "187196::residual_content::block_1",
+      "187196::residual_content::block_3",
+      "186356::residual_content::block_2",
+      "186356::article_3",
+      "187196::residual_content::block_2",
+      "187196::article_2"
+    ],
+    "expired_status_005": [
+      "186838::residual_content::block_3",
+      "186838::residual_content::block_1",
+      "186838::article_4",
+      "186838::article_2",
+      "186838::article_3",
+      "186838::residual_content::block_2",
+      "186838::article_1"
+    ],
+    "expired_status_006": [
+      "186498::residual_content::block_3",
+      "186498::article_18a",
+      "186498::article_2",
+      "186498::residual_content::block_4",
+      "186498::residual_content::block_2",
+      "186498::article_1::clauses_1-3",
+      "186498::article_3",
+      "186498::residual_content::block_1",
+      "186498::article_1::clauses_4-2",
+      "186498::article_1::clauses_3-6"
+    ],
+    "expired_status_007": [
+      "186521::article_38",
+      "186521::article_39",
+      "186521::article_37",
+      "186521::article_1::line_39",
+      "186521::article_18",
+      "186521::article_4::clauses_4-5",
+      "186521::article_8::clauses_1-3",
+      "186521::article_20",
+      "186521::article_25",
+      "186521::article_11"
+    ],
+    "expired_status_008": [
+      "186065::residual_content::block_3",
+      "186233::article_2",
+      "186233::residual_content::block_3",
+      "185896::residual_content::block_2",
+      "185896::article_1",
+      "186065::residual_content::block_4",
+      "186065::article_3",
+      "186065::residual_content::block_1",
+      "186233::residual_content::block_1",
+      "186233::article_3"
+    ],
+    "expired_status_009": [
+      "182693::article_2::clauses_16-18",
+      "182693::article_2::clauses_9-15",
+      "182693::residual_content::block_3",
+      "182693::article_2::clauses_4-8",
+      "182693::article_2::clauses_1-3",
+      "182693::residual_content::block_1",
+      "182693::residual_content::block_2",
+      "182693::article_1",
+      "182693::article_3",
+      "182693::article_5"
+    ],
+    "expired_status_010": [
+      "187113::article_1",
+      "187113::article_2",
+      "187113::residual_content::block_2",
+      "187113::residual_content::block_1",
+      "187113::residual_content::block_3",
+      "187113::article_3"
+    ],
+    "expired_status_011": [
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_III::table_6::block_10",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_I::block_44",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_III::table_1::block_2",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_I::table_1::block_12",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_I::table_1::block_3",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_I::block_36",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_I::table_11::block_27",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_III::table_1::block_1",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::residual_content::block_1",
+      "985c4b70-6b05-11f1-88b8-3501394313fe::appendix_Phụ_lục_I::table_7::block_23"
+    ],
+    "expired_status_012": [
+      "186516::residual_content::block_2",
+      "186516::article_2",
+      "186516::article_3",
+      "186516::article_1",
+      "186516::residual_content::block_3",
+      "186516::residual_content::block_1"
+    ],
+    "expired_status_013": [
+      "185184::residual_content::block_3",
+      "185184::residual_content::block_2",
+      "185184::residual_content::block_1",
+      "185184::article_1",
+      "185184::appendix_PHỤ_LỤC::table_1::block_1",
+      "185184::residual_content::block_4",
+      "185184::appendix_PHỤ_LỤC::table_1::block_4",
+      "185184::appendix_PHỤ_LỤC::table_1::block_10",
+      "185184::appendix_PHỤ_LỤC::block_16",
+      "185184::appendix_PHỤ_LỤC::table_1::block_8"
+    ],
+    "expired_status_014": [
+      "185318::residual_content::block_4",
+      "185318::article_1::line_84",
+      "185318::article_5",
+      "185318::residual_content::block_2",
+      "185318::article_4",
+      "185318::article_2::line_88",
+      "185318::article_3",
+      "185318::residual_content::block_6",
+      "185318::residual_content::block_5",
+      "185318::residual_content::block_1"
+    ],
+    "expired_status_015": [
+      "177213::residual_content::block_3",
+      "177213::residual_content::block_4",
+      "177213::article_1",
+      "177213::article_4",
+      "177213::residual_content::block_2",
+      "177213::residual_content::block_1",
+      "177213::article_3",
+      "177213::article_2",
+      "185202::document::block_1",
+      "185071::residual_content::block_2"
+    ],
+    "legal_relationship_001": [
+      "183552::article_7",
+      "183552::preamble",
+      "183552::article_1",
+      "183552::article_10",
+      "183552::article_15",
+      "183552::article_19",
+      "183552::article_5",
+      "183552::article_17",
+      "183552::article_21",
+      "183552::residual_content::block_1"
+    ],
+    "legal_relationship_002": [],
+    "legal_relationship_003": [
+      "179690::article_8",
+      "157619::article_2",
+      "181140::article_4",
+      "135732::article_5",
+      "148753::article_10",
+      "135732::article_14",
+      "144029::article_10",
+      "139029::article_29",
+      "144029::article_15",
+      "157619::article_1::line_59"
+    ],
+    "legal_relationship_004": [
+      "178091::appendix_PHỤ_LỤC::block_42",
+      "178091::article_4",
+      "132876::article_11",
+      "167992::article_1",
+      "132876::article_10",
+      "178091::appendix_PHỤ_LỤC::table_22::block_22",
+      "171901::article_2",
+      "178091::appendix_PHỤ_LỤC::table_6::block_6",
+      "178091::appendix_PHỤ_LỤC::block_47",
+      "132876::article_8::fragment_2"
+    ],
+    "legal_relationship_005": [
+      "168718::preamble",
+      "168718::residual_content::block_1",
+      "168718::article_3",
+      "168718::article_2",
+      "168718::article_1"
+    ],
+    "legal_relationship_006": [
+      "170783::article_1::clauses_9-12",
+      "146314::article_5::clauses_7-14",
+      "146314::article_7",
+      "115010::article_2",
+      "146314::article_8",
+      "31213::article_16",
+      "146314::article_6",
+      "146314::article_13",
+      "141238::article_12",
+      "171531::article_2::line_54"
+    ],
+    "legal_relationship_007": [
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::residual_content::block_4",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::residual_content::block_5",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::residual_content::block_2",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::article_1",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::article_8",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::residual_content::block_3",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::article_7",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::residual_content::block_1",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::residual_content::block_6",
+      "b6891890-84ae-11f1-87e3-9b1f015b5a92::article_2"
+    ],
+    "legal_relationship_008": [
+      "184767::article_5",
+      "162551::article_1",
+      "185140::article_2::clause_2::points_m-r",
+      "185140::article_2::clause_2::points_f-l",
+      "154171::article_4",
+      "185140::article_2::clause_2::points_a-e",
+      "154171::article_2::line_61",
+      "161801::preamble::fragment_1",
+      "176943::residual_content::block_3",
+      "154171::article_10"
+    ],
+    "legal_relationship_009": [
+      "115349::preamble",
+      "115349::article_1",
+      "115349::article_2",
+      "115349::residual_content::block_1",
+      "159857::article_2",
+      "115349::article_3",
+      "153585::article_2",
+      "182996::article_3",
+      "166927::article_1::clauses_2-2",
+      "150744::article_2"
+    ],
+    "legal_relationship_010": [
+      "81428::article_20",
+      "148286::article_13::line_1703",
+      "81428::article_9",
+      "148286::article_12::line_2348",
+      "148968::article_4",
+      "148286::appendix_Mẫu_số_03::block_3",
+      "148286::appendix_Mẫu_số_03::table_1::block_1",
+      "148286::appendix_Mẫu_số_03::block_2",
+      "81428::article_16",
+      "140110::article_11"
+    ],
+    "confusable_001": [
+      "161263::article_4"
+    ],
+    "confusable_002": [
+      "165913::article_8"
+    ],
+    "confusable_003": [
+      "166581::article_16::clause_6",
+      "166581::article_16::clauses_1-5",
+      "166581::article_16::clauses_7-9"
+    ],
+    "confusable_004": [
+      "169032::article_20"
+    ],
+    "confusable_005": [
+      "167282::article_10"
+    ],
+    "confusable_006": [
+      "173024::article_10"
+    ],
+    "confusable_007": [
+      "172799::article_8"
+    ],
+    "confusable_008": [
+      "172553::article_10"
+    ],
+    "confusable_009": [
+      "173982::article_8"
+    ],
+    "confusable_010": [
+      "173974::article_10"
+    ]
+  },
+  "diagnostics": {
+    "exact_document_number_001": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 2 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000116,
+        "dense": 10.250693,
+        "sparse": 0.472302,
+        "fusion": 0.001403,
+        "hydration": 0.881124,
+        "reranker": 0.0,
+        "seed_and_graph": 0.372889,
+        "total": 11.509749
+      }
+    },
+    "exact_document_number_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph found no resolved related documents"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000108,
+        "dense": 0.234142,
+        "sparse": 0.186586,
+        "fusion": 0.001035,
+        "hydration": 0.764305,
+        "reranker": 0.0,
+        "seed_and_graph": 0.159196,
+        "total": 1.160693
+      }
+    },
+    "exact_document_number_003": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 3 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000135,
+        "dense": 0.204686,
+        "sparse": 0.161267,
+        "fusion": 0.00095,
+        "hydration": 0.596787,
+        "reranker": 0.0,
+        "seed_and_graph": 0.164535,
+        "total": 0.968527
+      }
+    },
+    "exact_document_number_004": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 3 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000124,
+        "dense": 0.121327,
+        "sparse": 0.107957,
+        "fusion": 0.001041,
+        "hydration": 0.248424,
+        "reranker": 0.0,
+        "seed_and_graph": 0.165955,
+        "total": 0.53864
+      }
+    },
+    "exact_document_number_005": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 3 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 8.6e-05,
+        "dense": 0.10312,
+        "sparse": 0.144498,
+        "fusion": 0.001044,
+        "hydration": 0.489868,
+        "reranker": 0.0,
+        "seed_and_graph": 0.161654,
+        "total": 0.801192
+      }
+    },
+    "exact_document_number_006": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 2 related document(s)"
+      ],
+      "searched_candidates": 84,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000111,
+        "dense": 0.115538,
+        "sparse": 0.085652,
+        "fusion": 0.000747,
+        "hydration": 0.260708,
+        "reranker": 0.0,
+        "seed_and_graph": 0.162764,
+        "total": 0.541643
+      }
+    },
+    "exact_document_number_007": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 3 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000119,
+        "dense": 0.092091,
+        "sparse": 0.090855,
+        "fusion": 0.001073,
+        "hydration": 0.162888,
+        "reranker": 0.0,
+        "seed_and_graph": 0.162411,
+        "total": 0.421039
+      }
+    },
+    "exact_document_number_008": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph found no resolved related documents"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.00013,
+        "dense": 0.141753,
+        "sparse": 0.113756,
+        "fusion": 0.000669,
+        "hydration": 0.319456,
+        "reranker": 0.0,
+        "seed_and_graph": 0.159271,
+        "total": 0.622491
+      }
+    },
+    "exact_document_number_009": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph found no resolved related documents"
+      ],
+      "searched_candidates": 38,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000101,
+        "dense": 0.089574,
+        "sparse": 0.059874,
+        "fusion": 0.000369,
+        "hydration": 0.172618,
+        "reranker": 0.0,
+        "seed_and_graph": 0.16541,
+        "total": 0.429827
+      }
+    },
+    "exact_document_number_010": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 61,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000133,
+        "dense": 0.086732,
+        "sparse": 0.056926,
+        "fusion": 0.000553,
+        "hydration": 0.184885,
+        "reranker": 0.0,
+        "seed_and_graph": 0.160379,
+        "total": 0.434095
+      }
+    },
+    "exact_provision_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000102,
+        "dense": 0.348692,
+        "sparse": 0.210973,
+        "fusion": 6e-05,
+        "hydration": 0.023182,
+        "reranker": 0.0,
+        "seed_and_graph": 0.078889,
+        "total": 0.451916
+      }
+    },
+    "exact_provision_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.00013,
+        "dense": 0.321424,
+        "sparse": 0.091027,
+        "fusion": 5.8e-05,
+        "hydration": 0.025016,
+        "reranker": 0.0,
+        "seed_and_graph": 0.077079,
+        "total": 0.424998
+      }
+    },
+    "exact_provision_003": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 2,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.00012,
+        "dense": 0.40753,
+        "sparse": 0.132383,
+        "fusion": 9.3e-05,
+        "hydration": 0.236522,
+        "reranker": 0.0,
+        "seed_and_graph": 0.080338,
+        "total": 0.725818
+      }
+    },
+    "exact_provision_004": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000172,
+        "dense": 0.323158,
+        "sparse": 0.037956,
+        "fusion": 6.3e-05,
+        "hydration": 0.216002,
+        "reranker": 0.0,
+        "seed_and_graph": 0.077523,
+        "total": 0.618287
+      }
+    },
+    "exact_provision_005": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000142,
+        "dense": 0.328965,
+        "sparse": 0.036233,
+        "fusion": 5.2e-05,
+        "hydration": 0.096774,
+        "reranker": 0.0,
+        "seed_and_graph": 0.079252,
+        "total": 0.506175
+      }
+    },
+    "exact_provision_006": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000149,
+        "dense": 0.286079,
+        "sparse": 0.035775,
+        "fusion": 6.4e-05,
+        "hydration": 0.128694,
+        "reranker": 0.0,
+        "seed_and_graph": 0.076285,
+        "total": 0.492412
+      }
+    },
+    "exact_provision_007": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000189,
+        "dense": 0.351633,
+        "sparse": 0.056516,
+        "fusion": 3.7e-05,
+        "hydration": 0.017058,
+        "reranker": 0.0,
+        "seed_and_graph": 0.075662,
+        "total": 0.445441
+      }
+    },
+    "exact_provision_008": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 3,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000109,
+        "dense": 0.342911,
+        "sparse": 0.065217,
+        "fusion": 6.2e-05,
+        "hydration": 0.043585,
+        "reranker": 0.0,
+        "seed_and_graph": 0.077905,
+        "total": 0.465736
+      }
+    },
+    "exact_provision_009": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000169,
+        "dense": 0.311387,
+        "sparse": 0.023273,
+        "fusion": 5.6e-05,
+        "hydration": 0.019952,
+        "reranker": 0.0,
+        "seed_and_graph": 0.079513,
+        "total": 0.412254
+      }
+    },
+    "exact_provision_010": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 9.4e-05,
+        "dense": 0.314359,
+        "sparse": 0.023579,
+        "fusion": 4.9e-05,
+        "hydration": 0.028137,
+        "reranker": 0.0,
+        "seed_and_graph": 0.078522,
+        "total": 0.422481
+      }
+    },
+    "semantic_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 41,
+      "timings": {
+        "query_parse": 6.6e-05,
+        "dense": 2.568618,
+        "sparse": 0.32441,
+        "fusion": 0.005677,
+        "hydration": 21.808219,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 24.384344
+      }
+    },
+    "semantic_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 3e-05,
+        "dense": 2.848503,
+        "sparse": 0.323437,
+        "fusion": 0.001218,
+        "hydration": 21.998959,
+        "reranker": 0.0,
+        "seed_and_graph": 1.5e-05,
+        "total": 24.850338
+      }
+    },
+    "semantic_003": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 43,
+      "timings": {
+        "query_parse": 8.3e-05,
+        "dense": 2.971569,
+        "sparse": 0.374389,
+        "fusion": 0.001057,
+        "hydration": 19.992623,
+        "reranker": 0.0,
+        "seed_and_graph": 4.7e-05,
+        "total": 22.966705
+      }
+    },
+    "semantic_004": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 56,
+      "timings": {
+        "query_parse": 4.6e-05,
+        "dense": 2.334107,
+        "sparse": 0.238173,
+        "fusion": 0.001114,
+        "hydration": 20.086934,
+        "reranker": 0.0,
+        "seed_and_graph": 2.3e-05,
+        "total": 22.424589
+      }
+    },
+    "semantic_005": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 66,
+      "timings": {
+        "query_parse": 4.3e-05,
+        "dense": 2.307473,
+        "sparse": 0.162318,
+        "fusion": 0.000827,
+        "hydration": 21.303862,
+        "reranker": 0.0,
+        "seed_and_graph": 1.8e-05,
+        "total": 23.613376
+      }
+    },
+    "semantic_006": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 56,
+      "timings": {
+        "query_parse": 6.3e-05,
+        "dense": 1.634756,
+        "sparse": 0.284821,
+        "fusion": 0.001655,
+        "hydration": 35.845889,
+        "reranker": 0.0,
+        "seed_and_graph": 2.9e-05,
+        "total": 37.48476
+      }
+    },
+    "semantic_007": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 63,
+      "timings": {
+        "query_parse": 7.1e-05,
+        "dense": 3.519532,
+        "sparse": 0.301649,
+        "fusion": 0.001268,
+        "hydration": 23.041628,
+        "reranker": 0.0,
+        "seed_and_graph": 3.2e-05,
+        "total": 26.564904
+      }
+    },
+    "semantic_008": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 10,
+      "timings": {
+        "query_parse": 7.2e-05,
+        "dense": 2.844533,
+        "sparse": 0.300772,
+        "fusion": 0.00098,
+        "hydration": 9.660816,
+        "reranker": 0.0,
+        "seed_and_graph": 3.6e-05,
+        "total": 12.50781
+      }
+    },
+    "semantic_009": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 66,
+      "timings": {
+        "query_parse": 5.8e-05,
+        "dense": 2.508538,
+        "sparse": 0.191153,
+        "fusion": 0.001026,
+        "hydration": 9.865525,
+        "reranker": 0.0,
+        "seed_and_graph": 2.8e-05,
+        "total": 12.376624
+      }
+    },
+    "semantic_010": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 32,
+      "timings": {
+        "query_parse": 5.8e-05,
+        "dense": 2.650395,
+        "sparse": 0.211536,
+        "fusion": 0.00119,
+        "hydration": 10.936474,
+        "reranker": 0.0,
+        "seed_and_graph": 2.5e-05,
+        "total": 13.589823
+      }
+    },
+    "semantic_011": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 50,
+      "timings": {
+        "query_parse": 5.9e-05,
+        "dense": 2.749785,
+        "sparse": 0.196832,
+        "fusion": 0.001186,
+        "hydration": 11.331017,
+        "reranker": 0.0,
+        "seed_and_graph": 1.8e-05,
+        "total": 14.083804
+      }
+    },
+    "semantic_012": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 52,
+      "timings": {
+        "query_parse": 0.000126,
+        "dense": 2.833928,
+        "sparse": 0.315756,
+        "fusion": 0.001225,
+        "hydration": 10.271707,
+        "reranker": 0.0,
+        "seed_and_graph": 5.2e-05,
+        "total": 13.108414
+      }
+    },
+    "semantic_013": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 54,
+      "timings": {
+        "query_parse": 8.7e-05,
+        "dense": 2.808136,
+        "sparse": 0.22332,
+        "fusion": 0.00079,
+        "hydration": 9.929091,
+        "reranker": 0.0,
+        "seed_and_graph": 3.9e-05,
+        "total": 12.739492
+      }
+    },
+    "semantic_014": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 47,
+      "timings": {
+        "query_parse": 7.7e-05,
+        "dense": 2.032225,
+        "sparse": 0.153961,
+        "fusion": 0.000924,
+        "hydration": 9.950146,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 11.984447
+      }
+    },
+    "semantic_015": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 33,
+      "timings": {
+        "query_parse": 7.9e-05,
+        "dense": 2.512759,
+        "sparse": 0.165986,
+        "fusion": 0.000847,
+        "hydration": 10.541586,
+        "reranker": 0.0,
+        "seed_and_graph": 3.2e-05,
+        "total": 13.056718
+      }
+    },
+    "semantic_016": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 19,
+      "timings": {
+        "query_parse": 3.2e-05,
+        "dense": 2.701946,
+        "sparse": 0.156861,
+        "fusion": 0.001172,
+        "hydration": 10.967215,
+        "reranker": 0.0,
+        "seed_and_graph": 1.7e-05,
+        "total": 13.671936
+      }
+    },
+    "semantic_017": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 57,
+      "timings": {
+        "query_parse": 8.4e-05,
+        "dense": 2.165171,
+        "sparse": 0.251841,
+        "fusion": 0.001195,
+        "hydration": 10.047045,
+        "reranker": 0.0,
+        "seed_and_graph": 2.7e-05,
+        "total": 12.215245
+      }
+    },
+    "semantic_018": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 45,
+      "timings": {
+        "query_parse": 8.2e-05,
+        "dense": 1.702184,
+        "sparse": 0.408576,
+        "fusion": 0.001164,
+        "hydration": 10.500328,
+        "reranker": 0.0,
+        "seed_and_graph": 4.5e-05,
+        "total": 12.205137
+      }
+    },
+    "semantic_019": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 27,
+      "timings": {
+        "query_parse": 4.2e-05,
+        "dense": 1.990325,
+        "sparse": 0.317221,
+        "fusion": 0.000998,
+        "hydration": 10.425763,
+        "reranker": 0.0,
+        "seed_and_graph": 2e-05,
+        "total": 12.418636
+      }
+    },
+    "semantic_020": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 16,
+      "timings": {
+        "query_parse": 3.1e-05,
+        "dense": 1.934004,
+        "sparse": 0.159414,
+        "fusion": 0.0008,
+        "hydration": 10.277823,
+        "reranker": 0.0,
+        "seed_and_graph": 0.000113,
+        "total": 12.214017
+      }
+    },
+    "semantic_021": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 25,
+      "timings": {
+        "query_parse": 8.1e-05,
+        "dense": 1.931481,
+        "sparse": 0.269998,
+        "fusion": 0.000858,
+        "hydration": 10.188873,
+        "reranker": 0.0,
+        "seed_and_graph": 2.4e-05,
+        "total": 12.122546
+      }
+    },
+    "semantic_022": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 66,
+      "timings": {
+        "query_parse": 3e-05,
+        "dense": 2.091854,
+        "sparse": 0.32796,
+        "fusion": 0.001091,
+        "hydration": 11.526803,
+        "reranker": 0.0,
+        "seed_and_graph": 1.5e-05,
+        "total": 13.621162
+      }
+    },
+    "semantic_023": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 44,
+      "timings": {
+        "query_parse": 8e-05,
+        "dense": 1.928162,
+        "sparse": 0.280284,
+        "fusion": 0.000878,
+        "hydration": 11.043756,
+        "reranker": 0.0,
+        "seed_and_graph": 2.7e-05,
+        "total": 12.974194
+      }
+    },
+    "semantic_024": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 70,
+      "timings": {
+        "query_parse": 5.1e-05,
+        "dense": 1.808403,
+        "sparse": 0.349545,
+        "fusion": 0.001247,
+        "hydration": 10.4338,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 12.245129
+      }
+    },
+    "semantic_025": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 32,
+      "timings": {
+        "query_parse": 3.6e-05,
+        "dense": 1.925157,
+        "sparse": 0.19456,
+        "fusion": 0.001133,
+        "hydration": 10.748737,
+        "reranker": 0.0,
+        "seed_and_graph": 2.1e-05,
+        "total": 12.676904
+      }
+    },
+    "semantic_026": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 6e-05,
+        "dense": 1.816799,
+        "sparse": 0.193704,
+        "fusion": 0.00106,
+        "hydration": 10.524168,
+        "reranker": 0.0,
+        "seed_and_graph": 5.9e-05,
+        "total": 12.343616
+      }
+    },
+    "semantic_027": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 50,
+      "timings": {
+        "query_parse": 5.7e-05,
+        "dense": 1.766646,
+        "sparse": 0.235274,
+        "fusion": 0.000782,
+        "hydration": 11.102047,
+        "reranker": 0.0,
+        "seed_and_graph": 2.7e-05,
+        "total": 12.870758
+      }
+    },
+    "semantic_028": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 54,
+      "timings": {
+        "query_parse": 6.9e-05,
+        "dense": 1.89812,
+        "sparse": 0.205752,
+        "fusion": 0.001687,
+        "hydration": 11.421964,
+        "reranker": 0.0,
+        "seed_and_graph": 3.3e-05,
+        "total": 13.323537
+      }
+    },
+    "semantic_029": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 37,
+      "timings": {
+        "query_parse": 8.2e-05,
+        "dense": 1.646981,
+        "sparse": 0.443825,
+        "fusion": 0.00091,
+        "hydration": 10.760794,
+        "reranker": 0.0,
+        "seed_and_graph": 4.5e-05,
+        "total": 12.410141
+      }
+    },
+    "semantic_030": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 29,
+      "timings": {
+        "query_parse": 7e-05,
+        "dense": 1.175534,
+        "sparse": 0.339727,
+        "fusion": 0.001023,
+        "hydration": 11.091746,
+        "reranker": 0.0,
+        "seed_and_graph": 2.9e-05,
+        "total": 12.269735
+      }
+    },
+    "semantic_031": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 2.7e-05,
+        "dense": 1.997351,
+        "sparse": 0.31343,
+        "fusion": 0.001348,
+        "hydration": 12.282777,
+        "reranker": 0.0,
+        "seed_and_graph": 1.5e-05,
+        "total": 14.283175
+      }
+    },
+    "semantic_032": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 49,
+      "timings": {
+        "query_parse": 5.4e-05,
+        "dense": 1.360589,
+        "sparse": 0.155591,
+        "fusion": 0.001347,
+        "hydration": 11.055918,
+        "reranker": 0.0,
+        "seed_and_graph": 2.2e-05,
+        "total": 12.419559
+      }
+    },
+    "semantic_033": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 76,
+      "timings": {
+        "query_parse": 8.3e-05,
+        "dense": 1.480735,
+        "sparse": 0.396646,
+        "fusion": 0.001083,
+        "hydration": 12.402878,
+        "reranker": 0.0,
+        "seed_and_graph": 5.2e-05,
+        "total": 13.886187
+      }
+    },
+    "semantic_034": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 7.6e-05,
+        "dense": 1.974939,
+        "sparse": 0.324528,
+        "fusion": 0.00083,
+        "hydration": 11.173817,
+        "reranker": 0.0,
+        "seed_and_graph": 3.9e-05,
+        "total": 13.150811
+      }
+    },
+    "semantic_035": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 62,
+      "timings": {
+        "query_parse": 3.5e-05,
+        "dense": 1.541271,
+        "sparse": 0.108639,
+        "fusion": 0.000909,
+        "hydration": 12.041745,
+        "reranker": 0.0,
+        "seed_and_graph": 1.8e-05,
+        "total": 13.585186
+      }
+    },
+    "semantic_036": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 7.6e-05,
+        "dense": 1.095013,
+        "sparse": 0.361746,
+        "fusion": 0.000809,
+        "hydration": 11.516532,
+        "reranker": 0.0,
+        "seed_and_graph": 4e-05,
+        "total": 12.613629
+      }
+    },
+    "semantic_037": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 11,
+      "timings": {
+        "query_parse": 5e-05,
+        "dense": 1.367028,
+        "sparse": 0.221684,
+        "fusion": 0.001208,
+        "hydration": 11.149547,
+        "reranker": 0.0,
+        "seed_and_graph": 2.4e-05,
+        "total": 12.519305
+      }
+    },
+    "semantic_038": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 24,
+      "timings": {
+        "query_parse": 8.9e-05,
+        "dense": 1.459784,
+        "sparse": 0.309715,
+        "fusion": 0.001014,
+        "hydration": 11.146215,
+        "reranker": 0.0,
+        "seed_and_graph": 3e-05,
+        "total": 12.608592
+      }
+    },
+    "semantic_039": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 42,
+      "timings": {
+        "query_parse": 6.7e-05,
+        "dense": 1.169068,
+        "sparse": 0.406465,
+        "fusion": 0.00081,
+        "hydration": 12.240174,
+        "reranker": 0.0,
+        "seed_and_graph": 2.8e-05,
+        "total": 13.411261
+      }
+    },
+    "semantic_040": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 43,
+      "timings": {
+        "query_parse": 6.4e-05,
+        "dense": 1.919659,
+        "sparse": 0.35537,
+        "fusion": 0.001333,
+        "hydration": 12.104277,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 14.026989
+      }
+    },
+    "semantic_041": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 32,
+      "timings": {
+        "query_parse": 4.8e-05,
+        "dense": 2.057377,
+        "sparse": 0.227363,
+        "fusion": 0.001335,
+        "hydration": 12.66337,
+        "reranker": 0.0,
+        "seed_and_graph": 2.4e-05,
+        "total": 14.725499
+      }
+    },
+    "semantic_042": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 53,
+      "timings": {
+        "query_parse": 0.000508,
+        "dense": 2.370725,
+        "sparse": 0.527978,
+        "fusion": 0.001006,
+        "hydration": 12.228698,
+        "reranker": 0.0,
+        "seed_and_graph": 0.000185,
+        "total": 14.603887
+      }
+    },
+    "semantic_043": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 4.7e-05,
+        "dense": 1.861837,
+        "sparse": 0.344922,
+        "fusion": 0.001201,
+        "hydration": 12.311658,
+        "reranker": 0.0,
+        "seed_and_graph": 2.3e-05,
+        "total": 14.17631
+      }
+    },
+    "semantic_044": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 51,
+      "timings": {
+        "query_parse": 6.2e-05,
+        "dense": 1.725913,
+        "sparse": 0.177145,
+        "fusion": 0.000883,
+        "hydration": 11.849605,
+        "reranker": 0.0,
+        "seed_and_graph": 2.8e-05,
+        "total": 13.577892
+      }
+    },
+    "semantic_045": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 47,
+      "timings": {
+        "query_parse": 0.000104,
+        "dense": 1.844706,
+        "sparse": 0.353615,
+        "fusion": 0.001214,
+        "hydration": 11.452938,
+        "reranker": 0.0,
+        "seed_and_graph": 4.1e-05,
+        "total": 13.300641
+      }
+    },
+    "semantic_046": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 63,
+      "timings": {
+        "query_parse": 4.9e-05,
+        "dense": 1.913909,
+        "sparse": 0.164518,
+        "fusion": 0.001264,
+        "hydration": 12.048397,
+        "reranker": 0.0,
+        "seed_and_graph": 2.1e-05,
+        "total": 13.965109
+      }
+    },
+    "semantic_047": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 5.3e-05,
+        "dense": 1.67828,
+        "sparse": 0.125753,
+        "fusion": 0.001353,
+        "hydration": 11.962444,
+        "reranker": 0.0,
+        "seed_and_graph": 4.5e-05,
+        "total": 13.643639
+      }
+    },
+    "semantic_048": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 77,
+      "timings": {
+        "query_parse": 6.9e-05,
+        "dense": 1.962364,
+        "sparse": 0.337498,
+        "fusion": 0.000712,
+        "hydration": 11.411903,
+        "reranker": 0.0,
+        "seed_and_graph": 3.4e-05,
+        "total": 13.376224
+      }
+    },
+    "semantic_049": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 45,
+      "timings": {
+        "query_parse": 5e-05,
+        "dense": 2.103973,
+        "sparse": 0.166035,
+        "fusion": 0.001132,
+        "hydration": 11.808297,
+        "reranker": 0.0,
+        "seed_and_graph": 2.4e-05,
+        "total": 13.9152
+      }
+    },
+    "semantic_050": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 46,
+      "timings": {
+        "query_parse": 8.6e-05,
+        "dense": 1.496533,
+        "sparse": 0.380175,
+        "fusion": 0.001186,
+        "hydration": 13.410258,
+        "reranker": 0.0,
+        "seed_and_graph": 3.4e-05,
+        "total": 14.909397
+      }
+    },
+    "semantic_051": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 21,
+      "timings": {
+        "query_parse": 0.000119,
+        "dense": 2.264804,
+        "sparse": 0.374856,
+        "fusion": 0.00203,
+        "hydration": 15.154306,
+        "reranker": 0.0,
+        "seed_and_graph": 3.7e-05,
+        "total": 17.42385
+      }
+    },
+    "semantic_052": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 29,
+      "timings": {
+        "query_parse": 9.2e-05,
+        "dense": 2.336996,
+        "sparse": 0.233084,
+        "fusion": 0.001167,
+        "hydration": 10.856543,
+        "reranker": 0.0,
+        "seed_and_graph": 4.2e-05,
+        "total": 13.196306
+      }
+    },
+    "semantic_053": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 31,
+      "timings": {
+        "query_parse": 7.7e-05,
+        "dense": 1.887991,
+        "sparse": 0.278409,
+        "fusion": 0.001042,
+        "hydration": 10.17952,
+        "reranker": 0.0,
+        "seed_and_graph": 3.8e-05,
+        "total": 12.069967
+      }
+    },
+    "semantic_054": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 40,
+      "timings": {
+        "query_parse": 8.4e-05,
+        "dense": 1.10509,
+        "sparse": 0.205508,
+        "fusion": 0.000886,
+        "hydration": 10.537743,
+        "reranker": 0.0,
+        "seed_and_graph": 3.4e-05,
+        "total": 11.644969
+      }
+    },
+    "semantic_055": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 36,
+      "timings": {
+        "query_parse": 0.0001,
+        "dense": 2.223774,
+        "sparse": 0.324986,
+        "fusion": 0.001294,
+        "hydration": 10.725797,
+        "reranker": 0.0,
+        "seed_and_graph": 4.5e-05,
+        "total": 12.952684
+      }
+    },
+    "semantic_056": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 43,
+      "timings": {
+        "query_parse": 8.4e-05,
+        "dense": 2.110562,
+        "sparse": 0.387138,
+        "fusion": 0.000711,
+        "hydration": 10.334988,
+        "reranker": 0.0,
+        "seed_and_graph": 4.5e-05,
+        "total": 12.447365
+      }
+    },
+    "semantic_057": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 49,
+      "timings": {
+        "query_parse": 5.4e-05,
+        "dense": 1.863012,
+        "sparse": 0.163782,
+        "fusion": 0.001138,
+        "hydration": 10.260671,
+        "reranker": 0.0,
+        "seed_and_graph": 2.4e-05,
+        "total": 12.12614
+      }
+    },
+    "semantic_058": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 48,
+      "timings": {
+        "query_parse": 4.9e-05,
+        "dense": 1.850728,
+        "sparse": 0.150498,
+        "fusion": 0.001188,
+        "hydration": 10.683195,
+        "reranker": 0.0,
+        "seed_and_graph": 2.2e-05,
+        "total": 12.53649
+      }
+    },
+    "semantic_059": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 17,
+      "timings": {
+        "query_parse": 8e-05,
+        "dense": 1.772832,
+        "sparse": 0.415252,
+        "fusion": 0.000859,
+        "hydration": 11.284717,
+        "reranker": 0.0,
+        "seed_and_graph": 3.5e-05,
+        "total": 13.05974
+      }
+    },
+    "semantic_060": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 61,
+      "timings": {
+        "query_parse": 6.9e-05,
+        "dense": 1.606826,
+        "sparse": 0.228315,
+        "fusion": 0.000802,
+        "hydration": 11.399926,
+        "reranker": 0.0,
+        "seed_and_graph": 2.7e-05,
+        "total": 13.009117
+      }
+    },
+    "scenario_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 76,
+      "timings": {
+        "query_parse": 6.1e-05,
+        "dense": 2.019813,
+        "sparse": 0.465791,
+        "fusion": 0.000781,
+        "hydration": 10.69797,
+        "reranker": 0.0,
+        "seed_and_graph": 3.1e-05,
+        "total": 12.720136
+      }
+    },
+    "scenario_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 63,
+      "timings": {
+        "query_parse": 8.2e-05,
+        "dense": 2.127825,
+        "sparse": 0.307701,
+        "fusion": 0.001013,
+        "hydration": 11.352354,
+        "reranker": 0.0,
+        "seed_and_graph": 4.3e-05,
+        "total": 13.482774
+      }
+    },
+    "scenario_003": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 59,
+      "timings": {
+        "query_parse": 9.4e-05,
+        "dense": 1.627694,
+        "sparse": 0.167163,
+        "fusion": 0.001145,
+        "hydration": 10.749508,
+        "reranker": 0.0,
+        "seed_and_graph": 4.7e-05,
+        "total": 12.380023
+      }
+    },
+    "scenario_004": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 47,
+      "timings": {
+        "query_parse": 7.1e-05,
+        "dense": 1.957197,
+        "sparse": 0.264497,
+        "fusion": 0.001206,
+        "hydration": 11.223077,
+        "reranker": 0.0,
+        "seed_and_graph": 3.8e-05,
+        "total": 13.182868
+      }
+    },
+    "scenario_005": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 81,
+      "timings": {
+        "query_parse": 5.6e-05,
+        "dense": 1.878794,
+        "sparse": 0.179981,
+        "fusion": 0.001236,
+        "hydration": 11.504428,
+        "reranker": 0.0,
+        "seed_and_graph": 2.9e-05,
+        "total": 13.386127
+      }
+    },
+    "scenario_006": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 62,
+      "timings": {
+        "query_parse": 7.1e-05,
+        "dense": 1.734574,
+        "sparse": 0.326474,
+        "fusion": 0.00098,
+        "hydration": 11.288186,
+        "reranker": 0.0,
+        "seed_and_graph": 6.3e-05,
+        "total": 13.025058
+      }
+    },
+    "scenario_007": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 7.8e-05,
+        "dense": 1.521739,
+        "sparse": 0.175041,
+        "fusion": 0.001602,
+        "hydration": 12.107218,
+        "reranker": 0.0,
+        "seed_and_graph": 3e-05,
+        "total": 13.632385
+      }
+    },
+    "scenario_008": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 70,
+      "timings": {
+        "query_parse": 8.2e-05,
+        "dense": 1.281045,
+        "sparse": 0.32171,
+        "fusion": 0.001366,
+        "hydration": 11.410091,
+        "reranker": 0.0,
+        "seed_and_graph": 4.8e-05,
+        "total": 12.694116
+      }
+    },
+    "scenario_009": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 54,
+      "timings": {
+        "query_parse": 5.8e-05,
+        "dense": 1.428509,
+        "sparse": 0.333525,
+        "fusion": 0.000851,
+        "hydration": 11.318462,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 12.748954
+      }
+    },
+    "scenario_010": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 70,
+      "timings": {
+        "query_parse": 7.1e-05,
+        "dense": 1.625757,
+        "sparse": 0.275182,
+        "fusion": 0.000723,
+        "hydration": 10.967878,
+        "reranker": 0.0,
+        "seed_and_graph": 2.9e-05,
+        "total": 12.595346
+      }
+    },
+    "scenario_011": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 63,
+      "timings": {
+        "query_parse": 5.5e-05,
+        "dense": 1.609441,
+        "sparse": 0.146624,
+        "fusion": 0.000829,
+        "hydration": 10.319478,
+        "reranker": 0.0,
+        "seed_and_graph": 2.5e-05,
+        "total": 11.931037
+      }
+    },
+    "scenario_012": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 55,
+      "timings": {
+        "query_parse": 6.2e-05,
+        "dense": 1.128478,
+        "sparse": 0.177836,
+        "fusion": 0.001281,
+        "hydration": 10.89809,
+        "reranker": 0.0,
+        "seed_and_graph": 2.9e-05,
+        "total": 12.029288
+      }
+    },
+    "scenario_013": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 46,
+      "timings": {
+        "query_parse": 6.3e-05,
+        "dense": 1.353442,
+        "sparse": 0.176467,
+        "fusion": 0.000966,
+        "hydration": 11.392423,
+        "reranker": 0.0,
+        "seed_and_graph": 4.7e-05,
+        "total": 12.748145
+      }
+    },
+    "scenario_014": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 44,
+      "timings": {
+        "query_parse": 8.4e-05,
+        "dense": 1.327011,
+        "sparse": 0.195967,
+        "fusion": 0.001058,
+        "hydration": 11.720313,
+        "reranker": 0.0,
+        "seed_and_graph": 4.7e-05,
+        "total": 13.049825
+      }
+    },
+    "scenario_015": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 60,
+      "timings": {
+        "query_parse": 7.4e-05,
+        "dense": 1.120947,
+        "sparse": 0.309289,
+        "fusion": 0.001193,
+        "hydration": 11.388604,
+        "reranker": 0.0,
+        "seed_and_graph": 4.1e-05,
+        "total": 12.512395
+      }
+    },
+    "scenario_016": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 52,
+      "timings": {
+        "query_parse": 5e-05,
+        "dense": 0.79707,
+        "sparse": 0.341599,
+        "fusion": 0.001165,
+        "hydration": 11.74995,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 12.549643
+      }
+    },
+    "scenario_017": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 7.5e-05,
+        "dense": 1.700589,
+        "sparse": 0.255103,
+        "fusion": 0.00118,
+        "hydration": 10.955759,
+        "reranker": 0.0,
+        "seed_and_graph": 3.4e-05,
+        "total": 12.659161
+      }
+    },
+    "scenario_018": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 0.000111,
+        "dense": 1.061302,
+        "sparse": 0.136192,
+        "fusion": 0.001144,
+        "hydration": 11.33712,
+        "reranker": 0.0,
+        "seed_and_graph": 3.1e-05,
+        "total": 12.401182
+      }
+    },
+    "scenario_019": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 69,
+      "timings": {
+        "query_parse": 7.8e-05,
+        "dense": 1.345574,
+        "sparse": 0.165531,
+        "fusion": 0.001182,
+        "hydration": 10.960088,
+        "reranker": 0.0,
+        "seed_and_graph": 4e-05,
+        "total": 12.30852
+      }
+    },
+    "scenario_020": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 37,
+      "timings": {
+        "query_parse": 6.4e-05,
+        "dense": 1.7472,
+        "sparse": 0.294488,
+        "fusion": 0.001248,
+        "hydration": 10.721824,
+        "reranker": 0.0,
+        "seed_and_graph": 3.7e-05,
+        "total": 12.472093
+      }
+    },
+    "scenario_021": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 39,
+      "timings": {
+        "query_parse": 0.000109,
+        "dense": 2.278873,
+        "sparse": 0.261645,
+        "fusion": 0.001201,
+        "hydration": 11.721642,
+        "reranker": 0.0,
+        "seed_and_graph": 3e-05,
+        "total": 14.003351
+      }
+    },
+    "scenario_022": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 9.3e-05,
+        "dense": 1.649833,
+        "sparse": 0.254784,
+        "fusion": 0.001265,
+        "hydration": 10.868398,
+        "reranker": 0.0,
+        "seed_and_graph": 2.8e-05,
+        "total": 12.521243
+      }
+    },
+    "scenario_023": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 58,
+      "timings": {
+        "query_parse": 0.000128,
+        "dense": 1.499754,
+        "sparse": 0.348406,
+        "fusion": 0.001352,
+        "hydration": 10.85643,
+        "reranker": 0.0,
+        "seed_and_graph": 4.2e-05,
+        "total": 12.359504
+      }
+    },
+    "scenario_024": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 47,
+      "timings": {
+        "query_parse": 5.9e-05,
+        "dense": 1.575971,
+        "sparse": 0.31624,
+        "fusion": 0.001171,
+        "hydration": 11.588439,
+        "reranker": 0.0,
+        "seed_and_graph": 3.1e-05,
+        "total": 13.167131
+      }
+    },
+    "scenario_025": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 62,
+      "timings": {
+        "query_parse": 6.2e-05,
+        "dense": 1.423214,
+        "sparse": 0.266059,
+        "fusion": 0.000645,
+        "hydration": 11.756362,
+        "reranker": 0.0,
+        "seed_and_graph": 2.8e-05,
+        "total": 13.181489
+      }
+    },
+    "scenario_026": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 45,
+      "timings": {
+        "query_parse": 6.5e-05,
+        "dense": 1.393474,
+        "sparse": 0.204695,
+        "fusion": 0.001042,
+        "hydration": 11.202164,
+        "reranker": 0.0,
+        "seed_and_graph": 3.4e-05,
+        "total": 12.598279
+      }
+    },
+    "scenario_027": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 59,
+      "timings": {
+        "query_parse": 7.3e-05,
+        "dense": 1.358907,
+        "sparse": 0.298967,
+        "fusion": 0.001158,
+        "hydration": 10.897863,
+        "reranker": 0.0,
+        "seed_and_graph": 3.5e-05,
+        "total": 12.259854
+      }
+    },
+    "scenario_028": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 55,
+      "timings": {
+        "query_parse": 7.8e-05,
+        "dense": 1.416432,
+        "sparse": 0.139724,
+        "fusion": 0.001167,
+        "hydration": 11.82544,
+        "reranker": 0.0,
+        "seed_and_graph": 3.8e-05,
+        "total": 13.24499
+      }
+    },
+    "scenario_029": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 46,
+      "timings": {
+        "query_parse": 5.2e-05,
+        "dense": 1.187777,
+        "sparse": 0.146115,
+        "fusion": 0.001022,
+        "hydration": 11.672616,
+        "reranker": 0.0,
+        "seed_and_graph": 5.4e-05,
+        "total": 12.863035
+      }
+    },
+    "scenario_030": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 72,
+      "timings": {
+        "query_parse": 5.9e-05,
+        "dense": 1.404831,
+        "sparse": 0.154413,
+        "fusion": 0.001109,
+        "hydration": 11.352489,
+        "reranker": 0.0,
+        "seed_and_graph": 3e-05,
+        "total": 12.759979
+      }
+    },
+    "scenario_031": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 70,
+      "timings": {
+        "query_parse": 7.9e-05,
+        "dense": 1.918786,
+        "sparse": 0.238712,
+        "fusion": 0.001319,
+        "hydration": 11.564418,
+        "reranker": 0.0,
+        "seed_and_graph": 3.1e-05,
+        "total": 13.486208
+      }
+    },
+    "scenario_032": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 66,
+      "timings": {
+        "query_parse": 8e-05,
+        "dense": 2.01471,
+        "sparse": 0.153722,
+        "fusion": 0.001221,
+        "hydration": 11.080207,
+        "reranker": 0.0,
+        "seed_and_graph": 4e-05,
+        "total": 13.097794
+      }
+    },
+    "scenario_033": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 51,
+      "timings": {
+        "query_parse": 7.9e-05,
+        "dense": 2.244166,
+        "sparse": 0.165374,
+        "fusion": 0.000905,
+        "hydration": 11.455491,
+        "reranker": 0.0,
+        "seed_and_graph": 3.8e-05,
+        "total": 13.702036
+      }
+    },
+    "scenario_034": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 56,
+      "timings": {
+        "query_parse": 6.6e-05,
+        "dense": 2.139913,
+        "sparse": 0.162661,
+        "fusion": 0.001365,
+        "hydration": 10.652079,
+        "reranker": 0.0,
+        "seed_and_graph": 3e-05,
+        "total": 12.795145
+      }
+    },
+    "scenario_035": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 48,
+      "timings": {
+        "query_parse": 0.000101,
+        "dense": 2.12513,
+        "sparse": 0.380443,
+        "fusion": 0.001156,
+        "hydration": 10.873403,
+        "reranker": 0.0,
+        "seed_and_graph": 3.5e-05,
+        "total": 13.001488
+      }
+    },
+    "temporal_current_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 33,
+      "timings": {
+        "query_parse": 6.5e-05,
+        "dense": 1.824792,
+        "sparse": 0.195258,
+        "fusion": 0.000933,
+        "hydration": 11.475849,
+        "reranker": 0.0,
+        "seed_and_graph": 2.1e-05,
+        "total": 13.302854
+      }
+    },
+    "temporal_current_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 53,
+      "timings": {
+        "query_parse": 5.8e-05,
+        "dense": 1.675475,
+        "sparse": 0.21731,
+        "fusion": 0.001284,
+        "hydration": 11.006583,
+        "reranker": 0.0,
+        "seed_and_graph": 1.9e-05,
+        "total": 12.684962
+      }
+    },
+    "temporal_current_003": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 65,
+      "timings": {
+        "query_parse": 0.000212,
+        "dense": 2.482796,
+        "sparse": 0.373417,
+        "fusion": 0.002918,
+        "hydration": 14.766912,
+        "reranker": 0.0,
+        "seed_and_graph": 5.5e-05,
+        "total": 17.255721
+      }
+    },
+    "temporal_current_004": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 34,
+      "timings": {
+        "query_parse": 6.6e-05,
+        "dense": 2.994293,
+        "sparse": 0.231919,
+        "fusion": 0.001117,
+        "hydration": 10.998329,
+        "reranker": 0.0,
+        "seed_and_graph": 2.1e-05,
+        "total": 13.995167
+      }
+    },
+    "temporal_current_005": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 52,
+      "timings": {
+        "query_parse": 6.4e-05,
+        "dense": 3.010198,
+        "sparse": 0.393617,
+        "fusion": 0.001337,
+        "hydration": 10.654367,
+        "reranker": 0.0,
+        "seed_and_graph": 1.7e-05,
+        "total": 13.667469
+      }
+    },
+    "temporal_current_006": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 35,
+      "timings": {
+        "query_parse": 3.7e-05,
+        "dense": 2.652935,
+        "sparse": 0.201399,
+        "fusion": 0.001201,
+        "hydration": 10.662489,
+        "reranker": 0.0,
+        "seed_and_graph": 1.5e-05,
+        "total": 13.318056
+      }
+    },
+    "temporal_current_007": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 47,
+      "timings": {
+        "query_parse": 5.3e-05,
+        "dense": 2.628358,
+        "sparse": 0.172666,
+        "fusion": 0.001262,
+        "hydration": 10.913418,
+        "reranker": 0.0,
+        "seed_and_graph": 1.8e-05,
+        "total": 13.544753
+      }
+    },
+    "temporal_current_008": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 60,
+      "timings": {
+        "query_parse": 5.1e-05,
+        "dense": 3.235132,
+        "sparse": 0.169879,
+        "fusion": 0.000736,
+        "hydration": 10.652039,
+        "reranker": 0.0,
+        "seed_and_graph": 1.7e-05,
+        "total": 13.889495
+      }
+    },
+    "temporal_current_009": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 41,
+      "timings": {
+        "query_parse": 4e-05,
+        "dense": 2.730512,
+        "sparse": 0.311509,
+        "fusion": 0.001103,
+        "hydration": 10.466029,
+        "reranker": 0.0,
+        "seed_and_graph": 1.5e-05,
+        "total": 13.199271
+      }
+    },
+    "temporal_current_010": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 53,
+      "timings": {
+        "query_parse": 6.4e-05,
+        "dense": 2.410524,
+        "sparse": 0.379983,
+        "fusion": 0.001035,
+        "hydration": 10.697336,
+        "reranker": 0.0,
+        "seed_and_graph": 1.8e-05,
+        "total": 13.110661
+      }
+    },
+    "temporal_current_011": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 72,
+      "timings": {
+        "query_parse": 3.9e-05,
+        "dense": 2.363289,
+        "sparse": 0.21215,
+        "fusion": 0.001245,
+        "hydration": 10.586635,
+        "reranker": 0.0,
+        "seed_and_graph": 1.5e-05,
+        "total": 12.952734
+      }
+    },
+    "temporal_current_012": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 45,
+      "timings": {
+        "query_parse": 0.000116,
+        "dense": 2.43404,
+        "sparse": 0.379382,
+        "fusion": 0.001475,
+        "hydration": 10.50402,
+        "reranker": 0.0,
+        "seed_and_graph": 2.2e-05,
+        "total": 12.941389
+      }
+    },
+    "temporal_current_013": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 31,
+      "timings": {
+        "query_parse": 5.9e-05,
+        "dense": 1.801941,
+        "sparse": 0.164932,
+        "fusion": 0.001062,
+        "hydration": 10.583391,
+        "reranker": 0.0,
+        "seed_and_graph": 2.2e-05,
+        "total": 12.387884
+      }
+    },
+    "temporal_current_014": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 53,
+      "timings": {
+        "query_parse": 8e-05,
+        "dense": 2.114028,
+        "sparse": 0.232953,
+        "fusion": 0.001238,
+        "hydration": 11.273864,
+        "reranker": 0.0,
+        "seed_and_graph": 2.6e-05,
+        "total": 13.390831
+      }
+    },
+    "temporal_current_015": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 56,
+      "timings": {
+        "query_parse": 5.2e-05,
+        "dense": 2.136733,
+        "sparse": 0.206065,
+        "fusion": 0.001152,
+        "hydration": 10.492444,
+        "reranker": 0.0,
+        "seed_and_graph": 2.4e-05,
+        "total": 12.631763
+      }
+    },
+    "temporal_current_016": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 59,
+      "timings": {
+        "query_parse": 3.4e-05,
+        "dense": 1.962922,
+        "sparse": 0.170413,
+        "fusion": 0.000842,
+        "hydration": 10.119135,
+        "reranker": 0.0,
+        "seed_and_graph": 1.6e-05,
+        "total": 12.084331
+      }
+    },
+    "temporal_current_017": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 53,
+      "timings": {
+        "query_parse": 4.4e-05,
+        "dense": 2.03878,
+        "sparse": 0.301038,
+        "fusion": 0.001222,
+        "hydration": 10.858532,
+        "reranker": 0.0,
+        "seed_and_graph": 1.6e-05,
+        "total": 12.900236
+      }
+    },
+    "temporal_current_018": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 34,
+      "timings": {
+        "query_parse": 8.1e-05,
+        "dense": 2.102736,
+        "sparse": 0.420626,
+        "fusion": 0.001483,
+        "hydration": 11.038052,
+        "reranker": 0.0,
+        "seed_and_graph": 1.9e-05,
+        "total": 13.143808
+      }
+    },
+    "temporal_current_019": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 35,
+      "timings": {
+        "query_parse": 9e-05,
+        "dense": 1.908678,
+        "sparse": 0.263434,
+        "fusion": 0.000938,
+        "hydration": 10.755401,
+        "reranker": 0.0,
+        "seed_and_graph": 2.7e-05,
+        "total": 12.666777
+      }
+    },
+    "temporal_current_020": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 100,
+      "rejected_candidates": 44,
+      "timings": {
+        "query_parse": 6.8e-05,
+        "dense": 2.013187,
+        "sparse": 0.190109,
+        "fusion": 0.001182,
+        "hydration": 10.305581,
+        "reranker": 0.0,
+        "seed_and_graph": 2.3e-05,
+        "total": 12.321658
+      }
+    },
+    "temporal_historical_001": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_002": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_003": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_004": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_005": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_006": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_007": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_008": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_009": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_010": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_011": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_012": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_013": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_014": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_015": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_016": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_017": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_018": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_019": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "temporal_historical_020": {
+      "sources": [],
+      "warnings": [
+        "historical content collection is unavailable"
+      ],
+      "searched_candidates": 0,
+      "rejected_candidates": 0,
+      "timings": {}
+    },
+    "expired_status_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph found no resolved related documents"
+      ],
+      "searched_candidates": 6,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 5e-05,
+        "dense": 0.290118,
+        "sparse": 0.331754,
+        "fusion": 9.8e-05,
+        "hydration": 0.069335,
+        "reranker": 0.0,
+        "seed_and_graph": 0.20339,
+        "total": 0.606583
+      }
+    },
+    "expired_status_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph found no resolved related documents"
+      ],
+      "searched_candidates": 6,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 7.8e-05,
+        "dense": 0.015985,
+        "sparse": 0.06873,
+        "fusion": 9.6e-05,
+        "hydration": 0.045675,
+        "reranker": 0.0,
+        "seed_and_graph": 0.201258,
+        "total": 0.320259
+      }
+    },
+    "expired_status_003": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 297,
+      "rejected_candidates": 291,
+      "timings": {
+        "query_parse": 7.9e-05,
+        "dense": 1.102121,
+        "sparse": 5.240731,
+        "fusion": 0.005432,
+        "hydration": 0.591555,
+        "reranker": 0.0,
+        "seed_and_graph": 0.21821,
+        "total": 6.401143
+      }
+    },
+    "expired_status_004": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 2 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 90,
+      "timings": {
+        "query_parse": 0.000104,
+        "dense": 0.502006,
+        "sparse": 1.896585,
+        "fusion": 0.00121,
+        "hydration": 0.522558,
+        "reranker": 0.0,
+        "seed_and_graph": 0.215525,
+        "total": 2.754132
+      }
+    },
+    "expired_status_005": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 295,
+      "rejected_candidates": 288,
+      "timings": {
+        "query_parse": 8.4e-05,
+        "dense": 1.066046,
+        "sparse": 5.154825,
+        "fusion": 0.004405,
+        "hydration": 0.462392,
+        "reranker": 0.0,
+        "seed_and_graph": 0.213693,
+        "total": 6.163695
+      }
+    },
+    "expired_status_006": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 327,
+      "rejected_candidates": 317,
+      "timings": {
+        "query_parse": 5.1e-05,
+        "dense": 1.151893,
+        "sparse": 5.606641,
+        "fusion": 0.006537,
+        "hydration": 0.493435,
+        "reranker": 0.0,
+        "seed_and_graph": 0.207836,
+        "total": 6.677809
+      }
+    },
+    "expired_status_007": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 200,
+      "rejected_candidates": 186,
+      "timings": {
+        "query_parse": 8.7e-05,
+        "dense": 0.831572,
+        "sparse": 3.668489,
+        "fusion": 0.002523,
+        "hydration": 0.624102,
+        "reranker": 0.0,
+        "seed_and_graph": 0.210058,
+        "total": 4.728105
+      }
+    },
+    "expired_status_008": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 3 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 81,
+      "timings": {
+        "query_parse": 6.9e-05,
+        "dense": 0.491963,
+        "sparse": 1.847634,
+        "fusion": 0.000998,
+        "hydration": 0.460873,
+        "reranker": 0.0,
+        "seed_and_graph": 0.215236,
+        "total": 2.636331
+      }
+    },
+    "expired_status_009": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 3 related document(s)"
+      ],
+      "searched_candidates": 90,
+      "rejected_candidates": 72,
+      "timings": {
+        "query_parse": 8.4e-05,
+        "dense": 0.180742,
+        "sparse": 0.422302,
+        "fusion": 0.000874,
+        "hydration": 0.171206,
+        "reranker": 0.0,
+        "seed_and_graph": 0.201875,
+        "total": 0.822443
+      }
+    },
+    "expired_status_010": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 6,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 9.3e-05,
+        "dense": 0.019647,
+        "sparse": 0.054043,
+        "fusion": 0.000155,
+        "hydration": 0.035623,
+        "reranker": 0.0,
+        "seed_and_graph": 0.195533,
+        "total": 0.289318
+      }
+    },
+    "expired_status_011": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000106,
+        "dense": 0.127846,
+        "sparse": 0.105636,
+        "fusion": 0.000856,
+        "hydration": 0.244812,
+        "reranker": 0.0,
+        "seed_and_graph": 0.190975,
+        "total": 0.566329
+      }
+    },
+    "expired_status_012": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 66,
+      "rejected_candidates": 60,
+      "timings": {
+        "query_parse": 8e-05,
+        "dense": 0.13345,
+        "sparse": 0.336293,
+        "fusion": 0.000443,
+        "hydration": 0.108017,
+        "reranker": 0.0,
+        "seed_and_graph": 0.199878,
+        "total": 0.668395
+      }
+    },
+    "expired_status_013": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 22,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 8.2e-05,
+        "dense": 0.042234,
+        "sparse": 0.062881,
+        "fusion": 0.000274,
+        "hydration": 0.078122,
+        "reranker": 0.0,
+        "seed_and_graph": 0.197911,
+        "total": 0.343529
+      }
+    },
+    "expired_status_014": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 4 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 81,
+      "timings": {
+        "query_parse": 6.9e-05,
+        "dense": 0.222388,
+        "sparse": 0.557058,
+        "fusion": 0.001022,
+        "hydration": 0.204532,
+        "reranker": 0.0,
+        "seed_and_graph": 0.207373,
+        "total": 1.009094
+      }
+    },
+    "expired_status_015": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 31,
+      "rejected_candidates": 16,
+      "timings": {
+        "query_parse": 7.2e-05,
+        "dense": 0.07198,
+        "sparse": 0.199498,
+        "fusion": 0.000316,
+        "hydration": 0.073566,
+        "reranker": 0.0,
+        "seed_and_graph": 0.194756,
+        "total": 0.483857
+      }
+    },
+    "legal_relationship_001": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 23,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 5.9e-05,
+        "dense": 0.271852,
+        "sparse": 0.055975,
+        "fusion": 0.000267,
+        "hydration": 0.053072,
+        "reranker": 0.0,
+        "seed_and_graph": 0.196416,
+        "total": 0.523063
+      }
+    },
+    "legal_relationship_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph found no resolved related documents"
+      ],
+      "searched_candidates": 11,
+      "rejected_candidates": 11,
+      "timings": {
+        "query_parse": 7.6e-05,
+        "dense": 0.281696,
+        "sparse": 0.034991,
+        "fusion": 0.000122,
+        "hydration": 0.020359,
+        "reranker": 0.0,
+        "seed_and_graph": 0.183164,
+        "total": 0.486274
+      }
+    },
+    "legal_relationship_003": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 10 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 8.2e-05,
+        "dense": 0.147098,
+        "sparse": 0.034455,
+        "fusion": 0.000654,
+        "hydration": 0.239363,
+        "reranker": 0.0,
+        "seed_and_graph": 0.207874,
+        "total": 0.596358
+      }
+    },
+    "legal_relationship_004": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 5 related document(s)"
+      ],
+      "searched_candidates": 99,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 7.1e-05,
+        "dense": 0.36283,
+        "sparse": 0.029817,
+        "fusion": 0.000874,
+        "hydration": 0.201801,
+        "reranker": 0.0,
+        "seed_and_graph": 0.207448,
+        "total": 0.774402
+      }
+    },
+    "legal_relationship_005": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 5,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 7.7e-05,
+        "dense": 0.014727,
+        "sparse": 0.002947,
+        "fusion": 8.4e-05,
+        "hydration": 0.029672,
+        "reranker": 0.0,
+        "seed_and_graph": 0.190453,
+        "total": 0.236067
+      }
+    },
+    "legal_relationship_006": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 9 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000106,
+        "dense": 0.141075,
+        "sparse": 0.012145,
+        "fusion": 0.000772,
+        "hydration": 0.258493,
+        "reranker": 0.0,
+        "seed_and_graph": 0.199838,
+        "total": 0.601648
+      }
+    },
+    "legal_relationship_007": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 1 related document(s)"
+      ],
+      "searched_candidates": 15,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 8.9e-05,
+        "dense": 0.023656,
+        "sparse": 0.004465,
+        "fusion": 9.5e-05,
+        "hydration": 0.045808,
+        "reranker": 0.0,
+        "seed_and_graph": 0.19908,
+        "total": 0.270037
+      }
+    },
+    "legal_relationship_008": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 22 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 8.6e-05,
+        "dense": 0.149315,
+        "sparse": 0.008662,
+        "fusion": 0.000947,
+        "hydration": 0.309568,
+        "reranker": 0.0,
+        "seed_and_graph": 0.221774,
+        "total": 0.683249
+      }
+    },
+    "legal_relationship_009": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 21 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 6.8e-05,
+        "dense": 0.138318,
+        "sparse": 0.013597,
+        "fusion": 0.000738,
+        "hydration": 0.268709,
+        "reranker": 0.0,
+        "seed_and_graph": 0.218094,
+        "total": 0.627303
+      }
+    },
+    "legal_relationship_010": {
+      "sources": [
+        "graph",
+        "dense",
+        "sparse"
+      ],
+      "warnings": [
+        "legal graph expanded to 6 related document(s)"
+      ],
+      "searched_candidates": 100,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 6.8e-05,
+        "dense": 0.157229,
+        "sparse": 0.006085,
+        "fusion": 0.000882,
+        "hydration": 0.354627,
+        "reranker": 0.0,
+        "seed_and_graph": 0.206394,
+        "total": 0.72069
+      }
+    },
+    "confusable_001": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 8.6e-05,
+        "dense": 0.293987,
+        "sparse": 0.173278,
+        "fusion": 4.2e-05,
+        "hydration": 0.071896,
+        "reranker": 0.0,
+        "seed_and_graph": 0.091821,
+        "total": 0.458987
+      }
+    },
+    "confusable_002": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000112,
+        "dense": 0.262612,
+        "sparse": 0.147306,
+        "fusion": 6.3e-05,
+        "hydration": 0.063452,
+        "reranker": 0.0,
+        "seed_and_graph": 0.090323,
+        "total": 0.417513
+      }
+    },
+    "confusable_003": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 3,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000133,
+        "dense": 0.284157,
+        "sparse": 0.097964,
+        "fusion": 9.6e-05,
+        "hydration": 0.087297,
+        "reranker": 0.0,
+        "seed_and_graph": 0.097485,
+        "total": 0.470543
+      }
+    },
+    "confusable_004": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000132,
+        "dense": 0.217089,
+        "sparse": 0.092513,
+        "fusion": 3.9e-05,
+        "hydration": 0.132103,
+        "reranker": 0.0,
+        "seed_and_graph": 0.088164,
+        "total": 0.438196
+      }
+    },
+    "confusable_005": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000151,
+        "dense": 0.264734,
+        "sparse": 0.103186,
+        "fusion": 6e-05,
+        "hydration": 0.077263,
+        "reranker": 0.0,
+        "seed_and_graph": 0.093289,
+        "total": 0.436518
+      }
+    },
+    "confusable_006": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000114,
+        "dense": 0.262957,
+        "sparse": 0.067876,
+        "fusion": 8.2e-05,
+        "hydration": 0.078564,
+        "reranker": 0.0,
+        "seed_and_graph": 0.09351,
+        "total": 0.436316
+      }
+    },
+    "confusable_007": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.0002,
+        "dense": 0.246437,
+        "sparse": 0.08691,
+        "fusion": 7.4e-05,
+        "hydration": 0.075924,
+        "reranker": 0.0,
+        "seed_and_graph": 0.093142,
+        "total": 0.416906
+      }
+    },
+    "confusable_008": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000131,
+        "dense": 0.247672,
+        "sparse": 0.047695,
+        "fusion": 8.6e-05,
+        "hydration": 0.04283,
+        "reranker": 0.0,
+        "seed_and_graph": 0.094595,
+        "total": 0.386365
+      }
+    },
+    "confusable_009": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000121,
+        "dense": 0.281817,
+        "sparse": 0.041338,
+        "fusion": 6.9e-05,
+        "hydration": 0.051913,
+        "reranker": 0.0,
+        "seed_and_graph": 0.091169,
+        "total": 0.426291
+      }
+    },
+    "confusable_010": {
+      "sources": [
+        "dense",
+        "sparse"
+      ],
+      "warnings": [],
+      "searched_candidates": 1,
+      "rejected_candidates": 0,
+      "timings": {
+        "query_parse": 0.000142,
+        "dense": 0.320079,
+        "sparse": 0.109416,
+        "fusion": 7e-05,
+        "hydration": 0.059544,
+        "reranker": 0.0,
+        "seed_and_graph": 0.093499,
+        "total": 0.474577
+      }
+    }
+  }
+}

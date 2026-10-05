@@ -1,5 +1,6 @@
 services:
   postgres:
+    restart: unless-stopped
     image: postgres:16-alpine
     ports:
       - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
@@ -16,6 +17,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   qdrant:
+    restart: unless-stopped
     image: qdrant/qdrant:v1.19.0
     ports:
       - "127.0.0.1:${QDRANT_HTTP_PORT:-6333}:6333"
@@ -32,12 +34,13 @@ services:
       - qdrant_data:/qdrant/storage
 
   app:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/Dockerfile
     network_mode: host
     command:
-      ["sh", "-c", "alembic upgrade head && uvicorn lawchat.api.main:app --host 127.0.0.1 --port 8000"]
+      ["sh", "-c", "alembic upgrade head && uvicorn api.main:app --host 127.0.0.1 --port 8000"]
     volumes:
       - type: bind
         source: "${EMBEDDING_CACHE_PATH:-./data/.cache/huggingface}"
@@ -46,9 +49,16 @@ services:
       # The application does not expose indexing operations, but the mount must
       # remain writable so startup can acquire those locks.
       - type: bind
+        source: ./src
+        target: /app/src
+      - type: bind
+        source: ./migrations
+        target: /app/migrations
+      - type: bind
         source: "${BM25_INDEX_ROOT:-./data/indexes/bm25}"
         target: /app/data/indexes/bm25
     environment:
+      LAWCHAT_COOKIE_SECURE: "false"
       PYTHONUNBUFFERED: "1"
       DATABASE_URL: "postgresql+psycopg://${POSTGRES_USER:-lawchat}:${POSTGRES_PASSWORD:-lawchat}@127.0.0.1:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-lawchat}"
       QDRANT_URL: "http://127.0.0.1:${QDRANT_HTTP_PORT:-6333}"
@@ -128,11 +138,12 @@ services:
       retries: 10
 
   source-mcp:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/Dockerfile
     network_mode: host
-    command: ["python", "-m", "lawchat.sources.mcp_server"]
+    command: ["python", "-m", "sources.mcp_server"]
     environment:
       PYTHONUNBUFFERED: "1"
       SERPAPI_API_KEY: "${SERPAPI_API_KEY:-}"
@@ -146,6 +157,7 @@ services:
       retries: 10
 
   frontend:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: frontend/Dockerfile
@@ -166,7 +178,25 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-
+  admin-frontend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    network_mode: host
+    command:
+      ["streamlit", "run", "frontend/admin/app.py", "--server.address", "127.0.0.1", "--server.port", "8502", "--server.headless", "true"]
+    environment:
+      PYTHONUNBUFFERED: "1"
+      LAWCHAT_API_BASE_URL: "${LAWCHAT_API_BASE_URL:-http://127.0.0.1:8000}"
+    depends_on:
+      app:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8502/_stcore/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 volumes:
   postgres_data:
   qdrant_data:

@@ -5,8 +5,8 @@ import json
 import os
 from dataclasses import asdict, replace
 
-from lawchat.database import DatabaseSettings, create_db_engine
-from lawchat.indexing import (
+from database import DatabaseSettings, create_db_engine
+from indexing import (
     BM25Settings,
     DEFAULT_EMBEDDING_DIMENSION,
     DEFAULT_EMBEDDING_MODEL,

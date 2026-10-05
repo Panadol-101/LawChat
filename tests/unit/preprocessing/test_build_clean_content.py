@@ -1,5 +1,5 @@
 from scripts.build_clean_content import classify_clean_status
-from lawchat.preprocessing.html_cleaner import clean_html
+from preprocessing.html_cleaner import clean_html
 
 
 def test_punctuation_only_html_is_not_classified_ok():

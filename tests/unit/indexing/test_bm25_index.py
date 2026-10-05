@@ -4,14 +4,14 @@ import uuid
 
 import pytest
 
-from lawchat.indexing import (
+from indexing import (
     BM25Settings,
     LexicalChunk,
     TantivyBM25Index,
     normalize_legal_identifier,
 )
-from lawchat.retrieval import SparseSearchFilter, TantivySparseSearcher
-from lawchat.retrieval.sparse import _build_query
+from retrieval import SparseSearchFilter, TantivySparseSearcher
+from retrieval.sparse import _build_query
 
 
 class MemoryLexicalSource:

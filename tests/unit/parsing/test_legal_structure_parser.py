@@ -1,4 +1,4 @@
-from lawchat.parsing.legal_structure_parser import LegalStructureParser
+from parsing.legal_structure_parser import LegalStructureParser
 
 
 def parser() -> LegalStructureParser:

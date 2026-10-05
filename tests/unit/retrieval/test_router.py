@@ -1,6 +1,6 @@
 from datetime import date
 
-from lawchat.retrieval import (
+from retrieval import (
     RetrievalRequest,
     RetrievalResponse,
     TemporalRetrievalRouter,

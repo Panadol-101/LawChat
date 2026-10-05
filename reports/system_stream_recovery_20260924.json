@@ -1,0 +1,209 @@
+{
+  "http_status": 200,
+  "sse_body": "event: chat.started\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"conversation_id\":\"590fdfad-e9db-4297-992f-7411d97c0966\",\"user_message_id\":\"695225ee-644f-48ba-96c4-180f47f739ec\"}\n\nevent: queue.completed\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"queue_wait_seconds\":0.0}\n\nevent: decomposition.started\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\"}\n\nevent: decomposition.completed\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"issue_count\":1,\"seconds\":1.224}\n\nevent: retrieval.started\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"issue_count\":1}\n\nevent: retrieval.completed\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"result_count\":1,\"sources\":[\"dense\",\"sparse\"],\"seconds\":0.374}\n\nevent: context.started\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\"}\n\nevent: context.completed\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"evidence_count\":1,\"used_tokens\":288,\"seconds\":0.001}\n\nevent: generation.started\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\"}\n\nevent: verification.started\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\"}\n\nevent: verification.completed\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"status\":\"VERIFIED\",\"semantic_status\":\"PASSED\",\"coverage_status\":\"COMPLETE\",\"attempts\":1,\"seconds\":4.085}\n\nevent: answer.delta\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"text\":\"Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định\"}\n\nevent: answer.delta\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"text\":\" việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này. [E1]\\n\"}\n\nevent: answer.delta\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"text\":\"\\n\"}\n\nevent: answer.delta\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"text\":\"Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính. [E1]\"}\n\nevent: citation\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"citation\":{\"evidence_id\":\"E1\",\"document_id\":\"36870\",\"chunk_id\":\"36870::article_8\",\"title\":\"Luật Hôn nhân và gia đình số 52/2014/QH13\",\"document_number\":\"52/2014/QH13\",\"article\":\"8\",\"clause\":null,\"point\":null,\"source_url\":\"https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870\",\"as_of\":\"2026-07-31\",\"status\":\"EFFECTIVE\",\"status_scope\":\"document\",\"version_id\":\"107361ea-4428-4a6d-a043-452c84fdf567\",\"version_source_url\":\"https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870\",\"version_source_revision\":\"8977887f17be2defae4c5171d55562e1cde7d695\",\"content_valid_from\":null,\"content_valid_to\":null}}\n\nevent: chat.completed\ndata: {\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"assistant_message_id\":\"ace43c8c-3239-489a-a56b-9c94726d065f\",\"result\":{\"request_id\":\"2bffe7bc3fd04ba7b54581cf4acd7d13\",\"mode\":\"compact\",\"query\":\"Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13 quy định điều kiện kết hôn như thế nào?\",\"as_of\":\"2026-07-31\",\"status\":\"VERIFIED\",\"semantic_mode\":\"enforce\",\"semantic_status\":\"PASSED\",\"coverage_status\":\"COMPLETE\",\"attempts\":1,\"answer\":\"Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này. [E1]\\n\\nNhà nước không thừa nhận hôn nhân giữa những người cùng giới tính. [E1]\",\"claims\":[{\"text\":\"Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này.\",\"evidence_ids\":[\"E1\"],\"supporting_quotes\":[{\"evidence_id\":\"E1\",\"quote\":\"Nam, nữ kết hôn với nhau phải tuân theo các điều kiện sau đây: a) Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; b) Việc kết hôn do nam và nữ tự nguyện quyết định; c) Không bị mất năng lực hành vi dân sự; d) Việc kết hôn không thuộc một trong các trường hợp cấm kết hôn theo quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này.\"}],\"issue_ids\":[\"I1\"]},{\"text\":\"Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính.\",\"evidence_ids\":[\"E1\"],\"supporting_quotes\":[{\"evidence_id\":\"E1\",\"quote\":\"Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính.\"}],\"issue_ids\":[\"I1\"]}],\"limitations\":[\"Chưa có dữ liệu hiệu lực riêng cho Điều 8, chỉ có dữ liệu hiệu lực cấp văn bản.\"],\"confidence\":\"high\",\"legal_issues\":[{\"issue_id\":\"I1\",\"question\":\"Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13 quy định điều kiện kết hôn như thế nào?\",\"search_query\":\"Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13 điều kiện kết hôn\"}],\"issue_resolutions\":[{\"issue_id\":\"I1\",\"status\":\"ANSWERED\",\"claim_indexes\":[0,1],\"explanation\":\"Đã trả lời đầy đủ các điều kiện kết hôn và quy định về hôn nhân cùng giới tính theo Điều 8.\"}],\"citations\":[{\"evidence_id\":\"E1\",\"document_id\":\"36870\",\"chunk_id\":\"36870::article_8\",\"title\":\"Luật Hôn nhân và gia đình số 52/2014/QH13\",\"document_number\":\"52/2014/QH13\",\"article\":\"8\",\"clause\":null,\"point\":null,\"source_url\":\"https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870\",\"as_of\":\"2026-07-31\",\"status\":\"EFFECTIVE\",\"status_scope\":\"document\",\"version_id\":\"107361ea-4428-4a6d-a043-452c84fdf567\",\"version_source_url\":\"https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870\",\"version_source_revision\":\"8977887f17be2defae4c5171d55562e1cde7d695\",\"content_valid_from\":null,\"content_valid_to\":null}],\"timing\":{\"queue_wait\":0.0,\"issue_decomposition\":1.224,\"retrieval\":0.374,\"context\":0.001,\"generation_and_verification\":4.085,\"processing\":5.685,\"total\":5.713,\"llm_ttft\":0.365,\"generation_attempts\":[{\"total_seconds\":1.6558299680000346,\"ttft_seconds\":0.36533972500001255,\"prompt_tokens\":1487,\"completion_tokens\":557,\"error_code\":null}],\"semantic_attempts\":[{\"total_seconds\":2.426604467999823,\"ttft_seconds\":0.9494474979996994,\"prompt_tokens\":1041,\"completion_tokens\":254,\"error_code\":null}],\"issue_decomposition_attempt\":{\"total_seconds\":1.2237257540000428,\"ttft_seconds\":0.9175244189996192,\"prompt_tokens\":500,\"completion_tokens\":103,\"error_code\":null},\"stages\":[{\"stage\":\"structural_preflight\",\"attempt\":0,\"seconds\":0.00011822000033134827},{\"stage\":\"generation\",\"attempt\":1,\"seconds\":1.6561153070001637},{\"stage\":\"structural_verification\",\"attempt\":1,\"seconds\":0.0008715300000403658},{\"stage\":\"semantic_judge\",\"attempt\":1,\"seconds\":2.4271778489996905}]}}}\n\n",
+  "replay_status": 200,
+  "replay": {
+    "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+    "user_message_id": "695225ee-644f-48ba-96c4-180f47f739ec",
+    "assistant_message_id": "ace43c8c-3239-489a-a56b-9c94726d065f",
+    "result": {
+      "request_id": "2bffe7bc3fd04ba7b54581cf4acd7d13",
+      "status": "VERIFIED",
+      "answer": "Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này. [E1]\n\nNhà nước không thừa nhận hôn nhân giữa những người cùng giới tính. [E1]",
+      "claims": [
+        {
+          "text": "Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này.",
+          "issue_ids": [
+            "I1"
+          ],
+          "evidence_ids": [
+            "E1"
+          ],
+          "supporting_quotes": [
+            {
+              "quote": "Nam, nữ kết hôn với nhau phải tuân theo các điều kiện sau đây: a) Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; b) Việc kết hôn do nam và nữ tự nguyện quyết định; c) Không bị mất năng lực hành vi dân sự; d) Việc kết hôn không thuộc một trong các trường hợp cấm kết hôn theo quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này.",
+              "evidence_id": "E1"
+            }
+          ]
+        },
+        {
+          "text": "Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính.",
+          "issue_ids": [
+            "I1"
+          ],
+          "evidence_ids": [
+            "E1"
+          ],
+          "supporting_quotes": [
+            {
+              "quote": "Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính.",
+              "evidence_id": "E1"
+            }
+          ]
+        }
+      ],
+      "citations": [
+        {
+          "as_of": "2026-07-31",
+          "point": null,
+          "title": "Luật Hôn nhân và gia đình số 52/2014/QH13",
+          "clause": null,
+          "status": "EFFECTIVE",
+          "article": "8",
+          "chunk_id": "36870::article_8",
+          "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870",
+          "version_id": "107361ea-4428-4a6d-a043-452c84fdf567",
+          "document_id": "36870",
+          "evidence_id": "E1",
+          "status_scope": "document",
+          "document_number": "52/2014/QH13",
+          "content_valid_to": null,
+          "content_valid_from": null,
+          "version_source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870",
+          "version_source_revision": "8977887f17be2defae4c5171d55562e1cde7d695"
+        }
+      ],
+      "limitations": [
+        "Chưa có dữ liệu hiệu lực riêng cho Điều 8, chỉ có dữ liệu hiệu lực cấp văn bản."
+      ],
+      "as_of": "2026-07-31",
+      "semantic_status": "PASSED",
+      "coverage_status": "COMPLETE",
+      "confidence": "high",
+      "error_code": null
+    }
+  },
+  "messages": [
+    {
+      "id": "928f32c3-5ed3-4868-8646-ca18bf5aaf44",
+      "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+      "client_message_id": "assessment-sse-1",
+      "role": "user",
+      "status": "COMPLETED",
+      "content": "Hãy dự đoán chắc chắn tôi có thắng kiện không?",
+      "citations": [],
+      "claims": [],
+      "limitations": [],
+      "as_of": "2026-07-31",
+      "request_id": null,
+      "semantic_status": null,
+      "coverage_status": null,
+      "confidence": null,
+      "error_code": null,
+      "created_at": "2026-09-24T07:39:46.164381Z",
+      "completed_at": "2026-09-24T07:39:46.190888Z"
+    },
+    {
+      "id": "f271ed8c-7ad0-4867-be93-b1f5c98116c0",
+      "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+      "client_message_id": "assistant:assessment-sse-1",
+      "role": "assistant",
+      "status": "FAILED",
+      "content": "RAG request queue is full",
+      "citations": [],
+      "claims": [],
+      "limitations": [
+        "RAG request queue is full"
+      ],
+      "as_of": "2026-07-31",
+      "request_id": "c624f24463ca4b68a223bbade9fa0b61",
+      "semantic_status": "NOT_CHECKED",
+      "coverage_status": "NOT_CHECKED",
+      "confidence": "low",
+      "error_code": "QUEUE_FULL",
+      "created_at": "2026-09-24T07:40:06.266839Z",
+      "completed_at": "2026-09-24T07:40:06.315638Z"
+    },
+    {
+      "id": "695225ee-644f-48ba-96c4-180f47f739ec",
+      "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+      "client_message_id": "assessment-sse-recovery",
+      "role": "user",
+      "status": "COMPLETED",
+      "content": "Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13 quy định điều kiện kết hôn như thế nào?",
+      "citations": [],
+      "claims": [],
+      "limitations": [],
+      "as_of": "2026-07-31",
+      "request_id": null,
+      "semantic_status": null,
+      "coverage_status": null,
+      "confidence": null,
+      "error_code": null,
+      "created_at": "2026-09-24T07:44:39.389322Z",
+      "completed_at": "2026-09-24T07:44:39.405635Z"
+    },
+    {
+      "id": "ace43c8c-3239-489a-a56b-9c94726d065f",
+      "conversation_id": "590fdfad-e9db-4297-992f-7411d97c0966",
+      "client_message_id": "assistant:assessment-sse-recovery",
+      "role": "assistant",
+      "status": "COMPLETED",
+      "content": "Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này. [E1]\n\nNhà nước không thừa nhận hôn nhân giữa những người cùng giới tính. [E1]",
+      "citations": [
+        {
+          "as_of": "2026-07-31",
+          "point": null,
+          "title": "Luật Hôn nhân và gia đình số 52/2014/QH13",
+          "clause": null,
+          "status": "EFFECTIVE",
+          "article": "8",
+          "chunk_id": "36870::article_8",
+          "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870",
+          "version_id": "107361ea-4428-4a6d-a043-452c84fdf567",
+          "document_id": "36870",
+          "evidence_id": "E1",
+          "status_scope": "document",
+          "document_number": "52/2014/QH13",
+          "content_valid_to": null,
+          "content_valid_from": null,
+          "version_source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=36870",
+          "version_source_revision": "8977887f17be2defae4c5171d55562e1cde7d695"
+        }
+      ],
+      "claims": [
+        {
+          "text": "Theo Điều 8 Luật Hôn nhân và gia đình 52/2014/QH13, nam và nữ kết hôn với nhau phải đáp ứng các điều kiện: nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; tự nguyện quyết định việc kết hôn; không bị mất năng lực hành vi dân sự; và không thuộc các trường hợp cấm kết hôn quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này.",
+          "issue_ids": [
+            "I1"
+          ],
+          "evidence_ids": [
+            "E1"
+          ],
+          "supporting_quotes": [
+            {
+              "quote": "Nam, nữ kết hôn với nhau phải tuân theo các điều kiện sau đây: a) Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; b) Việc kết hôn do nam và nữ tự nguyện quyết định; c) Không bị mất năng lực hành vi dân sự; d) Việc kết hôn không thuộc một trong các trường hợp cấm kết hôn theo quy định tại các điểm a, b, c và d khoản 2 Điều 5 của Luật này.",
+              "evidence_id": "E1"
+            }
+          ]
+        },
+        {
+          "text": "Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính.",
+          "issue_ids": [
+            "I1"
+          ],
+          "evidence_ids": [
+            "E1"
+          ],
+          "supporting_quotes": [
+            {
+              "quote": "Nhà nước không thừa nhận hôn nhân giữa những người cùng giới tính.",
+              "evidence_id": "E1"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Chưa có dữ liệu hiệu lực riêng cho Điều 8, chỉ có dữ liệu hiệu lực cấp văn bản."
+      ],
+      "as_of": "2026-07-31",
+      "request_id": "2bffe7bc3fd04ba7b54581cf4acd7d13",
+      "semantic_status": "PASSED",
+      "coverage_status": "COMPLETE",
+      "confidence": "high",
+      "error_code": null,
+      "created_at": "2026-09-24T07:44:45.103472Z",
+      "completed_at": "2026-09-24T07:44:45.108127Z"
+    }
+  ]
+}

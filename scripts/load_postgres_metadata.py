@@ -4,8 +4,8 @@ import argparse
 import json
 from pathlib import Path
 
-from lawchat.database import DatabaseSettings, create_db_engine
-from lawchat.ingestion import PostgresMetadataLoader
+from database import DatabaseSettings, create_db_engine
+from ingestion import PostgresMetadataLoader
 
 
 def main() -> None:

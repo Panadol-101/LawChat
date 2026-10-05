@@ -8,7 +8,7 @@ from pathlib import Path
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from lawchat.parsing.legal_structure_parser import LegalStructureParser
+from parsing.legal_structure_parser import LegalStructureParser
 
 
 OUTPUT_SCHEMA = pa.schema(

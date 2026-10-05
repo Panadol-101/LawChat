@@ -8,8 +8,8 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from lawchat.database import Document, DocumentRelationship, EffectiveStatus, LegalStatus
-from lawchat.retrieval import PostgresLegalGraphResolver
+from database import Document, DocumentRelationship, EffectiveStatus, LegalStatus
+from retrieval import PostgresLegalGraphResolver
 
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")

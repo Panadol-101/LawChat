@@ -12,15 +12,15 @@ from typing import Any
 
 from qdrant_client import models as qdrant_models
 
-from lawchat.database import DatabaseSettings, create_db_engine
-from lawchat.evaluation import RetrievalCase, evaluate_rankings
-from lawchat.indexing import (
+from database import DatabaseSettings, create_db_engine
+from evaluation import RetrievalCase, evaluate_rankings
+from indexing import (
     DEFAULT_EMBEDDING_MODEL,
     QdrantSettings,
     SentenceTransformerEmbedder,
 )
-from lawchat.indexing.qdrant_index import POINT_NAMESPACE
-from lawchat.retrieval import (
+from indexing.qdrant_index import POINT_NAMESPACE
+from retrieval import (
     DEFAULT_RERANKER_MODEL,
     LegalQueryParser,
     RerankerSettings,
@@ -28,7 +28,7 @@ from lawchat.retrieval import (
     SentenceTransformerCrossEncoderReranker,
     DenseSearcher,
 )
-from lawchat.retrieval.runtime import create_hybrid_retrieval_service
+from retrieval.runtime import create_hybrid_retrieval_service
 from scripts import dispatch
 
 
@@ -288,6 +288,8 @@ def _evaluate_v2_cases(raw_cases, responses, *, k: int) -> dict[str, Any]:
     status_metadata_total = 0
     status_metadata_hits = 0
     status_selection_hits = 0
+    provision_total = 0
+    provision_hits = 0
 
     for case in raw_cases:
         category = case["category"]
@@ -356,6 +358,13 @@ def _evaluate_v2_cases(raw_cases, responses, *, k: int) -> dict[str, Any]:
             base and status and structure
             for base, status, structure in zip(base_matches, status_matches, structure_matches)
         ]
+        has_provision = bool(expected_articles or expected_clauses or expected_points)
+        if has_provision:
+            provision_total += 1
+            provision_hits += any(
+                doc and structure
+                for doc, structure in zip(document_matches, structure_matches)
+            )
         case_ranks = {
             "strict": _first_rank(strict_matches),
             "chunk": _first_rank(chunk_matches) if expected_chunks else None,
@@ -387,6 +396,9 @@ def _evaluate_v2_cases(raw_cases, responses, *, k: int) -> dict[str, Any]:
         "chunk_hit_rate_at_k": rate("chunk"),
         "document_hit_rate_at_k": rate("document"),
         "structure_accuracy_at_k": rate("structure"),
+        "correct_legal_provision_retrieval_rate": (
+            provision_hits / provision_total if provision_total else None
+        ),
         "status_accuracy_at_k": rate("status"),
         "status_metadata_accuracy": (
             status_metadata_hits / status_metadata_total

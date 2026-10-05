@@ -1,6 +1,6 @@
 import pytest
 
-from lawchat.evaluation import RetrievalCase, evaluate_rankings
+from evaluation import RetrievalCase, evaluate_rankings
 
 
 def test_retrieval_metrics_measure_rank_and_coverage():

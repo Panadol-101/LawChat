@@ -1,4 +1,4 @@
-from lawchat.evaluation import HistoricalGateObservation, evaluate_historical_gate
+from evaluation import HistoricalGateObservation, evaluate_historical_gate
 
 
 def test_historical_gate_passes_only_with_exact_versions_and_refusals():

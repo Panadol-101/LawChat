@@ -82,13 +82,19 @@ class SemanticQueryRewriter:
 
 def _flags_or_default():
     try:
-        from ..config import get_feature_flags  # type: ignore[import-not-found]
+        try:
+            from config import get_feature_flags
+        except (ImportError, ValueError):
+            from ..config import get_feature_flags  # type: ignore[import-not-found]
 
         return get_feature_flags()
     except Exception:
         from dataclasses import replace
 
-        from ..config import load_feature_flags
+        try:
+            from config import load_feature_flags
+        except (ImportError, ValueError):
+            from ..config import load_feature_flags
 
         return replace(load_feature_flags(), semantic_rewriter_v2=False)
 
@@ -106,7 +112,7 @@ class RerankerSettings:
     # encoder, leaving them invisible to the final ranking step.
     candidate_limit: int = 20
     batch_size: int = 32
-    max_length: int = 2048
+    max_length: int = 1536
     cache_dir: str = "data/.cache/huggingface"
     device: str = "cpu"
     local_files_only: bool = False
@@ -134,7 +140,7 @@ class RerankerSettings:
             model_name=os.getenv("RERANKER_MODEL", DEFAULT_RERANKER_MODEL),
             candidate_limit=int(os.getenv("RERANKER_CANDIDATES", "20")),
             batch_size=int(os.getenv("RERANKER_BATCH_SIZE", "32")),
-            max_length=int(os.getenv("RERANKER_MAX_LENGTH", "2048")),
+            max_length=int(os.getenv("RERANKER_MAX_LENGTH", "1536")),
             cache_dir=os.getenv(
                 "RERANKER_CACHE_PATH", "data/.cache/huggingface"
             ),

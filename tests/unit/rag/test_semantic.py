@@ -6,17 +6,17 @@ from pathlib import Path
 
 import pytest
 
-from lawchat.rag import (
+from rag import (
     Evidence, PackedContext, GeneratedAnswer, GeneratedClaim, GenerationRequest,
     GroundedRAGService, FakeLegalAnswerGenerator, OpenAICompatibleSettings, IssueResolution,
     OpenAICompatibleLegalAnswerGenerator, InvalidStructuredResponseError,
 )
-from lawchat.rag.generator import SupportingQuote
-from lawchat.rag.semantic import (
+from rag.generator import SupportingQuote
+from rag.semantic import (
     ClaimCheck, CoverageCheck, SemanticReview, SemanticVerifier, OpenAICompatibleClaimJudge,
     ReviewRequest, check_supporting_quotes, repair_supporting_quotes,
 )
-from lawchat.retrieval import LegalCitation, LegalIssue
+from retrieval import LegalCitation, LegalIssue
 
 CASES = json.loads(Path('tests/fixtures/claim_entailment_v1.json').read_text())['cases']
 
@@ -269,7 +269,7 @@ def test_judge_json_contract_rejects_malformed_verdicts_and_extra_fields():
 
 
 def test_semantic_cache_reuses_only_exact_review_input():
-    from lawchat.rag.semantic import SemanticReviewCache
+    from rag.semantic import SemanticReviewCache
 
     class CountingJudge:
         def __init__(self):
@@ -319,7 +319,7 @@ def test_candidate_shadow_never_overrides_authoritative_judge():
 
 
 def test_runtime_uses_selected_gemma_for_generation_and_judge(monkeypatch):
-    from lawchat.rag.runtime import create_generation_service
+    from rag.runtime import create_generation_service
     monkeypatch.setenv('LAWCHAT_SEMANTIC_MODE','shadow')
     monkeypatch.setenv('LAWCHAT_SEMANTIC_MODEL','gemma4:31b-cloud')
     service = create_generation_service(OpenAICompatibleSettings('http://ollama/v1','','gemma4:31b-cloud',response_format='json_object',allow_fenced_json=True))
@@ -353,7 +353,7 @@ def test_format_repair_and_semantic_repair_share_two_generation_attempts(async_m
 
 
 def test_failed_json_usage_is_preserved_through_successful_retry():
-    from lawchat.rag.generator import GenerationTelemetry
+    from rag.generator import GenerationTelemetry
     req, good = example()
     error = InvalidStructuredResponseError('malformed')
     error.telemetry = GenerationTelemetry(1, prompt_tokens=10, completion_tokens=5)

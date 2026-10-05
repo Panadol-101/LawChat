@@ -54,7 +54,7 @@ Qdrant and BM25 aliases remain unchanged.
 
 ```text
 LawChat/
-├── src/lawchat/          # application and domain code
+├── src/          # application and domain code
 │   ├── api/              # FastAPI routes and response schemas
 │   ├── chat/             # persistent projects and conversations
 │   ├── chunking/         # legal-document chunk strategies
@@ -128,7 +128,7 @@ Use the shared query builder so API and workers apply exactly the same rule:
 ```python
 from datetime import date
 
-from lawchat.database import LegalMetadataFilter, MetadataQueries
+from database import LegalMetadataFilter, MetadataQueries
 
 filters = LegalMetadataFilter(
     as_of=date(2026, 8, 25),

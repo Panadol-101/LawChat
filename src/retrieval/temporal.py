@@ -84,7 +84,10 @@ class TemporalPolicy:
         # state where the historical index is not built yet), but becomes
         # actively misleading when historical corpus is online. The flag
         # ``historical_index_enabled`` reflects the rollout state.
-        from ..config import get_feature_flags
+        try:
+            from config import get_feature_flags
+        except (ImportError, ValueError):
+            from ..config import get_feature_flags
 
         historical_content_ready = get_feature_flags().historical_index_enabled
         if historical and not historical_content_ready:

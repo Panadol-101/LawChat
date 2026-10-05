@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from lawchat.retrieval import (
+from retrieval import (
     HydratedLegalChunk,
     NoOpReranker,
     RerankerSettings,

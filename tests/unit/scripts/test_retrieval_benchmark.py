@@ -83,6 +83,7 @@ def test_v2_evaluator_reports_strict_document_structure_and_status_hits():
     assert report["chunk_hit_rate_at_k"] == 1.0
     assert report["document_hit_rate_at_k"] == 1.0
     assert report["structure_accuracy_at_k"] == 1.0
+    assert report["correct_legal_provision_retrieval_rate"] == 1.0
     assert report["status_accuracy_at_k"] == 1.0
 
 

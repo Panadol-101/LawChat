@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 from sqlalchemy.dialects import postgresql
 
-from lawchat.database import LegalMetadataFilter, MetadataQueries
+from database import LegalMetadataFilter, MetadataQueries
 
 
 def _sql(statement) -> str:
@@ -96,3 +96,61 @@ def test_hydration_query_loads_parent_and_enforces_temporal_validity():
     assert "document_versions.is_current IS true" in sql
     assert "effective_status.valid_period @> '2026-08-25'" in sql
     assert "chunks.qdrant_collection = 'legal-v2'" in sql
+
+
+def test_current_law_hydration_fails_closed_for_unresolved_partial_provision():
+    sql = _sql(
+        MetadataQueries.hydrate_qdrant_points(
+            ["point-1"],
+            LegalMetadataFilter(
+                as_of=date(2026, 8, 25),
+                temporal_intent="current_law",
+                strict_partial_refusal=True,
+            ),
+        )
+    )
+
+    assert "effective_status.status != 'PARTIALLY_EFFECTIVE'" in sql
+    assert "provision_status.status != 'UNKNOWN'" in sql
+
+
+def test_current_law_hydration_allows_partial_provision_by_default():
+    sql = _sql(
+        MetadataQueries.hydrate_qdrant_points(
+            ["point-1"],
+            LegalMetadataFilter(
+                as_of=date(2026, 8, 25),
+                temporal_intent="current_law",
+            ),
+        )
+    )
+
+    assert "effective_status.status != 'PARTIALLY_EFFECTIVE'" not in sql
+
+
+def test_historical_hydration_does_not_apply_current_law_partial_gate():
+    sql = _sql(
+        MetadataQueries.hydrate_qdrant_points(
+            ["point-1"],
+            LegalMetadataFilter(
+                as_of=date(2020, 8, 25),
+                content_scope="historical",
+                temporal_intent="historical",
+            ),
+        )
+    )
+
+    assert "effective_status.status != 'PARTIALLY_EFFECTIVE'" not in sql
+    assert "document_versions.content_valid_period @> '2020-08-25'" in sql
+
+
+def test_unresolved_provision_diagnostic_has_stable_reason_predicate():
+    sql = _sql(
+        MetadataQueries.unresolved_provision_point_ids(
+            ["point-1"],
+            LegalMetadataFilter(as_of=date(2026, 8, 25)),
+        )
+    )
+
+    assert "effective_status.status = 'PARTIALLY_EFFECTIVE'" in sql
+    assert "diagnostic_provision_status.status = 'UNKNOWN'" in sql

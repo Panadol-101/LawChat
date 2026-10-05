@@ -52,6 +52,7 @@ packages = [
     "src/chat",
     "src/chunking",
     "src/cli",
+    "src/config",
     "src/database",
     "src/evaluation",
     "src/indexing",

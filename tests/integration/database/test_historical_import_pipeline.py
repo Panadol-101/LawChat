@@ -9,8 +9,8 @@ import pyarrow.parquet as pq
 import pytest
 from sqlalchemy import create_engine, text
 
-from lawchat.ingestion import PostgresMetadataLoader
-from lawchat.indexing import PostgresChunkSource
+from ingestion import PostgresMetadataLoader
+from indexing import PostgresChunkSource
 
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")

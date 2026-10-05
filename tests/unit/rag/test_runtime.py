@@ -5,7 +5,7 @@ import urllib.error
 
 import pytest
 
-from lawchat.rag import (
+from rag import (
     GenerationTimeoutError,
     InvalidStructuredResponseError,
     LLMHealthClient,
@@ -14,7 +14,7 @@ from lawchat.rag import (
     RAGExecutionGate,
     RAGQueueFullError,
 )
-from lawchat.rag.generator import _post_json
+from rag.generator import _post_json
 
 
 def test_execution_gate_rejects_when_concurrency_and_queue_are_full():
@@ -90,8 +90,9 @@ def test_provider_transport_classifies_timeout_unavailable_and_invalid_json(monk
         _post_json("http://llm", {}, {}, 1)
 
 
-def test_llm_health_checks_configured_model(monkeypatch):
-    payload = json.dumps({"data": [{"id": "local-model"}]}).encode()
+@pytest.mark.parametrize("provider_model_id", ["local-model", "models/local-model"])
+def test_llm_health_checks_configured_model(monkeypatch, provider_model_id):
+    payload = json.dumps({"data": [{"id": provider_model_id}]}).encode()
 
     class Response:
         def __enter__(self):

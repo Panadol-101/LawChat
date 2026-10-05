@@ -2,7 +2,7 @@ import json
 from datetime import date
 from pathlib import Path
 
-from lawchat.retrieval import (
+from retrieval import (
     ALL_LEGAL_STATUSES,
     LegalQueryParser,
     RetrievalRequest,

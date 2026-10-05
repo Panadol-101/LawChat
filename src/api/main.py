@@ -1979,14 +1979,20 @@ def _enrich_with_history(query: str, history: list[Any]) -> str:
 def _feature_flags_or_default():
     """Lazy feature-flag accessor to keep the module importable in tests."""
     try:
-        from ..config import get_feature_flags  # type: ignore[import-not-found]
+        try:
+            from config import get_feature_flags
+        except (ImportError, ValueError):
+            from ..config import get_feature_flags  # type: ignore[import-not-found]
 
         return get_feature_flags()
     except Exception:
         # Fallback: minimal flags with conversation_context_enabled=False.
         from dataclasses import replace
 
-        from ..config import FeatureFlags, load_feature_flags
+        try:
+            from config import FeatureFlags, load_feature_flags
+        except (ImportError, ValueError):
+            from ..config import FeatureFlags, load_feature_flags
 
         return replace(load_feature_flags(), conversation_context_enabled=False)
 

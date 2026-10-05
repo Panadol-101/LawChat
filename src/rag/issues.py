@@ -333,17 +333,6 @@ def retrieve_issue_plan(service, base_request: RetrievalRequest, plan: IssuePlan
             )
             by_chunk[result.chunk_id] = anchored
             ordered.append(anchored)
-            chunk_rrf_score[result.chunk_id] = chunk_rrf_score.get(
-                result.chunk_id, 0.0
-            ) + anchor_bonus
-
-    ordered.sort(
-        key=lambda candidate: (
-            -chunk_rrf_score.get(candidate.chunk_id, 0.0),
-            candidate.metadata.get("base_query_anchor") is not True,
-            candidate.chunk_id,
-        )
-    )
 
     all_responses = (base_response, *responses)
     return replace(
@@ -530,17 +519,6 @@ async def retrieve_issue_plan_async(
             )
             by_chunk[result.chunk_id] = anchored
             ordered.append(anchored)
-            chunk_rrf_score[result.chunk_id] = chunk_rrf_score.get(
-                result.chunk_id, 0.0
-            ) + 0.5  # base anchor gets a small bonus
-
-    ordered.sort(
-        key=lambda candidate: (
-            -chunk_rrf_score.get(candidate.chunk_id, 0.0),
-            candidate.metadata.get("base_query_anchor") is not True,
-            candidate.chunk_id,
-        )
-    )
 
     all_responses = (base_response, *responses)
     return replace(

@@ -1,10 +1,10 @@
 import pytest
 
-from lawchat.chunking import (
+from chunking import (
     ChunkingConfig,
     LegalChunker,
 )
-from lawchat.chunking.utils import (
+from chunking.utils import (
     approximate_token_count,
     configure_token_counter,
 )

@@ -1,0 +1,440 @@
+{
+  "schema_version": "2.0",
+  "benchmark_version": "2.0.0",
+  "corpus_release": "chunker-v4-bge-m3-20260830",
+  "qdrant_collection": "legal_chunks_bge_m3_1024_v1",
+  "bm25_index": "legal_bm25_bge_m3_v1",
+  "as_of": "2026-07-31",
+  "language": "vi",
+  "scope": "Deterministic 10-case stratified reranker sample from the 200-case benchmark.",
+  "methodology": {
+    "answerable_labels": "Mapped to PostgreSQL document/chunk identity, article metadata, effective_status, and supporting corpus excerpts.",
+    "scenario_labels": "Manually authored from the named provision and rechecked against its stored retrieval text.",
+    "unanswerable_labels": "Case-specific outcome predictions intentionally lacking facts; deterministic refusal expected.",
+    "limitations": "Not a substitute for independent Vietnamese-lawyer adjudication; semantic questions partly derive from article headings, and current content is not accepted as historical evidence."
+  },
+  "category_targets": {
+    "exact_document_number": 10,
+    "exact_provision": 10,
+    "semantic": 60,
+    "scenario": 35,
+    "temporal_current": 20,
+    "temporal_historical": 20,
+    "expired_status": 15,
+    "legal_relationship": 10,
+    "confusable": 10,
+    "insufficient_evidence": 10
+  },
+  "cases": [
+    {
+      "case_id": "exact_provision_001",
+      "category": "exact_provision",
+      "query": "Điều 35 Bộ luật Lao động 45/2019/QH14 quy định gì về quyền đơn phương chấm dứt hợp đồng của người lao động?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "139264::article_35"
+        ],
+        "document_ids": [
+          "139264"
+        ],
+        "document_numbers": [
+          "45/2019/QH14"
+        ],
+        "articles": [
+          "35"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "PARTIALLY_EFFECTIVE"
+        ],
+        "relevance": {
+          "139264::article_35": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Exact document/provision mapped to the current indexed leaf chunk and manually phrased question.",
+        "notes": "",
+        "document_title": "Bộ Luật lao động số 45/2019/QH14",
+        "document_number": "45/2019/QH14",
+        "chunk_id": "139264::article_35",
+        "supporting_excerpt": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 3 Điều 35: Quyền đơn phương chấm dứt hợp đồng lao động của người lao động Điều 35. Quyền đơn phương chấm dứt hợp đồng lao động của người lao động 1. Người lao động có quyền đơn phương chấm dứt hợp đồng lao động nhưng phải báo trước cho người sử dụng lao động như sau: a) Ít nhất 45 ngày nếu làm việc theo hợp đồng lao động không xác định thời hạn; b) Ít nhất 30 ngày nếu làm việc theo hợp đồng lao động xác định thời hạn có thời hạn từ 12 tháng đến 36 tháng; c) Ít nhất 03 ngày làm việc nếu làm việc theo hợp đồng lao động xác định thời hạn có thời hạn dưới 12 tháng; d) Đối với một số ngành, nghề, công việc đặc thù thì thời hạn báo trước được thực hiện theo quy định của Chính phủ. 2. Người lao động có quyền đơn phương chấm dứt hợp đồng lao động không cần báo trước trong trường hợp sau đây: a) Không được bố trí theo đúng công việc, địa điểm làm việc hoặc không được bảo đảm điều kiện làm việc theo thỏa thuận, trừ trường hợp quy định tại Điều 29 của Bộ luật này; b) Không được trả đủ lương hoặc trả lương không đúng thời hạn, trừ trường hợp quy định tại khoản 4 Điều ",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=139264"
+      }
+    },
+    {
+      "case_id": "exact_provision_002",
+      "category": "exact_provision",
+      "query": "Điều 117 Bộ luật Dân sự 91/2015/QH13 quy định những điều kiện nào để giao dịch dân sự có hiệu lực?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "95942::article_117"
+        ],
+        "document_ids": [
+          "95942"
+        ],
+        "document_numbers": [
+          "91/2015/QH13"
+        ],
+        "articles": [
+          "117"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "EFFECTIVE"
+        ],
+        "relevance": {
+          "95942::article_117": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Exact document/provision mapped to the current indexed leaf chunk and manually phrased question.",
+        "notes": "",
+        "document_title": "Bộ luật Dân sự số 91/2015/QH13",
+        "document_number": "91/2015/QH13",
+        "chunk_id": "95942::article_117",
+        "supporting_excerpt": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ nhất Chương VIII Điều 117: Điều kiện có hiệu lực của giao dịch dân sự Điều 117. Điều kiện có hiệu lực của giao dịch dân sự 1. Giao dịch dân sự có hiệu lực khi có đủ các điều kiện sau đây: a) Chủ thể có năng lực pháp luật dân sự, năng lực hành vi dân sự phù hợp với giao dịch dân sự được xác lập; b) Chủ thể tham gia giao dịch dân sự hoàn toàn tự nguyện; c) Mục đích và nội dung của giao dịch dân sự không vi phạm điều cấm của luật, không trái đạo đức xã hội. 2. Hình thức của giao dịch dân sự là điều kiện có hiệu lực của giao dịch dân sự trong trường hợp luật có quy định.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=95942"
+      }
+    },
+    {
+      "case_id": "semantic_001",
+      "category": "semantic",
+      "query": "Pháp luật quy định thế nào về quyền và nghĩa vụ của bên thuê lại lao động?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "139264::article_57"
+        ],
+        "document_ids": [
+          "139264"
+        ],
+        "document_numbers": [
+          "45/2019/QH14"
+        ],
+        "articles": [
+          "57"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "PARTIALLY_EFFECTIVE"
+        ],
+        "relevance": {
+          "139264::article_57": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Semantic question deterministically derived from a verified article heading; target chunk and excerpt checked in PostgreSQL.",
+        "notes": "Article heading: Quyền và nghĩa vụ của bên thuê lại lao động",
+        "document_title": "Bộ Luật lao động số 45/2019/QH14",
+        "document_number": "45/2019/QH14",
+        "chunk_id": "139264::article_57",
+        "supporting_excerpt": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 5 Điều 57: Quyền và nghĩa vụ của bên thuê lại lao động Điều 57. Quyền và nghĩa vụ của bên thuê lại lao động 1. Thông báo, hướng dẫn cho người lao động thuê lại biết nội quy lao động và các quy chế khác của mình. 2. Không được phân biệt đối xử về điều kiện lao động đối với người lao động thuê lại so với người lao động của mình. 3. Thỏa thuận với người lao động thuê lại về làm việc vào ban đêm, làm thêm giờ theo quy định của Bộ luật này. 4. Thỏa thuận với người lao động thuê lại và doanh nghiệp cho thuê lại lao động để tuyển dụng chính thức người lao động thuê lại làm việc cho mình trong trường hợp hợp đồng lao động của người lao động thuê lại với doanh nghiệp cho thuê lại lao động chưa chấm dứt. 5. Trả lại người lao động thuê lại không đáp ứng yêu cầu như đã thỏa thuận hoặc vi phạm kỷ luật lao động cho doanh nghiệp cho thuê lại lao động. 6. Cung cấp cho doanh nghiệp cho thuê lại lao động chứng cứ về hành vi vi phạm kỷ luật lao động của người lao động thuê lại để xem xét xử lý kỷ luật lao động.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=139264"
+      }
+    },
+    {
+      "case_id": "semantic_002",
+      "category": "semantic",
+      "query": "Những quy tắc nào áp dụng đối với nghỉ lễ, tết?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "139264::article_112"
+        ],
+        "document_ids": [
+          "139264"
+        ],
+        "document_numbers": [
+          "45/2019/QH14"
+        ],
+        "articles": [
+          "112"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "PARTIALLY_EFFECTIVE"
+        ],
+        "relevance": {
+          "139264::article_112": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Semantic question deterministically derived from a verified article heading; target chunk and excerpt checked in PostgreSQL.",
+        "notes": "Article heading: Nghỉ lễ, tết",
+        "document_title": "Bộ Luật lao động số 45/2019/QH14",
+        "document_number": "45/2019/QH14",
+        "chunk_id": "139264::article_112",
+        "supporting_excerpt": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương VII Mục 2 Điều 112: Nghỉ lễ, tết Điều 112. Nghỉ lễ, tết 1. Người lao động được nghỉ làm việc, hưởng nguyên lương trong những ngày lễ, tết sau đây: a) Tết Dương lịch: 01 ngày (ngày 01 tháng 01 dương lịch); b) Tết Âm lịch: 05 ngày; c) Ngày Chiến thắng: 01 ngày (ngày 30 tháng 4 dương lịch); d) Ngày Quốc tế lao động: 01 ngày (ngày 01 tháng 5 dương lịch); đ) Quốc khánh: 02 ngày (ngày 02 tháng 9 dương lịch và 01 ngày liền kề trước hoặc sau); e) Ngày Giỗ Tổ Hùng Vương: 01 ngày (ngày 10 tháng 3 âm lịch). 2. Lao động là người nước ngoài làm việc tại Việt Nam ngoài các ngày nghỉ theo quy định tại khoản 1 Điều này còn được nghỉ thêm 01 ngày Tết cổ truyền dân tộc và 01 ngày Quốc khánh của nước họ. 3. Hằng năm, căn cứ vào điều kiện thực tế, Thủ tướng Chính phủ quyết định cụ thể ngày nghỉ quy định tại điểm b và điểm đ khoản 1 Điều này.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=139264"
+      }
+    },
+    {
+      "case_id": "scenario_001",
+      "category": "scenario",
+      "query": "Một cửa hàng thuê nhân viên làm việc 2 tháng và chỉ thỏa thuận miệng. Hình thức hợp đồng này có được chấp nhận không, và trường hợp nào bắt buộc phải lập văn bản?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "139264::article_14"
+        ],
+        "document_ids": [
+          "139264"
+        ],
+        "document_numbers": [
+          "45/2019/QH14"
+        ],
+        "articles": [
+          "14"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "PARTIALLY_EFFECTIVE"
+        ],
+        "relevance": {
+          "139264::article_14": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Scenario manually authored from the cited provision; target provision and supporting excerpt verified in the corpus.",
+        "notes": "",
+        "document_title": "Bộ Luật lao động số 45/2019/QH14",
+        "document_number": "45/2019/QH14",
+        "chunk_id": "139264::article_14",
+        "supporting_excerpt": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 14: Hình thức hợp đồng lao động Điều 14. Hình thức hợp đồng lao động 1. Hợp đồng lao động phải được giao kết bằng văn bản và được làm thành 02 bản, người lao động giữ 01 bản, người sử dụng lao động giữ 01 bản, trừ trường hợp quy định tại khoản 2 Điều này. Hợp đồng lao động được giao kết thông qua phương tiện điện tử dưới hình thức thông điệp dữ liệu theo quy định của pháp luật về giao dịch điện tử có giá trị như hợp đồng lao động bằng văn bản. 2. Hai bên có thể giao kết hợp đồng lao động bằng lời nói đối với hợp đồng có thời hạn dưới 01 tháng, trừ trường hợp quy định tại khoản 2 Điều 18, điểm a khoản 1 Điều 145 và khoản 1 Điều 162 của Bộ luật này.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=139264"
+      }
+    },
+    {
+      "case_id": "scenario_002",
+      "category": "scenario",
+      "query": "Khi tuyển dụng, doanh nghiệp giữ bản chính bằng đại học và yêu cầu người lao động đặt cọc tiền. Những yêu cầu này có hợp pháp không?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "139264::article_17"
+        ],
+        "document_ids": [
+          "139264"
+        ],
+        "document_numbers": [
+          "45/2019/QH14"
+        ],
+        "articles": [
+          "17"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "PARTIALLY_EFFECTIVE"
+        ],
+        "relevance": {
+          "139264::article_17": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Scenario manually authored from the cited provision; target provision and supporting excerpt verified in the corpus.",
+        "notes": "",
+        "document_title": "Bộ Luật lao động số 45/2019/QH14",
+        "document_number": "45/2019/QH14",
+        "chunk_id": "139264::article_17",
+        "supporting_excerpt": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 1 Điều 17: Hành vi người sử dụng lao động không được làm khi giao kết, thực hiện hợp đồng lao động Điều 17. Hành vi người sử dụng lao động không được làm khi giao kết, thực hiện hợp đồng lao động 1. Giữ bản chính giấy tờ tùy thân, văn bằng, chứng chỉ của người lao động. 2. Yêu cầu người lao động phải thực hiện biện pháp bảo đảm bằng tiền hoặc tài sản khác cho việc thực hiện hợp đồng lao động. 3. Buộc người lao động thực hiện hợp đồng lao động để trả nợ cho người sử dụng lao động.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=139264"
+      }
+    },
+    {
+      "case_id": "temporal_current_001",
+      "category": "temporal_current",
+      "query": "Hiện nay, quy định về quyền và nghĩa vụ của bên thuê lại lao động đang được áp dụng như thế nào?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "139264::article_57"
+        ],
+        "document_ids": [
+          "139264"
+        ],
+        "document_numbers": [
+          "45/2019/QH14"
+        ],
+        "articles": [
+          "57"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "PARTIALLY_EFFECTIVE"
+        ],
+        "relevance": {
+          "139264::article_57": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Current-law question derived from a verified active provision and checked against effective_status at the benchmark date.",
+        "notes": "",
+        "document_title": "Bộ Luật lao động số 45/2019/QH14",
+        "document_number": "45/2019/QH14",
+        "chunk_id": "139264::article_57",
+        "supporting_excerpt": "Văn bản: Bộ Luật lao động số 45/2019/QH14 Số hiệu: 45/2019/QH14 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Chương III Mục 5 Điều 57: Quyền và nghĩa vụ của bên thuê lại lao động Điều 57. Quyền và nghĩa vụ của bên thuê lại lao động 1. Thông báo, hướng dẫn cho người lao động thuê lại biết nội quy lao động và các quy chế khác của mình. 2. Không được phân biệt đối xử về điều kiện lao động đối với người lao động thuê lại so với người lao động của mình. 3. Thỏa thuận với người lao động thuê lại về làm việc vào ban đêm, làm thêm giờ theo quy định của Bộ luật này. 4. Thỏa thuận với người lao động thuê lại và doanh nghiệp cho thuê lại lao động để tuyển dụng chính thức người lao động thuê lại làm việc cho mình trong trường hợp hợp đồng lao động của người lao động thuê lại với doanh nghiệp cho thuê lại lao động chưa chấm dứt. 5. Trả lại người lao động thuê lại không đáp ứng yêu cầu như đã thỏa thuận hoặc vi phạm kỷ luật lao động cho doanh nghiệp cho thuê lại lao động. 6. Cung cấp cho doanh nghiệp cho thuê lại lao động chứng cứ về hành vi vi phạm kỷ luật lao động của người lao động thuê lại để xem xét xử lý kỷ luật lao động.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=139264"
+      }
+    },
+    {
+      "case_id": "temporal_current_002",
+      "category": "temporal_current",
+      "query": "Hiện nay, quy định về nghĩa vụ bảo vệ môi trường đang được áp dụng như thế nào?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "95942::article_172"
+        ],
+        "document_ids": [
+          "95942"
+        ],
+        "document_numbers": [
+          "91/2015/QH13"
+        ],
+        "articles": [
+          "172"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "EFFECTIVE"
+        ],
+        "relevance": {
+          "95942::article_172": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Current-law question derived from a verified active provision and checked against effective_status at the benchmark date.",
+        "notes": "",
+        "document_title": "Bộ luật Dân sự số 91/2015/QH13",
+        "document_number": "91/2015/QH13",
+        "chunk_id": "95942::article_172",
+        "supporting_excerpt": "Văn bản: Bộ luật Dân sự số 91/2015/QH13 Số hiệu: 91/2015/QH13 Loại văn bản: Bộ luật Cơ quan ban hành: Quốc hội Phần thứ hai Chương XI Mục 3 Điều 172: Nghĩa vụ bảo vệ môi trường Điều 172. Nghĩa vụ bảo vệ môi trường Khi thực hiện quyền sở hữu, quyền khác đối với tài sản thì chủ thể phải tuân theo quy định của pháp luật về bảo vệ môi trường; nếu làm ô nhiễm môi trường thì phải chấm dứt hành vi gây ô nhiễm, thực hiện các biện pháp để khắc phục hậu quả và bồi thường thiệt hại.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=95942"
+      }
+    },
+    {
+      "case_id": "confusable_001",
+      "category": "confusable",
+      "query": "Trong Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15, Điều 4 quy định nội dung gì?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "161263::article_4"
+        ],
+        "document_ids": [
+          "161263"
+        ],
+        "document_numbers": [
+          "19/2023/QH15"
+        ],
+        "articles": [
+          "4"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "EFFECTIVE"
+        ],
+        "relevance": {
+          "161263::article_4": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Exact number/title/provision combination selected to distinguish neighboring years and similarly named statutes.",
+        "notes": "",
+        "document_title": "Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15",
+        "document_number": "19/2023/QH15",
+        "chunk_id": "161263::article_4",
+        "supporting_excerpt": "Văn bản: Luật Bảo vệ quyền lợi người tiêu dùng số 19/2023/QH15 Số hiệu: 19/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương I Điều 4: Quyền của người tiêu dùng Điều 4. Quyền của người tiêu dùng 1. Được bảo đảm an toàn tính mạng, sức khoẻ, danh dự, nhân phẩm, uy tín, tài sản, bảo vệ thông tin, quyền, lợi ích hợp pháp khác khi tham gia giao dịch, sử dụng sản phẩm, hàng hóa, dịch vụ do tổ chức, cá nhân kinh doanh cung cấp. 2. Được cung cấp hóa đơn, chứng từ, tài liệu liên quan đến giao dịch; thông tin kịp thời, chính xác, đầy đủ về sản phẩm, hàng hóa, dịch vụ, nội dung giao dịch, nguồn gốc, xuất xứ sản phẩm, hàng hóa, dịch vụ và về tổ chức, cá nhân kinh doanh. 3. Lựa chọn sản phẩm, hàng hóa, dịch vụ, tổ chức, cá nhân kinh doanh theo nhu cầu, điều kiện thực tế của mình; quyết định tham gia hoặc không tham gia giao dịch; thỏa thuận các nội dung giao dịch với tổ chức, cá nhân kinh doanh; được cung cấp sản phẩm, hàng hóa, dịch vụ đúng với nội dung đã giao kết. 4. Góp ý với tổ chức, cá nhân kinh doanh về giá, chất lượng sản phẩm, hàng hóa, dịch vụ, phong cách phục vụ, phương thức giao dịch và nội dung liên quan đến giao dịch giữa người tiêu dùng và tổ chức, cá nhân kinh doanh",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=161263"
+      }
+    },
+    {
+      "case_id": "confusable_002",
+      "category": "confusable",
+      "query": "Trong Luật Giao dịch điện tử số 20/2023/QH15, Điều 8 quy định nội dung gì?",
+      "answerable": true,
+      "request": {
+        "as_of": "2026-07-31"
+      },
+      "expected": {
+        "answerability": "answerable",
+        "chunk_ids": [
+          "165913::article_8"
+        ],
+        "document_ids": [
+          "165913"
+        ],
+        "document_numbers": [
+          "20/2023/QH15"
+        ],
+        "articles": [
+          "8"
+        ],
+        "clauses": [],
+        "points": [],
+        "statuses": [
+          "EFFECTIVE"
+        ],
+        "relevance": {
+          "165913::article_8": 3
+        }
+      },
+      "source": {
+        "ground_truth_method": "Exact number/title/provision combination selected to distinguish neighboring years and similarly named statutes.",
+        "notes": "",
+        "document_title": "Luật Giao dịch điện tử số 20/2023/QH15",
+        "document_number": "20/2023/QH15",
+        "chunk_id": "165913::article_8",
+        "supporting_excerpt": "Văn bản: Luật Giao dịch điện tử số 20/2023/QH15 Số hiệu: 20/2023/QH15 Loại văn bản: Luật Cơ quan ban hành: Quốc hội Chương II Mục 1 Điều 8: Giá trị pháp lý của thông điệp dữ liệu Điều 8. Giá trị pháp lý của thông điệp dữ liệu Thông tin trong thông điệp dữ liệu không bị phủ nhận giá trị pháp lý chỉ vì thông tin đó được thể hiện dưới dạng thông điệp dữ liệu.",
+        "source_url": "https://huggingface.co/datasets/th1nhng0/vietnamese-legal-documents?document_id=165913"
+      }
+    }
+  ]
+}

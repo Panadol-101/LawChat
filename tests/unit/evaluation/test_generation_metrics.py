@@ -1,4 +1,4 @@
-from lawchat.evaluation import GenerationCaseResult, summarize_generation_results
+from evaluation import GenerationCaseResult, summarize_generation_results
 
 
 def _case(case_id, *, answerable, status, cited=(), expected=(), latency=1.0, attempts=1, codes=()):

@@ -10,13 +10,13 @@ from typing import Any
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from lawchat.chunking import (
+from chunking import (
     ChunkingConfig,
     HuggingFaceTokenizerCounter,
     LegalChunker,
 )
-from lawchat.chunking.tokenizers import BGE_M3_TOKENIZER_REVISION
-from lawchat.chunking.utils import configure_token_counter
+from chunking.tokenizers import BGE_M3_TOKENIZER_REVISION
+from chunking.utils import configure_token_counter
 
 
 DEFAULT_TOKENIZER_MODEL = "BAAI/bge-m3"

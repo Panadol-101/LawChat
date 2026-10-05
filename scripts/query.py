@@ -9,10 +9,10 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from lawchat.chunking.tokenizers import HuggingFaceTokenizerCounter
-from lawchat.database import DatabaseSettings, create_db_engine
-from lawchat.indexing import QdrantSettings, SentenceTransformerEmbedder
-from lawchat.rag import (
+from chunking.tokenizers import HuggingFaceTokenizerCounter
+from database import DatabaseSettings, create_db_engine
+from indexing import QdrantSettings, SentenceTransformerEmbedder
+from rag import (
     GenerationRequest,
     GroundedRAGService,
     OpenAICompatibleLegalAnswerGenerator,
@@ -23,10 +23,10 @@ from lawchat.rag import (
     RAGContextBuilder,
     TokenBudget,
 )
-from lawchat.rag.runtime import create_generation_service
-from lawchat.retrieval import LegalQueryParser, RetrievalRequest
-from lawchat.retrieval.runtime import create_hybrid_retrieval_service
-from lawchat.cli.query import dense_main, hybrid_main
+from rag.runtime import create_generation_service
+from retrieval import LegalQueryParser, RetrievalRequest
+from retrieval.runtime import create_hybrid_retrieval_service
+from cli.query import dense_main, hybrid_main
 from scripts import dispatch
 
 
