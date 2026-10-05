@@ -101,7 +101,10 @@ async def main_async(args) -> None:
     if not isinstance(payloads, list) or not payloads:
         raise ValueError("payload file must contain a non-empty JSON array")
     timeout = httpx.Timeout(args.timeout)
-    async with httpx.AsyncClient(timeout=timeout) as client:
+    from admin_session import admin_cookies, base_url_of
+
+    cookies = admin_cookies(base_url_of(args.url))
+    async with httpx.AsyncClient(timeout=timeout, cookies=cookies) as client:
         results = []
         for concurrency in args.concurrency:
             result = await run_level(
@@ -152,8 +155,10 @@ def smoke_main() -> None:
         type=Path,
         default=Path("reports/RAG_API_SMOKE.json"),
     )
-    parser.add_argument("--as-of", default="2026-09-06")
     args = parser.parse_args()
+    from admin_session import admin_cookies, cookie_header
+
+    cookie = cookie_header(admin_cookies(args.base_url))
     queries = [
         "Bộ luật Lao động 45/2019/QH14 quy định thế nào về sử dụng lao động chưa thành niên?",
         "Một người bị ép kết hôn nhưng không tự yêu cầu hủy kết hôn trái pháp luật thì người thân của họ có quyền yêu cầu hay không?",
@@ -172,13 +177,12 @@ def smoke_main() -> None:
             data=json.dumps(
                 {
                     "query": query,
-                    "as_of": args.as_of,
                     "response_mode": "verbose",
                     "limit": 5,
                     "candidate_limit": 50,
                 }
             ).encode(),
-            headers={"Content-Type": "application/json"},
+            headers={"Content-Type": "application/json", "Cookie": cookie},
             method="POST",
         )
         try:

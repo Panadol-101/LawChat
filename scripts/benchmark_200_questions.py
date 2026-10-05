@@ -25,6 +25,17 @@ DEFAULT_REPORT_JSON = Path("reports/BENCHMARK_200_F1_RESULTS.json")
 DEFAULT_REPORT_XLSX = Path("reports/BENCHMARK_200_F1_RESULTS.xlsx")
 API_BASE_URL = os.getenv("LAWCHAT_API_BASE_URL", "http://127.0.0.1:8000")
 
+_ADMIN_COOKIES: dict[str, str] | None = None
+
+
+def _admin_cookies(base_url: str) -> dict[str, str]:
+    """Log in once; /api/v1/answer and /api/v1/search are admin-only."""
+    global _ADMIN_COOKIES
+    if _ADMIN_COOKIES is None:
+        from admin_session import admin_cookies
+
+        _ADMIN_COOKIES = admin_cookies(base_url)
+    return _ADMIN_COOKIES
 
 def normalize_vietnamese_text(text: str) -> str:
     """Normalize text: lowercase, remove punctuation, strip extra whitespace."""
@@ -187,7 +198,7 @@ def query_answer_api(
 
     started = time.perf_counter()
     try:
-        resp = requests.post(url, json=payload, timeout=timeout)
+        resp = requests.post(url, json=payload, timeout=timeout, cookies=_admin_cookies(base_url))
         elapsed = round(time.perf_counter() - started, 3)
         if resp.status_code == 200:
             data = resp.json()
@@ -229,7 +240,7 @@ def query_search_api(
 
     started = time.perf_counter()
     try:
-        resp = requests.post(url, json=payload, timeout=timeout)
+        resp = requests.post(url, json=payload, timeout=timeout, cookies=_admin_cookies(base_url))
         elapsed = round(time.perf_counter() - started, 3)
         if resp.status_code == 200:
             data = resp.json()
