@@ -81,6 +81,70 @@ _PARTIAL_CONTEXT_RE = re.compile(
 )
 
 
+_LIST_KIND = (
+    r"(?:văn\s+bản|luật|pháp\s+lệnh|nghị\s+định|nghị\s+quyết|thông\s+tư(?:\s+liên\s+tịch)?|"
+    r"quyết\s+định|chỉ\s+thị)"
+)
+# Header of an enumerated list of documents that end as a whole, e.g.
+# "các nghị quyết sau đây hết hiệu lực:" or "thay thế các Quyết định sau:".
+# "bãi bỏ nội dung tại các Thông tư sau:" deliberately does not match.
+_LIST_HEADER_RE = re.compile(
+    rf"(?:(?:các|những)\s+{_LIST_KIND}[^.:;]{{0,80}}?sau(?:\s+đây)?[^.:;]{{0,40}}?"
+    rf"(?:hết\s+hiệu\s+lực|bị\s+bãi\s+bỏ|bị\s+thay\s+thế)[^.:;]{{0,60}}?"
+    rf"|(?:thay\s+thế|bãi\s+bỏ(?:\s+toàn\s+bộ)?)\s+(?:các|những)\s+{_LIST_KIND}"
+    rf"(?:\s+sau(?:\s+đây)?)?(?:[^.:;\d]{{0,40}})?)\s*:",
+    re.IGNORECASE,
+)
+_NEXT_ARTICLE_RE = re.compile(r"\bĐiều\s+\d+\s*\.")
+_ITEM_START_RE = re.compile(
+    r"(?:^|[:;]|[a-zđ]\)|\d+\.|-|\+|\bvà)\s*$", re.IGNORECASE
+)
+
+
+def _item_piece_re() -> re.Pattern[str]:
+    return re.compile(
+        rf"\s*(?:(?:[a-zđ]\)|\d+\.?|-|\+)\s*)?{_DOC_TYPE}", re.IGNORECASE
+    )
+
+
+def _listed_as_whole(text_value: str, mention: str) -> str | None:
+    """Snippet when the target is an item of a whole-document repeal list."""
+    mention_re = re.compile(mention, re.IGNORECASE)
+    for header in _LIST_HEADER_RE.finditer(text_value):
+        body_start = header.end()
+        next_article = _NEXT_ARTICLE_RE.search(text_value, body_start)
+        body_end = min(next_article.start() if next_article else len(text_value), body_start + 4000)
+        for match in mention_re.finditer(text_value, body_start, body_end):
+            before = text_value[max(body_start, match.start() - 60):match.start()]
+            if _PARTIAL_CONTEXT_RE.search(before):
+                continue
+            # The target must open a list item ("a) Nghị định số X",
+            # "; Thông tư số X", "... và Nghị quyết số X") ...
+            if not _ITEM_START_RE.search(text_value[body_start:match.start()][-15:] or ":"):
+                continue
+            # ... and the list must run unbroken from the header to it: every
+            # sentence after the header opens with another listed document.
+            raw_between = text_value[body_start:match.start()]
+            # In an "a), b)" list, a numbered "3." opens the next clause.
+            if re.match(r"\s*[a-zđ]\)", raw_between, re.IGNORECASE) and re.search(
+                r"(?:^|\s)\d+\.\s", raw_between
+            ):
+                continue
+            # Drop item numbers ("1. ", "2. ") so they do not end a sentence.
+            between = re.sub(r"(?:(?<=\s)|^)\d+\.\s+", "", text_value[body_start:match.start()])
+            if any(
+                not _ITEM_PIECE_RE.match(piece)
+                for piece in re.split(r"\.\s+", between)[1:]
+                if piece.strip()
+            ):
+                continue
+            return text_value[max(0, header.start() - 40):min(match.end() + 40, body_end)]
+    return None
+
+
+_ITEM_PIECE_RE = _item_piece_re()
+
+
 def _number_pattern(document_number: str) -> str:
     return r"\s*/\s*".join(re.escape(part.strip()) for part in document_number.split("/"))
 
@@ -112,6 +176,9 @@ def classify(source_text: str, target_number: str) -> tuple[str, str]:
                 continue
             snippet = text_value[max(0, match.start() - 80):match.end() + 40]
             return "whole", snippet
+    listed = _listed_as_whole(text_value, mention)
+    if listed is not None:
+        return "whole", listed
     if saw_mention or re.search(number, text_value, re.IGNORECASE):
         index = re.search(number, text_value, re.IGNORECASE)
         start = index.start() if index else 0
