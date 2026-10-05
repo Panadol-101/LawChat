@@ -5,6 +5,12 @@
 -- See reports/expired_status_audit.csv.
 BEGIN;
 
+-- Delete first: ex_effective_status_no_overlap forbids overlapping periods.
+DELETE FROM effective_status
+WHERE document_id = (SELECT id FROM documents WHERE external_id = '175027')
+  AND status = 'EXPIRED'
+  AND valid_from = DATE '2026-01-01';
+
 UPDATE effective_status
 SET valid_to = NULL,
     metadata = metadata || '{"manual_fix": "not repealed by 74/2025/QH15"}'::jsonb,
@@ -12,11 +18,6 @@ SET valid_to = NULL,
 WHERE document_id = (SELECT id FROM documents WHERE external_id = '175027')
   AND status = 'EFFECTIVE'
   AND valid_from = DATE '2025-07-01';
-
-DELETE FROM effective_status
-WHERE document_id = (SELECT id FROM documents WHERE external_id = '175027')
-  AND status = 'EXPIRED'
-  AND valid_from = DATE '2026-01-01';
 
 UPDATE documents
 SET status = 'EFFECTIVE',
