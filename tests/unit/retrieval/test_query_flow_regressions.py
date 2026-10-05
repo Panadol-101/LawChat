@@ -2,37 +2,19 @@
 
 from datetime import date
 
-from retrieval import LegalQueryParser, RetrievalRequest, RetrievalResponse
-from retrieval.temporal import TemporalRetrievalRouter
+from retrieval import LegalQueryParser, RetrievalRequest
+from retrieval.temporal import TemporalIntent, TemporalPolicy
 
 
-class _CurrentTarget:
-    def __init__(self):
-        self.request = None
+def test_question_with_case_date_is_answered_under_current_law():
+    parser = LegalQueryParser(today=lambda: date(2026, 1, 1))
+    query = "Tôi nghỉ việc vào ngày 1/3/2024 thì có được trợ cấp thôi việc không?"
 
-    def retrieve(self, request):
-        self.request = request
-        return RetrievalResponse(
-            query=request.query,
-            semantic_query=request.query,
-            as_of=date(2026, 1, 1),
-            results=(),
-            searched_candidates=1,
-            rejected_candidates=0,
-        )
+    parsed = parser.parse(query)
+    decision = TemporalPolicy().decide(parsed, RetrievalRequest(query=query))
 
-
-def test_question_with_case_date_is_routed_to_current_law():
-    current = _CurrentTarget()
-    router = TemporalRetrievalRouter(current)
-
-    router.retrieve(
-        RetrievalRequest(
-            query="Tôi nghỉ việc vào ngày 1/3/2024 thì có được trợ cấp thôi việc không?"
-        )
-    )
-
-    assert current.request is not None
+    assert parsed.as_of == date(2026, 1, 1)
+    assert decision.intent is TemporalIntent.CURRENT_LAW
 
 
 def test_question_with_two_case_dates_is_not_rejected():
@@ -53,12 +35,16 @@ def test_money_and_rate_phrases_do_not_become_hard_filters():
     assert rate.document_numbers == ()
 
 
-def test_year_specific_law_alias_does_not_also_match_generic_alias():
+def test_law_aliases_resolve_old_names_to_current_law_without_duplicates():
     parser = LegalQueryParser(today=lambda: date(2026, 1, 1))
 
-    parsed = parser.parse("BLLĐ 2012 quy định thời giờ làm việc thế nào?")
+    old_name = parser.parse("BLLĐ 2012 quy định thời giờ làm việc thế nào?")
+    current = parser.parse("Luật Doanh nghiệp 2020 quy định gì về vốn điều lệ?")
 
-    assert parsed.document_numbers == ("10/2012/QH13",)
+    # The replaced law is kept (its status is disclosed) and the law in force
+    # is searched too, because LawChat answers from current law only.
+    assert old_name.document_numbers == ("10/2012/QH13", "45/2019/QH14")
+    assert current.document_numbers == ("59/2020/QH14",)
 
 
 def test_semantic_query_stays_a_string_with_rewriter_v2(monkeypatch):

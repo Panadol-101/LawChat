@@ -138,20 +138,13 @@ JSON phải có hình dạng chính xác như sau:
 
 
 def build_user_prompt(request: GenerationRequest) -> str:
-    if request.temporal_intent == "historical":
-        temporal_note = (
-            "Có nội dung đúng cho thời điểm lịch sử được hỏi."
-            if request.historical_content_available
-            else (
-            "KHÔNG có nội dung lịch sử tương ứng; evidence có thể chỉ là phiên bản hiện tại. "
-            "Phải từ chối mọi kết luận về nội dung lịch sử."
-            )
-        )
-    else:
-        temporal_note = (
-            "Evidence và trạng thái hiệu lực đã được xác minh tại ngày as_of; "
-            "không suy diễn yêu cầu hiện tại thành yêu cầu lịch sử."
-        )
+    temporal_note = (
+        "Evidence và trạng thái hiệu lực đã được xác minh tại ngày as_of. "
+        "Chỉ trả lời theo pháp luật đang có hiệu lực tại ngày as_of; ngày tháng "
+        "trong câu hỏi là tình tiết vụ việc, không phải yêu cầu tra cứu luật cũ. "
+        "Nếu người dùng hỏi quy định trước đây, nêu rõ trong limitations rằng "
+        "hệ thống chỉ hỗ trợ pháp luật hiện hành."
+    )
     payload = {
         "question": request.question,
         "as_of": request.as_of.isoformat(),

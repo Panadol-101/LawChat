@@ -83,6 +83,25 @@ def test_follow_up_question_carries_history_entities_into_retrieval():
     assert generation.request.question == current
 
 
+def test_standalone_question_is_not_rewritten_with_history():
+    retrieval = _RecordingRetrieval()
+    current = "Thời giờ làm việc bình thường tối đa bao nhiêu giờ?"
+    history = [
+        SimpleNamespace(role="user", content="Điều 321 Bộ luật Hình sự quy định gì?"),
+        SimpleNamespace(role="assistant", content="Điều 321 quy định tội đánh bạc."),
+        SimpleNamespace(role="user", content=current),
+    ]
+
+    asyncio.run(_execute_answer_pipeline(
+        AnswerBody(query=current),
+        retrieval,
+        _runtime(_RecordingGeneration()),
+        history=history,
+    ))
+
+    assert retrieval.requests[0].query == current
+
+
 class _ReplayRepository:
     def __init__(self):
         self.saved_replies = []
@@ -121,3 +140,19 @@ def test_stream_retry_of_known_message_does_not_crash_or_overwrite(monkeypatch):
 
     assert "MESSAGE_IN_PROGRESS" in events
     assert repository.saved_replies == []
+
+
+def test_token_usage_counts_decomposition_generation_and_semantic_review():
+    def usage(prompt, completion):
+        return SimpleNamespace(prompt_tokens=prompt, completion_tokens=completion)
+
+    issue_plan = SimpleNamespace(telemetry=usage(100, 20))
+    result = SimpleNamespace(
+        telemetry=(usage(1000, 300), usage(900, 250)),
+        semantic_observations=(
+            SimpleNamespace(review=SimpleNamespace(telemetry=usage(500, 50))),
+            SimpleNamespace(review=SimpleNamespace(telemetry=None)),  # cache hit
+        ),
+    )
+
+    assert main._pipeline_token_usage((issue_plan, None, None, result)) == 3120

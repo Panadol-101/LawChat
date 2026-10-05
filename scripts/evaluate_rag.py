@@ -129,12 +129,6 @@ def generation_main() -> None:
             rag_answerable = retrieval_answerable
             if not retrieval_answerable:
                 expected_refusal_reason = "FIXTURE_INSUFFICIENT_EVIDENCE"
-            elif (
-                retrieval.temporal_intent == "historical"
-                and not retrieval.historical_content_available
-            ):
-                rag_answerable = False
-                expected_refusal_reason = "HISTORICAL_SOURCE_UNAVAILABLE"
             case_result = GenerationCaseResult(
                 case_id=case["case_id"],
                 answerable=rag_answerable,

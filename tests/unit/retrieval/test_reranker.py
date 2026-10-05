@@ -82,3 +82,24 @@ def test_sentence_transformer_cross_encoder_reranks_by_score(monkeypatch):
 
     assert [item.point_id for item in results] == ["b", "a"]
     assert [item.rank for item in results] == [1, 2]
+
+
+def test_semantic_rewriter_appends_terms_and_respects_context():
+    from retrieval import SemanticQueryRewriter
+
+    rewriter = SemanticQueryRewriter()
+
+    assert rewriter.rewrite("Ly hôn đơn phương cần thủ tục gì?") == "Ly hôn đơn phương cần thủ tục gì?"
+    assert rewriter.rewrite("Đình công có hợp pháp không?") == "Đình công có hợp pháp không?"
+    assert rewriter.rewrite("Công ty đơn phương cho tôi nghỉ việc") == (
+        "Công ty đơn phương cho tôi nghỉ việc (đơn phương chấm dứt hợp đồng lao động)"
+    )
+    assert rewriter.rewrite("Bị sa thải trái luật").startswith("Bị sa thải trái luật")
+
+
+def test_reranker_settings_reads_timeout_from_env(monkeypatch):
+    from retrieval import RerankerSettings
+
+    monkeypatch.setenv("RERANKER_TIMEOUT_SECONDS", "2.5")
+
+    assert RerankerSettings.from_env().timeout_seconds == 2.5

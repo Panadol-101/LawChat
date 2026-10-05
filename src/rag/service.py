@@ -331,22 +331,6 @@ LegalRAGService = GroundedRAGService
 
 
 def _safe_refusal(request: GenerationRequest) -> GeneratedAnswer:
-    if (
-        request.temporal_intent == "historical"
-        and not request.historical_content_available
-    ):
-        return GeneratedAnswer(
-            answer=(
-                "Không đủ căn cứ lịch sử đã được xác minh để trả lời tại thời điểm "
-                f"{request.as_of.isoformat()}."
-            ),
-            claims=(),
-            limitations=(
-                "Nội dung lịch sử tại thời điểm được hỏi hiện không có sẵn trong kho dữ liệu đã được xác minh (phiên bản hiện tại không đại diện cho lịch sử). "
-                "Vui lòng liên hệ quản trị viên để bật chỉ mục lịch sử (HISTORICAL_INDEX_ENABLED).",
-            ),
-            confidence="low",
-        )
     return GeneratedAnswer(
         answer="Không đủ căn cứ trong evidence đã được xác minh để trả lời câu hỏi này.",
         claims=(),

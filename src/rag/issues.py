@@ -1,7 +1,10 @@
 """Question decomposition and issue-aware retrieval orchestration."""
 from __future__ import annotations
 
+import asyncio
 import json
+import logging
+import re
 from collections import Counter
 from dataclasses import dataclass, replace
 from time import perf_counter
@@ -20,7 +23,7 @@ from .generator import (
 )
 
 
-ISSUE_PROMPT_VERSION = "legal-issue-decomposition-v1"
+ISSUE_PROMPT_VERSION = "legal-issue-decomposition-v2"
 ISSUE_SYSTEM_PROMPT = """Bạn lập kế hoạch tìm kiếm cho một câu hỏi pháp luật Việt Nam.
 Chỉ phân tích cấu trúc câu hỏi, không trả lời pháp luật và không dùng kiến thức ngoài.
 Tách từng yêu cầu kết luận pháp lý độc lập và từng hành vi/điều kiện có thể cần
@@ -33,6 +36,14 @@ Không tách một issue riêng cho cụm chung như "hoặc tác động đến
 hỏi một quan hệ cụ thể (thay thế, bãi bỏ, sửa đổi, bổ sung) của cùng văn bản.
 Mỗi search_query phải tự đủ nghĩa để tìm văn bản, không dùng từ thay thế mơ hồ như
 "người đó", "việc trên". Tối đa 5 issue, theo đúng thứ tự xuất hiện trong câu hỏi.
+Khi ý trước là tình tiết hoặc điều kiện của ý sau, không được bỏ mất tình tiết đó:
+ghi các tình tiết chung (chủ thể, quan hệ pháp luật, hành vi, mốc thời gian, số tiền)
+vào shared_context và lặp lại tình tiết cần thiết trong search_query của từng issue.
+Ví dụ: "Tôi ký hợp đồng lao động 2 năm, công ty cho nghỉ trước hạn thì tôi được bồi
+thường gì và có được trợ cấp thất nghiệp không?" có shared_context "người lao động bị
+công ty đơn phương chấm dứt hợp đồng lao động xác định thời hạn 2 năm trước hạn" và hai
+issue: bồi thường khi công ty đơn phương chấm dứt hợp đồng trái luật; điều kiện hưởng
+trợ cấp thất nghiệp khi bị chấm dứt hợp đồng. shared_context là chuỗi rỗng nếu không có.
 Chỉ trả JSON đúng schema, không Markdown hoặc văn bản ngoài JSON."""
 ISSUE_SCHEMA = {
     "name": "legal_issue_plan",
@@ -65,9 +76,10 @@ ISSUE_SCHEMA = {
                     },
                     "required": ["issue_id", "question", "search_query"],
                 },
-            }
+            },
+            "shared_context": {"type": "string", "maxLength": 500},
         },
-        "required": ["issues"],
+        "required": ["issues", "shared_context"],
     },
 }
 
@@ -121,8 +133,15 @@ class OpenAICompatibleIssueDecomposer(OpenAICompatibleLegalAnswerGenerator):
             response, allow_fenced_json=self.settings.allow_fenced_json
         )
         raw_issues = value.get("issues")
-        if set(value) != {"issues"} or not isinstance(raw_issues, list) or not 1 <= len(raw_issues) <= 5:
+        shared_context = value.get("shared_context", "")
+        if (
+            not set(value) <= {"issues", "shared_context"}
+            or not isinstance(raw_issues, list)
+            or not 1 <= len(raw_issues) <= 5
+            or not isinstance(shared_context, str)
+        ):
             raise InvalidStructuredResponseError("Invalid issue plan")
+        shared_context = shared_context.strip()[:500]
         issues: list[LegalIssue] = []
         for index, item in enumerate(raw_issues, start=1):
             if (
@@ -137,22 +156,44 @@ class OpenAICompatibleIssueDecomposer(OpenAICompatibleLegalAnswerGenerator):
                 or len(item["search_query"]) > 500
             ):
                 raise InvalidStructuredResponseError("Invalid legal issue")
+            search_query = item["search_query"].strip()
+            # Facts stated once for the whole question must reach every
+            # issue's search, or "ý sau" is retrieved without "ý trước".
+            if (
+                len(raw_issues) > 1
+                and shared_context
+                and shared_context.casefold() not in search_query.casefold()
+            ):
+                search_query = f"{search_query} ({shared_context})"
             issues.append(
-                LegalIssue(item["issue_id"], item["question"].strip(), item["search_query"].strip())
+                LegalIssue(item["issue_id"], item["question"].strip(), search_query)
             )
         return IssuePlan(_collapse_generic_relationship_issues(tuple(issues)))
 
 
-_MULTI_ISSUE_MARKERS = (
-    " và ", " hoặc ", " cũng như ", " ngoài ra ", " còn có ",
-    " với lại ", ";", "\n", ", và ", ", hoặc ",
+logger = logging.getLogger(__name__)
+
+# Clause joins and conditions: any of these means the question may carry
+# several legal issues or a fact that conditions a later issue.
+_MULTI_CLAUSE_RE = re.compile(
+    r"[,;\n]|\b(?:và|hoặc|cũng như|ngoài ra|còn|với lại|đồng thời|nếu|thì|mà|"
+    r"nhưng|sau đó|trong khi|trường hợp)\b",
+    re.IGNORECASE,
 )
+_SINGLE_ISSUE_MAX_WORDS = 25
 
 
 def _looks_single_issue(question: str) -> bool:
-    """Heuristic: a single-issue question does not need an LLM call."""
-    normalized = f" {question.casefold().strip()} "
-    return not any(marker in normalized for marker in _MULTI_ISSUE_MARKERS)
+    """Heuristic: a short, single-clause question does not need an LLM call."""
+    from retrieval.query_parser import _COMMON_LAW_ALIASES
+
+    text = question.strip()
+    # Names such as "Luật Hôn nhân và gia đình" are not clause joins.
+    for pattern, _document_number in _COMMON_LAW_ALIASES:
+        text = pattern.sub(" ", text)
+    if text.count("?") > 1 or len(text.split()) > _SINGLE_ISSUE_MAX_WORDS:
+        return False
+    return not _MULTI_CLAUSE_RE.search(text)
 
 
 def fallback_decompose(question: str) -> IssuePlan:
@@ -184,25 +225,19 @@ class IssueDecomposer:
             return fallback_decompose(request.question)
         if self._decomposer is None:
             return fallback_decompose(request.question)
-        # Audit fix W2 (Phase 5): retry once with a tighter prompt when the
-        # LLM raises or produces a single-issue fallback. The legacy
-        # behaviour simply collapsed to one issue, losing recall for
-        # multi-clause questions.
+        # A one-issue plan is a valid answer: forcing the model to split a
+        # single question fragments it. Provider or format errors are retried
+        # once, then degrade to the single-issue plan instead of failing the
+        # whole request.
         for attempt in (1, 2):
             try:
-                plan = await self._decomposer.generate_async(request)
-            except (IssueDecompositionError, LLMUnavailableError):
-                if attempt == 1:
-                    continue
-                return fallback_decompose(request.question)
-            if len(plan.issues) <= 1:
-                # Force a multi-issue rewrite on the second attempt.
-                if attempt == 1:
-                    request = replace(
-                        request, question=f"{request.question}\n(Hãy tách thành nhiều vấn đề độc lập.)"
-                    )
-                    continue
-            return plan
+                return await self._decomposer.generate_async(request)
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:  # noqa: BLE001 - degrade, never fail closed here
+                logger.warning(
+                    "issue decomposition attempt %d failed: %s", attempt, type(exc).__name__
+                )
         return fallback_decompose(request.question)
 
 
@@ -279,60 +314,7 @@ def retrieve_issue_plan(service, base_request: RetrievalRequest, plan: IssuePlan
         responses.append(service.retrieve(replace(base_request, query=issue.search_query)))
         issue_totals[issue.issue_id] = perf_counter() - started
 
-    ordered: list = []
-    by_chunk: dict[str, object] = {}
-    chunk_rrf_score: dict[str, float] = {}
-    RRF_K: int = 60
-    max_rank = max((len(item.results) for item in responses), default=0)
-    for rank in range(max_rank):
-        for issue, response in zip(plan.issues, responses, strict=True):
-            if rank >= len(response.results):
-                continue
-            result = response.results[rank]
-            issue_score = result.source_scores.get("reranker", result.score)
-            rrf_delta = 1.0 / (RRF_K + rank + 1)
-            chunk_rrf_score[result.chunk_id] = chunk_rrf_score.get(result.chunk_id, 0.0) + rrf_delta
-            existing = by_chunk.get(result.chunk_id)
-            if existing is None:
-                tagged = _tag_result(result, issue.issue_id, rank + 1)
-                by_chunk[result.chunk_id] = tagged
-                ordered.append(tagged)
-            else:
-                issue_ids = list(existing.metadata.get("issue_ids", ()))
-                if issue.issue_id not in issue_ids:
-                    issue_ids.append(issue.issue_id)
-                    updated = replace(existing, metadata={
-                        **existing.metadata,
-                        "issue_ids": issue_ids,
-                        "issue_scores": {
-                            **existing.metadata.get("issue_scores", {}),
-                            issue.issue_id: issue_score,
-                        },
-                        "issue_ranks": {
-                            **existing.metadata.get("issue_ranks", {}),
-                            issue.issue_id: rank + 1,
-                        },
-                    })
-                    by_chunk[result.chunk_id] = updated
-                    ordered[ordered.index(existing)] = updated
-
-    # Base-query candidates are anchors for exact document/provision and legal
-    # relationship constraints. Add them after the fair issue rounds and let
-    # context packing decide how many auxiliaries fit.
-    # Audit fix W11 (Phase 5): the legacy flat 0.5 bonus over-weighted the
-    # anchor when there are many issues (the anchor gets repeated scoring
-    # advantages). The new bonus decreases with the number of issues so a
-    # 5-issue plan gives roughly the same anchor weight as the legacy
-    # 1-issue plan.
-    num_issues = max(1, len(plan.issues))
-    anchor_bonus = min(0.5, 1.0 / num_issues)
-    for result in base_response.results:
-        if result.chunk_id not in by_chunk:
-            anchored = replace(
-                result, metadata={**result.metadata, "base_query_anchor": True}
-            )
-            by_chunk[result.chunk_id] = anchored
-            ordered.append(anchored)
+    ordered = _merge_issue_results(plan, base_response, responses)
 
     all_responses = (base_response, *responses)
     return replace(
@@ -341,7 +323,7 @@ def retrieve_issue_plan(service, base_request: RetrievalRequest, plan: IssuePlan
         semantic_query=" | ".join(
             (base_response.semantic_query, *(issue.search_query for issue in plan.issues))
         ),
-        results=tuple(ordered),
+        results=ordered,
         searched_candidates=sum(item.searched_candidates for item in all_responses),
         rejected_candidates=sum(item.rejected_candidates for item in all_responses),
         rejection_reasons=dict(
@@ -390,6 +372,75 @@ def _tag_result(result, issue_id: str, rank: int):
     )
 
 
+_ISSUE_RRF_K = 60
+
+
+def _merge_issue_results(
+    plan: IssuePlan,
+    base_response: RetrievalResponse,
+    responses: list[RetrievalResponse],
+) -> tuple:
+    """Merge per-issue rankings and the base query into one RRF ordering.
+
+    Every base-query hit is flagged ``base_query_anchor`` (exact document or
+    provision constraints live in the original question), and the base query
+    contributes to RRF with weight decreasing in the number of issues, so a
+    many-issue plan does not over-weight it.
+    """
+    by_chunk: dict[str, object] = {}
+    rrf_score: dict[str, float] = {}
+    first_seen: dict[str, int] = {}
+    max_rank = max((len(item.results) for item in responses), default=0)
+    for rank in range(max_rank):
+        for issue, response in zip(plan.issues, responses, strict=True):
+            if rank >= len(response.results):
+                continue
+            result = response.results[rank]
+            issue_score = result.source_scores.get("reranker", result.score)
+            rrf_score[result.chunk_id] = (
+                rrf_score.get(result.chunk_id, 0.0) + 1.0 / (_ISSUE_RRF_K + rank + 1)
+            )
+            existing = by_chunk.get(result.chunk_id)
+            if existing is None:
+                by_chunk[result.chunk_id] = _tag_result(result, issue.issue_id, rank + 1)
+                first_seen[result.chunk_id] = len(first_seen)
+                continue
+            issue_ids = list(existing.metadata.get("issue_ids", ()))
+            if issue.issue_id in issue_ids:
+                continue
+            by_chunk[result.chunk_id] = replace(existing, metadata={
+                **existing.metadata,
+                "issue_ids": [*issue_ids, issue.issue_id],
+                "issue_scores": {
+                    **existing.metadata.get("issue_scores", {}),
+                    issue.issue_id: issue_score,
+                },
+                "issue_ranks": {
+                    **existing.metadata.get("issue_ranks", {}),
+                    issue.issue_id: rank + 1,
+                },
+            })
+
+    anchor_weight = min(0.5, 1.0 / max(1, len(plan.issues)))
+    for rank, result in enumerate(base_response.results):
+        rrf_score[result.chunk_id] = (
+            rrf_score.get(result.chunk_id, 0.0)
+            + anchor_weight / (_ISSUE_RRF_K + rank + 1)
+        )
+        existing = by_chunk.get(result.chunk_id, result)
+        by_chunk[result.chunk_id] = replace(
+            existing, metadata={**existing.metadata, "base_query_anchor": True}
+        )
+        first_seen.setdefault(result.chunk_id, len(first_seen))
+
+    return tuple(
+        by_chunk[chunk_id]
+        for chunk_id in sorted(
+            by_chunk, key=lambda chunk_id: (-rrf_score[chunk_id], first_seen[chunk_id])
+        )
+    )
+
+
 def _with_resolved_temporal_intent(service, request: RetrievalRequest) -> RetrievalRequest:
     if request.resolved_temporal_intent is not None:
         return request
@@ -415,11 +466,17 @@ async def retrieve_issue_plan_async(
         raise IssueDecompositionError("Issue plan contains no issues")
 
     base_request = _with_resolved_temporal_intent(service, base_request)
-    base_started = perf_counter()
-    base_response = service.retrieve(base_request)
-    base_total = perf_counter() - base_started
 
+    async def _timed_retrieve(request: RetrievalRequest) -> tuple[RetrievalResponse, float]:
+        # service.retrieve is blocking (embedding, Qdrant, Postgres, reranker);
+        # keep it off the event loop so other requests are not stalled.
+        started = perf_counter()
+        response = await run_in_threadpool(service.retrieve, request)
+        return response, perf_counter() - started
+
+    base_task = asyncio.create_task(_timed_retrieve(base_request))
     if len(plan.issues) == 1:
+        base_response, base_total = await base_task
         issue = plan.issues[0]
         tagged_results = tuple(
             _tag_result(result, issue.issue_id, rank)
@@ -453,6 +510,7 @@ async def retrieve_issue_plan_async(
 
     tasks = [asyncio.create_task(_run_one(issue)) for issue in plan.issues]
     completed = await asyncio.gather(*tasks)
+    base_response, base_total = await base_task
 
     responses: list[RetrievalResponse] = []
     for issue_id, result, elapsed in completed:
@@ -469,56 +527,12 @@ async def retrieve_issue_plan_async(
                 warnings=(f"issue retrieval failed: {result}",),
                 temporal_intent="current_law",
                 temporal_explicit_as_of=None,
-                historical_content_available=False,
             )
             responses.append(empty)
         else:
             responses.append(result)
 
-    ordered: list = []
-    by_chunk: dict[str, object] = {}
-    chunk_rrf_score: dict[str, float] = {}
-    RRF_K: int = 60
-    max_rank = max((len(item.results) for item in responses), default=0)
-    for rank in range(max_rank):
-        for issue, response in zip(plan.issues, responses, strict=True):
-            if rank >= len(response.results):
-                continue
-            result = response.results[rank]
-            issue_score = result.source_scores.get("reranker", result.score)
-            rrf_delta = 1.0 / (RRF_K + rank + 1)
-            chunk_rrf_score[result.chunk_id] = chunk_rrf_score.get(result.chunk_id, 0.0) + rrf_delta
-            existing = by_chunk.get(result.chunk_id)
-            if existing is None:
-                tagged = _tag_result(result, issue.issue_id, rank + 1)
-                by_chunk[result.chunk_id] = tagged
-                ordered.append(tagged)
-            else:
-                issue_ids = list(existing.metadata.get("issue_ids", ()))
-                if issue.issue_id not in issue_ids:
-                    issue_ids.append(issue.issue_id)
-                    updated = replace(existing, metadata={
-                        **existing.metadata,
-                        "issue_ids": issue_ids,
-                        "issue_scores": {
-                            **existing.metadata.get("issue_scores", {}),
-                            issue.issue_id: issue_score,
-                        },
-                        "issue_ranks": {
-                            **existing.metadata.get("issue_ranks", {}),
-                            issue.issue_id: rank + 1,
-                        },
-                    })
-                    by_chunk[result.chunk_id] = updated
-                    ordered[ordered.index(existing)] = updated
-
-    for result in base_response.results:
-        if result.chunk_id not in by_chunk:
-            anchored = replace(
-                result, metadata={**result.metadata, "base_query_anchor": True}
-            )
-            by_chunk[result.chunk_id] = anchored
-            ordered.append(anchored)
+    ordered = _merge_issue_results(plan, base_response, responses)
 
     all_responses = (base_response, *responses)
     return replace(
@@ -527,7 +541,7 @@ async def retrieve_issue_plan_async(
         semantic_query=" | ".join(
             (base_response.semantic_query, *(issue.search_query for issue in plan.issues))
         ),
-        results=tuple(ordered),
+        results=ordered,
         searched_candidates=sum(item.searched_candidates for item in all_responses),
         rejected_candidates=sum(item.rejected_candidates for item in all_responses),
         rejection_reasons=dict(

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
 from dataclasses import replace
 from math import ceil
 from time import perf_counter
@@ -32,6 +33,12 @@ from .query_parser import LegalQueryParser
 from .reranker import LegalReranker, RerankerSettings
 from .sparse import SparseSearchFilter
 from .temporal import TemporalIntent, TemporalPolicy
+
+
+# One worker: a cross-encoder call that outlives its timeout keeps running
+# (CPU work cannot be interrupted), and later calls queue behind it instead of
+# multiplying CPU load; they time out and fall back to the RRF order.
+_RERANK_EXECUTOR = ThreadPoolExecutor(max_workers=1, thread_name_prefix="lawchat-rerank")
 
 
 class RerankerTimeout(RuntimeError):
@@ -82,8 +89,6 @@ class HybridRetrievalService:
         temporal_policy: TemporalPolicy | None = None,
         reranker: LegalReranker | None = None,
         reranker_settings: RerankerSettings | None = None,
-        content_scope: str = "current",
-        historical_content_enabled: bool = False,
     ) -> None:
         self.dense_searcher = dense_searcher
         self.sparse_searcher = sparse_searcher
@@ -97,8 +102,6 @@ class HybridRetrievalService:
         self.temporal_policy = temporal_policy or TemporalPolicy()
         self.reranker = reranker
         self.reranker_settings = reranker_settings or RerankerSettings.from_env()
-        self.content_scope = content_scope
-        self.historical_content_enabled = historical_content_enabled
 
     def retrieve(self, request: RetrievalRequest) -> RetrievalResponse:
         total_started = perf_counter()
@@ -169,7 +172,16 @@ class HybridRetrievalService:
             and inactive_seed
             and temporal.intent is TemporalIntent.CURRENT_LAW
         ):
-            search_document_ids = graph_document_ids
+            # Replace only the inactive seeds: an in-force document the user
+            # also named (e.g. the current code beside its predecessor) stays.
+            active_seed_ids = tuple(
+                seed.document_id
+                for seed in seed_documents
+                if seed.status in {"EFFECTIVE", "PARTIALLY_EFFECTIVE"}
+            )
+            search_document_ids = tuple(
+                dict.fromkeys((*active_seed_ids, *graph_document_ids))
+            )
         else:
             search_document_ids = seed_document_ids
         search_document_numbers = () if search_document_ids else document_numbers
@@ -189,7 +201,6 @@ class HybridRetrievalService:
             document_types=request.document_types,
             authorities=request.authorities,
             legal_fields=request.legal_fields,
-            content_scope=self.content_scope,
             temporal_intent=temporal.intent.value,
         )
         dense_filters = DenseSearchFilter(
@@ -201,9 +212,6 @@ class HybridRetrievalService:
             articles=parsed.referenced_articles,
             clauses=parsed.referenced_clauses,
             points=parsed.referenced_points,
-            content_as_of=(
-                parsed.as_of if self.content_scope == "historical" else None
-            ),
         )
         sparse_filters = SparseSearchFilter(
             doc_ids=search_document_ids,
@@ -317,10 +325,17 @@ class HybridRetrievalService:
             rerank_candidates = hydrated[: self.reranker_settings.candidate_limit]
             try:
                 reranker_started = perf_counter()
-                reranked = self.reranker.rerank(
+                future = _RERANK_EXECUTOR.submit(
+                    self.reranker.rerank,
                     parsed.semantic_query,
                     rerank_candidates,
                 )
+                timeout = self.reranker_settings.timeout_seconds
+                try:
+                    reranked = future.result(timeout=timeout)
+                except FutureTimeout as exc:
+                    future.cancel()
+                    raise RerankerTimeout(f"exceeded {timeout:g}s") from exc
                 chunk_by_point = {
                     chunk.point_id: chunk for chunk in rerank_candidates
                 }
@@ -385,10 +400,6 @@ class HybridRetrievalService:
             warnings=tuple(dict.fromkeys(warnings)),
             temporal_intent=temporal.intent.value,
             temporal_explicit_as_of=temporal.explicit_as_of,
-            historical_content_available=(
-                not temporal.historical_content_required
-                or (self.historical_content_enabled and bool(hydrated))
-            ),
             seed_documents=seed_documents,
             seed_resolutions=seed_resolutions,
             status_resolution=status_resolution,
@@ -509,11 +520,7 @@ class HybridRetrievalService:
             article=chunk.article,
             clause=chunk.clause,
             point=chunk.point,
-            source_url=(
-                chunk.version_source_url
-                if self.content_scope == "historical" and chunk.version_source_url
-                else chunk.source_url
-            ),
+            source_url=chunk.source_url,
             as_of=as_of,
             status=chunk.status,
             status_scope=chunk.status_scope,

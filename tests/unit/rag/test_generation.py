@@ -61,7 +61,6 @@ def _evidence(
 def _request(
     *evidence: Evidence,
     temporal_intent: str = "current_law",
-    historical_content_available: bool = True,
 ) -> GenerationRequest:
     items = evidence or (_evidence(),)
     return GenerationRequest(
@@ -77,7 +76,6 @@ def _request(
         ),
         as_of=AS_OF,
         temporal_intent=temporal_intent,
-        historical_content_available=historical_content_available,
     )
 
 
@@ -319,28 +317,6 @@ def test_non_effective_status_may_be_disclosed_once_in_answer_summary():
     assert VerificationCode.PROVISION_CITATION_MISMATCH not in _codes(result)
 
 
-def test_historical_query_without_historical_content_is_refused_and_disclosed():
-    request = _request(
-        temporal_intent="historical",
-        historical_content_available=False,
-    )
-    generator = FakeLegalAnswerGenerator([_answer()])
-
-    result = GroundedRAGService(generator).answer(request)
-
-    assert result.status is VerificationStatus.REFUSED
-    assert result.attempts == 0
-    assert generator.requests == []
-    assert result.answer.claims == ()
-    assert "phiên bản hiện tại" in result.answer.limitations[0]
-    assert VerificationCode.HISTORICAL_SOURCE_UNAVAILABLE in _codes(
-        result.verification
-    )
-    assert VerificationCode.HISTORICAL_LIMITATION_MISSING not in _codes(
-        result.verification
-    )
-
-
 def test_current_law_refuses_unresolved_partial_provision_before_generation(monkeypatch):
     monkeypatch.setenv("LAWCHAT_FLAG_FAIL_CLOSED_PARTIAL", "true")
     partial = replace(
@@ -375,30 +351,6 @@ def test_current_law_allows_partial_provision_by_default():
     result = GroundedRAGService(generator).answer(_request(partial))
 
     assert result.status is VerificationStatus.VERIFIED
-
-
-def test_historical_claim_requires_version_identity_and_covering_interval():
-    missing_version = GroundingVerifier().verify(
-        _request(temporal_intent="historical"),
-        _answer(),
-    )
-    assert VerificationCode.HISTORICAL_VERSION_MISMATCH in _codes(missing_version)
-
-    evidence = _evidence()
-    evidence = replace(
-        evidence,
-        citation=replace(
-            evidence.citation,
-            version_id="version-1",
-            content_valid_from=date(2020, 1, 1),
-            content_valid_to=None,
-        ),
-    )
-    verified = GroundingVerifier().verify(
-        _request(evidence, temporal_intent="historical"),
-        _answer(),
-    )
-    assert verified.status is VerificationStatus.VERIFIED
 
 
 def test_empty_evidence_is_refused_without_calling_generator():

@@ -6,7 +6,7 @@ import os
 import re
 from contextlib import asynccontextmanager
 from contextlib import suppress
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import date
 from time import perf_counter
 from typing import Annotated, Any, Literal
@@ -60,12 +60,12 @@ from rag import (
     retrieve_issue_plan_async,
 )
 from retrieval import (
-    AmbiguousTemporalQuery,
-    LegalDataCutoffExceeded,
     LegalQueryParser,
     RetrievalRequest,
     RetrievalResponse,
+    UnsupportedAsOfDate,
 )
+from retrieval.query_parser import ensure_supported_as_of
 from retrieval.runtime import create_hybrid_retrieval_service
 from sources import (
     DocumentNotFoundError,
@@ -730,29 +730,6 @@ def ready() -> dict[str, str]:
                 f"alias {settings.alias!r} targets {alias_target!r}, "
                 f"expected {settings.collection!r}"
             )
-        if os.getenv("HISTORICAL_INDEX_ENABLED", "false").casefold() in {
-            "1", "true", "yes", "on"
-        }:
-            historical_alias = os.getenv(
-                "HISTORICAL_QDRANT_ALIAS", "legal_chunks_historical"
-            )
-            historical_collection = os.getenv(
-                "HISTORICAL_QDRANT_COLLECTION",
-                "legal_chunks_historical_bge_m3_1024_v1",
-            )
-            historical_target = next(
-                (
-                    item.collection_name
-                    for item in app.state.qdrant_client.get_aliases().aliases
-                    if item.alias_name == historical_alias
-                ),
-                None,
-            )
-            if historical_target != historical_collection:
-                raise RuntimeError(
-                    f"alias {historical_alias!r} targets {historical_target!r}, "
-                    f"expected {historical_collection!r}"
-                )
         if app.state.rag_runtime.llm_health is not None:
             app.state.rag_runtime.llm_health.check()
     except Exception as exc:
@@ -769,11 +746,15 @@ def ready() -> dict[str, str]:
 
 
 @app.post("/api/v1/search")
-def search(body: SearchBody, service: RetrievalServiceDependency):
-    _validate_candidate_limit(body)
+def search(
+    body: SearchBody,
+    service: RetrievalServiceDependency,
+    _admin: AdminUserDependency,
+):
+    _validate_body(body)
     try:
         response = service.retrieve(_to_retrieval_request(body))
-    except (AmbiguousTemporalQuery, LegalDataCutoffExceeded) as exc:
+    except UnsupportedAsOfDate as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     return jsonable_encoder(asdict(response))
 
@@ -1019,8 +1000,9 @@ async def answer(
     http_request: Request,
     retrieval_service: RetrievalServiceDependency,
     rag_runtime: RAGRuntimeDependency,
+    _admin: AdminUserDependency,
 ):
-    _validate_candidate_limit(body)
+    _validate_body(body)
     request_id = uuid4().hex
     started = perf_counter()
     pipeline_task = asyncio.create_task(
@@ -1053,7 +1035,7 @@ async def answer(
             queue_wait_seconds,
             processing_seconds,
         ) = await pipeline_task
-    except (AmbiguousTemporalQuery, LegalDataCutoffExceeded) as exc:
+    except UnsupportedAsOfDate as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except IssueDecompositionError as exc:
         log_event("rag_issue_decomposition_failed", request_id=request_id)
@@ -1230,7 +1212,7 @@ async def chat(
     rag_runtime: RAGRuntimeDependency,
 ):
     answer_body = _answer_body_from_chat(body)
-    _validate_candidate_limit(answer_body)
+    _validate_body(answer_body)
     # Check token quota before creating the user message
     # or running the RAG/LLM pipeline.
     session_factory = app.state.session_factory
@@ -1301,20 +1283,8 @@ async def chat(
             started=started,
         )
 
-        # GenerationResult is pipeline[3].
-        # Count actual prompt + completion tokens from all LLM calls.
-        tokens_used = _generation_token_usage(
-            pipeline[3],
-        )
-
-        # Add actual token usage to the user's monthly quota.
-        with session_factory() as db:
-            _add_user_token_usage(
-                db,
-                current_user.id,
-                tokens_used,
-            )
-            db.commit()
+        # Add actual token usage of every LLM call to the user's quota.
+        await run_in_threadpool(_record_token_usage, current_user.id, pipeline)
 
     except Exception as exc:
         log_event(
@@ -1377,7 +1347,7 @@ async def chat_stream(
     rag_runtime: RAGRuntimeDependency,
 ):
     answer_body = _answer_body_from_chat(body)
-    _validate_candidate_limit(answer_body)
+    _validate_body(answer_body)
 
     # Check token quota before creating the user message
     # or running the RAG/LLM pipeline.
@@ -1392,6 +1362,9 @@ async def chat_stream(
         request_id = uuid4().hex
         started = perf_counter()
         pipeline_task: asyncio.Task | None = None
+        # Only the request that created the user message may write its reply;
+        # a retry must never overwrite an answer that is already stored.
+        created = False
         try:
             try:
                 user_message, created = await run_in_threadpool(
@@ -1418,7 +1391,6 @@ async def chat_stream(
             if not created:
                 existing = await run_in_threadpool(
                     repository.find_assistant_reply,
-                    current_user.id,
                     body.conversation_id,
                     body.client_message_id,
                 )
@@ -1471,6 +1443,7 @@ async def chat_stream(
                 client_message_id=body.client_message_id,
                 payload=encoded_payload,
             )
+            await run_in_threadpool(_record_token_usage, current_user.id, pipeline)
 
             # Only verified/refused final text is exposed; provider drafts stay private.
             for delta in _answer_deltas(payload["answer"]):
@@ -1502,17 +1475,18 @@ async def chat_stream(
             failure = _failure_payload(
                 request_id, body.message, body.as_of, detail, error_code
             )
-            try:
-                await run_in_threadpool(
-                    repository.save_assistant_reply,
-                    current_user.id,
-                    workspace_id,
-                    body.conversation_id,
-                    client_message_id=body.client_message_id,
-                    payload=failure,
-                )
-            except Exception:
-                pass
+            if created:
+                try:
+                    await run_in_threadpool(
+                        repository.save_assistant_reply,
+                        current_user.id,
+                        workspace_id,
+                        body.conversation_id,
+                        client_message_id=body.client_message_id,
+                        payload=failure,
+                    )
+                except Exception:
+                    pass
             yield _sse("chat.failed", {
                 "request_id": request_id,
                 "code": error_code,
@@ -1678,8 +1652,8 @@ def _compact_payload_from_pipeline(
 
 
 def _pipeline_error(exc: Exception) -> tuple[int, str, str]:
-    if isinstance(exc, (AmbiguousTemporalQuery, LegalDataCutoffExceeded)):
-        return 422, str(exc), "INVALID_TEMPORAL_QUERY"
+    if isinstance(exc, UnsupportedAsOfDate):
+        return 422, str(exc), "UNSUPPORTED_AS_OF"
     if isinstance(exc, IssueDecompositionError):
         return 503, "Không thể phân tích đầy đủ các vấn đề trong câu hỏi.", "DECOMPOSITION_FAILED"
     if isinstance(exc, RAGQueueFullError):
@@ -1726,12 +1700,16 @@ def _answer_deltas(answer_text: str, max_chars: int = 180):
             yield paragraph[start:start + max_chars]
 
 
-def _validate_candidate_limit(body: SearchBody) -> None:
+def _validate_body(body: SearchBody) -> None:
     if body.candidate_limit < body.limit:
         raise HTTPException(
             status_code=422,
             detail="candidate_limit must be greater than or equal to limit",
         )
+    try:
+        ensure_supported_as_of(body.as_of)
+    except UnsupportedAsOfDate as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 def _to_retrieval_request(body: SearchBody, *, resolved_as_of: date | None = None) -> RetrievalRequest:
@@ -1791,18 +1769,15 @@ async def _execute_answer_pipeline(
         async with asyncio.timeout(
             rag_runtime.execution_gate.request_timeout_seconds
         ):
-            enriched_query = _enrich_with_history(body.query, history or [])
-            query_for_parse = enriched_query or body.query
-            parsed_original = LegalQueryParser().parse(query_for_parse, as_of=body.as_of)
-            resolved_as_of = (
-                parsed_original.as_of
-                if body.as_of is not None
-                or parsed_original.has_explicit_date
-                or os.getenv("LAWCHAT_LEGAL_CUTOFF_DATE")
-                else None
+            # Retrieval and decomposition see the follow-up resolved against
+            # the previous turn; the answer is still phrased for body.query.
+            retrieval_query = (
+                _enrich_with_history(body.query, history or []) or body.query
             )
-            base_request = _to_retrieval_request(
-                body, resolved_as_of=resolved_as_of
+            parsed_original = LegalQueryParser().parse(retrieval_query, as_of=body.as_of)
+            base_request = replace(
+                _to_retrieval_request(body, resolved_as_of=parsed_original.as_of),
+                query=retrieval_query,
             )
             if requires_case_specific_prediction_refusal(body.query):
                 _emit_pipeline_event(event_queue, "generation.started", {})
@@ -1842,7 +1817,7 @@ async def _execute_answer_pipeline(
             else:
                 try:
                     issue_plan = await rag_runtime.issue_decomposer.decompose_async(
-                        IssueDecompositionRequest(body.query)
+                        IssueDecompositionRequest(retrieval_query)
                     )
                 except asyncio.CancelledError:
                     raise
@@ -1894,7 +1869,10 @@ async def _execute_answer_pipeline(
             _emit_pipeline_event(event_queue, "verification.started", {})
             generation_started = perf_counter()
             result = await rag_runtime.generation_service.answer_async(
-                GenerationRequest.from_retrieval(retrieval, context),
+                replace(
+                    GenerationRequest.from_retrieval(retrieval, context),
+                    question=body.query,
+                ),
             )
             generation_seconds = perf_counter() - generation_started
             _emit_pipeline_event(event_queue, "verification.completed", {
@@ -1927,53 +1905,79 @@ def _emit_pipeline_event(
         queue.put_nowait((event, data))
 
 
-def _extract_history_entities(history: list[Any]) -> list[str]:
-    """Pull Điều/Khoản/Điểm references and document numbers from prior turns."""
-    pattern = re.compile(
-        r"(?:Điều|Khoản|Điểm)\s+(\d+[A-Za-zĐđ]?)|"
-        r"(\d{1,4}/\d{4}/[A-ZÀ-ỸĐ][A-ZÀ-ỸĐ0-9-]*)",
-        re.IGNORECASE,
-    )
-    entities: list[str] = []
-    for message in history:
-        content = getattr(message, "content", "") or ""
-        for match in pattern.finditer(content):
-            for group in match.groups():
-                if group and group not in entities:
-                    entities.append(group)
-    return entities[-5:]
+_FOLLOW_UP_MARKERS = (
+    "điều đó", "khoản đó", "điểm đó", "điều trên", "khoản trên", "điều này",
+    "khoản này", "nội dung trên", "văn bản đó", "văn bản này", "văn bản trên",
+    "luật đó", "luật này", "nghị định đó", "nghị định này", "quy định đó",
+    "quy định này", "quy định trên", "trường hợp đó", "trường hợp này",
+)
+_FOLLOW_UP_START_RE = re.compile(r"^\s*(?:vậy|thế|còn|nếu vậy|thế còn|vậy còn)\b", re.IGNORECASE)
+
+
+def _prior_turns(query: str, history: list[Any]) -> list[Any]:
+    """Return earlier turns only; list_messages() already holds the current one."""
+    turns = list(history)
+    if turns:
+        last = turns[-1]
+        if (
+            (getattr(last, "role", "") or "").lower() in {"user", "human"}
+            and (getattr(last, "content", "") or "").strip() == query.strip()
+        ):
+            turns.pop()
+    return turns
+
+
+def _extract_history_entities(history: list[Any]) -> tuple[list[str], list[str]]:
+    """Article and document references from the latest prior turn.
+
+    The latest user message wins; the assistant reply is only consulted when
+    that message names nothing, because answers usually cite many documents.
+    """
+    parser = LegalQueryParser()
+    for role_group in ({"user", "human"}, {"assistant"}):
+        for message in reversed(history[-2:]):
+            if (getattr(message, "role", "") or "").lower() not in role_group:
+                continue
+            content = (getattr(message, "content", "") or "").strip()
+            if not content:
+                continue
+            parsed = parser.parse(content[:2000])
+            if parsed.document_numbers or parsed.referenced_articles:
+                return (
+                    [f"Điều {item}" for item in parsed.referenced_articles[:2]],
+                    list(parsed.document_numbers[:2]),
+                )
+    return [], []
 
 
 def _enrich_with_history(query: str, history: list[Any]) -> str:
-    """Augment the current query using recent turns.
+    """Resolve a follow-up question against the previous turn for retrieval.
 
-    Legacy implementation (search ``qa_vague_marker_only``) only enriched
-    follow-ups that contained pronouns like "điều đó" or "khoản đó".
-    Audit fix W4 (Phase 3) adds an always-on path that appends the last
-    few entity references from history whenever there is any prior turn,
-    gated behind :data:`FeatureFlags.conversation_context_enabled`.
-
-    The legacy vague-marker behaviour is preserved for backwards
-    compatibility when the feature flag is off.
+    Returns "" when the question stands on its own. Only legal references
+    (Điều N, document numbers) are appended, never whole earlier messages,
+    so the dense query is not diluted. With
+    :data:`FeatureFlags.conversation_context_enabled` every question without
+    its own reference is enriched, not only explicit follow-ups.
     """
-    if not history:
+    prior = _prior_turns(query, history)
+    if not prior:
         return ""
-    flags = _feature_flags_or_default()
-    entities = _extract_history_entities(history)
-    last_user_message = _last_user_message_snippet(history)
-    if flags.conversation_context_enabled and entities:
-        parts = [query]
-        if last_user_message:
-            parts.append(f"Ngữ cảnh gần nhất: {last_user_message}")
-        parts.append(f"Thực thể đã đề cập: {', '.join(entities)}")
-        return " | ".join(parts)
-    if not entities:
+    folded = query.casefold()
+    is_follow_up = (
+        any(marker in folded for marker in _FOLLOW_UP_MARKERS)
+        or bool(_FOLLOW_UP_START_RE.search(query))
+    )
+    if not is_follow_up and not _feature_flags_or_default().conversation_context_enabled:
         return ""
-    vague_markers = ("điều đó", "khoản đó", "điều trên", "khoản trên",
-                     "nội dung trên", "văn bản đó", "thế thì", "vậy thì")
-    if not any(marker in query.casefold() for marker in vague_markers):
+    own = LegalQueryParser().parse(query)
+    articles, documents = _extract_history_entities(prior)
+    references = [
+        *([] if own.referenced_articles else articles),
+        *([] if own.document_numbers else documents),
+    ]
+    if not references:
         return ""
-    return f"{query} (tham chiếu: {', '.join(entities)})"
+    return f"{query} (tham chiếu: {', '.join(references)})"
 
 
 def _feature_flags_or_default():
@@ -1997,31 +2001,40 @@ def _feature_flags_or_default():
         return replace(load_feature_flags(), conversation_context_enabled=False)
 
 
-def _last_user_message_snippet(history: list[Any]) -> str:
-    for message in reversed(history):
-        role = getattr(message, "role", "") or ""
-        if role.lower() in {"user", "human"}:
-            content = (getattr(message, "content", "") or "").strip()
-            if content:
-                return content[:240]
-    return ""
-
 
 async def _wait_for_disconnect(request: Request) -> bool:
     while True:
         if await request.is_disconnected():
             return True
         await asyncio.sleep(0.1)
-def _generation_token_usage(result) -> int:
-    total = 0
+def _pipeline_token_usage(pipeline) -> int:
+    """Prompt + completion tokens of every LLM call made for one answer.
 
-    for telemetry in result.telemetry:
-        prompt_tokens = telemetry.prompt_tokens or 0
-        completion_tokens = telemetry.completion_tokens or 0
+    Covers issue decomposition, each generation attempt and each semantic
+    review (cache hits carry no telemetry).
+    """
+    issue_plan, _retrieval, _context, result = pipeline[:4]
+    telemetry_items = [
+        getattr(issue_plan, "telemetry", None),
+        *getattr(result, "telemetry", ()),
+        *(
+            observation.review.telemetry
+            for observation in getattr(result, "semantic_observations", ())
+        ),
+    ]
+    return sum(
+        (item.prompt_tokens or 0) + (item.completion_tokens or 0)
+        for item in telemetry_items
+        if item is not None
+    )
 
-        total += prompt_tokens + completion_tokens
 
-    return total
+def _record_token_usage(user_id: UUID, pipeline) -> None:
+    with app.state.session_factory() as db:
+        _add_user_token_usage(db, user_id, _pipeline_token_usage(pipeline))
+        db.commit()
+
+
 def _check_user_quota(
     db,
     user_id: UUID,

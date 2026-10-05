@@ -1,4 +1,5 @@
 import asyncio
+from types import SimpleNamespace
 from datetime import date
 
 import pytest
@@ -9,8 +10,10 @@ from api.main import (
     open_document_source,
     search,
 )
-from retrieval import AmbiguousTemporalQuery, RetrievalResponse
+from retrieval import RetrievalResponse, UnsupportedAsOfDate
 from sources import SourceResolution
+
+ADMIN = SimpleNamespace(role="ADMIN")
 
 
 class FakeService:
@@ -38,33 +41,36 @@ def test_search_endpoint_builds_temporal_retrieval_request():
     response = search(
         SearchBody(
             query="Quy định lao động",
-            as_of=date(2025, 1, 1),
             limit=5,
             candidate_limit=25,
             statuses=["EXPIRED"],
         ),
         service,
+        ADMIN,
     )
 
     assert service.request.statuses == ("EXPIRED",)
     assert service.request.limit == 5
+    assert service.request.as_of is None
     assert response["as_of"] == "2025-01-01"
 
 
-def test_search_endpoint_rejects_bad_candidate_limit_or_ambiguous_date():
+def test_search_endpoint_rejects_bad_candidate_limit_or_unsupported_as_of():
     with pytest.raises(HTTPException) as bad_limit:
         search(
             SearchBody(query="test", limit=10, candidate_limit=5),
             FakeService(),
+            ADMIN,
         )
     assert bad_limit.value.status_code == 422
 
-    with pytest.raises(HTTPException) as ambiguous:
+    with pytest.raises(HTTPException) as unsupported:
         search(
             SearchBody(query="test"),
-            FakeService(error=AmbiguousTemporalQuery("multiple dates")),
+            FakeService(error=UnsupportedAsOfDate("historical as_of")),
+            ADMIN,
         )
-    assert ambiguous.value.status_code == 422
+    assert unsupported.value.status_code == 422
 
 
 class FakeSourceResolutionService:
@@ -92,3 +98,13 @@ def test_open_document_source_accepts_external_id_and_uuid(document_id):
     assert response.headers["location"] == "https://example.test/full-text"
     assert response.headers["x-lawchat-source-resolution"] == "VERIFIED"
     assert service.document_id == document_id
+
+
+def test_search_endpoint_rejects_historical_as_of():
+    with pytest.raises(HTTPException) as historical:
+        search(
+            SearchBody(query="test", as_of=date(2015, 1, 1)),
+            FakeService(),
+            ADMIN,
+        )
+    assert historical.value.status_code == 422

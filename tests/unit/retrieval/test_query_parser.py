@@ -1,8 +1,6 @@
 from datetime import date
 
-import pytest
-
-from retrieval import AmbiguousTemporalQuery, LegalQueryParser
+from retrieval import LegalQueryParser
 
 
 def test_parser_extracts_vietnamese_date_document_and_structure():
@@ -12,30 +10,26 @@ def test_parser_extracts_vietnamese_date_document_and_structure():
         "Ngày 01/01/2025, Điều 36 khoản 2 Nghị định 123/2024/NĐ-CP áp dụng thế nào?"
     )
 
-    assert result.as_of == date(2025, 1, 1)
+    assert result.as_of == date(2030, 1, 1)
+    assert result.has_explicit_date
     assert result.document_numbers == ("123/2024/NĐ-CP",)
     assert result.referenced_articles == ("36",)
     assert result.referenced_clauses == ("2",)
     assert result.semantic_query == "áp dụng thế nào"
 
 
-def test_parser_defaults_to_injected_today_and_accepts_explicit_override():
+def test_parser_defaults_to_reference_date_and_accepts_explicit_as_of():
     parser = LegalQueryParser(today=lambda: date(2030, 1, 1))
 
     assert parser.parse("Quy định hiện hành").as_of == date(2030, 1, 1)
-    assert parser.parse(
-        "So sánh ngày 01/01/2020 và 01/01/2025",
-        as_of=date(2025, 1, 1),
-    ).as_of == date(2025, 1, 1)
+    assert parser.parse("Quy định", as_of=date(2029, 6, 1)).as_of == date(2029, 6, 1)
 
 
-def test_parser_rejects_ambiguous_or_invalid_dates():
-    parser = LegalQueryParser()
+def test_parser_tolerates_multiple_or_invalid_case_dates():
+    parser = LegalQueryParser(today=lambda: date(2030, 1, 1))
 
-    with pytest.raises(AmbiguousTemporalQuery, match="multiple dates"):
-        parser.parse("So sánh 01/01/2020 và 01/01/2025")
-    with pytest.raises(ValueError, match="invalid date"):
-        parser.parse("Quy định ngày 31/02/2025")
+    assert parser.parse("So sánh 01/01/2020 và 01/01/2025").as_of == date(2030, 1, 1)
+    assert parser.parse("Quy định ngày 31/02/2025").as_of == date(2030, 1, 1)
 
 
 def test_parser_removes_temporal_and_structural_boilerplate_for_retrieval():

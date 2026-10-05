@@ -27,9 +27,6 @@ class VerificationCode(str, Enum):
     GENERATION_TIMEOUT = "GENERATION_TIMEOUT"
     PROVIDER_UNAVAILABLE = "PROVIDER_UNAVAILABLE"
     INVALID_STRUCTURED_RESPONSE = "INVALID_STRUCTURED_RESPONSE"
-    HISTORICAL_SOURCE_UNAVAILABLE = "HISTORICAL_SOURCE_UNAVAILABLE"
-    HISTORICAL_LIMITATION_MISSING = "HISTORICAL_LIMITATION_MISSING"
-    HISTORICAL_VERSION_MISMATCH = "HISTORICAL_VERSION_MISMATCH"
     EMPTY_CLAIM = "EMPTY_CLAIM"
     MISSING_CLAIMS = "MISSING_CLAIMS"
     MISSING_CITATION = "MISSING_CITATION"
@@ -89,11 +86,6 @@ _PROVISION_PATTERNS = {
 _REFUSAL_RE = re.compile(
     r"\b(?:không đủ|thiếu)\s+(?:căn cứ|bằng chứng|dữ liệu)|"
     r"\bkhông thể (?:kết luận|trả lời|xác định)\b|\btừ chối\b",
-    re.IGNORECASE,
-)
-_HISTORICAL_DISCLOSURE_RE = re.compile(
-    r"(?:không|chưa|thiếu).{0,40}(?:nội dung|phiên bản|nguồn).{0,30}lịch sử|"
-    r"(?:nội dung|phiên bản)\s+hiện (?:tại|hành).{0,50}(?:lịch sử|thời điểm)",
     re.IGNORECASE,
 )
 _STATUS_PATTERNS: tuple[tuple[re.Pattern[str], frozenset[str]], ...] = (
@@ -207,20 +199,6 @@ class GroundingVerifier:
                     "Không có evidence để hỗ trợ câu trả lời.",
                 )
             ]
-            issues.extend(self._historical_disclosure_issues(request, answer))
-            return VerificationResult(VerificationStatus.REFUSED, tuple(issues))
-
-        if (
-            request.temporal_intent == "historical"
-            and not request.historical_content_available
-        ):
-            issues = [
-                VerificationIssue(
-                    VerificationCode.HISTORICAL_SOURCE_UNAVAILABLE,
-                    "Evidence không chứa nội dung lịch sử đúng thời điểm được hỏi.",
-                )
-            ]
-            issues.extend(self._historical_disclosure_issues(request, answer))
             return VerificationResult(VerificationStatus.REFUSED, tuple(issues))
 
         if _is_safe_refusal(answer):
@@ -327,8 +305,6 @@ class GroundingVerifier:
             )
 
         issues.extend(self._verify_issue_coverage_contract(request, answer))
-
-        issues.extend(self._historical_disclosure_issues(request, answer))
         return VerificationResult(
             VerificationStatus.REPAIR_REQUIRED if issues else VerificationStatus.VERIFIED,
             tuple(_deduplicate_issues(issues)),
@@ -466,24 +442,6 @@ class GroundingVerifier:
                         index,
                     )
                 )
-            if (
-                request.temporal_intent == "historical"
-                and evidence.evidence_id.startswith("E")
-            ):
-                flags = get_feature_flags()
-                if not _citation_covers_as_of(
-                    evidence.citation,
-                    request.as_of,
-                    require_current=flags.historical_version_check,
-                    require_effective_status=flags.historical_version_check,
-                ):
-                    issues.append(
-                        VerificationIssue(
-                            VerificationCode.HISTORICAL_VERSION_MISMATCH,
-                            f"{evidence.evidence_id} không định danh phiên bản nội dung hợp lệ tại as_of.",
-                            index,
-                        )
-                    )
 
         cited_numbers = {
             _normalize_identifier(item.citation.document_number)
@@ -557,26 +515,6 @@ class GroundingVerifier:
                 )
         return issues
 
-    def _historical_disclosure_issues(
-        self,
-        request: GenerationRequest,
-        answer: GeneratedAnswer,
-    ) -> list[VerificationIssue]:
-        limitation_required = (
-            request.temporal_intent == "historical"
-            and not request.historical_content_available
-        ) or any("historical" in warning.casefold() for warning in request.warnings)
-        if not limitation_required:
-            return []
-        limitations = " ".join(answer.limitations)
-        if _HISTORICAL_DISCLOSURE_RE.search(limitations):
-            return []
-        return [
-            VerificationIssue(
-                VerificationCode.HISTORICAL_LIMITATION_MISSING,
-                "Chưa công bố giới hạn về nội dung lịch sử.",
-            )
-        ]
 
 
 def _combined_text(answer: GeneratedAnswer) -> str:
@@ -625,37 +563,6 @@ def requires_case_specific_prediction_refusal(question: str) -> bool:
     return any(pattern.search(normalized) for pattern in _UNSUPPORTED_PREDICTION_PATTERNS)
 
 
-def _citation_covers_as_of(
-    citation,
-    as_of,
-    *,
-    require_current: bool = False,
-    require_effective_status: bool = False,
-) -> bool:
-    """Validate a citation's temporal coverage.
-
-    Audit fix E3 (Phase 1 hotfix) added ``require_current`` for historical
-    scope. Audit fix G6 (Phase 2) adds ``require_effective_status``: for
-    historical queries, the document-level ``EffectiveStatus`` row must
-    also cover ``as_of``. Without this, a historical lookup might cite a
-    document that was actually REPEALED at the requested date.
-    """
-    if not citation.version_id or citation.content_valid_from is None:
-        return False
-    if as_of < citation.content_valid_from:
-        return False
-    if citation.content_valid_to is not None and as_of >= citation.content_valid_to:
-        return False
-    if require_current and not getattr(citation, "is_current", False):
-        return False
-    if require_effective_status:
-        valid_from = getattr(citation, "document_valid_from", None)
-        valid_to = getattr(citation, "document_valid_to", None)
-        if valid_from is not None and as_of < valid_from:
-            return False
-        if valid_to is not None and as_of >= valid_to:
-            return False
-    return True
 
 
 def _document_numbers(text: str) -> tuple[str, ...]:

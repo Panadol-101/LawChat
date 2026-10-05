@@ -12,7 +12,9 @@ from retrieval import (
 
 
 def _decide(query: str, **request_options):
-    parser = LegalQueryParser(today=lambda: date(2026, 8, 31))
+    parser = LegalQueryParser(
+        today=lambda: date(2026, 8, 31), enforce_configured_cutoff=False
+    )
     request = RetrievalRequest(query=query, **request_options)
     parsed = parser.parse(query, as_of=request.as_of)
     return TemporalPolicy().decide(parsed, request)
@@ -43,17 +45,11 @@ def test_status_lookup_uses_all_statuses_and_is_not_misclassified_as_historical(
     assert decision.expand_replacements
 
 
-def test_historical_query_reports_current_index_limitation():
-    decision = _decide(
-        "Vào ngày 01/05/2015, quy định về nguyên tắc áp dụng là gì?",
-        as_of=date(2015, 5, 1),
-        statuses=("EFFECTIVE",),
-    )
+def test_dated_question_is_current_law_without_historical_warning():
+    decision = _decide("Vào ngày 01/05/2015, quy định về nguyên tắc áp dụng là gì?")
 
-    assert decision.intent is TemporalIntent.HISTORICAL
-    assert decision.allowed_statuses == ("EFFECTIVE",)
-    assert decision.historical_content_required
-    assert "current indexed document version" in decision.warnings[0]
+    assert decision.intent is TemporalIntent.CURRENT_LAW
+    assert decision.warnings == ()
 
 
 def test_explicit_current_wording_wins_over_date_for_current_snapshot_queries():
@@ -72,7 +68,6 @@ def test_resolved_current_intent_survives_decomposed_query_without_current_wordi
     )
 
     assert decision.intent is TemporalIntent.CURRENT_LAW
-    assert not decision.historical_content_required
 
 
 def test_explicit_status_override_wins_over_policy_defaults():
@@ -93,7 +88,9 @@ def test_all_15_expired_status_benchmark_queries_parse_as_exact_status_lookups()
     cases = [
         item for item in fixture["cases"] if item["category"] == "expired_status"
     ]
-    parser = LegalQueryParser(today=lambda: date(2026, 8, 31))
+    parser = LegalQueryParser(
+        today=lambda: date(2026, 8, 31), enforce_configured_cutoff=False
+    )
 
     assert len(cases) == 15
     for case in cases:

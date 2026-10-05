@@ -4,6 +4,7 @@ import re
 import time
 from dataclasses import replace
 from datetime import date
+from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
@@ -12,6 +13,7 @@ from api.main import (
     app,
     get_rag_runtime,
     get_retrieval_service,
+    require_admin,
 )
 from rag import (
     FakeLegalAnswerGenerator,
@@ -26,7 +28,6 @@ from rag import (
     SupportingQuote,
 )
 from retrieval import (
-    AmbiguousTemporalQuery,
     LegalCitation,
     RetrievalResponse,
     RetrievedLegalChunk,
@@ -35,6 +36,12 @@ from retrieval import (
 
 
 AS_OF = date(2026, 9, 1)
+
+
+@pytest.fixture(autouse=True)
+def _reference_date(monkeypatch):
+    # The API only accepts as_of equal to the data reference date.
+    monkeypatch.setenv("LAWCHAT_LEGAL_CUTOFF_DATE", AS_OF.isoformat())
 
 
 class WordCounter:
@@ -66,6 +73,7 @@ class FakeRetrievalService:
 @pytest.fixture(autouse=True)
 def clear_dependency_overrides():
     app.dependency_overrides.clear()
+    app.dependency_overrides[require_admin] = lambda: SimpleNamespace(role="ADMIN")
     yield
     app.dependency_overrides.clear()
 
@@ -235,24 +243,22 @@ def test_answer_endpoint_hides_provider_exception_and_fails_closed():
     assert secret not in response.text
 
 
-def test_answer_endpoint_rejects_bad_limits_and_ambiguous_dates():
-    retrieval = FakeRetrievalService(
-        error=AmbiguousTemporalQuery("multiple dates")
-    )
+def test_answer_endpoint_rejects_bad_limits_and_historical_as_of():
+    retrieval = FakeRetrievalService()
     client = _client(retrieval, FakeLegalAnswerGenerator([_answer()]))
 
     bad_limit = client.post(
         "/api/v1/answer",
         json={"query": "test", "limit": 10, "candidate_limit": 5},
     )
-    ambiguous = client.post(
+    historical = client.post(
         "/api/v1/answer",
-        json={"query": "ngày 01/01/2020 và ngày 01/01/2021"},
+        json={"query": "Quy định là gì?", "as_of": "2015-01-01"},
     )
 
     assert bad_limit.status_code == 422
-    assert ambiguous.status_code == 422
-    assert "multiple dates" in ambiguous.json()["detail"]
+    assert historical.status_code == 422
+    assert "pháp luật đang có hiệu lực" in historical.json()["detail"]
 
 
 def test_answer_endpoint_defaults_to_compact_typed_response():
@@ -335,7 +341,7 @@ def test_answer_endpoint_exposes_shadow_flag_and_review_usage():
 
 def test_answer_endpoint_decomposes_and_retrieves_every_legal_issue():
     class Decomposer:
-        async def generate_async(self, request):
+        async def decompose_async(self, request):
             return IssuePlan((
                 LegalIssue("I1", "Nghĩa vụ báo cáo?", "nghĩa vụ báo cáo"),
                 LegalIssue("I2", "Thời hạn báo cáo?", "thời hạn báo cáo"),

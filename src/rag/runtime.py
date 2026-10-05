@@ -38,7 +38,7 @@ class RAGRuntime:
         )
     )
     llm_health: LLMHealthClient | None = None
-    issue_decomposer: OpenAICompatibleIssueDecomposer | None = None
+    issue_decomposer: IssueDecomposer | None = None
 
 
 class RAGQueueFullError(RuntimeError):

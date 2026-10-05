@@ -23,8 +23,6 @@ class FeatureFlag(str, Enum):
 
     FAIL_CLOSED_PARTIAL = "fail_closed_partial"
     AMENDMENT_LOOKUP_ENABLED = "amendment_lookup_enabled"
-    HISTORICAL_VERSION_CHECK = "historical_version_check"
-    HISTORICAL_INDEX_ENABLED = "historical_index_enabled"
     BM25_VI_TOKENIZER = "bm25_vi_tokenizer"
     FIX_UNALIASED_SQL = "fix_unaliased_sql"
     FIX_COLUMN_ALIAS = "fix_column_alias"
@@ -79,10 +77,6 @@ class FeatureFlags:
     amendment_lookup_enabled: bool
     fast_amendment_fallback: bool
 
-    # E3 / G6: stricter historical version validity check.
-    historical_version_check: bool
-    historical_index_enabled: bool
-
     # Bug BM25 thiếu tokenizer tiếng Việt.
     bm25_vi_tokenizer: bool
 
@@ -132,8 +126,6 @@ def load_feature_flags() -> FeatureFlags:
         strict_partial_refusal=_env(FeatureFlag.STRICT_PARTIAL_REFUSAL, False),
         amendment_lookup_enabled=_env(FeatureFlag.AMENDMENT_LOOKUP_ENABLED, False),
         fast_amendment_fallback=_env(FeatureFlag.FAST_AMENDMENT_FALLBACK, True),
-        historical_version_check=_env(FeatureFlag.HISTORICAL_VERSION_CHECK, False),
-        historical_index_enabled=_env(FeatureFlag.HISTORICAL_INDEX_ENABLED, False),
         bm25_vi_tokenizer=_env(FeatureFlag.BM25_VI_TOKENIZER, False),
         fix_unaliased_sql=_env(FeatureFlag.FIX_UNALIASED_SQL, True),
         fix_column_alias=_env(FeatureFlag.FIX_COLUMN_ALIAS, True),

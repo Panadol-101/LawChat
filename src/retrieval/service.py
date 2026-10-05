@@ -45,8 +45,6 @@ class LegalRetrievalService:
         query_parser: LegalQueryParser | None = None,
         context_builder: LegalContextBuilder | None = None,
         temporal_policy: TemporalPolicy | None = None,
-        content_scope: str = "current",
-        historical_content_enabled: bool = False,
     ) -> None:
         self.searcher = searcher
         self.hydrator = hydrator
@@ -54,8 +52,6 @@ class LegalRetrievalService:
         self.query_parser = query_parser or LegalQueryParser()
         self.context_builder = context_builder or LegalContextBuilder()
         self.temporal_policy = temporal_policy or TemporalPolicy()
-        self.content_scope = content_scope
-        self.historical_content_enabled = historical_content_enabled
 
     def retrieve(self, request: RetrievalRequest) -> RetrievalResponse:
         parsed = self.query_parser.parse(request.query, as_of=request.as_of)
@@ -71,7 +67,6 @@ class LegalRetrievalService:
             document_types=request.document_types,
             authorities=request.authorities,
             legal_fields=request.legal_fields,
-            content_scope=self.content_scope,
             temporal_intent=temporal.intent.value,
         )
         # Status is deliberately not filtered from Qdrant. Its payload stores a
@@ -81,9 +76,6 @@ class LegalRetrievalService:
             document_types=request.document_types,
             authorities=request.authorities,
             legal_fields=request.legal_fields,
-            content_as_of=(
-                parsed.as_of if self.content_scope == "historical" else None
-            ),
         )
 
         candidate_limit = request.candidate_limit
@@ -134,10 +126,6 @@ class LegalRetrievalService:
             warnings=warnings,
             temporal_intent=temporal.intent.value,
             temporal_explicit_as_of=temporal.explicit_as_of,
-            historical_content_available=(
-                not temporal.historical_content_required
-                or (self.historical_content_enabled and bool(hydrated))
-            ),
         )
 
     def _to_result(
@@ -153,11 +141,7 @@ class LegalRetrievalService:
             article=chunk.article,
             clause=chunk.clause,
             point=chunk.point,
-            source_url=(
-                chunk.version_source_url
-                if self.content_scope == "historical" and chunk.version_source_url
-                else chunk.source_url
-            ),
+            source_url=chunk.source_url,
             as_of=as_of,
             status=chunk.status,
             status_scope=chunk.status_scope,

@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import os
 from dataclasses import dataclass
-from typing import Protocol, Sequence
+from typing import Any, Protocol, Sequence
 
 from .models import HydratedLegalChunk
 
@@ -11,40 +11,51 @@ from .models import HydratedLegalChunk
 DEFAULT_RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
 
-# Common Vietnamese legal-jargon variants mapped to canonical phrases used in
-# the corpus. Keeps the rewrite deterministic and bypass-free; full LLM-based
-# rewriting is deferred to a later phase.
-LEGAL_SYNONYMS: tuple[tuple[str, str], ...] = (
-    (r"\bngh[ỉi]\s+vi[ệe]c\b", "chấm dứt hợp đồng lao động"),
-    (r"\bngh[ỉi]\s+ph[éé]p\b", "nghỉ hưởng lương"),
-    (r"\bth[ôo]i\s+vi[ệe]c\b", "thôi việc theo thỏa ước"),
-    (r"\b[đd]ơn\s+ph[ưu]ng\b", "đơn phương chấm dứt hợp đồng lao động"),
-    (r"\bsa\s+th[ảa]i\b", "sa thải người lao động"),
-    (r"\bkh[óo]i\s+ki[ệe]n\b", "khởi kiện vụ án"),
-    (r"\b[đd]ình\s+c[ôo]ng\b", "ngừng việc tập thể"),
+# Colloquial phrases mapped to the statutory term used in the corpus, plus an
+# optional context pattern that must also match. Expansions are appended to
+# the query, never substituted, so the user's own wording is still searched.
+LEGAL_SYNONYMS: tuple[tuple[str, str, str | None], ...] = (
+    (r"\bngh[ỉi]\s+vi[ệe]c\b(?!\s+(?:riêng|không\s+lương))", "chấm dứt hợp đồng lao động", None),
+    (r"\bngh[ỉi]\s+ph[ée]p\b", "nghỉ hằng năm", None),
+    (r"\bth[ôo]i\s+vi[ệe]c\b", "trợ cấp thôi việc", None),
+    (
+        r"\b[đd]ơn\s+ph[ưu]ơng\b",
+        "đơn phương chấm dứt hợp đồng lao động",
+        r"\b(?:hợp\s+đồng\s+lao\s+động|người\s+lao\s+động|người\s+sử\s+dụng\s+lao\s+động|"
+        r"công\s+ty|doanh\s+nghiệp|nghỉ\s+việc|làm\s+việc)\b",
+    ),
+    (r"\bsa\s+th[ảa]i\b", "kỷ luật lao động sa thải", None),
+    (r"\bkh[ởo]i\s+ki[ệe]n\b", "khởi kiện vụ án", None),
 )
 
 
 class SemanticQueryRewriter:
-    """Lightweight, deterministic legal-jargon normalization.
+    """Lightweight, deterministic legal-jargon expansion.
 
-    The legacy implementation only swaps a fixed set of colloquial phrases
-    for canonical legal terms. Audit fix W1 (Phase 3) keeps the legacy
-    behaviour for backwards compatibility and adds :meth:`rewrite_variants`
-    which returns a list of paraphrased queries. The caller can then
-    route each variant through hybrid retrieval and merge via RRF.
+    Appends canonical statutory terms for known colloquial phrases. Audit fix
+    W1 (Phase 3) adds :meth:`rewrite_variants` which returns a list of
+    paraphrased queries the caller can route through hybrid retrieval and
+    merge via RRF.
     """
 
     def rewrite(self, query: str) -> str:
-        rewritten = query
-        for pattern, replacement in LEGAL_SYNONYMS:
-            rewritten = re.sub(
-                pattern,
-                replacement,
-                rewritten,
-                flags=re.IGNORECASE,
-            )
-        return rewritten
+        folded = query.casefold()
+        expansions: list[str] = []
+        for pattern, expansion, context in LEGAL_SYNONYMS:
+            if not re.search(pattern, query, flags=re.IGNORECASE):
+                continue
+            if context is not None and not re.search(context, query, flags=re.IGNORECASE):
+                continue
+            if expansion.casefold() in folded or expansion in expansions:
+                continue
+            expansions.append(expansion)
+        expansions = [
+            item for item in expansions
+            if not any(item != other and item in other for other in expansions)
+        ]
+        if not expansions:
+            return query
+        return f"{query} ({'; '.join(expansions)})"
 
     def rewrite_variants(
         self,
@@ -117,6 +128,8 @@ class RerankerSettings:
     device: str = "cpu"
     local_files_only: bool = False
     use_fp16: bool = False
+    # Upper bound for one cross-encoder call; on expiry the RRF order is used.
+    timeout_seconds: float = 60.0
 
     def __post_init__(self) -> None:
         if self.candidate_limit <= 0:
@@ -125,6 +138,8 @@ class RerankerSettings:
             raise ValueError("reranker batch_size must be > 0")
         if self.max_length <= 2:
             raise ValueError("reranker max_length must be > 2")
+        if self.timeout_seconds <= 0:
+            raise ValueError("reranker timeout_seconds must be > 0")
 
     @classmethod
     def from_env(cls) -> "RerankerSettings":
@@ -146,6 +161,7 @@ class RerankerSettings:
             ),
             device=device,
             use_fp16=use_fp16,
+            timeout_seconds=float(os.getenv("RERANKER_TIMEOUT_SECONDS", "60")),
             local_files_only=(
                 os.getenv("RERANKER_LOCAL_FILES_ONLY", "false").casefold()
                 in {"1", "true", "yes", "on"}

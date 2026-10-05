@@ -1,3 +1,4 @@
+import json
 from datetime import date
 
 import pytest
@@ -12,13 +13,14 @@ from rag import (
 )
 from retrieval import (
     LegalCitation,
-    LegalDataCutoffExceeded,
     LegalIssue,
     LegalQueryParser,
     RetrievalRequest,
     RetrievalResponse,
     RetrievedLegalChunk,
+    UnsupportedAsOfDate,
 )
+from retrieval.query_parser import ensure_supported_as_of
 
 
 def _decomposer(content):
@@ -136,15 +138,16 @@ def test_single_issue_retrieval_uses_original_query_without_llm_rewrite():
     assert response.retrieval_trace == {"base": ("base",)}
 
 
-def test_cutoff_is_default_and_dates_after_cutoff_are_rejected(monkeypatch):
+def test_reference_date_is_cutoff_and_other_as_of_dates_are_rejected(monkeypatch):
     monkeypatch.setenv("LAWCHAT_LEGAL_CUTOFF_DATE", "2026-07-31")
-    parser = LegalQueryParser(today=lambda: date(2099, 1, 1))
+    parser = LegalQueryParser()
     assert parser.parse("Quy định là gì?").as_of == date(2026, 7, 31)
-    assert parser.parse("Tại ngày 30/07/2026 quy định là gì?").as_of == date(2026, 7, 30)
-    with pytest.raises(LegalDataCutoffExceeded, match="31/07/2026"):
-        parser.parse("Tại ngày 01/08/2026 quy định là gì?")
-    with pytest.raises(LegalDataCutoffExceeded):
-        parser.parse("Quy định là gì?", as_of=date(2026, 8, 1))
+    # A date in the question is a case fact, not a request for historical law.
+    assert parser.parse("Tại ngày 30/07/2015 quy định là gì?").as_of == date(2026, 7, 31)
+    ensure_supported_as_of(None)
+    ensure_supported_as_of(date(2026, 7, 31))
+    with pytest.raises(UnsupportedAsOfDate, match="31/07/2026"):
+        ensure_supported_as_of(date(2015, 1, 1))
 
 
 def test_versioned_benchmark_parser_can_ignore_serving_cutoff(monkeypatch):
@@ -157,3 +160,53 @@ def test_versioned_benchmark_parser_can_ignore_serving_cutoff(monkeypatch):
     parsed = parser.parse("Quy định là gì?", as_of=date(2026, 8, 30))
 
     assert parsed.as_of == date(2026, 8, 30)
+
+
+def test_single_issue_heuristic_handles_law_names_and_conditional_clauses():
+    from rag.issues import _looks_single_issue
+
+    assert _looks_single_issue("Đánh bạc trên không gian mạng bị xử phạt thế nào?")
+    assert _looks_single_issue("Luật Hôn nhân và gia đình quy định tuổi kết hôn ra sao?")
+    assert not _looks_single_issue(
+        "Công ty nợ lương 3 tháng, tôi nghỉ ngang có phải bồi thường không?"
+    )
+    assert not _looks_single_issue("Nếu bị sa thải trái luật thì được bồi thường gì?")
+
+
+def test_shared_context_is_carried_into_every_issue_search_query():
+    plan = _decomposer(json.dumps({
+        "shared_context": "hợp đồng lao động 2 năm bị chấm dứt trước hạn",
+        "issues": [
+            {"issue_id": "I1", "question": "Bồi thường?", "search_query": "bồi thường khi chấm dứt trái luật"},
+            {"issue_id": "I2", "question": "Trợ cấp?", "search_query": "điều kiện hưởng trợ cấp thất nghiệp"},
+        ],
+    }, ensure_ascii=False)).generate(IssueDecompositionRequest("q"))
+
+    assert all(
+        "hợp đồng lao động 2 năm bị chấm dứt trước hạn" in issue.search_query
+        for issue in plan.issues
+    )
+
+
+def test_facade_accepts_single_issue_plan_and_degrades_on_errors():
+    import asyncio
+
+    from rag.issues import IssueDecomposer
+
+    class OneIssue:
+        calls = 0
+
+        async def generate_async(self, request):
+            OneIssue.calls += 1
+            return IssuePlan((LegalIssue("I1", request.question, request.question),))
+
+    class Broken:
+        async def generate_async(self, request):
+            raise InvalidStructuredResponseError("bad json")
+
+    question = "Nếu bị sa thải trái luật thì được bồi thường gì?"
+    plan = asyncio.run(IssueDecomposer(OneIssue()).decompose_async(IssueDecompositionRequest(question)))
+    assert len(plan.issues) == 1 and OneIssue.calls == 1
+
+    fallback = asyncio.run(IssueDecomposer(Broken()).decompose_async(IssueDecompositionRequest(question)))
+    assert [issue.search_query for issue in fallback.issues] == [question]

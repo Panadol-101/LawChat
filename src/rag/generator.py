@@ -259,7 +259,6 @@ class GenerationRequest:
     context: PackedContext
     as_of: date
     temporal_intent: str = "current_law"
-    historical_content_available: bool = True
     warnings: tuple[str, ...] = ()
     previous_answer: GeneratedAnswer | None = None
     repair_instructions: tuple[str, ...] = ()
@@ -282,7 +281,6 @@ class GenerationRequest:
             context=context,
             as_of=response.as_of,
             temporal_intent=response.temporal_intent,
-            historical_content_available=response.historical_content_available,
             warnings=response.warnings,
             issues=response.legal_issues,
         )

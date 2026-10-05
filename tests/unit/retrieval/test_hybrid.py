@@ -401,3 +401,72 @@ def test_hybrid_service_falls_back_to_rrf_when_reranker_fails():
 
     assert [item.point_id for item in response.results] == ["b", "a"]
     assert any("reranker failed" in item for item in response.warnings)
+
+
+class SlowReranker:
+    def rerank(self, query, chunks):
+        import time
+
+        time.sleep(0.5)
+        return ReverseReranker().rerank(query, chunks)
+
+
+def test_hybrid_service_falls_back_to_rrf_when_reranker_times_out():
+    service = HybridRetrievalService(
+        FakeDense(),
+        FakeSparse(),
+        FakeHydrator(),
+        reranker=SlowReranker(),
+        reranker_settings=RerankerSettings(candidate_limit=2, timeout_seconds=0.05),
+        query_parser=LegalQueryParser(today=lambda: date(2025, 1, 1)),
+    )
+
+    response = service.retrieve(
+        RetrievalRequest(query="quy định giao thông", limit=2, candidate_limit=2)
+    )
+
+    assert response.reranker_status == "timeout"
+    assert [item.point_id for item in response.results] == ["b", "a"]
+
+
+class FakeMixedSeedResolver:
+    def resolve_seeds(self, document_numbers, *, as_of, query, preferred_statuses=()):
+        return tuple(
+            SeedResolution(
+                LegalGraphDocument(
+                    document_id=document_id,
+                    document_number=number,
+                    title=document_id,
+                    status=status,
+                    role="queried_document",
+                ),
+                score=105.0,
+                matched_fields=("document_number",),
+            )
+            for document_id, number, status in (
+                ("old-code", "10/2012/QH13", "EXPIRED"),
+                ("current-code", "45/2019/QH14", "PARTIALLY_EFFECTIVE"),
+            )
+        )
+
+
+def test_replacement_expansion_keeps_in_force_seed_documents():
+    dense = FakeDense()
+    service = HybridRetrievalService(
+        dense,
+        FakeSparse(),
+        FakeHydrator(),
+        graph_resolver=FakeStatusGraph(),
+        seed_resolver=FakeMixedSeedResolver(),
+        query_parser=LegalQueryParser(today=lambda: date(2026, 8, 27)),
+    )
+
+    service.retrieve(
+        RetrievalRequest(
+            query="BLLĐ 2012 quy định thời giờ làm việc thế nào?",
+            limit=1,
+            candidate_limit=2,
+        )
+    )
+
+    assert dense.filters.doc_ids == ("current-code", "current-target")

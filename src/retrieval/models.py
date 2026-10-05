@@ -62,7 +62,7 @@ class RetrievalRequest:
         if unknown:
             raise ValueError(f"Unknown legal statuses: {sorted(unknown)}")
         if self.resolved_temporal_intent not in {
-            None, "current_law", "status_lookup", "historical"
+            None, "current_law", "status_lookup"
         }:
             raise ValueError("invalid resolved_temporal_intent")
 
@@ -79,6 +79,7 @@ class ParsedLegalQuery:
     relationship_types: tuple[str, ...] = ()
     relationship_direction: str | None = None
     has_explicit_date: bool = False
+    semantic_variants: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -175,7 +176,6 @@ class RetrievalResponse:
     warnings: tuple[str, ...] = ()
     temporal_intent: str = "current_law"
     temporal_explicit_as_of: bool = False
-    historical_content_available: bool = True
     seed_documents: tuple[LegalGraphDocument, ...] = ()
     seed_resolutions: tuple[SeedResolution, ...] = ()
     status_resolution: DocumentStatusResolution | None = None
