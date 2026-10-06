@@ -1,8 +1,9 @@
 """Admin login helper for scripts that call admin-only API endpoints.
 
 /api/v1/answer and /api/v1/search require an administrator session. Set
-LAWCHAT_ADMIN_USERNAME and LAWCHAT_ADMIN_PASSWORD in the environment; the
-password is never read from or written to a file by these scripts.
+LAWCHAT_ADMIN_USERNAME, LAWCHAT_ADMIN_PASSWORD and LAWCHAT_ADMIN_TOTP_SECRET
+(from scripts/enroll_admin_totp.py) in the environment; these secrets are never
+read from or written to a file by these scripts.
 """
 from __future__ import annotations
 
@@ -20,6 +21,23 @@ def base_url_of(endpoint_url: str) -> str:
     return endpoint_url.split("/api/", 1)[0].rstrip("/")
 
 
+def _post(url: str, body: dict) -> tuple[dict, list[str]]:
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(body).encode(),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return (
+                json.loads(response.read() or b"{}"),
+                response.headers.get_all("Set-Cookie") or [],
+            )
+    except urllib.error.HTTPError as exc:
+        raise SystemExit(f"Admin login failed: HTTP {exc.code}") from exc
+
+
 def admin_cookies(base_url: str) -> dict[str, str]:
     username = os.getenv("LAWCHAT_ADMIN_USERNAME")
     password = os.getenv("LAWCHAT_ADMIN_PASSWORD")
@@ -28,17 +46,23 @@ def admin_cookies(base_url: str) -> dict[str, str]:
             "Set LAWCHAT_ADMIN_USERNAME and LAWCHAT_ADMIN_PASSWORD: "
             "/api/v1/answer and /api/v1/search are admin-only."
         )
-    request = urllib.request.Request(
-        base_url.rstrip("/") + "/api/v1/auth/login",
-        data=json.dumps({"username": username, "password": password}).encode(),
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            headers = response.headers.get_all("Set-Cookie") or []
-    except urllib.error.HTTPError as exc:
-        raise SystemExit(f"Admin login failed: HTTP {exc.code}") from exc
+    base_url = base_url.rstrip("/")
+    credentials = {"username": username, "password": password}
+    payload, headers = _post(base_url + "/api/v1/auth/login", credentials)
+    if payload.get("requires_totp"):
+        # ADMIN accounts always need a second factor.
+        secret = os.getenv("LAWCHAT_ADMIN_TOTP_SECRET")
+        if not secret:
+            raise SystemExit(
+                "Set LAWCHAT_ADMIN_TOTP_SECRET (printed by scripts/enroll_admin_totp.py): "
+                "administrator login requires TOTP."
+            )
+        import pyotp
+
+        _payload, headers = _post(
+            base_url + "/api/v1/auth/totp",
+            {**credentials, "code": pyotp.TOTP(secret).now()},
+        )
     for header in headers:
         cookie = SimpleCookie(header)
         if SESSION_COOKIE in cookie:

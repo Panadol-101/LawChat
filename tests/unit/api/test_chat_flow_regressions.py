@@ -181,7 +181,8 @@ def test_stream_retry_of_known_message_does_not_crash_or_overwrite(monkeypatch):
     def _session():
         yield None
 
-    monkeypatch.setattr(main, "_check_user_quota", lambda db, user_id: None)
+    monkeypatch.setattr(main, "_reserve_quota", lambda user_id: 8000)
+    monkeypatch.setattr(main, "settle_tokens", lambda *args, **kwargs: None)
     monkeypatch.setattr(main.app.state, "session_factory", _session, raising=False)
     repository = _ReplayRepository()
 

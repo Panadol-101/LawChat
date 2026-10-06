@@ -22,6 +22,7 @@ from fastapi import (
     Request,
     Response,
 )
+import anyio
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -36,6 +37,7 @@ from database import (
     create_db_engine,
     create_session_factory,
 )
+from auth.rate_limit import LoginRateLimiter
 from auth.service import (
     authenticate_user,
     create_session,
@@ -101,6 +103,13 @@ from .schemas import (
     AdminUsageUpdateRequest,
 )
 from .logging import configure_logging, log_event
+from .quota import (
+    QuotaExceededError,
+    QuotaNotFoundError,
+    reserve_amount,
+    reserve_tokens,
+    settle_tokens,
+)
 
 
 class SearchBody(BaseModel):
@@ -187,6 +196,40 @@ def get_chat_repository() -> ChatRepository:
 def get_source_resolution_service() -> SourceResolutionService:
     return app.state.source_resolution_service
 
+TOTP_ENROLLMENT_REQUIRED = (
+    "TOTP enrollment required for administrator accounts; "
+    "run scripts/enroll_admin_totp.py"
+)
+login_rate_limiter = LoginRateLimiter.from_env()
+
+
+def _check_login_rate_limit(request: Request, username: str) -> tuple[str, ...]:
+    keys = login_rate_limiter.keys(
+        request.client.host if request.client else None, username
+    )
+    retry_after = login_rate_limiter.retry_after(keys)
+    if retry_after:
+        raise HTTPException(
+            status_code=429,
+            detail="Too many failed login attempts; try again later",
+            headers={"Retry-After": str(retry_after)},
+        )
+    return keys
+
+
+def _record_login_failure(
+    db, request: Request, keys: tuple[str, ...], *, user_id: UUID | None = None
+) -> None:
+    if login_rate_limiter.record_failure(keys):
+        write_audit_log(
+            db,
+            event="login_locked",
+            user_id=user_id,
+            ip_address=request.client.host if request.client else None,
+            user_agent=request.headers.get("user-agent"),
+        )
+
+
 def get_current_user(
     request: Request,
 ) -> Any:
@@ -222,6 +265,12 @@ def require_admin(
         raise HTTPException(
             status_code=403,
             detail="Administrator privileges required",
+        )
+    # Sessions issued before TOTP became mandatory for ADMIN carry no second factor.
+    if not (user.totp_enabled and user.totp_secret):
+        raise HTTPException(
+            status_code=403,
+            detail=TOTP_ENROLLMENT_REQUIRED,
         )
 
     return user
@@ -445,6 +494,7 @@ def auth_login(
     response: Response,
 ):
     session_factory = app.state.session_factory
+    limiter_keys = _check_login_rate_limit(request, body.username)
 
     with session_factory() as db:
         user = authenticate_user(
@@ -460,6 +510,7 @@ def auth_login(
                 ip_address=request.client.host if request.client else None,
                 user_agent=request.headers.get("user-agent"),
             )
+            _record_login_failure(db, request, limiter_keys)
 
             raise HTTPException(
                 status_code=401,
@@ -474,8 +525,13 @@ def auth_login(
             user_agent=request.headers.get("user-agent"),
         )
 
-        # ADMIN: password verified, but TOTP is still required.
-        if user.totp_enabled:
+        # ADMIN: password verified, but TOTP is always required.
+        if user.role == "ADMIN" or user.totp_enabled:
+            if not (user.totp_enabled and user.totp_secret):
+                raise HTTPException(
+                    status_code=403,
+                    detail=TOTP_ENROLLMENT_REQUIRED,
+                )
             return LoginResponse(
                 requires_totp=True,
                 message="Password verified. TOTP required.",
@@ -501,6 +557,7 @@ def auth_login(
             ip_address=request.client.host if request.client else None,
             user_agent=request.headers.get("user-agent"),
         )
+        login_rate_limiter.record_success(body.username)
 
         return LoginResponse(
             requires_totp=False,
@@ -517,6 +574,7 @@ def auth_totp(
     response: Response,
 ):
     session_factory = app.state.session_factory
+    limiter_keys = _check_login_rate_limit(request, body.username)
 
     with session_factory() as db:
         # Step 1: verify username + password again
@@ -533,14 +591,15 @@ def auth_totp(
                 ip_address=request.client.host if request.client else None,
                 user_agent=request.headers.get("user-agent"),
             )
+            _record_login_failure(db, request, limiter_keys)
 
             raise HTTPException(
                 status_code=401,
                 detail="Invalid username or password",
             )
 
-        # Step 2: verify TOTP
-        if not verify_user_totp(user, body.code):
+        # Step 2: verify TOTP (a code is accepted at most once)
+        if not verify_user_totp(db, user, body.code):
             write_audit_log(
                 db,
                 event="totp_failed",
@@ -548,6 +607,7 @@ def auth_totp(
                 ip_address=request.client.host if request.client else None,
                 user_agent=request.headers.get("user-agent"),
             )
+            _record_login_failure(db, request, limiter_keys, user_id=user.id)
 
             raise HTTPException(
                 status_code=401,
@@ -574,6 +634,7 @@ def auth_totp(
             ip_address=request.client.host if request.client else None,
             user_agent=request.headers.get("user-agent"),
         )
+        login_rate_limiter.record_success(body.username)
 
         return UserResponse(
             id=user.id,
@@ -1220,15 +1281,23 @@ async def chat(
 ):
     answer_body = _answer_body_from_chat(body)
     _validate_body(answer_body)
-    # Check token quota before creating the user message
-    # or running the RAG/LLM pipeline.
-    session_factory = app.state.session_factory
-
-    with session_factory() as db:
-        _check_user_quota(
-            db,
-            current_user.id,
+    # Reserve token quota before creating the user message or running the
+    # RAG/LLM pipeline; the reservation is settled in ``finally``.
+    reserved = await run_in_threadpool(_reserve_quota, current_user.id)
+    usage = {"actual": 0}
+    try:
+        return await _chat_reserved(
+            current_user, body, answer_body, repository, workspace_id,
+            retrieval_service, rag_runtime, usage,
         )
+    finally:
+        await _settle_quota(current_user.id, reserved, usage["actual"])
+
+
+async def _chat_reserved(
+    current_user, body, answer_body, repository, workspace_id,
+    retrieval_service, rag_runtime, usage: dict[str, Any],
+):
     try:
         user_message, created = await run_in_threadpool(
             repository.create_user_message,
@@ -1267,6 +1336,8 @@ async def chat(
 
     request_id = uuid4().hex
     started = perf_counter()
+    # From here on LLM calls may run: a failure keeps the whole reservation.
+    usage["actual"] = _RESERVATION_KEPT
 
     try:
         history = await run_in_threadpool(
@@ -1290,8 +1361,8 @@ async def chat(
             started=started,
         )
 
-        # Add actual token usage of every LLM call to the user's quota.
-        await run_in_threadpool(_record_token_usage, current_user.id, pipeline)
+        # Charge the actual token usage of every LLM call.
+        usage["actual"] = _pipeline_token_usage(pipeline)
 
     except Exception as exc:
         log_event(
@@ -1356,19 +1427,15 @@ async def chat_stream(
     answer_body = _answer_body_from_chat(body)
     _validate_body(answer_body)
 
-    # Check token quota before creating the user message
-    # or running the RAG/LLM pipeline.
-    session_factory = app.state.session_factory
+    # Reserve token quota before creating the user message or running the
+    # RAG/LLM pipeline; the reservation is settled when the stream ends.
+    reserved = await run_in_threadpool(_reserve_quota, current_user.id)
 
-    with session_factory() as db:
-        _check_user_quota(
-            db,
-            current_user.id,
-        )
     async def events():
         request_id = uuid4().hex
         started = perf_counter()
         pipeline_task: asyncio.Task | None = None
+        actual_tokens = 0
         # Only the request that created the user message may write its reply;
         # a retry must never overwrite an answer that is already stored.
         created = False
@@ -1423,6 +1490,9 @@ async def chat_stream(
                 workspace_id,
                 body.conversation_id,
             )
+            # From here on LLM calls may run: a failure or disconnect keeps
+            # the whole reservation.
+            actual_tokens = _RESERVATION_KEPT
             pipeline_task = asyncio.create_task(_execute_answer_pipeline(
                 answer_body, retrieval_service, rag_runtime,
                 event_queue=event_queue,
@@ -1438,6 +1508,7 @@ async def chat_stream(
                 except TimeoutError:
                     yield ": keep-alive\n\n"
             pipeline = await pipeline_task
+            actual_tokens = _pipeline_token_usage(pipeline)
             payload = _compact_payload_from_pipeline(
                 answer_body, pipeline, request_id=request_id, started=started
             )
@@ -1450,7 +1521,6 @@ async def chat_stream(
                 client_message_id=body.client_message_id,
                 payload=encoded_payload,
             )
-            await run_in_threadpool(_record_token_usage, current_user.id, pipeline)
 
             # Only verified/refused final text is exposed; provider drafts stay private.
             for delta in _answer_deltas(payload["answer"]):
@@ -1503,6 +1573,7 @@ async def chat_stream(
         finally:
             if pipeline_task is not None and not pipeline_task.done():
                 pipeline_task.cancel()
+            await _settle_quota(current_user.id, reserved, actual_tokens)
 
     return StreamingResponse(
         events(),
@@ -2078,69 +2149,37 @@ def _pipeline_token_usage(pipeline) -> int:
     )
 
 
-def _record_token_usage(user_id: UUID, pipeline) -> None:
+# Sentinel for "LLM calls may have run but their usage is unknown": the
+# reservation is charged in full so failed or aborted runs are not free.
+_RESERVATION_KEPT: Any = object()
+
+
+def _reserve_quota(user_id: UUID) -> int:
     with app.state.session_factory() as db:
-        _add_user_token_usage(db, user_id, _pipeline_token_usage(pipeline))
-        db.commit()
+        try:
+            return reserve_tokens(db, user_id, reserve_amount())
+        except QuotaNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except QuotaExceededError as exc:
+            raise HTTPException(status_code=429, detail=str(exc)) from exc
 
 
-def _check_user_quota(
-    db,
-    user_id: UUID,
-) -> None:
-    result = db.execute(
-        text(
-            """
-            SELECT
-                token_limit,
-                tokens_used,
-                period_end
-            FROM user_usage
-            WHERE user_id = :user_id
-            """
-        ),
-        {
-            "user_id": user_id,
-        },
-    ).mappings().first()
+async def _settle_quota(user_id: UUID, reserved: int, actual: Any) -> None:
+    if actual is _RESERVATION_KEPT:
+        actual = reserved
 
-    if result is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Usage quota not found",
-        )
+    def settle() -> None:
+        with app.state.session_factory() as db:
+            settle_tokens(db, user_id, reserved=reserved, actual=actual)
 
-    token_limit = int(result["token_limit"])
-    tokens_used = int(result["tokens_used"])
-
-    if tokens_used >= token_limit:
-        raise HTTPException(
-            status_code=429,
-            detail="Token quota exceeded",
-        )
-def _add_user_token_usage(
-    db,
-    user_id: UUID,
-    tokens: int,
-) -> None:
-    if tokens <= 0:
-        return
-
-    db.execute(
-        text(
-            """
-            UPDATE user_usage
-            SET
-                tokens_used = LEAST(
-                    tokens_used + :tokens,
-                    token_limit
-                ),
-                updated_at = CURRENT_TIMESTAMP
-            WHERE user_id = :user_id
-            """
-        ),
-        {
-            "user_id": user_id,
-            "tokens": tokens,
-        },
-    )
+    # Shielded so the quota is settled even while a disconnect cancels the request.
+    with anyio.CancelScope(shield=True):
+        try:
+            await run_in_threadpool(settle)
+        except Exception as exc:
+            log_event(
+                "quota_settle_failed",
+                user_id=str(user_id),
+                error_type=type(exc).__name__,
+                error=str(exc),
+            )

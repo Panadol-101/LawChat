@@ -776,11 +776,20 @@ class ChatConversation(TimestampMixin, Base):
             "workspace_id", "pinned", "updated_at",
         ),
         Index("idx_chat_conversations_project", "project_id"),
+        Index(
+            "ix_chat_conversations_user_workspace_updated",
+            "user_id", "workspace_id", "updated_at",
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4,
         server_default=text("gen_random_uuid()")
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
     )
     workspace_id: Mapped[str] = mapped_column(String(100), nullable=False)
     project_id: Mapped[uuid.UUID | None] = mapped_column(
@@ -927,8 +936,8 @@ class User(Base):
     role: Mapped[str] = mapped_column(
         String(50),
         nullable=False,
-        default="ADMIN",
-        server_default="ADMIN",
+        default="USER",
+        server_default="USER",
     )
 
     totp_secret: Mapped[str | None] = mapped_column(
@@ -941,6 +950,12 @@ class User(Base):
         nullable=False,
         default=False,
         server_default=text("false"),
+    )
+
+    # Time-step of the last accepted TOTP code; older or equal steps are replays.
+    totp_last_step: Mapped[int | None] = mapped_column(
+        BigInteger,
+        nullable=True,
     )
 
     is_active: Mapped[bool] = mapped_column(

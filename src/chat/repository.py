@@ -5,7 +5,7 @@ import uuid
 from datetime import date, datetime, timezone
 from typing import Any
 
-from sqlalchemy import or_, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
 
 from database.models import ChatConversation, ChatMessage, ChatProject
@@ -96,6 +96,7 @@ class ChatRepository:
             if project_id is not None:
                 self._project(session, user_id, workspace_id, project_id)
             conversation = ChatConversation(
+                user_id=user_id,
                 workspace_id=workspace_id,
                 project_id=project_id,
                 title=title.strip(),
@@ -113,12 +114,8 @@ class ChatRepository:
         limit: int = 100,
     ) -> list[ChatConversation]:
         statement = select(ChatConversation).where(
+            ChatConversation.user_id == user_id,
             ChatConversation.workspace_id == workspace_id,
-            ChatConversation.project_id.in_(
-                select(ChatProject.id).where(
-                    ChatProject.user_id == user_id
-                )
-            ),
         )
 
         if project_id is not None:
@@ -318,34 +315,21 @@ class ChatRepository:
             raise ChatNotFoundError("project not found")
         return project
 
-    
     @staticmethod
     def _conversation(
         session: Session,
         user_id: uuid.UUID,
         workspace_id: str,
         conversation_id: uuid.UUID,
-   ) -> ChatConversation:
-       conversation = session.scalar(
-           select(ChatConversation)
-           .outerjoin(
-               ChatProject,
-               ChatProject.id == ChatConversation.project_id,
-           )
-           .where(
-               ChatConversation.id == conversation_id,
-               ChatConversation.workspace_id == workspace_id,
-               or_(
-                   ChatConversation.project_id.is_(None),
-                   ChatProject.user_id == user_id,
-               ),
-           )
-       )
-
-       if conversation is None:
-           raise ChatNotFoundError("conversation not found")
-
-       return conversation
+    ) -> ChatConversation:
+        conversation = session.scalar(select(ChatConversation).where(
+            ChatConversation.id == conversation_id,
+            ChatConversation.user_id == user_id,
+            ChatConversation.workspace_id == workspace_id,
+        ))
+        if conversation is None:
+            raise ChatNotFoundError("conversation not found")
+        return conversation
 
 
     def _assistant_client_id(self, client_message_id: str) -> str:

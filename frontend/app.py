@@ -74,6 +74,14 @@ def login_screen() -> None:
                             password,
                         )
 
+                        if user.get("requires_totp"):
+                            # No session is issued until the TOTP step passes.
+                            st.warning(
+                                "Tài khoản quản trị phải đăng nhập bằng mã TOTP "
+                                "tại trang quản trị."
+                            )
+                            st.stop()
+
                         st.session_state.authenticated = True
                         st.session_state.auth_user = user
 

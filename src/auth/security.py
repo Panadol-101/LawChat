@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import hashlib
+import hmac
 import secrets
+from datetime import datetime
 
 import pyotp
 from argon2 import PasswordHasher
@@ -48,17 +50,28 @@ def generate_totp_secret() -> str:
     return pyotp.random_base32()
 
 
-def verify_totp(secret: str, code: str) -> bool:
-    """Verify a TOTP code."""
+def match_totp_step(secret: str, code: str, *, valid_window: int = 1) -> int | None:
+    """Return the time-step a TOTP code belongs to, or None when it is invalid.
+
+    The step lets callers refuse a code that was already used (replay).
+    """
     if not secret or not code:
-        return False
+        return None
 
     normalized_code = code.strip().replace(" ", "")
 
     if len(normalized_code) != 6 or not normalized_code.isdigit():
-        return False
+        return None
 
-    return pyotp.TOTP(secret).verify(
-        normalized_code,
-        valid_window=1,
-    )
+    totp = pyotp.TOTP(secret)
+    current_step = totp.timecode(datetime.now())
+    for offset in range(-valid_window, valid_window + 1):
+        step = current_step + offset
+        if hmac.compare_digest(totp.generate_otp(step), normalized_code):
+            return step
+    return None
+
+
+def verify_totp(secret: str, code: str) -> bool:
+    """Verify a TOTP code."""
+    return match_totp_step(secret, code) is not None

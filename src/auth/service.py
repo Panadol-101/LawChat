@@ -11,8 +11,8 @@ from auth.security import (
     generate_session_token,
     hash_password,
     hash_session_token,
+    match_totp_step,
     verify_password,
-    verify_totp,
 )
 from database.models import AuditLog, Session, User
 
@@ -251,10 +251,11 @@ def write_audit_log(
     db.add(audit_log)
     db.commit()
 def verify_user_totp(
+    db: DBSession,
     user: User,
     code: str,
 ) -> bool:
-    """Verify the user's TOTP code."""
+    """Verify the user's TOTP code and consume it so it cannot be replayed."""
 
     if not user.totp_enabled:
         return False
@@ -262,4 +263,22 @@ def verify_user_totp(
     if not user.totp_secret:
         return False
 
-    return verify_totp(user.totp_secret, code)
+    step = match_totp_step(user.totp_secret, code)
+    if step is None:
+        return False
+
+    # Conditional update: of two requests racing with the same code, only one
+    # advances the step, so each code is accepted at most once.
+    consumed = db.execute(
+        text(
+            """
+            UPDATE users
+            SET totp_last_step = :step
+            WHERE id = :user_id
+              AND (totp_last_step IS NULL OR totp_last_step < :step)
+            """
+        ),
+        {"step": step, "user_id": user.id},
+    ).rowcount
+    db.commit()
+    return consumed == 1
