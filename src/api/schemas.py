@@ -258,6 +258,7 @@ class UserResponse(BaseModel):
     username: str
     role: str
     totp_enabled: bool
+    status: str
 
 class UserUsageResponse(BaseModel):
     token_limit: int
@@ -271,11 +272,19 @@ class AdminUserUsageResponse(BaseModel):
     username: str
     role: str
     is_active: bool
+    status: str
     token_limit: int | None = None
     tokens_used: int | None = None
     remaining_tokens: int | None = None
     period_start: datetime | None = None
     period_end: datetime | None = None
+
+class AdminUserStatusResponse(BaseModel):
+    id: UUID
+    username: str
+    role: str
+    status: str
+    is_active: bool
 
 class AdminUsageUpdateRequest(BaseModel):
     token_limit: int = Field(

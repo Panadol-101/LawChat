@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from sqlalchemy import select, text
+from typing import Any
 from uuid import UUID, uuid4
 
-from sqlalchemy import select
+from sqlalchemy import delete, select, update
 from sqlalchemy.orm import Session as DBSession
 
 from auth.security import (
@@ -18,6 +19,28 @@ from database.models import AuditLog, Session, User
 
 
 SESSION_LIFETIME = timedelta(hours=12)
+
+
+class AccountNotActiveError(Exception):
+    """Correct password, but the account is not approved (PENDING/REJECTED)."""
+
+    def __init__(self, user_id: UUID, status: str) -> None:
+        super().__init__(f"Account is {status}")
+        self.user_id = user_id
+        self.status = status
+
+
+class UserNotFoundError(Exception):
+    """The target account does not exist."""
+
+
+class AdminAccountProtectedError(Exception):
+    """ADMIN accounts are never approved, rejected or deleted."""
+
+
+class InvalidStatusTransitionError(Exception):
+    """The account is already in a state the action cannot start from."""
+
 
 def create_user_usage(
     db: DBSession,
@@ -106,7 +129,9 @@ def register_user(
         password_hash=hash_password(password),
         role="USER",
         totp_enabled=False,
-        is_active=True,
+        # New accounts wait for administrator approval.
+        status="PENDING",
+        is_active=False,
     )
 
     db.add(user)
@@ -128,7 +153,11 @@ def authenticate_user(
     username: str,
     password: str,
 ) -> User | None:
-    """Authenticate a user with username and password."""
+    """Authenticate a user with username and password.
+
+    Raises AccountNotActiveError for a correct password on a PENDING or
+    REJECTED account; the status is only revealed after the password check.
+    """
 
     username = username.strip()
 
@@ -138,7 +167,6 @@ def authenticate_user(
     user = db.scalar(
         select(User).where(
             User.username == username,
-            User.is_active.is_(True),
         )
     )
 
@@ -146,6 +174,12 @@ def authenticate_user(
         return None
 
     if not verify_password(password, user.password_hash):
+        return None
+
+    if user.status != "ACTIVE":
+        raise AccountNotActiveError(user.id, user.status)
+
+    if not user.is_active:
         return None
 
     return user
@@ -198,6 +232,7 @@ def get_user_by_session(
         select(User).where(
             User.id == session.user_id,
             User.is_active.is_(True),
+            User.status == "ACTIVE",
         )
     )
 
@@ -238,18 +273,167 @@ def write_audit_log(
     user_id: UUID | None = None,
     ip_address: str | None = None,
     user_agent: str | None = None,
+    actor_user_id: UUID | None = None,
+    details: dict[str, Any] | None = None,
+    commit: bool = True,
 ) -> None:
-    """Write an authentication audit event."""
+    """Write an authentication audit event.
+
+    user_id is the account the event is about; actor_user_id is the
+    administrator who performed it, if any.
+    """
 
     audit_log = AuditLog(
         user_id=user_id,
+        actor_user_id=actor_user_id,
         event=event,
         ip_address=ip_address,
         user_agent=user_agent,
+        details=details,
     )
 
     db.add(audit_log)
+    if commit:
+        db.commit()
+    else:
+        db.flush()
+
+
+def _lock_target_user(db: DBSession, target_id: UUID) -> User:
+    target = db.scalar(
+        select(User).where(User.id == target_id).with_for_update()
+    )
+    if target is None:
+        raise UserNotFoundError("User not found")
+    if target.role != "USER":
+        raise AdminAccountProtectedError(
+            "Administrator accounts cannot be approved, rejected or deleted"
+        )
+    return target
+
+
+def _target_details(target: User, **extra: Any) -> dict[str, Any]:
+    return {
+        "target_user_id": str(target.id),
+        "target_username": target.username,
+        "previous_status": target.status,
+        **extra,
+    }
+
+
+def approve_user(
+    db: DBSession,
+    target_id: UUID,
+    *,
+    actor_id: UUID,
+    ip_address: str | None = None,
+    user_agent: str | None = None,
+) -> User:
+    """Approve a PENDING or REJECTED USER account."""
+
+    target = _lock_target_user(db, target_id)
+    if target.status not in ("PENDING", "REJECTED"):
+        raise InvalidStatusTransitionError(f"User is already {target.status}")
+
+    details = _target_details(target)
+    target.status = "ACTIVE"
+    target.is_active = True
+    db.flush()
+    # Accounts registered before quotas existed get one now; a no-op otherwise.
+    create_user_usage(db, target.id)
+    write_audit_log(
+        db,
+        event="user_approved",
+        user_id=target.id,
+        actor_user_id=actor_id,
+        ip_address=ip_address,
+        user_agent=user_agent,
+        details=details,
+        commit=False,
+    )
     db.commit()
+    return target
+
+
+def reject_user(
+    db: DBSession,
+    target_id: UUID,
+    *,
+    actor_id: UUID,
+    ip_address: str | None = None,
+    user_agent: str | None = None,
+) -> User:
+    """Reject a PENDING or ACTIVE USER account and revoke all its sessions."""
+
+    target = _lock_target_user(db, target_id)
+    if target.status == "REJECTED":
+        raise InvalidStatusTransitionError("User is already REJECTED")
+
+    previous_status = target.status
+    target.status = "REJECTED"
+    target.is_active = False
+    revoked = db.execute(
+        update(Session)
+        .where(
+            Session.user_id == target.id,
+            Session.revoked_at.is_(None),
+        )
+        .values(revoked_at=datetime.now(timezone.utc))
+    ).rowcount
+    write_audit_log(
+        db,
+        event="user_rejected",
+        user_id=target.id,
+        actor_user_id=actor_id,
+        ip_address=ip_address,
+        user_agent=user_agent,
+        details={
+            "target_user_id": str(target.id),
+            "target_username": target.username,
+            "previous_status": previous_status,
+            "revoked_sessions": revoked,
+        },
+        commit=False,
+    )
+    db.commit()
+    return target
+
+
+def delete_user(
+    db: DBSession,
+    target_id: UUID,
+    *,
+    actor_id: UUID,
+    ip_address: str | None = None,
+    user_agent: str | None = None,
+) -> dict[str, Any]:
+    """Delete a USER account; sessions, chats and quota go with it (CASCADE).
+
+    The audit row is written first in the same transaction: its user_id is set
+    to NULL by the cascade, and details keep the target's id and username.
+    """
+
+    target = _lock_target_user(db, target_id)
+    details = _target_details(target)
+    write_audit_log(
+        db,
+        event="user_deleted",
+        user_id=target.id,
+        actor_user_id=actor_id,
+        ip_address=ip_address,
+        user_agent=user_agent,
+        details=details,
+        commit=False,
+    )
+    db.execute(
+        delete(User)
+        .where(User.id == target.id, User.role == "USER")
+        .execution_options(synchronize_session=False)
+    )
+    db.commit()
+    return details
+
+
 def verify_user_totp(
     db: DBSession,
     user: User,

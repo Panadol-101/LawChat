@@ -36,11 +36,21 @@ class AdminAPI:
     def me(self) -> dict[str, Any]:
         return self._request("GET", "/api/v1/auth/me")
 
-    def list_users(self) -> list[dict[str, Any]]:
+    def list_users(self, status: str | None = None) -> list[dict[str, Any]]:
         return self._request(
             "GET",
             "/api/v1/admin/users",
+            params={"status": status} if status else None,
         )
+
+    def approve_user(self, user_id: str) -> dict[str, Any]:
+        return self._request("POST", f"/api/v1/admin/users/{user_id}/approve")
+
+    def reject_user(self, user_id: str) -> dict[str, Any]:
+        return self._request("POST", f"/api/v1/admin/users/{user_id}/reject")
+
+    def delete_user(self, user_id: str) -> None:
+        self._request("DELETE", f"/api/v1/admin/users/{user_id}")
 
     def update_user_usage(
         self,

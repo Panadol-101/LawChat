@@ -126,7 +126,8 @@ def login_screen() -> None:
                         )
 
                         st.success(
-                            "Đăng ký thành công. Bạn có thể đăng nhập ngay."
+                            "Đăng ký thành công. Tài khoản đang chờ "
+                            "quản trị viên duyệt trước khi đăng nhập."
                         )
 
                     except APIError as exc:

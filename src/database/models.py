@@ -912,8 +912,28 @@ class DocumentSource(TimestampMixin, Base):
         "metadata", JSONB, nullable=False, default=dict,
         server_default=text("'{}'::jsonb")
     )
+USER_STATUSES = ("PENDING", "ACTIVE", "REJECTED")
+
+
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('PENDING', 'ACTIVE', 'REJECTED')",
+            name="ck_users_status",
+        ),
+        # PENDING/REJECTED accounts can never be active; an ACTIVE account may
+        # still be disabled through is_active.
+        CheckConstraint(
+            "status = 'ACTIVE' OR is_active = false",
+            name="ck_users_inactive_unless_active",
+        ),
+        Index(
+            "ix_users_pending_created_at",
+            "created_at",
+            postgresql_where=text("status = 'PENDING'"),
+        ),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
@@ -965,6 +985,14 @@ class User(Base):
         server_default=text("true"),
     )
 
+    # Approval state; registrations start PENDING. Login needs ACTIVE and is_active.
+    status: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        default="ACTIVE",
+        server_default="ACTIVE",
+    )
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
@@ -985,6 +1013,7 @@ class User(Base):
 
     audit_logs: Mapped[list["AuditLog"]] = relationship(
         back_populates="user",
+        foreign_keys="AuditLog.user_id",
     )
 
 
@@ -1046,9 +1075,23 @@ class AuditLog(Base):
         nullable=True,
     )
 
+    # Administrator who performed the action; user_id is the account acted on.
+    actor_user_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+
     event: Mapped[str] = mapped_column(
         String(100),
         nullable=False,
+    )
+
+    # Survives deletion of the target user (e.g. target_username).
+    details: Mapped[dict[str, Any] | None] = mapped_column(
+        JSONB,
+        nullable=True,
     )
 
     ip_address: Mapped[str | None] = mapped_column(
@@ -1069,4 +1112,5 @@ class AuditLog(Base):
 
     user: Mapped["User | None"] = relationship(
         back_populates="audit_logs",
+        foreign_keys=[user_id],
     )

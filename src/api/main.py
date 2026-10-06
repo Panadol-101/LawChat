@@ -39,10 +39,17 @@ from database import (
 )
 from auth.rate_limit import LoginRateLimiter
 from auth.service import (
+    AccountNotActiveError,
+    AdminAccountProtectedError,
+    InvalidStatusTransitionError,
+    UserNotFoundError,
+    approve_user,
     authenticate_user,
     create_session,
+    delete_user,
     get_user_by_session,
     register_user,
+    reject_user,
     revoke_session,
     verify_user_totp,
     write_audit_log,
@@ -99,6 +106,7 @@ from .schemas import (
     TOTPRequest,
     UserResponse,
     UserUsageResponse,
+    AdminUserStatusResponse,
     AdminUserUsageResponse,
     AdminUsageUpdateRequest,
 )
@@ -230,6 +238,31 @@ def _record_login_failure(
         )
 
 
+ACCOUNT_NOT_ACTIVE_DETAIL = {
+    "PENDING": "Account pending administrator approval",
+    "REJECTED": "Account has been rejected",
+}
+
+
+def _reject_inactive_login(db, request: Request, exc: AccountNotActiveError):
+    """Audit a login refused because the account is not approved.
+
+    The password was correct, so this is neither a rate-limit failure nor a
+    success that would reset the failure counter.
+    """
+    write_audit_log(
+        db,
+        event=f"login_blocked_{exc.status.lower()}",
+        user_id=exc.user_id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+    raise HTTPException(
+        status_code=403,
+        detail=ACCOUNT_NOT_ACTIVE_DETAIL.get(exc.status, "Account is not active"),
+    )
+
+
 def get_current_user(
     request: Request,
 ) -> Any:
@@ -321,6 +354,7 @@ def admin_hydration_stats(
 )
 def admin_list_users(
     user: AdminUserDependency,
+    status: Literal["PENDING", "ACTIVE", "REJECTED"] | None = None,
 ):
     session_factory = app.state.session_factory
 
@@ -333,6 +367,7 @@ def admin_list_users(
                     u.username,
                     u.role,
                     u.is_active,
+                    u.status,
                     uu.token_limit,
                     uu.tokens_used,
                     uu.period_start,
@@ -340,9 +375,11 @@ def admin_list_users(
                 FROM users u
                 LEFT JOIN user_usage uu
                     ON uu.user_id = u.id
+                WHERE CAST(:status AS text) IS NULL OR u.status = :status
                 ORDER BY u.username
                 """
-            )
+            ),
+            {"status": status},
         ).mappings().all()
 
         users = []
@@ -372,6 +409,7 @@ def admin_list_users(
                     username=row["username"],
                     role=row["role"],
                     is_active=row["is_active"],
+                    status=row["status"],
                     token_limit=token_limit,
                     tokens_used=tokens_used,
                     remaining_tokens=remaining_tokens,
@@ -428,7 +466,8 @@ def admin_update_user_usage(
                     id,
                     username,
                     role,
-                    is_active
+                    is_active,
+                    status
                 FROM users
                 WHERE id = :user_id
                 """
@@ -454,6 +493,7 @@ def admin_update_user_usage(
             username=user_result["username"],
             role=user_result["role"],
             is_active=user_result["is_active"],
+            status=user_result["status"],
             token_limit=token_limit,
             tokens_used=tokens_used,
             remaining_tokens=max(
@@ -463,6 +503,89 @@ def admin_update_user_usage(
             period_start=result["period_start"],
             period_end=result["period_end"],
         )
+
+def _admin_user_action(action: str, target_id: UUID, admin, request: Request):
+    """Run approve/reject/delete for one USER account and map domain errors."""
+    action_fn = {
+        "approve": approve_user,
+        "reject": reject_user,
+        "delete": delete_user,
+    }[action]
+    ip_address = request.client.host if request.client else None
+    user_agent = request.headers.get("user-agent")
+
+    with app.state.session_factory() as db:
+        try:
+            result = action_fn(
+                db,
+                target_id,
+                actor_id=admin.id,
+                ip_address=ip_address,
+                user_agent=user_agent,
+            )
+        except UserNotFoundError as exc:
+            db.rollback()
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except AdminAccountProtectedError as exc:
+            db.rollback()
+            write_audit_log(
+                db,
+                event="admin_action_denied",
+                user_id=target_id,
+                actor_user_id=admin.id,
+                ip_address=ip_address,
+                user_agent=user_agent,
+                details={"action": action, "target_user_id": str(target_id)},
+            )
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
+        except InvalidStatusTransitionError as exc:
+            db.rollback()
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+        if action == "delete":
+            return None
+        return AdminUserStatusResponse(
+            id=result.id,
+            username=result.username,
+            role=result.role,
+            status=result.status,
+            is_active=result.is_active,
+        )
+
+
+@app.post(
+    "/api/v1/admin/users/{user_id}/approve",
+    response_model=AdminUserStatusResponse,
+)
+def admin_approve_user(
+    user_id: UUID,
+    request: Request,
+    user: AdminUserDependency,
+):
+    return _admin_user_action("approve", user_id, user, request)
+
+
+@app.post(
+    "/api/v1/admin/users/{user_id}/reject",
+    response_model=AdminUserStatusResponse,
+)
+def admin_reject_user(
+    user_id: UUID,
+    request: Request,
+    user: AdminUserDependency,
+):
+    return _admin_user_action("reject", user_id, user, request)
+
+
+@app.delete("/api/v1/admin/users/{user_id}", status_code=204)
+def admin_delete_user(
+    user_id: UUID,
+    request: Request,
+    user: AdminUserDependency,
+):
+    _admin_user_action("delete", user_id, user, request)
+    return Response(status_code=204)
+
 
 def get_workspace_id(
     x_workspace_id: Annotated[str | None, Header()] = None,
@@ -497,11 +620,14 @@ def auth_login(
     limiter_keys = _check_login_rate_limit(request, body.username)
 
     with session_factory() as db:
-        user = authenticate_user(
-            db,
-            body.username,
-            body.password,
-        )
+        try:
+            user = authenticate_user(
+                db,
+                body.username,
+                body.password,
+            )
+        except AccountNotActiveError as exc:
+            _reject_inactive_login(db, request, exc)
 
         if user is None:
             write_audit_log(
@@ -577,12 +703,15 @@ def auth_totp(
     limiter_keys = _check_login_rate_limit(request, body.username)
 
     with session_factory() as db:
-        # Step 1: verify username + password again
-        user = authenticate_user(
-            db,
-            body.username,
-            body.password,
-        )
+        # Step 1: verify username + password again (before the TOTP code is consumed)
+        try:
+            user = authenticate_user(
+                db,
+                body.username,
+                body.password,
+            )
+        except AccountNotActiveError as exc:
+            _reject_inactive_login(db, request, exc)
 
         if user is None:
             write_audit_log(
@@ -641,6 +770,7 @@ def auth_totp(
             username=user.username,
             role=user.role,
             totp_enabled=user.totp_enabled,
+            status=user.status,
         )
 
 @app.post(
@@ -685,6 +815,7 @@ def auth_register(
             username=user.username,
             role=user.role,
             totp_enabled=user.totp_enabled,
+            status=user.status,
         )
 
 
@@ -700,6 +831,7 @@ def auth_me(
         username=user.username,
         role=user.role,
         totp_enabled=user.totp_enabled,
+        status=user.status,
     )
 
 @app.get(

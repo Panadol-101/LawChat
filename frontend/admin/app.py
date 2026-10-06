@@ -219,6 +219,23 @@ def require_admin() -> bool:
 # ADMIN DASHBOARD
 # ============================================================
 
+def _status_label(item: dict) -> str:
+    status = item.get("status") or "ACTIVE"
+    if status == "ACTIVE" and not item.get("is_active"):
+        return "ACTIVE (disabled)"
+    return status
+
+
+def _run_user_action(action, item: dict, done: str) -> None:
+    try:
+        action(str(item.get("id")))
+    except APIError as exc:
+        st.error(f"Action failed for {item.get('username')}: {exc}")
+        return
+    st.success(f"User {item.get('username')} {done}.")
+    st.rerun()
+
+
 def dashboard() -> None:
     user = st.session_state.auth_user
 
@@ -357,7 +374,12 @@ def dashboard() -> None:
 
         active_users = [
             item for item in normal_users
-            if item.get("is_active")
+            if item.get("status") == "ACTIVE" and item.get("is_active")
+        ]
+
+        pending_users = [
+            item for item in normal_users
+            if item.get("status") == "PENDING"
         ]
 
         total_used = sum(
@@ -370,7 +392,7 @@ def dashboard() -> None:
             for item in normal_users
         )
 
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
 
         with col1:
             st.metric("Users", len(normal_users))
@@ -379,7 +401,37 @@ def dashboard() -> None:
             st.metric("Active Users", len(active_users))
 
         with col3:
+            st.metric("Pending", len(pending_users))
+
+        with col4:
             st.metric("Tokens Used", f"{total_used:,}")
+
+        st.divider()
+
+        st.markdown(f"### Pending approval ({len(pending_users)})")
+
+        if not pending_users:
+            st.caption("No accounts waiting for approval.")
+
+        for item in pending_users:
+            with st.container(border=True):
+                col_name, col_approve, col_reject = st.columns([3, 1, 1])
+                with col_name:
+                    st.markdown(f"**{item.get('username', '')}**")
+                with col_approve:
+                    if st.button(
+                        "Approve",
+                        key=f"pending_approve_{item.get('id')}",
+                        use_container_width=True,
+                    ):
+                        _run_user_action(api.approve_user, item, "approved")
+                with col_reject:
+                    if st.button(
+                        "Reject",
+                        key=f"pending_reject_{item.get('id')}",
+                        use_container_width=True,
+                    ):
+                        _run_user_action(api.reject_user, item, "rejected")
 
         st.divider()
 
@@ -406,9 +458,7 @@ def dashboard() -> None:
 
                 with col_user:
                     st.markdown(f"**{username}**")
-                    st.caption(
-                        "Active" if item.get("is_active") else "Inactive"
-                    )
+                    st.caption(_status_label(item))
 
                 with col_used:
                     st.metric("Used", f"{tokens_used:,}")
@@ -456,6 +506,35 @@ def dashboard() -> None:
 
                         except APIError as exc:
                             st.error(f"Failed to update quota: {exc}")
+
+                with st.expander("Account actions"):
+                    status = item.get("status")
+                    if status == "REJECTED" and st.button(
+                        "Approve",
+                        key=f"approve_{user_id}",
+                    ):
+                        _run_user_action(api.approve_user, item, "approved")
+                    if status in ("PENDING", "ACTIVE") and st.button(
+                        "Reject (revokes all sessions)",
+                        key=f"reject_{user_id}",
+                    ):
+                        _run_user_action(api.reject_user, item, "rejected")
+
+                    st.markdown("**Delete account**")
+                    st.caption(
+                        "Permanently deletes the account, its chats and quota."
+                    )
+                    confirm_name = st.text_input(
+                        "Type the username to confirm",
+                        key=f"delete_confirm_{user_id}",
+                    )
+                    if st.button(
+                        "Delete permanently",
+                        key=f"delete_{user_id}",
+                        type="primary",
+                        disabled=confirm_name != username,
+                    ):
+                        _run_user_action(api.delete_user, item, "deleted")
 
         if normal_users:
             st.divider()
