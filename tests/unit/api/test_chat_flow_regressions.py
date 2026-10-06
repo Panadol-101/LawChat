@@ -9,6 +9,7 @@ from uuid import uuid4
 import api.main as main
 from api.main import AnswerBody, _execute_answer_pipeline
 from api.schemas import ChatBody
+from rag import QueryRewrite
 from rag.runtime import RAGExecutionGate
 from retrieval import RetrievalResponse
 
@@ -100,6 +101,65 @@ def test_standalone_question_is_not_rewritten_with_history():
     ))
 
     assert retrieval.requests[0].query == current
+
+
+class _RecordingRewriter:
+    def __init__(self, standalone):
+        self.standalone = standalone
+        self.request = None
+
+    async def rewrite_async(self, request):
+        self.request = request
+        if self.standalone is None:
+            return None
+        return QueryRewrite(self.standalone, request.question, rewritten=True)
+
+
+def test_follow_up_is_rewritten_by_llm_for_retrieval_and_generation():
+    retrieval = _RecordingRetrieval()
+    generation = _RecordingGeneration()
+    current = "vậy nếu từ 5 tỷ đồng trở lên thì phạt như thế nào"
+    standalone = "Đánh bạc trên không gian mạng với số tiền từ 5 tỷ đồng trở lên bị xử phạt như thế nào?"
+    rewriter = _RecordingRewriter(standalone)
+    runtime = _runtime(generation)
+    runtime.query_rewriter = rewriter
+    history = [
+        SimpleNamespace(role="user", content="Đánh cờ bạc trên không gian mạng bị xử phạt thế nào?"),
+        SimpleNamespace(role="assistant", content="Hành vi đánh bạc trái phép ..."),
+        SimpleNamespace(role="user", content=current),
+    ]
+
+    pipeline = asyncio.run(_execute_answer_pipeline(
+        AnswerBody(query=current), retrieval, runtime, history=history,
+    ))
+
+    # The current message is not repeated as history.
+    assert [role for role, _ in rewriter.request.history] == ["user", "assistant"]
+    assert retrieval.requests[0].query == standalone
+    assert generation.request.question == standalone
+    assert generation.request.original_question == current
+    assert pipeline[10].standalone_question == standalone
+
+
+def test_failed_llm_rewrite_falls_back_to_reference_heuristic():
+    retrieval = _RecordingRetrieval()
+    generation = _RecordingGeneration()
+    current = "Vậy điều đó áp dụng thế nào?"
+    runtime = _runtime(generation)
+    runtime.query_rewriter = _RecordingRewriter(None)
+    history = [
+        SimpleNamespace(role="user", content="Điều 36 Nghị định 123/2024/NĐ-CP quy định gì?"),
+        SimpleNamespace(role="assistant", content="Điều 36 quy định về ..."),
+        SimpleNamespace(role="user", content=current),
+    ]
+
+    asyncio.run(_execute_answer_pipeline(
+        AnswerBody(query=current), retrieval, runtime, history=history,
+    ))
+
+    assert "123/2024/NĐ-CP" in retrieval.requests[0].query
+    assert generation.request.question == current
+    assert generation.request.original_question is None
 
 
 class _ReplayRepository:

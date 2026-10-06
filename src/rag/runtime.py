@@ -20,6 +20,7 @@ from .generator import (
 from .service import GroundedRAGService
 from .semantic import OpenAICompatibleClaimJudge, SemanticReviewCache, SemanticVerifier
 from .issues import IssueDecomposer, OpenAICompatibleIssueDecomposer
+from .rewrite import OpenAICompatibleQueryRewriter, QueryRewriter
 from .context_models import TokenBudget
 
 
@@ -39,6 +40,7 @@ class RAGRuntime:
     )
     llm_health: LLMHealthClient | None = None
     issue_decomposer: IssueDecomposer | None = None
+    query_rewriter: QueryRewriter | None = None
 
 
 class RAGQueueFullError(RuntimeError):
@@ -206,6 +208,20 @@ def create_rag_runtime(*, enforce_configured_cutoff: bool = True) -> RAGRuntime:
                     ),
                 )
             )
+        ),
+        query_rewriter=QueryRewriter(
+            OpenAICompatibleQueryRewriter(
+                replace(
+                    llm_settings,
+                    max_tokens=_positive_int("LAWCHAT_REWRITE_MAX_TOKENS", 256),
+                    timeout_seconds=_positive_float(
+                        "LAWCHAT_REWRITE_TIMEOUT_SECONDS", 20
+                    ),
+                )
+            )
+            if os.getenv("LAWCHAT_QUERY_REWRITE_ENABLED", "true").casefold()
+            in {"1", "true", "yes", "on"}
+            else None
         ),
     )
 

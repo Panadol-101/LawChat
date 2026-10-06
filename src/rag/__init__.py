@@ -31,6 +31,14 @@ from .issues import (
     retrieve_issue_plan,
     retrieve_issue_plan_async,
 )
+from .rewrite import (
+    REWRITE_PROMPT_VERSION,
+    OpenAICompatibleQueryRewriter,
+    QueryRewrite,
+    QueryRewriter,
+    QueryRewriteRequest,
+    history_for_rewrite,
+)
 from .context_models import Evidence, PackedContext, TokenBudget, TokenCounter
 from .runtime import (
     LLMHealthClient,
@@ -86,6 +94,12 @@ __all__ = [
     "IssuePlan",
     "LLMUnavailableError",
     "OpenAICompatibleIssueDecomposer",
+    "REWRITE_PROMPT_VERSION",
+    "OpenAICompatibleQueryRewriter",
+    "QueryRewrite",
+    "QueryRewriter",
+    "QueryRewriteRequest",
+    "history_for_rewrite",
     "fallback_decompose",
     "retrieve_issue_plan",
     "retrieve_issue_plan_async",

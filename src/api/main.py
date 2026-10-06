@@ -52,9 +52,12 @@ from rag import (
     IssueDecompositionError,
     IssueDecompositionRequest,
     IssuePlan,
+    QueryRewrite,
+    QueryRewriteRequest,
     RAGQueueFullError,
     RAGRuntime,
     create_rag_runtime,
+    history_for_rewrite,
     requires_case_specific_prediction_refusal,
     retrieve_issue_plan,
     retrieve_issue_plan_async,
@@ -1034,6 +1037,7 @@ async def answer(
             decomposition_seconds,
             queue_wait_seconds,
             processing_seconds,
+            rewrite,
         ) = await pipeline_task
     except UnsupportedAsOfDate as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
@@ -1092,6 +1096,7 @@ async def answer(
         "request_id": request_id,
         "mode": body.response_mode,
         "query": retrieval.query,
+        "rewritten_query": rewrite.standalone_question if rewrite is not None else None,
         "as_of": retrieval.as_of,
         "status": result.status.value,
         "semantic_mode": result.semantic_mode,
@@ -1125,6 +1130,7 @@ async def answer(
         log_event(
             "rag_request_completed",
             request_id=request_id,
+            rewritten_query=rewrite.standalone_question if rewrite is not None else None,
             status=result.status.value,
             attempts=result.attempts,
             total_seconds=timing["total"],
@@ -1187,6 +1193,7 @@ async def answer(
     log_event(
         "rag_request_completed",
         request_id=request_id,
+        rewritten_query=rewrite.standalone_question if rewrite is not None else None,
         status=result.status.value,
         attempts=result.attempts,
         total_seconds=timing["total"],
@@ -1592,7 +1599,7 @@ def _compact_payload_from_pipeline(
     (
         issue_plan, retrieval, context, result, retrieval_seconds,
         context_seconds, generation_seconds, decomposition_seconds,
-        queue_wait_seconds, processing_seconds,
+        queue_wait_seconds, processing_seconds, rewrite,
     ) = pipeline
     evidence_by_id = {item.evidence_id: item for item in context.evidence}
     cited_ids = tuple(dict.fromkeys(
@@ -1609,6 +1616,7 @@ def _compact_payload_from_pipeline(
         "request_id": request_id,
         "mode": body.response_mode,
         "query": retrieval.query,
+        "rewritten_query": rewrite.standalone_question if rewrite is not None else None,
         "as_of": retrieval.as_of,
         "status": result.status.value,
         "semantic_mode": result.semantic_mode,
@@ -1769,10 +1777,21 @@ async def _execute_answer_pipeline(
         async with asyncio.timeout(
             rag_runtime.execution_gate.request_timeout_seconds
         ):
-            # Retrieval and decomposition see the follow-up resolved against
-            # the previous turn; the answer is still phrased for body.query.
+            # Retrieval, decomposition and generation see the question
+            # rewritten into a standalone one using the conversation; the
+            # reference heuristic is the fallback when the rewriter fails.
+            rewrite = None
+            if not requires_case_specific_prediction_refusal(body.query):
+                rewrite = await _rewrite_query(
+                    body.query,
+                    _prior_turns(body.query, history or []),
+                    rag_runtime,
+                    event_queue,
+                )
             retrieval_query = (
-                _enrich_with_history(body.query, history or []) or body.query
+                rewrite.standalone_question
+                if rewrite is not None
+                else _enrich_with_history(body.query, history or []) or body.query
             )
             parsed_original = LegalQueryParser().parse(retrieval_query, as_of=body.as_of)
             base_request = replace(
@@ -1809,6 +1828,7 @@ async def _execute_answer_pipeline(
                     IssuePlan(()), retrieval, context, result,
                     0.0, context_seconds, generation_seconds, 0.0,
                     queue_wait_seconds, perf_counter() - processing_started,
+                    rewrite,
                 )
             _emit_pipeline_event(event_queue, "decomposition.started", {})
             decomposition_started = perf_counter()
@@ -1871,7 +1891,10 @@ async def _execute_answer_pipeline(
             result = await rag_runtime.generation_service.answer_async(
                 replace(
                     GenerationRequest.from_retrieval(retrieval, context),
-                    question=body.query,
+                    question=(
+                        rewrite.standalone_question if rewrite is not None else body.query
+                    ),
+                    original_question=body.query if rewrite is not None else None,
                 ),
             )
             generation_seconds = perf_counter() - generation_started
@@ -1893,7 +1916,31 @@ async def _execute_answer_pipeline(
                 decomposition_seconds,
                 queue_wait_seconds,
                 perf_counter() - processing_started,
+                rewrite,
             )
+
+
+async def _rewrite_query(
+    query: str,
+    prior_turns: list[Any],
+    rag_runtime,
+    event_queue: asyncio.Queue[tuple[str, dict[str, Any]]] | None,
+) -> QueryRewrite | None:
+    """Standalone retrieval question from the LLM, or None to fall back."""
+    rewriter = getattr(rag_runtime, "query_rewriter", None)
+    if rewriter is None:
+        return None
+    _emit_pipeline_event(event_queue, "rewrite.started", {})
+    started = perf_counter()
+    rewrite = await rewriter.rewrite_async(
+        QueryRewriteRequest(query, history_for_rewrite(prior_turns))
+    )
+    _emit_pipeline_event(event_queue, "rewrite.completed", {
+        "rewritten": rewrite is not None,
+        "standalone_question": rewrite.standalone_question if rewrite else None,
+        "seconds": round(perf_counter() - started, 3),
+    })
+    return rewrite
 
 
 def _emit_pipeline_event(
@@ -2010,11 +2057,13 @@ async def _wait_for_disconnect(request: Request) -> bool:
 def _pipeline_token_usage(pipeline) -> int:
     """Prompt + completion tokens of every LLM call made for one answer.
 
-    Covers issue decomposition, each generation attempt and each semantic
+    Covers query rewrite, issue decomposition, each generation attempt and each semantic
     review (cache hits carry no telemetry).
     """
     issue_plan, _retrieval, _context, result = pipeline[:4]
+    rewrite = pipeline[10] if len(pipeline) > 10 else None
     telemetry_items = [
+        getattr(rewrite, "telemetry", None),
         getattr(issue_plan, "telemetry", None),
         *getattr(result, "telemetry", ()),
         *(

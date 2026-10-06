@@ -161,6 +161,16 @@ def build_user_prompt(request: GenerationRequest) -> str:
         ],
         "evidence": request.context.rendered_context,
     }
+    if (
+        request.original_question
+        and request.original_question.strip() != request.question.strip()
+    ):
+        payload["original_question"] = request.original_question
+        payload["question_note"] = (
+            "question là câu hỏi đã được làm rõ theo ngữ cảnh hội thoại; "
+            "original_question là nguyên văn người dùng. Trả lời đúng ý "
+            "original_question, dùng question để hiểu các ý bị lược bỏ."
+        )
     prompt = "Hãy trả lời yêu cầu sau theo đúng schema JSON:\n" + json.dumps(
         payload,
         ensure_ascii=False,

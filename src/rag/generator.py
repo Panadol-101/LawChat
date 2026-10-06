@@ -263,6 +263,8 @@ class GenerationRequest:
     previous_answer: GeneratedAnswer | None = None
     repair_instructions: tuple[str, ...] = ()
     issues: tuple[LegalIssue, ...] = ()
+    # The user's verbatim wording when ``question`` is an LLM rewrite of it.
+    original_question: str | None = None
 
     def __post_init__(self) -> None:
         if not self.question.strip():

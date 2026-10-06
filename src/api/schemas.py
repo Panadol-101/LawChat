@@ -107,6 +107,8 @@ class EvidenceResponse(CitationResponse):
 class _AnswerResponseBase(BaseModel):
     request_id: str
     query: str
+    # The LLM-rewritten standalone question, when the rewrite step ran.
+    rewritten_query: str | None = None
     as_of: date
     status: str
     semantic_mode: Literal["off", "shadow", "enforce"] = "off"
