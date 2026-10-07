@@ -3,6 +3,7 @@ from __future__ import annotations
 import streamlit as st
 
 from api_client import AdminAPI, APIError
+from metrics import group_users, user_metrics
 
 
 st.set_page_config(
@@ -236,6 +237,24 @@ def _run_user_action(action, item: dict, done: str) -> None:
     st.rerun()
 
 
+def _delete_user_controls(item: dict) -> None:
+    user_id = item.get("id")
+    username = item.get("username", "")
+    st.markdown("**Delete account**")
+    st.caption("Permanently deletes the account, its chats and quota.")
+    confirm_name = st.text_input(
+        "Type the username to confirm",
+        key=f"delete_confirm_{user_id}",
+    )
+    if st.button(
+        "Delete permanently",
+        key=f"delete_{user_id}",
+        type="primary",
+        disabled=confirm_name != username,
+    ):
+        _run_user_action(api.delete_user, item, "deleted")
+
+
 def dashboard() -> None:
     user = st.session_state.auth_user
 
@@ -367,20 +386,13 @@ def dashboard() -> None:
             st.error(f"Failed to load users: {exc}")
             return
 
-        normal_users = [
-            item for item in users
-            if item.get("role") == "USER"
-        ]
-
-        active_users = [
-            item for item in normal_users
-            if item.get("status") == "ACTIVE" and item.get("is_active")
-        ]
-
-        pending_users = [
-            item for item in normal_users
-            if item.get("status") == "PENDING"
-        ]
+        groups = group_users(users)
+        metrics = user_metrics(users)
+        active_users = groups["ACTIVE"]
+        pending_users = groups["PENDING"]
+        rejected_users = groups["REJECTED"]
+        # REJECTED accounts are kept for history only; they are not system users.
+        normal_users = active_users + pending_users
 
         total_used = sum(
             int(item.get("tokens_used") or 0)
@@ -395,13 +407,13 @@ def dashboard() -> None:
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            st.metric("Users", len(normal_users))
+            st.metric("Users", metrics["users"])
 
         with col2:
-            st.metric("Active Users", len(active_users))
+            st.metric("Active Users", metrics["active"])
 
         with col3:
-            st.metric("Pending", len(pending_users))
+            st.metric("Pending", metrics["pending"])
 
         with col4:
             st.metric("Tokens Used", f"{total_used:,}")
@@ -437,10 +449,10 @@ def dashboard() -> None:
 
         st.markdown("### User Quotas")
 
-        if not normal_users:
-            st.info("No USER accounts found.")
+        if not active_users:
+            st.info("No ACTIVE user accounts.")
         else:
-            for item in normal_users:
+            for item in active_users:
                 username = item.get("username", "")
                 user_id = item.get("id")
 
@@ -508,33 +520,27 @@ def dashboard() -> None:
                             st.error(f"Failed to update quota: {exc}")
 
                 with st.expander("Account actions"):
-                    status = item.get("status")
-                    if status == "REJECTED" and st.button(
-                        "Approve",
-                        key=f"approve_{user_id}",
-                    ):
-                        _run_user_action(api.approve_user, item, "approved")
-                    if status in ("PENDING", "ACTIVE") and st.button(
+                    if st.button(
                         "Reject (revokes all sessions)",
                         key=f"reject_{user_id}",
                     ):
                         _run_user_action(api.reject_user, item, "rejected")
 
-                    st.markdown("**Delete account**")
-                    st.caption(
-                        "Permanently deletes the account, its chats and quota."
-                    )
-                    confirm_name = st.text_input(
-                        "Type the username to confirm",
-                        key=f"delete_confirm_{user_id}",
-                    )
-                    if st.button(
-                        "Delete permanently",
-                        key=f"delete_{user_id}",
-                        type="primary",
-                        disabled=confirm_name != username,
-                    ):
-                        _run_user_action(api.delete_user, item, "deleted")
+                    _delete_user_controls(item)
+
+        st.divider()
+
+        with st.expander(f"Rejected users ({len(rejected_users)})"):
+            st.caption(
+                "Kept for audit/history; not counted as users. "
+                "Their usernames can be registered again."
+            )
+            if not rejected_users:
+                st.caption("No rejected accounts.")
+            for item in rejected_users:
+                with st.container(border=True):
+                    st.markdown(f"**{item.get('username', '')}** · REJECTED")
+                    _delete_user_controls(item)
 
         if normal_users:
             st.divider()

@@ -8,6 +8,86 @@ from typing import Any
 import httpx
 
 
+REGISTER_SUCCESS_MESSAGE = (
+    "Đăng ký thành công. Tài khoản của bạn đang chờ quản trị viên phê duyệt."
+)
+
+# Authentication/registration errors from the API, shown to users in Vietnamese.
+# Other API messages (chat, projects, ...) are passed through unchanged.
+AUTH_ERROR_MESSAGES = {
+    "Invalid username or password": "Tên đăng nhập hoặc mật khẩu không chính xác.",
+    "Account pending administrator approval": (
+        "Tài khoản đang chờ quản trị viên phê duyệt."
+    ),
+    "Account has been rejected": "Tài khoản đã bị từ chối.",
+    "Account is not active": "Tài khoản chưa được kích hoạt.",
+    "Username already exists": "Tên đăng nhập đã tồn tại.",
+    "Username is required": "Vui lòng nhập tên đăng nhập.",
+    "Username must be between 3 and 50 characters": (
+        "Tên đăng nhập phải có từ 3 đến 50 ký tự."
+    ),
+    "Passwords do not match": "Mật khẩu nhập lại không khớp.",
+    "Too many failed login attempts; try again later": (
+        "Bạn đã đăng nhập sai quá nhiều lần. Vui lòng thử lại sau."
+    ),
+    "Invalid authentication code": "Mã xác thực không chính xác.",
+    "TOTP enrollment required for administrator accounts; "
+    "run scripts/enroll_admin_totp.py": (
+        "Tài khoản quản trị cần thiết lập xác thực hai lớp (TOTP) trước khi đăng nhập."
+    ),
+    "Authentication required": "Vui lòng đăng nhập để tiếp tục.",
+    "Invalid or expired session": (
+        "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."
+    ),
+    "Administrator privileges required": "Bạn không có quyền thực hiện thao tác này.",
+}
+
+AUTH_PATH_PREFIX = "/api/v1/auth/"
+
+# Request validation (HTTP 422) messages per auth form field.
+AUTH_FIELD_MESSAGES = {
+    "username": (
+        "Tên đăng nhập phải có từ 3 đến 50 ký tự, chỉ gồm chữ cái không dấu, "
+        "chữ số hoặc dấu gạch dưới (_)."
+    ),
+    "password": "Mật khẩu phải có từ 8 đến 128 ký tự.",
+    "confirm_password": "Mật khẩu nhập lại phải có từ 8 đến 128 ký tự.",
+    "code": "Mã xác thực phải gồm 6 chữ số.",
+}
+LOGIN_FIELD_MESSAGE = "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu hợp lệ."
+INVALID_INPUT_MESSAGE = "Dữ liệu nhập không hợp lệ."
+
+
+def user_error_message(status_code: int, detail: Any, path: str = "") -> str:
+    """Message to show for a failed API call."""
+    if isinstance(detail, str) and detail in AUTH_ERROR_MESSAGES:
+        return AUTH_ERROR_MESSAGES[detail]
+
+    if status_code == 422 and path.startswith(AUTH_PATH_PREFIX):
+        return _validation_message(detail, path)
+
+    if detail:
+        return str(detail)
+    return f"Máy chủ LawChat trả về lỗi (HTTP {status_code})."
+
+
+def _validation_message(detail: Any, path: str) -> str:
+    fields = []
+    for error in detail if isinstance(detail, list) else []:
+        loc = error.get("loc") if isinstance(error, dict) else None
+        if loc:
+            fields.append(str(loc[-1]))
+
+    if path.endswith("/register"):
+        messages = [AUTH_FIELD_MESSAGES[f] for f in fields if f in AUTH_FIELD_MESSAGES]
+    elif path.endswith("/totp") and "code" in fields:
+        messages = [AUTH_FIELD_MESSAGES["code"]]
+    else:
+        messages = [LOGIN_FIELD_MESSAGE]
+    # Keep order, drop repeats.
+    return " ".join(dict.fromkeys(messages)) or INVALID_INPUT_MESSAGE
+
+
 class APIError(RuntimeError):
     def __init__(self, message: str, *, status_code: int | None = None) -> None:
         super().__init__(message)
@@ -217,6 +297,15 @@ class LawChatAPI:
             detail = None
 
         raise APIError(
-           str(detail or f"LawChat API returned HTTP {response.status_code}"),
+           user_error_message(
+               response.status_code, detail, _request_path(response)
+           ),
            status_code=response.status_code,
         )
+
+
+def _request_path(response: httpx.Response) -> str:
+    try:
+        return response.request.url.path
+    except RuntimeError:
+        return ""

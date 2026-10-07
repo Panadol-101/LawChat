@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import uuid
 
+import pyotp
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, delete, select, text
@@ -16,6 +17,8 @@ from auth.security import generate_totp_secret, hash_password
 from auth.service import create_session
 from chat import ChatNotFoundError, ChatRepository
 from database.models import AuditLog, ChatConversation, Session, User
+from frontend.admin.metrics import user_metrics
+from frontend.api_client import APIError, LawChatAPI
 
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")
@@ -35,11 +38,12 @@ def env(monkeypatch):
     monkeypatch.setattr(main, "login_rate_limiter", LoginRateLimiter(max_attempts=5))
     created: list[uuid.UUID] = []
 
-    def make_user(*, role="USER", status="ACTIVE", totp=False):
+    def make_user(*, role="USER", status="ACTIVE", totp=False, username=None,
+                  password=PASSWORD):
         user = User(
             id=uuid.uuid4(),
-            username=f"{role.lower()}-{uuid.uuid4().hex[:8]}",
-            password_hash=hash_password(PASSWORD),
+            username=username or f"{role.lower()}-{uuid.uuid4().hex[:8]}",
+            password_hash=hash_password(password),
             role=role,
             status=status,
             is_active=status == "ACTIVE",
@@ -149,13 +153,29 @@ def test_reject_revokes_every_session(env):
     assert audit.details["revoked_sessions"] == 2
 
 
-def test_rejected_user_can_be_approved_again(env):
-    _factory, make_user, admin_client, _created = env
+@pytest.mark.parametrize("status", ["REJECTED", "ACTIVE"])
+def test_only_pending_users_can_be_approved(env, status):
+    factory, make_user, admin_client, _created = env
+    user = make_user(status=status)
+    _admin, admin_http = admin_client()
+
+    response = admin_http.post(f"/api/v1/admin/users/{user.id}/approve")
+
+    assert response.status_code == 409
+    with factory() as session:
+        row = session.get(User, user.id)
+        assert (row.status, row.is_active) == (status, status == "ACTIVE")
+    assert _audits(factory, "user_approved", user.id) == []
+
+
+def test_rejected_user_can_still_be_deleted(env):
+    factory, make_user, admin_client, _created = env
     user = make_user(status="REJECTED")
     _admin, admin_http = admin_client()
 
-    assert admin_http.post(f"/api/v1/admin/users/{user.id}/approve").json()["status"] == "ACTIVE"
-    assert admin_http.post(f"/api/v1/admin/users/{user.id}/approve").status_code == 409
+    assert admin_http.delete(f"/api/v1/admin/users/{user.id}").status_code == 204
+    with factory() as session:
+        assert session.get(User, user.id) is None
 
 
 def test_delete_removes_account_data_but_keeps_audit(env):
@@ -275,3 +295,237 @@ def test_unapproved_status_cannot_be_active(env, status):
     with pytest.raises(IntegrityError):
         with factory() as session, session.begin():
             session.add(user)
+
+
+# ---------------------------------------------------------------------------
+# REJECTED accounts do not reserve their username
+# ---------------------------------------------------------------------------
+
+def _name():
+    return f"reuse_{uuid.uuid4().hex[:8]}"
+
+
+def _register(client, username, password=PASSWORD):
+    return client.post(
+        "/api/v1/auth/register",
+        json={"username": username, "password": password, "confirm_password": password},
+    )
+
+
+def test_rejected_username_can_be_registered_again(env):
+    factory, make_user, _admin_client, created = env
+    name = _name()
+    old = make_user(username=name, status="REJECTED")
+
+    response = _register(TestClient(main.app), name)
+
+    assert response.status_code == 200
+    new_id = uuid.UUID(response.json()["id"])
+    created.append(new_id)
+    with factory() as session:
+        rows = session.scalars(
+            select(User).where(User.username == name).order_by(User.created_at)
+        ).all()
+    assert [(r.id, r.status, r.is_active, r.role) for r in rows] == [
+        (old.id, "REJECTED", False, "USER"),
+        (new_id, "PENDING", False, "USER"),
+    ]
+
+
+@pytest.mark.parametrize("status", ["ACTIVE", "PENDING"])
+def test_current_username_cannot_be_registered_again(env, status):
+    _factory, make_user, _admin_client, _created = env
+    name = _name()
+    make_user(username=name, status=status)
+
+    response = _register(TestClient(main.app), name)
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Username already exists"
+
+
+@pytest.mark.parametrize(
+    ("first", "second", "allowed"),
+    [
+        ("REJECTED", "PENDING", True),
+        ("REJECTED", "ACTIVE", True),
+        ("REJECTED", "REJECTED", True),
+        ("ACTIVE", "ACTIVE", False),
+        ("PENDING", "PENDING", False),
+        ("ACTIVE", "PENDING", False),
+    ],
+)
+def test_partial_unique_index(env, first, second, allowed):
+    _factory, make_user, _admin_client, _created = env
+    name = _name()
+    make_user(username=name, status=first)
+
+    if allowed:
+        make_user(username=name, status=second)
+    else:
+        with pytest.raises(IntegrityError):
+            make_user(username=name, status=second)
+
+
+def test_pending_account_is_used_when_rejected_row_shares_username(env):
+    factory, make_user, _admin_client, _created = env
+    name = _name()
+    make_user(username=name, status="REJECTED", password="old rejected password")
+    pending = make_user(username=name, status="PENDING")
+    client = TestClient(main.app)
+
+    response = _login(client, name)
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Account pending administrator approval"
+    assert len(_audits(factory, "login_blocked_pending", pending.id)) == 1
+    # The old rejected password is not considered at all.
+    assert _login(client, name, "old rejected password").status_code == 401
+
+
+def test_active_account_is_used_when_rejected_row_shares_username(env):
+    factory, make_user, _admin_client, _created = env
+    name = _name()
+    rejected = make_user(username=name, status="REJECTED")
+    active = make_user(username=name, status="ACTIVE")
+
+    response = _login(TestClient(main.app), name)
+
+    assert response.status_code == 200
+    with factory() as session:
+        owners = session.scalars(
+            select(Session.user_id).where(Session.user_id.in_([rejected.id, active.id]))
+        ).all()
+    assert owners == [active.id]
+
+
+def test_rejected_account_never_authenticates(env):
+    factory, make_user, _admin_client, _created = env
+    rejected = make_user(status="REJECTED")
+
+    response = _login(TestClient(main.app), rejected.username)
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Account has been rejected"
+    assert "lawchat_session" not in response.headers.get("set-cookie", "")
+    assert len(_audits(factory, "login_blocked_rejected", rejected.id)) == 1
+
+
+@pytest.mark.parametrize("status", ["PENDING", "REJECTED"])
+def test_totp_cannot_bypass_status(env, status):
+    factory, make_user, _admin_client, _created = env
+    user = make_user(status=status, totp=True)
+    code = pyotp.TOTP(user.totp_secret).now()
+
+    response = TestClient(main.app).post(
+        "/api/v1/auth/totp",
+        json={"username": user.username, "password": PASSWORD, "code": code},
+    )
+
+    assert response.status_code == 403
+    assert "lawchat_session" not in response.headers.get("set-cookie", "")
+    with factory() as session:
+        assert session.get(User, user.id).totp_last_step is None
+
+
+def test_pending_user_with_rejected_namesake_can_be_approved(env):
+    _factory, make_user, admin_client, _created = env
+    name = _name()
+    make_user(username=name, status="REJECTED")
+    pending = make_user(username=name, status="PENDING")
+    _admin, admin_http = admin_client()
+
+    response = admin_http.post(f"/api/v1/admin/users/{pending.id}/approve")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ACTIVE"
+
+
+def test_approving_cannot_create_a_username_conflict(env):
+    factory, make_user, admin_client, _created = env
+    name = _name()
+    rejected = make_user(username=name, status="REJECTED")
+    make_user(username=name, status="PENDING")
+    _admin, admin_http = admin_client()
+
+    response = admin_http.post(f"/api/v1/admin/users/{rejected.id}/approve")
+
+    assert response.status_code == 409
+    with factory() as session:
+        assert session.get(User, rejected.id).status == "REJECTED"
+        assert sorted(
+            session.scalars(select(User.status).where(User.username == name)).all()
+        ) == ["PENDING", "REJECTED"]
+
+
+def test_admin_metrics_exclude_rejected_users(env):
+    _factory, make_user, admin_client, _created = env
+    make_user(status="ACTIVE")
+    make_user(status="PENDING")
+    make_user(status="REJECTED")
+    _admin, admin_http = admin_client()
+
+    rows = admin_http.get("/api/v1/admin/users").json()
+    metrics = user_metrics(rows)
+    by_status = {
+        status: sum(1 for r in rows if r["role"] == "USER" and r["status"] == status)
+        for status in ("ACTIVE", "PENDING", "REJECTED")
+    }
+
+    assert metrics["users"] == by_status["ACTIVE"] + by_status["PENDING"]
+    assert metrics["active"] == by_status["ACTIVE"]
+    assert metrics["pending"] == by_status["PENDING"]
+    assert metrics["rejected"] == by_status["REJECTED"] >= 1
+
+
+# ---------------------------------------------------------------------------
+# Public frontend client against the real API: Vietnamese messages
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def public_api():
+    api = LawChatAPI()
+    api.client.close()
+    api.client = TestClient(main.app)
+    return api
+
+
+def _api_error(call):
+    with pytest.raises(APIError) as exc_info:
+        call()
+    return str(exc_info.value)
+
+
+def test_public_client_shows_vietnamese_login_errors(env, public_api):
+    _factory, make_user, _admin_client, _created = env
+    rejected = make_user(status="REJECTED")
+    pending = make_user(status="PENDING")
+
+    assert _api_error(lambda: public_api.login(rejected.username, PASSWORD)) == (
+        "Tài khoản đã bị từ chối."
+    )
+    assert _api_error(lambda: public_api.login(pending.username, PASSWORD)) == (
+        "Tài khoản đang chờ quản trị viên phê duyệt."
+    )
+    assert _api_error(lambda: public_api.login(pending.username, "wrong password")) == (
+        "Tên đăng nhập hoặc mật khẩu không chính xác."
+    )
+
+
+def test_public_client_shows_vietnamese_registration_errors(env, public_api):
+    _factory, make_user, _admin_client, _created = env
+    taken = make_user(status="ACTIVE", username=_name())
+
+    assert _api_error(
+        lambda: public_api.register(taken.username, PASSWORD, PASSWORD)
+    ) == "Tên đăng nhập đã tồn tại."
+    assert _api_error(
+        lambda: public_api.register("bad name!", "short", "short")
+    ) == (
+        "Tên đăng nhập phải có từ 3 đến 50 ký tự, chỉ gồm chữ cái không dấu, "
+        "chữ số hoặc dấu gạch dưới (_). Mật khẩu phải có từ 8 đến 128 ký tự. "
+        "Mật khẩu nhập lại phải có từ 8 đến 128 ký tự."
+    )
+    assert _api_error(
+        lambda: public_api.register(_name(), PASSWORD, PASSWORD + "x")
+    ) == "Mật khẩu nhập lại không khớp."

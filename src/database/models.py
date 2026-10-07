@@ -933,6 +933,12 @@ class User(Base):
             "created_at",
             postgresql_where=text("status = 'PENDING'"),
         ),
+        Index(
+            "uq_users_username_not_rejected",
+            "username",
+            unique=True,
+            postgresql_where=text("status <> 'REJECTED'"),
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
@@ -942,10 +948,11 @@ class User(Base):
         server_default=text("gen_random_uuid()"),
     )
 
+    # Unique among non-REJECTED accounts only (uq_users_username_not_rejected),
+    # so a rejected username can be registered again.
     username: Mapped[str] = mapped_column(
         String(100),
         nullable=False,
-        unique=True,
     )
 
     password_hash: Mapped[str] = mapped_column(

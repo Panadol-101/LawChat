@@ -38,7 +38,12 @@ def main() -> None:
 
     engine = create_db_engine(DatabaseSettings.from_env())
     with Session(engine) as db, db.begin():
-        user = db.scalar(select(User).where(User.username == args.username))
+        user = db.scalar(
+            select(User).where(
+                User.username == args.username,
+                User.status != "REJECTED",
+            )
+        )
         if user is None:
             raise SystemExit(f"User {args.username!r} not found")
         if user.role != "ADMIN":

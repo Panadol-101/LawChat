@@ -7,7 +7,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from api_client import APIError, LawChatAPI
+from api_client import REGISTER_SUCCESS_MESSAGE, APIError, LawChatAPI
 from components import (
     STATUS_LABELS,
     answer_for_display,
@@ -115,6 +115,16 @@ def login_screen() -> None:
             ):
                 if not username.strip():
                     st.warning("Vui lòng nhập tên đăng nhập.")
+                elif not 3 <= len(username.strip()) <= 50 or not all(
+                    char.isascii() and (char.isalnum() or char == "_")
+                    for char in username.strip()
+                ):
+                    st.warning(
+                        "Tên đăng nhập phải có từ 3 đến 50 ký tự, chỉ gồm chữ cái "
+                        "không dấu, chữ số hoặc dấu gạch dưới (_)."
+                    )
+                elif not 8 <= len(password) <= 128:
+                    st.warning("Mật khẩu phải có từ 8 đến 128 ký tự.")
                 elif password != confirm_password:
                     st.warning("Mật khẩu nhập lại không khớp.")
                 else:
@@ -125,10 +135,7 @@ def login_screen() -> None:
                             confirm_password,
                         )
 
-                        st.success(
-                            "Đăng ký thành công. Tài khoản đang chờ "
-                            "quản trị viên duyệt trước khi đăng nhập."
-                        )
+                        st.success(REGISTER_SUCCESS_MESSAGE)
 
                     except APIError as exc:
                         fail(str(exc))
@@ -377,7 +384,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    st.caption("Vietnamese Legal RAG")
+    st.caption("Trợ lý pháp luật Việt Nam")
 
 
     # ============================================================
@@ -1174,7 +1181,7 @@ if prompt and prompt.strip():
                     status_box.update(label="Hoàn tất", state="complete", expanded=False)
                     render_citations(final_result.get("citations") or [])
                 elif not stream_failed:
-                    status_box.update(label="Stream kết thúc không đầy đủ", state="error")
+                    status_box.update(label="Câu trả lời bị gián đoạn, vui lòng thử lại", state="error")
             except APIError as exc:
                 stream_failed = True
                 status_box.update(label="Mất kết nối", state="error")

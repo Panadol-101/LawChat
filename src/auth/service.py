@@ -6,6 +6,7 @@ from typing import Any
 from uuid import UUID, uuid4
 
 from sqlalchemy import delete, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as DBSession
 
 from auth.security import (
@@ -19,6 +20,8 @@ from database.models import AuditLog, Session, User
 
 
 SESSION_LIFETIME = timedelta(hours=12)
+
+USERNAME_EXISTS = "Username already exists"
 
 
 class AccountNotActiveError(Exception):
@@ -117,12 +120,16 @@ def register_user(
     if len(username) < 3 or len(username) > 50:
         raise ValueError("Username must be between 3 and 50 characters")
 
+    # REJECTED accounts are kept for history but do not reserve the username.
     existing_user = db.scalar(
-        select(User).where(User.username == username)
+        select(User).where(
+            User.username == username,
+            User.status != "REJECTED",
+        )
     )
 
     if existing_user is not None:
-        raise ValueError("Username already exists")
+        raise ValueError(USERNAME_EXISTS)
 
     user = User(
         username=username,
@@ -135,7 +142,12 @@ def register_user(
     )
 
     db.add(user)
-    db.flush()
+    try:
+        db.flush()
+    except IntegrityError as exc:
+        # A concurrent registration took the name (uq_users_username_not_rejected).
+        db.rollback()
+        raise ValueError(USERNAME_EXISTS) from exc
 
     create_user_usage(
         db,
@@ -155,8 +167,11 @@ def authenticate_user(
 ) -> User | None:
     """Authenticate a user with username and password.
 
-    Raises AccountNotActiveError for a correct password on a PENDING or
-    REJECTED account; the status is only revealed after the password check.
+    Only the current (non-REJECTED) account for a username is considered;
+    REJECTED rows never authenticate. Raises AccountNotActiveError for a
+    correct password on a PENDING account, or on a REJECTED one when no
+    current account exists; the status is only revealed after the password
+    check.
     """
 
     username = username.strip()
@@ -167,10 +182,12 @@ def authenticate_user(
     user = db.scalar(
         select(User).where(
             User.username == username,
+            User.status != "REJECTED",
         )
     )
 
     if user is None:
+        _raise_if_rejected(db, username, password)
         return None
 
     if not verify_password(password, user.password_hash):
@@ -183,6 +200,22 @@ def authenticate_user(
         return None
 
     return user
+
+
+def _raise_if_rejected(db: DBSession, username: str, password: str) -> None:
+    """Tell a rejected user why login fails; never returns a usable account."""
+
+    rejected = db.scalar(
+        select(User)
+        .where(
+            User.username == username,
+            User.status == "REJECTED",
+        )
+        .order_by(User.created_at.desc())
+        .limit(1)
+    )
+    if rejected is not None and verify_password(password, rejected.password_hash):
+        raise AccountNotActiveError(rejected.id, rejected.status)
 
 
 def create_session(
@@ -329,16 +362,38 @@ def approve_user(
     ip_address: str | None = None,
     user_agent: str | None = None,
 ) -> User:
-    """Approve a PENDING or REJECTED USER account."""
+    """Approve a PENDING USER account; REJECTED accounts can only be deleted."""
 
     target = _lock_target_user(db, target_id)
-    if target.status not in ("PENDING", "REJECTED"):
-        raise InvalidStatusTransitionError(f"User is already {target.status}")
+    if target.status != "PENDING":
+        raise InvalidStatusTransitionError(
+            f"Only PENDING users can be approved; user is {target.status}"
+        )
+
+    # Guards against old inconsistent data; the partial unique index normally
+    # already keeps a PENDING username unique.
+    username_taken = db.scalar(
+        select(User.id).where(
+            User.username == target.username,
+            User.status != "REJECTED",
+            User.id != target.id,
+        )
+    )
+    if username_taken is not None:
+        raise InvalidStatusTransitionError(
+            "Username is already used by another active or pending account"
+        )
 
     details = _target_details(target)
     target.status = "ACTIVE"
     target.is_active = True
-    db.flush()
+    try:
+        db.flush()
+    except IntegrityError as exc:
+        db.rollback()
+        raise InvalidStatusTransitionError(
+            "Username is already used by another active or pending account"
+        ) from exc
     # Accounts registered before quotas existed get one now; a no-op otherwise.
     create_user_usage(db, target.id)
     write_audit_log(

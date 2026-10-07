@@ -4,6 +4,7 @@ import uuid
 from types import SimpleNamespace
 
 import pytest
+from sqlalchemy.exc import IntegrityError
 
 import auth.service as service
 from auth.security import hash_password
@@ -27,12 +28,14 @@ PASSWORD_HASH = hash_password(PASSWORD)
 class FakeDB:
     """Records what the service does; scalar() returns queued results."""
 
-    def __init__(self, *scalars, rowcount=0):
+    def __init__(self, *scalars, rowcount=0, flush_error=None):
         self.scalars = list(scalars)
         self.rowcount = rowcount
+        self.flush_error = flush_error
         self.added = []
         self.statements = []
         self.commits = 0
+        self.rollbacks = 0
 
     def scalar(self, statement):
         self.statements.append(statement)
@@ -46,7 +49,11 @@ class FakeDB:
         self.added.append(obj)
 
     def flush(self):
-        pass
+        if self.flush_error is not None:
+            raise self.flush_error
+
+    def rollback(self):
+        self.rollbacks += 1
 
     def commit(self):
         self.commits += 1
@@ -89,22 +96,33 @@ def test_registration_is_pending_and_inactive_with_quota(monkeypatch):
     assert quota_calls == [{"token_limit": 100_000}]
 
 
-@pytest.mark.parametrize("status", ["PENDING", "REJECTED"])
-def test_correct_password_on_unapproved_account_raises(status):
-    user = _user(status=status, is_active=False)
+def test_correct_password_on_pending_account_raises():
+    user = _user(status="PENDING", is_active=False)
 
     with pytest.raises(AccountNotActiveError) as exc_info:
         authenticate_user(FakeDB(user), user.username, PASSWORD)
 
-    assert exc_info.value.status == status
+    assert exc_info.value.status == "PENDING"
     assert exc_info.value.user_id == user.id
 
 
-@pytest.mark.parametrize("status", ["PENDING", "REJECTED"])
-def test_wrong_password_never_reveals_status(status):
-    user = _user(status=status, is_active=False)
+def test_correct_password_on_rejected_only_account_raises_rejected():
+    rejected = _user(status="REJECTED", is_active=False)
+    # First query (current account) finds nothing; second finds the old row.
+    db = FakeDB(None, rejected)
 
-    assert authenticate_user(FakeDB(user), user.username, "wrong") is None
+    with pytest.raises(AccountNotActiveError) as exc_info:
+        authenticate_user(db, rejected.username, PASSWORD)
+
+    assert exc_info.value.status == "REJECTED"
+
+
+def test_wrong_password_never_reveals_status():
+    pending = _user(status="PENDING", is_active=False)
+    rejected = _user(status="REJECTED", is_active=False)
+
+    assert authenticate_user(FakeDB(pending), pending.username, "wrong") is None
+    assert authenticate_user(FakeDB(None, rejected), rejected.username, "wrong") is None
 
 
 def test_disabled_active_account_still_fails_like_before():
@@ -119,8 +137,8 @@ def test_active_account_authenticates():
     assert authenticate_user(FakeDB(user), user.username, PASSWORD) is user
 
 
-@pytest.mark.parametrize("status", ["PENDING", "REJECTED"])
-def test_approve_activates_and_audits_actor_and_target(monkeypatch, status):
+def test_approve_activates_and_audits_actor_and_target(monkeypatch):
+    status = "PENDING"
     monkeypatch.setattr(service, "create_user_usage", lambda db, user_id, **kw: None)
     target = _user(status=status, is_active=False)
     db = FakeDB(target)
@@ -137,11 +155,19 @@ def test_approve_activates_and_audits_actor_and_target(monkeypatch, status):
     assert db.commits == 1
 
 
-def test_approve_already_active_is_rejected():
-    target = _user()
+@pytest.mark.parametrize(
+    ("status", "is_active"), [("ACTIVE", True), ("REJECTED", False)]
+)
+def test_only_pending_users_can_be_approved(status, is_active):
+    target = _user(status=status, is_active=is_active)
+    db = FakeDB(target)
 
-    with pytest.raises(InvalidStatusTransitionError):
-        approve_user(FakeDB(target), target.id, actor_id=ADMIN_ID)
+    with pytest.raises(InvalidStatusTransitionError, match="Only PENDING"):
+        approve_user(db, target.id, actor_id=ADMIN_ID)
+
+    assert (target.status, target.is_active) == (status, is_active)
+    assert db.audits == []
+    assert db.commits == 0
 
 
 @pytest.mark.parametrize("status", ["PENDING", "ACTIVE"])
@@ -221,3 +247,83 @@ def _postgres_dialect():
     from sqlalchemy.dialects import postgresql
 
     return postgresql.dialect()
+
+
+def _sql(statement):
+    from sqlalchemy.dialects import postgresql
+
+    return str(statement.compile(dialect=postgresql.dialect()))
+
+
+def test_authentication_query_excludes_rejected_rows():
+    user = _user()
+    db = FakeDB(user)
+
+    assert authenticate_user(db, user.username, PASSWORD) is user
+
+    [query] = db.statements
+    assert "users.status != %(status_1)s" in _sql(query)
+    assert query.compile().params["status_1"] == "REJECTED"
+
+
+def test_current_account_is_used_without_looking_at_rejected_rows():
+    pending = _user(status="PENDING", is_active=False)
+    db = FakeDB(pending)
+
+    with pytest.raises(AccountNotActiveError) as exc_info:
+        authenticate_user(db, pending.username, PASSWORD)
+
+    assert exc_info.value.user_id == pending.id
+    assert len(db.statements) == 1
+
+
+def test_registration_conflict_check_ignores_rejected_rows(monkeypatch):
+    monkeypatch.setattr(service, "create_user_usage", lambda db, user_id, **kw: None)
+    db = FakeDB(None)
+
+    register_user(db, "sonnytest", PASSWORD)
+
+    [query] = db.statements
+    assert "users.status != %(status_1)s" in _sql(query)
+    assert query.compile().params["status_1"] == "REJECTED"
+
+
+def test_registration_of_taken_username_fails():
+    with pytest.raises(ValueError, match="Username already exists"):
+        register_user(FakeDB(_user(status="PENDING", is_active=False)), "x_user", PASSWORD)
+
+
+def test_registration_race_on_unique_index_is_username_exists(monkeypatch):
+    monkeypatch.setattr(service, "create_user_usage", lambda db, user_id, **kw: None)
+    db = FakeDB(None, flush_error=IntegrityError("INSERT", {}, Exception("dup")))
+
+    with pytest.raises(ValueError, match="Username already exists"):
+        register_user(db, "sonnytest", PASSWORD)
+
+    assert db.rollbacks == 1
+    assert db.commits == 0
+
+
+def test_approve_refuses_when_username_is_used_by_another_account():
+    # Old inconsistent data: another current account already holds the name.
+    target = _user(status="PENDING", is_active=False)
+    db = FakeDB(target, uuid.uuid4())
+
+    with pytest.raises(InvalidStatusTransitionError, match="already used"):
+        approve_user(db, target.id, actor_id=ADMIN_ID)
+
+    assert target.status == "PENDING"
+    assert db.audits == []
+    assert db.commits == 0
+
+
+def test_approve_race_on_unique_index_is_conflict(monkeypatch):
+    monkeypatch.setattr(service, "create_user_usage", lambda db, user_id, **kw: None)
+    target = _user(status="PENDING", is_active=False)
+    db = FakeDB(target, None, flush_error=IntegrityError("UPDATE", {}, Exception("dup")))
+
+    with pytest.raises(InvalidStatusTransitionError):
+        approve_user(db, target.id, actor_id=ADMIN_ID)
+
+    assert db.rollbacks == 1
+    assert db.commits == 0
