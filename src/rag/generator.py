@@ -41,10 +41,16 @@ class InvalidStructuredResponseError(GenerationError):
     """The provider response cannot be parsed as the required answer schema."""
 
     def __init__(
-        self, message: str, *, contract_code: str = "INVALID_STRUCTURED_RESPONSE"
+        self,
+        message: str,
+        *,
+        contract_code: str = "INVALID_STRUCTURED_RESPONSE",
+        detail: str = "",
     ) -> None:
         super().__init__(message)
         self.contract_code = contract_code
+        # What exactly broke the contract, phrased for the repair prompt.
+        self.detail = detail
 
 
 @dataclass(frozen=True, slots=True)
@@ -73,7 +79,7 @@ class GeneratedClaim:
     issue_ids: tuple[str, ...] = ()
 
     @classmethod
-    def from_dict(cls, value: Mapping[str, Any]) -> GeneratedClaim:
+    def from_dict(cls, value: Mapping[str, Any], index: int = 0) -> GeneratedClaim:
         text = value.get("text")
         evidence_ids = value.get("evidence_ids")
         if not isinstance(text, str) or not isinstance(evidence_ids, list):
@@ -109,10 +115,23 @@ class GeneratedClaim:
             if len(quote) > 1200:
                 quote = quote[:1200].rsplit(" ", 1)[0].rstrip()
             quotes.append(SupportingQuote(item["evidence_id"], quote))
-        if (set(value) - {"text", "evidence_ids", "supporting_quotes", "issue_ids"}
-            or not text.strip() or len(text) > 500 or len(evidence_ids) > 8 or len(issue_ids) > 5):
+        violations = []
+        extra_keys = set(value) - {"text", "evidence_ids", "supporting_quotes", "issue_ids"}
+        if extra_keys:
+            violations.append(f"có khóa thừa {sorted(extra_keys)}")
+        if not text.strip():
+            violations.append("text rỗng")
+        if len(text) > 500:
+            violations.append(f"text dài {len(text)} ký tự, tối đa 500")
+        if len(evidence_ids) > 8:
+            violations.append(f"{len(evidence_ids)} evidence_ids, tối đa 8")
+        if len(issue_ids) > 5:
+            violations.append(f"{len(issue_ids)} issue_ids, tối đa 5")
+        if violations:
             raise InvalidStructuredResponseError(
-                "Claim violates output contract", contract_code="CLAIM_CONTRACT_INVALID"
+                "Claim violates output contract",
+                contract_code="CLAIM_CONTRACT_INVALID",
+                detail=f"claim {index}: " + "; ".join(violations),
             )
         return cls(
             text=text.strip(),
@@ -235,7 +254,9 @@ class GeneratedAnswer:
         trimmed_limitations = tuple(item.strip()[:300] for item in limitations[:5])
         return cls(
             answer=answer.strip(),
-            claims=tuple(GeneratedClaim.from_dict(item) for item in claims[:5]),
+            claims=tuple(
+                GeneratedClaim.from_dict(item, index) for index, item in enumerate(claims[:5])
+            ),
             limitations=trimmed_limitations,
             confidence=confidence,
             issue_resolutions=tuple(IssueResolution.from_dict(item) for item in raw_resolutions[:5]),

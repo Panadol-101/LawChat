@@ -111,6 +111,8 @@ Giới hạn độ dài bắt buộc:
 - answer phải là chuỗi rỗng ""; server sẽ dựng answer cuối từ verified claims.
 - Tối đa 5 claims; nhóm các quy định liên quan thành một claim ngắn cho mỗi evidence.
 - Mỗi claim không quá 500 ký tự và không lặp nguyên văn answer.
+- Điều luật liệt kê nhiều trường hợp/điểm: tóm lược ngắn mỗi trường hợp, không chép
+  nguyên văn; nếu vẫn quá 500 ký tự thì chia các trường hợp sang nhiều claim.
 - Tối đa 5 limitations, mỗi limitation không quá 300 ký tự.
 - limitations luôn là mảng CHUỖI: ["Chưa có dữ liệu về X."], tuyệt đối không chứa object.
 

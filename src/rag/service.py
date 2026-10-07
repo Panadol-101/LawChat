@@ -139,7 +139,7 @@ class GroundedRAGService:
                 telemetry.append(answer.telemetry)
             if self.semantic_mode != "off":
                 answer = repair_supporting_quotes(request, answer)
-            answer = _normalize_issue_limitations(request, answer)
+            answer = _normalize_issue_limitations(request, _relink_issue_resolutions(answer))
             verification = self._verify(request, answer, observations, stages, attempt)
             final = self._finish_attempt(request, answer, verification, attempt, tuple(telemetry))
             if final is not None:
@@ -191,7 +191,7 @@ class GroundedRAGService:
                 telemetry.append(answer.telemetry)
             if self.semantic_mode != "off":
                 answer = repair_supporting_quotes(request, answer)
-            answer = _normalize_issue_limitations(request, answer)
+            answer = _normalize_issue_limitations(request, _relink_issue_resolutions(answer))
             verification = await self._verify_async(request, answer, observations, stages, attempt)
             final = self._finish_attempt(request, answer, verification, attempt, tuple(telemetry))
             if final is not None:
@@ -204,8 +204,17 @@ class GroundedRAGService:
     @staticmethod
     def _format_repair(request, error=None):
         error_code = getattr(error, "contract_code", "INVALID_STRUCTURED_RESPONSE")
+        detail = getattr(error, "detail", "")
+        detail_note = (
+            f"Lỗi cụ thể: {detail}. Claim quá dài phải được rút gọn hoặc tách thành "
+            "nhiều claim ngắn (tổng tối đa 5 claim, mỗi claim tối đa 500 ký tự và 8 "
+            "evidence_ids); với điều luật liệt kê nhiều trường hợp, tóm lược ngắn mỗi "
+            "trường hợp thay vì chép nguyên văn. "
+            if detail else ""
+        )
         return replace(request, previous_answer=_safe_refusal(request), repair_instructions=(
             f"Phản hồi trước sai định dạng JSON ({error_code}) và đã bị loại bỏ. "
+            + detail_note +
             "Sinh lại từ evidence theo đúng schema: "
             "answer là chuỗi rỗng; claims gồm text, evidence_ids, supporting_quotes, issue_ids; "
             "issue_resolutions có đúng một kết quả cho mỗi issue; limitations là mảng CHUỖI; "
@@ -407,6 +416,37 @@ def _telemetries(*answers: GeneratedAnswer) -> tuple[GenerationTelemetry, ...]:
     return tuple(
         answer.telemetry for answer in answers if answer.telemetry is not None
     )
+
+
+def _relink_issue_resolutions(answer: GeneratedAnswer) -> GeneratedAnswer:
+    """Treat an issue the model answered with linked claims as ANSWERED.
+
+    The model sometimes writes claims tagged with an issue and still marks that
+    issue INSUFFICIENT_EVIDENCE (a partial answer). Those claims are verified
+    like any other; the model's explanation stays visible as a limitation.
+    """
+    linked_claims: dict[str, list[int]] = {}
+    for index, claim in enumerate(answer.claims):
+        for issue_id in claim.issue_ids:
+            linked_claims.setdefault(issue_id, []).append(index)
+    resolutions = []
+    disclosed = []
+    for resolution in answer.issue_resolutions:
+        claims = tuple(linked_claims.get(resolution.issue_id, ()))
+        if resolution.status == "ANSWERED":
+            # Also cite claims tagged with this issue that the model left out.
+            resolutions.append(replace(resolution, claim_indexes=tuple(
+                dict.fromkeys((*resolution.claim_indexes, *claims))
+            )))
+            continue
+        if not claims:
+            resolutions.append(resolution)
+            continue
+        resolutions.append(replace(resolution, status="ANSWERED", claim_indexes=claims))
+        if resolution.explanation:
+            disclosed.append(resolution.explanation)
+    limitations = tuple(dict.fromkeys((*disclosed, *answer.limitations)))
+    return replace(answer, issue_resolutions=tuple(resolutions), limitations=limitations)
 
 
 def _normalize_issue_limitations(

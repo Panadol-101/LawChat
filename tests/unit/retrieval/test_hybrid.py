@@ -470,3 +470,62 @@ def test_replacement_expansion_keeps_in_force_seed_documents():
     )
 
     assert dense.filters.doc_ids == ("current-code", "current-target")
+
+
+class StructureOnlyEmptyDense(FakeDense):
+    """Returns nothing while an article filter is applied (document has no article metadata)."""
+
+    def search(self, query, *, limit, filters=None):
+        if filters is not None and filters.articles:
+            self.filters = filters
+            self.filter_history.append(filters)
+            return []
+        return super().search(query, limit=limit, filters=filters)
+
+
+class StructureOnlyEmptySparse(FakeSparse):
+    def search(self, query, *, limit, filters=None):
+        if filters is not None and filters.require_structure:
+            self.filters = filters
+            self.filter_history.append(filters)
+            return []
+        return super().search(query, limit=limit, filters=filters)
+
+
+def test_provision_filter_with_no_match_falls_back_to_the_named_document():
+    dense, sparse = StructureOnlyEmptyDense(), StructureOnlyEmptySparse()
+    service = HybridRetrievalService(
+        dense,
+        sparse,
+        FakeHydrator(),
+        query_parser=LegalQueryParser(today=lambda: date(2025, 1, 1)),
+        seed_resolver=FakeSeedResolver(),
+    )
+
+    response = service.retrieve(
+        RetrievalRequest(query="Điều 17 Nghị định 100/2019/NĐ-CP", limit=2, candidate_limit=2)
+    )
+
+    assert response.results
+    assert dense.filter_history[0].articles == ("17",)
+    assert dense.filters.articles == ()
+    assert dense.filters.doc_ids == ("source-doc",)
+    assert not sparse.filters.require_structure
+    assert any("provision" in warning for warning in response.warnings)
+
+
+def test_provision_fallback_is_not_used_without_a_resolved_document():
+    dense, sparse = StructureOnlyEmptyDense(), StructureOnlyEmptySparse()
+    service = HybridRetrievalService(
+        dense,
+        sparse,
+        FakeHydrator(),
+        query_parser=LegalQueryParser(today=lambda: date(2025, 1, 1)),
+    )
+
+    response = service.retrieve(
+        RetrievalRequest(query="Điều 17 quy định gì", limit=2, candidate_limit=2)
+    )
+
+    assert response.results == ()
+    assert all(item.articles == ("17",) for item in dense.filter_history)

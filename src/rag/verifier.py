@@ -102,7 +102,13 @@ _STATUS_PATTERNS: tuple[tuple[re.Pattern[str], frozenset[str]], ...] = (
         frozenset({"EXPIRED", "REPEALED"}),
     ),
     (
-        re.compile(r"\b(?:bị\s+)?(?:tạm đình chỉ|đình chỉ|tạm ngưng)\b", re.IGNORECASE),
+        # A document is "đình chỉ thi hành" / "tạm ngưng hiệu lực"; plain
+        # "(tạm) đình chỉ giải quyết vụ án" or "thi hành án" is procedure.
+        re.compile(
+            r"\b(?:tạm\s+)?(?:đình chỉ|ngưng)\s+(?:việc\s+)?thi hành\b(?!\s+án)|"
+            r"\b(?:tạm\s+)?(?:đình chỉ|ngưng)\s+hiệu lực\b",
+            re.IGNORECASE,
+        ),
         frozenset({"SUSPENDED"}),
     ),
     (
@@ -589,12 +595,27 @@ def _evidence_provision_values(
         for item in items
         if getattr(item.citation, field)
     }
+    # Grouped chunks cite a numeric range such as clause "23-32"; every
+    # provision in that range is part of the cited text.
+    for value in tuple(values):
+        bounds = _PROVISION_RANGE_RE.fullmatch(value)
+        if bounds and int(bounds.group(1)) <= int(bounds.group(2)) <= int(bounds.group(1)) + 200:
+            values.update(str(n) for n in range(int(bounds.group(1)), int(bounds.group(2)) + 1))
     pattern = _PROVISION_PATTERNS[field]
     values.update(
         _normalize_provision(match.group(1))
         for item in items
         for match in pattern.finditer(item.text)
     )
+    # An article's own text labels its clauses "N. ..." and points "a) ...".
+    label_pattern = _INLINE_LABEL_PATTERNS.get(field)
+    if label_pattern is not None:
+        values.update(
+            _normalize_provision(next(group for group in match.groups() if group))
+            for item in items
+            if item.citation.article
+            for match in label_pattern.finditer(item.text)
+        )
     return values
 
 
@@ -611,7 +632,21 @@ def _required_status_disclosure(status: str) -> frozenset[str]:
 
 
 def _normalize_identifier(value: str | None) -> str:
-    return re.sub(r"\s+", "", value or "").casefold()
+    # Some sources store numbers as "Số: 15 /2017/QĐ-UBND".
+    compact = re.sub(r"\s+", "", value or "").casefold()
+    return re.sub(r"^(?:số|so)[:.]?(?=\d)", "", compact)
+
+
+_PROVISION_RANGE_RE = re.compile(r"(\d+)\s*[-–]\s*(\d+)")
+# Clause "N." / point "a)" labels at the start of the text, a line, or right
+# after a sentence/list boundary ("... đồng. 2. Phạm tội", "...: a) Làm chết").
+_INLINE_LABEL_PATTERNS = {
+    "clause": re.compile(
+        # Clause 1 directly follows the article title, without punctuation.
+        r"(?:(?:^|\n|[.;:]\s)\s*(\d{1,3}[a-zđ]?)|\s(1))\.\s+(?=[A-ZĐÀ-Ỹ])", re.MULTILINE
+    ),
+    "point": re.compile(r"(?:^|\n|[.;:]\s)\s*([a-zđ])\)\s", re.MULTILINE),
+}
 
 
 def _normalize_provision(value: str | None) -> str:

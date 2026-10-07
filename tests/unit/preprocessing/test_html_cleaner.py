@@ -62,3 +62,24 @@ def test_nested_table_is_serialized_without_inflating_outer_cells():
     assert '[[LAWCHAT_TABLE_ROW]] ["Thông tin biểu mẫu"]' in cleaned
     assert '[[LAWCHAT_TABLE_HEADERS]] ["STT", "Nội dung"]' in cleaned
     assert '[[LAWCHAT_TABLE_ROW]] ["1", "Quy định A"]' in cleaned
+
+
+def test_single_cell_layout_table_wrapping_a_law_keeps_paragraph_lines():
+    paragraphs = "".join(
+        f"<p><strong>Điều {n}. Tiêu đề {n}</strong></p><p>1. Nội dung khoản.</p>"
+        for n in range(1, 8)
+    )
+    html = f"<table><tr><td><p>LUẬT</p><p>Chương I</p>{paragraphs}</td></tr></table>"
+
+    lines = clean_html(html).splitlines()
+
+    assert "[[LAWCHAT_TABLE_ROW]]" not in clean_html(html)
+    assert "Điều 1. Tiêu đề 1" in lines
+    assert "Điều 7. Tiêu đề 7" in lines
+    assert "Chương I" in lines
+
+
+def test_small_single_cell_table_is_still_serialized_as_a_table():
+    html = "<table><tr><td><p>Ghi chú</p><p>Một dòng</p></td></tr></table>"
+
+    assert "[[LAWCHAT_TABLE_ROW]]" in clean_html(html)

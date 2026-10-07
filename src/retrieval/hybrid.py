@@ -246,66 +246,82 @@ class HybridRetrievalService:
         fused: list[FusedCandidate] = []
         hydrated: list[HydratedLegalChunk] = []
         sources: tuple[str, ...] = ()
-        while True:
-            if temporal.intent is TemporalIntent.STATUS_LOOKUP and len(seed_document_ids) > 1:
-                rankings, iteration_warnings, source_timings = self._search_sources_by_seed(
-                    parsed,
-                    candidate_limit,
-                    dense_filters,
-                    sparse_filters,
-                    seed_document_ids,
+        structure_filtered = bool(
+            dense_filters.articles or dense_filters.clauses or dense_filters.points
+        )
+        for relax_structure in (False, True):
+            if relax_structure:
+                # A named document whose chunks carry no provision metadata
+                # (e.g. parsed without article structure) would otherwise
+                # return nothing; search the whole named document instead.
+                if hydrated or not structure_filtered or not search_document_ids:
+                    break
+                dense_filters = replace(dense_filters, articles=(), clauses=(), points=())
+                sparse_filters = replace(sparse_filters, require_structure=False)
+                candidate_limit = request.candidate_limit
+                warnings.append(
+                    "no chunk matched the requested provision; searched the named document instead"
                 )
-            else:
-                rankings, iteration_warnings, source_timings = self._search_sources(
-                    parsed,
-                    candidate_limit,
-                    dense_filters,
-                    sparse_filters,
+            while True:
+                if temporal.intent is TemporalIntent.STATUS_LOOKUP and len(seed_document_ids) > 1:
+                    rankings, iteration_warnings, source_timings = self._search_sources_by_seed(
+                        parsed,
+                        candidate_limit,
+                        dense_filters,
+                        sparse_filters,
+                        seed_document_ids,
+                    )
+                else:
+                    rankings, iteration_warnings, source_timings = self._search_sources(
+                        parsed,
+                        candidate_limit,
+                        dense_filters,
+                        sparse_filters,
+                    )
+                warnings.extend(iteration_warnings)
+                for name, elapsed in source_timings.items():
+                    timings[name] = timings.get(name, 0.0) + elapsed
+                sources = (
+                    ("graph", *rankings)
+                    if graph_expansion and graph_document_ids
+                    else tuple(rankings)
                 )
-            warnings.extend(iteration_warnings)
-            for name, elapsed in source_timings.items():
-                timings[name] = timings.get(name, 0.0) + elapsed
-            sources = (
-                ("graph", *rankings)
-                if graph_expansion and graph_document_ids
-                else tuple(rankings)
-            )
-            if not rankings:
-                raise HybridSearchUnavailable("dense and sparse retrieval failed")
-            fusion_started = perf_counter()
-            fused = reciprocal_rank_fusion(
-                rankings,
-                settings=self.rrf_settings,
-                limit=candidate_limit,
-            )
-            timings["fusion"] += perf_counter() - fusion_started
-            hydration_started = perf_counter()
-            hydrated = self.hydrator.hydrate(
-                [candidate.point_id for candidate in fused],
-                metadata_filters,
-                collection=self.physical_collection,
-            )
-            timings["hydration"] += perf_counter() - hydration_started
-            exhausted = all(
-                len(candidates) < candidate_limit
-                for candidates in rankings.values()
-            )
-            if (
-                len(hydrated) >= request.limit
-                or exhausted
-                or candidate_limit >= request.max_candidate_limit
-            ):
-                break
-            # Audit fix W5 (Phase 5): the legacy ``candidate_limit * 2`` rule
-            # doubles every retry, which is too aggressive when the corpus
-            # has many REPEALED/EXPIRED candidates that will keep getting
-            # filtered out. We now bump by +50% (floor 8) until we reach
-            # ``max_candidate_limit``, keeping the per-iteration growth
-            # predictable while still converging in 2-3 iterations.
-            candidate_limit = min(
-                request.max_candidate_limit,
-                max(candidate_limit + 8, int(candidate_limit * 1.5)),
-            )
+                if not rankings:
+                    raise HybridSearchUnavailable("dense and sparse retrieval failed")
+                fusion_started = perf_counter()
+                fused = reciprocal_rank_fusion(
+                    rankings,
+                    settings=self.rrf_settings,
+                    limit=candidate_limit,
+                )
+                timings["fusion"] += perf_counter() - fusion_started
+                hydration_started = perf_counter()
+                hydrated = self.hydrator.hydrate(
+                    [candidate.point_id for candidate in fused],
+                    metadata_filters,
+                    collection=self.physical_collection,
+                )
+                timings["hydration"] += perf_counter() - hydration_started
+                exhausted = all(
+                    len(candidates) < candidate_limit
+                    for candidates in rankings.values()
+                )
+                if (
+                    len(hydrated) >= request.limit
+                    or exhausted
+                    or candidate_limit >= request.max_candidate_limit
+                ):
+                    break
+                # Audit fix W5 (Phase 5): the legacy ``candidate_limit * 2`` rule
+                # doubles every retry, which is too aggressive when the corpus
+                # has many REPEALED/EXPIRED candidates that will keep getting
+                # filtered out. We now bump by +50% (floor 8) until we reach
+                # ``max_candidate_limit``, keeping the per-iteration growth
+                # predictable while still converging in 2-3 iterations.
+                candidate_limit = min(
+                    request.max_candidate_limit,
+                    max(candidate_limit + 8, int(candidate_limit * 1.5)),
+                )
 
         rejection_reasons = hydration_rejection_reasons(
             self.hydrator,

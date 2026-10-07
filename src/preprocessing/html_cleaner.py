@@ -10,7 +10,7 @@ from lxml import etree
 from lxml import html as lxml_html
 
 
-CLEANER_VERSION = "2.1.0"
+CLEANER_VERSION = "2.2.0"
 
 
 # ---------------------------------------------------------------------------
@@ -216,7 +216,13 @@ def _node_to_text(
         return
 
     if tag == "table":
-        _append_text(parts, _table_to_text(node))
+        layout_cell = _layout_cell(node)
+        if layout_cell is None:
+            _append_text(parts, _table_to_text(node))
+        else:
+            parts.append("\n")
+            _node_to_text(layout_cell, parts)
+            parts.append("\n")
         return
 
     # Explicit line break.
@@ -240,6 +246,33 @@ def _node_to_text(
 
         _append_text(parts, child.tail)
 
+
+
+_LAYOUT_TABLE_MIN_BLOCKS = 10
+
+
+def _layout_cell(table: etree._Element) -> etree._Element | None:
+    """The only cell of a table used as a page wrapper, else None.
+
+    Some sources put a whole law inside one <td>; serializing it as a table
+    row collapses every paragraph onto one line and hides "Điều N." headings.
+    """
+    cells = [
+        cell
+        for cell in table.iter("td", "th")
+        if next(
+            (a for a in cell.iterancestors() if isinstance(a.tag, str) and a.tag.lower() == "table"),
+            None,
+        ) is table
+    ]
+    if len(cells) != 1:
+        return None
+    blocks = sum(
+        1
+        for element in cells[0].iter("p", "div")
+        if element is not cells[0]
+    )
+    return cells[0] if blocks >= _LAYOUT_TABLE_MIN_BLOCKS else None
 
 
 def _table_to_text(table: etree._Element) -> str:

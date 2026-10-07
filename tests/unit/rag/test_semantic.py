@@ -470,3 +470,50 @@ def test_coverage_review_requires_every_issue_once_and_valid_claim_indexes():
     )
     checked = SemanticVerifier(FakeJudge(invalid)).review(req, answer)
     assert checked.error == "INVALID_COVERAGE_CLAIM_INDEX"
+
+
+def _single_issue_answer(resolution):
+    request, answer = example()
+    request = replace(request, issues=(LegalIssue("I1", "Nghĩa vụ là gì?", "nghĩa vụ báo cáo"),))
+    claim = replace(answer.claims[0], issue_ids=("I1",))
+    return request, replace(answer, claims=(claim,), issue_resolutions=(resolution,))
+
+
+@pytest.mark.parametrize("claim_indexes", [(0,), ()])
+def test_issue_with_linked_claims_marked_insufficient_is_answered_with_disclosed_limit(claim_indexes):
+    request, answer = _single_issue_answer(
+        IssueResolution("I1", "INSUFFICIENT_EVIDENCE", claim_indexes, "Chưa có căn cứ về thời hạn.")
+    )
+
+    result = GroundedRAGService(FakeLegalAnswerGenerator([answer])).answer(request)
+
+    assert result.status.value == "VERIFIED"
+    assert result.answer.issue_resolutions[0].status == "ANSWERED"
+    assert result.answer.issue_resolutions[0].claim_indexes == (0,)
+    assert "Chưa có căn cứ về thời hạn." in result.answer.limitations
+
+
+def test_issue_without_any_linked_claim_stays_unanswered():
+    request, answer = example()
+    request = replace(request, issues=(LegalIssue("I1", "Nghĩa vụ là gì?", "nghĩa vụ báo cáo"),))
+    answer = replace(answer, claims=(), issue_resolutions=(
+        IssueResolution("I1", "INSUFFICIENT_EVIDENCE", (), "Chưa có căn cứ."),
+    ))
+
+    result = GroundedRAGService(FakeLegalAnswerGenerator([answer])).answer(request)
+
+    assert result.status.value == "REFUSED"
+
+
+def test_answered_issue_also_cites_claims_tagged_with_it():
+    request, answer = example()
+    request = replace(request, issues=(LegalIssue("I1", "Nghĩa vụ là gì?", "nghĩa vụ báo cáo"),))
+    claim = replace(answer.claims[0], issue_ids=("I1",))
+    answer = replace(answer, claims=(claim, claim), issue_resolutions=(
+        IssueResolution("I1", "ANSWERED", (0,), "Đã trả lời."),
+    ))
+
+    result = GroundedRAGService(FakeLegalAnswerGenerator([answer])).answer(request)
+
+    assert result.status.value == "VERIFIED"
+    assert result.answer.issue_resolutions[0].claim_indexes == (0, 1)

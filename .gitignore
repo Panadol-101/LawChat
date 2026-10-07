@@ -52,3 +52,4 @@ data/**/.cache/
 
 # Generated VM transfer bundles
 vm_bundle/
+/backups/

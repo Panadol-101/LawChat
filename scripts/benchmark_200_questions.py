@@ -187,6 +187,32 @@ def load_dataset(file_path: Path) -> list[dict[str, Any]]:
     return cases
 
 
+_IN_PROCESS_CLIENT = None
+
+
+def enable_in_process_api() -> None:
+    """Serve /api/v1/answer from this process instead of over HTTP.
+
+    The real API keeps requiring an admin session with TOTP; only this
+    benchmark process overrides the admin check on its own app instance.
+    Needs the app's environment (see scripts/run_benchmark_local.sh).
+    """
+    global _IN_PROCESS_CLIENT
+    import sys
+    from types import SimpleNamespace
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    from fastapi.testclient import TestClient
+
+    from api.main import app, require_admin
+
+    app.dependency_overrides[require_admin] = lambda: SimpleNamespace(
+        id=None, username="benchmark", role="ADMIN"
+    )
+    _IN_PROCESS_CLIENT = TestClient(app)
+    _IN_PROCESS_CLIENT.__enter__()  # run lifespan: load retrieval and RAG runtime
+
+
 def query_answer_api(
     base_url: str,
     question: str,
@@ -194,11 +220,17 @@ def query_answer_api(
 ) -> dict[str, Any]:
     """Call POST /api/v1/answer endpoint."""
     url = f"{base_url.rstrip('/')}/api/v1/answer"
-    payload = {"query": question, "response_mode": "compact"}
+    # verbose carries verification issues and evidence so refusals can be diagnosed.
+    payload = {"query": question, "response_mode": "verbose"}
 
     started = time.perf_counter()
     try:
-        resp = requests.post(url, json=payload, timeout=timeout, cookies=_admin_cookies(base_url))
+        if _IN_PROCESS_CLIENT is not None:
+            resp = _IN_PROCESS_CLIENT.post("/api/v1/answer", json=payload)
+        else:
+            resp = requests.post(
+                url, json=payload, timeout=timeout, cookies=_admin_cookies(base_url)
+            )
         elapsed = round(time.perf_counter() - started, 3)
         if resp.status_code == 200:
             data = resp.json()
@@ -211,6 +243,7 @@ def query_answer_api(
                 "citations": data.get("citations", []),
                 "elapsed_seconds": elapsed,
                 "timing": data.get("timing", {}),
+                "diagnostics": _diagnostics(data),
             }
         else:
             return {
@@ -226,6 +259,36 @@ def query_answer_api(
             "error": str(exc),
             "elapsed_seconds": round(time.perf_counter() - started, 3),
         }
+
+
+def _diagnostics(data: dict[str, Any]) -> dict[str, Any]:
+    """Compact per-case trace: why a case was refused and which sources it used."""
+    verification = data.get("verification") or {}
+    return {
+        "rewritten_query": data.get("rewritten_query"),
+        "attempts": data.get("attempts"),
+        "verification_issues": [
+            f"{item.get('code')}: {(item.get('message') or '')[:200]}"
+            for item in verification.get("issues", [])
+        ],
+        "legal_issues": [item.get("search_query") for item in data.get("legal_issues", [])],
+        "issue_resolutions": [
+            {"issue_id": item.get("issue_id"), "status": item.get("status")}
+            for item in data.get("issue_resolutions", [])
+        ],
+        "evidence": [
+            f"{item.get('evidence_id')} | {item.get('document_number')} | {(item.get('title') or '')[:50]}"
+            f" | Điều {item.get('article') or ''} khoản {item.get('clause') or ''}"
+            f" | {item.get('status') or ''} | {item.get('role')}"
+            for item in data.get("evidence", [])
+        ],
+        "claims": [
+            f"{item.get('evidence_ids')} {(item.get('text') or '')[:300]}"
+            for item in data.get("claims", [])
+        ],
+        "rejection_reasons": (data.get("retrieval") or {}).get("rejection_reasons"),
+        "retrieval_warnings": (data.get("retrieval") or {}).get("warnings"),
+    }
 
 
 def query_search_api(
@@ -280,6 +343,7 @@ def run_benchmark(
     resume: bool = True,
     rerun_refused: bool = False,
     delay: float = 0.5,
+    timeout: int = 180,
 ) -> dict[str, Any]:
     """Run benchmark over test cases and compute F1 metrics."""
     results: list[dict[str, Any]] = []
@@ -322,7 +386,7 @@ def run_benchmark(
         print(f"[{i}/{total_cases}] Row {row_idx} (STT {stt}): {q[:60]}...")
 
         if mode == "rag":
-            api_res = query_answer_api(base_url, q)
+            api_res = query_answer_api(base_url, q, timeout=timeout)
             pred_ans = api_res.get("predicted_answer", "")
             pred_cits = extract_legal_citations(pred_ans)
             # Token F1
@@ -349,6 +413,7 @@ def run_benchmark(
                 "reference_citations": list(ref_cits),
                 "predicted_citations": list(pred_cits),
                 "timing": api_res.get("timing", {}),
+                "diagnostics": api_res.get("diagnostics", {}),
             }
             print(
                 f"    -> Status: {case_record['rag_status']} | "
@@ -529,12 +594,25 @@ def main() -> None:
     parser.add_argument("--output-json", type=Path, default=DEFAULT_REPORT_JSON, help="Output JSON path")
     parser.add_argument("--output-xlsx", type=Path, default=DEFAULT_REPORT_XLSX, help="Output Excel path")
     parser.add_argument("--delay", type=float, default=0.5, help="Delay between requests (s)")
+    parser.add_argument("--timeout", type=int, default=300, help="Per-request timeout (s)")
+    parser.add_argument("--only-stt", type=str, default=None, help="Comma-separated STT values, e.g. 1,5,156")
+    parser.add_argument(
+        "--in-process",
+        action="store_true",
+        help="Run the answer API inside this process (no admin login); use scripts/run_benchmark_local.sh",
+    )
     args = parser.parse_args()
+    if args.in_process:
+        enable_in_process_api()
 
     cases = load_dataset(args.file)
     print(f"Loaded {len(cases)} cases from {args.file}")
 
-    if args.sample_indices:
+    if args.only_stt:
+        wanted = {int(part) for part in args.only_stt.split(",") if part.strip().isdigit()}
+        cases = [c for c in cases if c["stt"] in wanted]
+        print(f"Filtered by STT: {len(cases)} cases selected.")
+    elif args.sample_indices:
         indices = set()
         for part in args.sample_indices.split(","):
             part = part.strip()
@@ -557,6 +635,7 @@ def main() -> None:
         resume=not args.no_resume,
         rerun_refused=args.rerun_refused,
         delay=args.delay,
+        timeout=args.timeout,
     )
 
     print("\n" + "=" * 50)

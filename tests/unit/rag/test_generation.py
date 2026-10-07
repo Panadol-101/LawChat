@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import asyncio
 import json
 from dataclasses import replace
@@ -581,3 +582,111 @@ def test_output_contract_is_last_for_initial_generation_and_repair():
     assert repair_prompt.index("Yêu cầu repair") < repair_prompt.index(OUTPUT_CONTRACT)
     assert '"answer"' in OUTPUT_CONTRACT
     assert '"evidence_ids"' in OUTPUT_CONTRACT
+
+
+def _raw_answer(claims: list[dict]) -> dict:
+    return {"answer": "", "claims": claims, "limitations": [], "confidence": "high"}
+
+
+def test_overlong_claim_error_names_the_claim_and_the_limit():
+    from rag.generator import InvalidStructuredResponseError
+
+    raw = _raw_answer([
+        {"text": "Ngắn.", "evidence_ids": ["E1"]},
+        {"text": "x" * 812, "evidence_ids": ["E1"]},
+    ])
+    with pytest.raises(InvalidStructuredResponseError) as caught:
+        GeneratedAnswer.from_dict(raw)
+
+    assert caught.value.contract_code == "CLAIM_CONTRACT_INVALID"
+    assert "claim 1" in caught.value.detail
+    assert "812" in caught.value.detail
+    assert "500" in caught.value.detail
+
+
+def test_format_repair_tells_the_model_exactly_what_to_fix():
+    from rag.generator import InvalidStructuredResponseError
+
+    error = InvalidStructuredResponseError(
+        "Claim violates output contract",
+        contract_code="CLAIM_CONTRACT_INVALID",
+        detail="claim 1: text dài 812 ký tự, tối đa 500",
+    )
+    generator = FakeLegalAnswerGenerator([error, _answer()])
+
+    result = GroundedRAGService(generator).answer(_request())
+
+    assert result.status is VerificationStatus.VERIFIED
+    instructions = " ".join(generator.requests[1].repair_instructions)
+    assert "claim 1: text dài 812 ký tự, tối đa 500" in instructions
+    assert "tách" in instructions
+
+
+def test_clause_inside_a_cited_clause_group_range_is_grounded():
+    request = _request(_evidence(clause="23-32"))
+    answer = _answer("Khoản 23 Điều 5 của 01/2025/QH15 quy định nghĩa vụ báo cáo.")
+
+    result = GroundingVerifier().verify(request, answer)
+
+    assert VerificationCode.PROVISION_CITATION_MISMATCH not in _codes(result)
+
+
+def test_clause_outside_the_cited_clause_group_range_is_still_rejected():
+    request = _request(_evidence(clause="23-32"))
+    answer = _answer("Khoản 5 Điều 5 của 01/2025/QH15 quy định nghĩa vụ báo cáo.")
+
+    result = GroundingVerifier().verify(request, answer)
+
+    assert VerificationCode.PROVISION_CITATION_MISMATCH in _codes(result)
+
+
+def _article_evidence(text: str) -> Evidence:
+    base = _evidence(clause=None)
+    return replace(base, text=text)
+
+
+def test_clause_and_point_labels_inside_a_cited_article_are_grounded():
+    text = (
+        "Điều 5. Nghĩa vụ báo cáo 1. Người nào vi phạm thì bị phạt tiền: "
+        "a) Làm chết 01 người; b) Gây thiệt hại. 4. Phạm tội trong trường hợp khác thì bị phạt tù."
+    )
+    request = _request(_article_evidence(text))
+    answer = _answer("Theo điểm b khoản 1 và khoản 4 Điều 5 của 01/2025/QH15, người vi phạm bị phạt.")
+
+    result = GroundingVerifier().verify(request, answer)
+
+    assert VerificationCode.PROVISION_CITATION_MISMATCH not in _codes(result)
+
+
+def test_clause_label_absent_from_the_cited_article_is_rejected():
+    text = "Điều 5. Nghĩa vụ báo cáo 1. Người nào vi phạm thì bị phạt tiền."
+    request = _request(_article_evidence(text))
+    answer = _answer("Khoản 4 Điều 5 của 01/2025/QH15 quy định phạt tù.")
+
+    result = GroundingVerifier().verify(request, answer)
+
+    assert VerificationCode.PROVISION_CITATION_MISMATCH in _codes(result)
+
+
+def test_procedural_suspension_of_a_case_is_not_a_document_status_claim():
+    from rag.verifier import _status_expectations
+
+    text = "Tòa án ra quyết định tạm đình chỉ giải quyết vụ án dân sự; đình chỉ thi hành án."
+    assert frozenset({"SUSPENDED"}) not in _status_expectations(text)
+
+
+def test_suspension_of_a_document_is_still_a_status_claim():
+    from rag.verifier import _status_expectations
+
+    assert frozenset({"SUSPENDED"}) in _status_expectations("Quyết định này bị đình chỉ thi hành.")
+    assert frozenset({"SUSPENDED"}) in _status_expectations("Thông tư bị tạm ngưng hiệu lực.")
+
+
+def test_document_number_stored_with_so_prefix_matches_clean_citation():
+    request = _request(_evidence(document_number="số: 01/2025/QH15"))
+    answer = _answer("Khoản 1 Điều 5 của 01/2025/QH15 quy định nghĩa vụ báo cáo.")
+
+    result = GroundingVerifier().verify(request, answer)
+
+    assert VerificationCode.DOCUMENT_NUMBER_NOT_IN_EVIDENCE not in _codes(result)
+    assert VerificationCode.DOCUMENT_NUMBER_CITATION_MISMATCH not in _codes(result)
